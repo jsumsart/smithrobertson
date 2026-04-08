@@ -47,6 +47,14 @@ begin
 end;
 $$;
 
+create or replace function public.is_museum_staff()
+returns boolean
+language sql
+stable
+as $$
+  select coalesce((auth.jwt() -> 'app_metadata' ->> 'museum_role') = 'staff', false);
+$$;
+
 drop trigger if exists museum_records_set_updated_at on public.museum_records;
 create trigger museum_records_set_updated_at
 before update on public.museum_records
@@ -85,21 +93,32 @@ using (true)
 with check (true);
 
 drop policy if exists "authenticated users can delete museum records" on public.museum_records;
-create policy "authenticated users can delete museum records"
+create policy "museum staff can delete museum records"
 on public.museum_records
 for delete
 to authenticated
-using (true);
+using ((select public.is_museum_staff()));
 
 insert into storage.buckets (id, name, public)
-values ('museum-photos', 'museum-photos', true)
+values ('museum-photos', 'museum-photos', false)
 on conflict (id) do nothing;
+
+update storage.buckets
+set public = false
+where id = 'museum-photos';
 
 drop policy if exists "public can view museum photos" on storage.objects;
 create policy "public can view museum photos"
 on storage.objects
 for select
-to public
+to anon
+using (bucket_id = 'museum-photos' and (storage.foldername(name))[1] = 'public');
+
+drop policy if exists "authenticated users can view museum photos" on storage.objects;
+create policy "authenticated users can view museum photos"
+on storage.objects
+for select
+to authenticated
 using (bucket_id = 'museum-photos');
 
 drop policy if exists "authenticated users can upload museum photos" on storage.objects;

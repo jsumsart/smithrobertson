@@ -20,6 +20,31 @@ function setStatus(message, isError = false) {
   elements.status.classList.toggle("help-text--error", isError);
 }
 
+function createTagElements(tags) {
+  const fragment = document.createDocumentFragment();
+  const values = tags?.length ? tags : ["Smith Robertson"];
+
+  for (const value of values) {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = value;
+    fragment.appendChild(span);
+  }
+
+  return fragment;
+}
+
+async function resolvePublicPhotoUrl(record) {
+  if (record.photo_path && state.supabase) {
+    const { data, error } = await state.supabase.storage.from("museum-photos").createSignedUrl(record.photo_path, 3600);
+    if (!error && data?.signedUrl) {
+      return data.signedUrl;
+    }
+  }
+
+  return record.photo_url || "";
+}
+
 function getFilteredRecords() {
   const query = elements.search.value.trim().toLowerCase();
   const theme = elements.theme.value;
@@ -46,7 +71,7 @@ function getFilteredRecords() {
   });
 }
 
-function renderCatalog() {
+async function renderCatalog() {
   const records = getFilteredRecords();
   elements.total.textContent = `${records.length} public record${records.length === 1 ? "" : "s"}`;
   elements.list.innerHTML = "";
@@ -76,11 +101,12 @@ function renderCatalog() {
       .join(" • ");
     description.textContent = record.description || "No description available.";
     significance.textContent = record.significance || "Historical significance not yet added.";
-    tags.innerHTML = (record.tags?.length ? record.tags : ["Smith Robertson"]).map((tag) => `<span class="tag">${tag}</span>`).join("");
+    tags.replaceChildren(createTagElements(record.tags));
 
-    if (record.photo_url) {
+    const resolvedPhotoUrl = await resolvePublicPhotoUrl(record);
+    if (resolvedPhotoUrl) {
       image.hidden = false;
-      image.src = record.photo_url;
+      image.src = resolvedPhotoUrl;
       image.alt = `${record.title} image`;
     }
 
@@ -107,11 +133,17 @@ async function loadCatalog() {
 
   state.records = data || [];
   setStatus("Showing public Smith Robertson records.");
-  renderCatalog();
+  await renderCatalog();
 }
 
-elements.search.addEventListener("input", renderCatalog);
-elements.theme.addEventListener("change", renderCatalog);
-elements.type.addEventListener("change", renderCatalog);
+elements.search.addEventListener("input", () => {
+  renderCatalog().catch((error) => setStatus(error.message, true));
+});
+elements.theme.addEventListener("change", () => {
+  renderCatalog().catch((error) => setStatus(error.message, true));
+});
+elements.type.addEventListener("change", () => {
+  renderCatalog().catch((error) => setStatus(error.message, true));
+});
 
-loadCatalog();
+loadCatalog().catch((error) => setStatus(error.message, true));

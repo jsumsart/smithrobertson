@@ -89,6 +89,7 @@ const state = {
   records: [],
   selectedId: null,
   currentUser: null,
+  isStaff: false,
   photoUploadPath: "",
   photoPreviewUrl: "",
   supabase: createBrowserClient()
@@ -184,8 +185,16 @@ function setPhotoPreview(url = "") {
   elements.removePhotoButton.hidden = !url;
 }
 
+function currentUserIsStaff(user = state.currentUser) {
+  return user?.app_metadata?.museum_role === "staff";
+}
+
 function canEditSharedData() {
   return !isSupabaseReady || Boolean(state.currentUser);
+}
+
+function canDeleteRecords() {
+  return !isSupabaseReady || state.isStaff;
 }
 
 function updateAuthUI() {
@@ -193,6 +202,7 @@ function updateAuthUI() {
   elements.signedOutView.hidden = signedIn;
   elements.signedInView.hidden = !signedIn;
   elements.currentUserEmail.textContent = signedIn ? `Signed in as ${state.currentUser.email}` : "";
+  state.isStaff = currentUserIsStaff();
 
   const isDisabled = !canEditSharedData();
   elements.form.querySelectorAll("input, select, textarea, button").forEach((element) => {
@@ -206,6 +216,59 @@ function updateAuthUI() {
       element.removeAttribute("disabled");
     }
   });
+
+  elements.clearDataButton.hidden = !state.isStaff;
+}
+
+function createTagElements(tags) {
+  const fragment = document.createDocumentFragment();
+  const values = tags?.length ? tags : ["untagged"];
+
+  for (const value of values) {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = value;
+    fragment.appendChild(span);
+  }
+
+  return fragment;
+}
+
+function populateDetailsList(container, entries) {
+  container.replaceChildren();
+
+  for (const [label, value] of entries) {
+    const wrapper = document.createElement("div");
+    const dt = document.createElement("dt");
+    const dd = document.createElement("dd");
+    dt.textContent = label;
+    dd.textContent = value;
+    wrapper.append(dt, dd);
+    container.appendChild(wrapper);
+  }
+}
+
+function getPhotoFolder(isPublic) {
+  return isPublic ? "public" : "internal";
+}
+
+function photoPathMatchesVisibility(photoPath, isPublic) {
+  if (!photoPath) {
+    return true;
+  }
+
+  return photoPath.split("/")[0] === getPhotoFolder(isPublic);
+}
+
+async function resolvePhotoUrl(record) {
+  if (record.photo_path && state.supabase) {
+    const { data, error } = await state.supabase.storage.from(museumBucketName).createSignedUrl(record.photo_path, 3600);
+    if (!error && data?.signedUrl) {
+      return data.signedUrl;
+    }
+  }
+
+  return record.photo_url || "";
 }
 
 function getFilteredRecords() {
@@ -264,7 +327,7 @@ function renderMetrics(records) {
   elements.reviewMetric.textContent = String(records.filter((record) => record.status === "Needs Review").length);
 }
 
-function renderRecordList() {
+async function renderRecordList() {
   const records = getFilteredRecords();
   const signedIn = Boolean(state.currentUser);
 
@@ -303,9 +366,10 @@ function renderRecordList() {
     visibilityBadge.classList.toggle("pill--forest", record.is_public);
     description.textContent = record.description || "No description added yet.";
 
-    if (record.photo_url) {
+    const resolvedPhotoUrl = await resolvePhotoUrl(record);
+    if (resolvedPhotoUrl) {
       image.hidden = false;
-      image.src = record.photo_url;
+      image.src = resolvedPhotoUrl;
       image.alt = `${record.title} photo`;
     }
 
@@ -320,28 +384,16 @@ function renderRecordList() {
       ["Sensitivity", record.sensitivity || "Not set"]
     ];
 
-    details.innerHTML = detailEntries
-      .map(
-        ([label, value]) => `
-          <div>
-            <dt>${label}</dt>
-            <dd>${value}</dd>
-          </div>
-        `
-      )
-      .join("");
-
-    tagList.innerHTML = (record.tags?.length ? record.tags : ["untagged"])
-      .map((tag) => `<span class="tag">${tag}</span>`)
-      .join("");
+    populateDetailsList(details, detailEntries);
+    tagList.replaceChildren(createTagElements(record.tags));
 
     editButton.hidden = !signedIn;
-    deleteButton.hidden = !signedIn;
+    deleteButton.hidden = !canDeleteRecords();
 
     editButton.addEventListener("click", () => populateForm(record));
     deleteButton.addEventListener("click", async () => {
-      if (!canEditSharedData()) {
-        setAuthMessage("Sign in before deleting records.", true);
+      if (!canDeleteRecords()) {
+        setAuthMessage("Only museum staff can delete records.", true);
         return;
       }
 
@@ -424,8 +476,15 @@ function populateForm(record) {
   elements.notes.value = record.notes || "";
   elements.tags.value = (record.tags || []).join(", ");
   elements.photoFile.value = "";
-  setPhotoPreview(record.photo_url || "");
-  setPhotoStatus(record.photo_url ? "Photo ready." : "");
+  resolvePhotoUrl(record)
+    .then((url) => {
+      setPhotoPreview(url);
+      setPhotoStatus(url ? "Photo ready." : "");
+    })
+    .catch(() => {
+      setPhotoPreview(record.photo_url || "");
+      setPhotoStatus(record.photo_url ? "Photo ready." : "");
+    });
 }
 
 function resetForm() {
@@ -458,7 +517,7 @@ async function uploadPhoto(file) {
     throw new Error("Add an accession ID before uploading a photo.");
   }
 
-  const path = buildPhotoPath(accessionNumber, file.name);
+  const path = `${getPhotoFolder(elements.isPublic.checked)}/${buildPhotoPath(accessionNumber, file.name)}`;
   const { error } = await state.supabase.storage.from(museumBucketName).upload(path, file, {
     cacheControl: "3600",
     upsert: true
@@ -468,13 +527,16 @@ async function uploadPhoto(file) {
     throw error;
   }
 
-  const {
-    data: { publicUrl }
-  } = state.supabase.storage.from(museumBucketName).getPublicUrl(path);
+  const { data: signedData, error: signedError } = await state.supabase.storage
+    .from(museumBucketName)
+    .createSignedUrl(path, 3600);
+
+  if (signedError) {
+    throw signedError;
+  }
 
   state.photoUploadPath = path;
-  elements.photoUrl.value = publicUrl;
-  setPhotoPreview(publicUrl);
+  setPhotoPreview(signedData?.signedUrl || "");
   setPhotoStatus("Photo uploaded.");
 }
 
@@ -605,7 +667,7 @@ function addPresetTag(tag) {
 async function refresh() {
   state.records = await loadRecords();
   renderMetrics(state.records);
-  renderRecordList();
+  await renderRecordList();
 }
 
 async function initializeAuth() {
@@ -618,9 +680,7 @@ async function initializeAuth() {
     return;
   }
 
-  elements.setupBanner.hidden = false;
-  elements.setupDetails.textContent =
-    "Before students start, make sure you have run supabase/schema.sql and created the museum-photos storage bucket.";
+  elements.setupBanner.hidden = true;
 
   const {
     data: { session }
@@ -690,6 +750,9 @@ elements.form.addEventListener("submit", async (event) => {
   }
 
   try {
+    if (!photoPathMatchesVisibility(state.photoUploadPath, elements.isPublic.checked)) {
+      throw new Error("Photo visibility changed after upload. Remove and upload the photo again.");
+    }
     await saveRecord(getFormData());
     await refresh();
     resetForm();
@@ -710,6 +773,14 @@ elements.photoFile.addEventListener("change", async (event) => {
     await uploadPhoto(file);
   } catch (error) {
     setPhotoStatus(error.message, true);
+  }
+});
+
+elements.isPublic.addEventListener("change", () => {
+  if (state.photoUploadPath && !photoPathMatchesVisibility(state.photoUploadPath, elements.isPublic.checked)) {
+    setPhotoStatus("Visibility changed. Remove and upload the photo again so its access level matches the record.", true);
+  } else if (state.photoUploadPath) {
+    setPhotoStatus("Photo visibility matches this record.");
   }
 });
 
@@ -757,8 +828,8 @@ elements.importInput.addEventListener("change", async (event) => {
 });
 
 elements.clearDataButton.addEventListener("click", async () => {
-  if (!canEditSharedData()) {
-    setAuthMessage("Sign in before deleting records.", true);
+  if (!canDeleteRecords()) {
+    setAuthMessage("Only museum staff can delete all records.", true);
     return;
   }
 
