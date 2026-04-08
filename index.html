@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smith Robertson Museum Collections Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Local Museum Operations</p>
+          <h1>Collections, archives, and object records in one GitHub-hosted app.</h1>
+          <p class="hero__lede">
+            Track artifacts, archival materials, exhibitions, and museum notes
+            with a browser-based database that works entirely on GitHub Pages.
+          </p>
+          <div class="hero__actions">
+            <button id="seedDataButton" class="button button--primary">
+              Load Sample Records
+            </button>
+            <button id="exportButton" class="button button--ghost">
+              Export Backup
+            </button>
+          </div>
+        </div>
+        <section class="hero__panel" aria-label="Museum summary">
+          <div class="metric">
+            <span class="metric__label">Total Records</span>
+            <strong id="totalRecordsMetric">0</strong>
+          </div>
+          <div class="metric">
+            <span class="metric__label">On Display</span>
+            <strong id="displayedMetric">0</strong>
+          </div>
+          <div class="metric">
+            <span class="metric__label">Needs Review</span>
+            <strong id="reviewMetric">0</strong>
+          </div>
+        </section>
+      </header>
+
+      <main class="workspace">
+        <aside class="sidebar">
+          <section class="card">
+            <h2>Search Records</h2>
+            <label class="field">
+              <span>Keyword</span>
+              <input id="searchInput" type="search" placeholder="Search title, donor, tags..." />
+            </label>
+
+            <label class="field">
+              <span>Type</span>
+              <select id="typeFilter">
+                <option value="all">All record types</option>
+                <option value="Artifact">Artifact</option>
+                <option value="Archive">Archive</option>
+                <option value="Collection">Collection</option>
+                <option value="Exhibit">Exhibit</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Status</span>
+              <select id="statusFilter">
+                <option value="all">All statuses</option>
+                <option value="In Storage">In Storage</option>
+                <option value="On Display">On Display</option>
+                <option value="Loaned">Loaned</option>
+                <option value="Needs Review">Needs Review</option>
+              </select>
+            </label>
+          </section>
+
+          <section class="card">
+            <h2>Data Tools</h2>
+            <div class="stack">
+              <label class="button button--ghost file-button">
+                <span>Import Backup</span>
+                <input id="importInput" type="file" accept="application/json" />
+              </label>
+              <button id="clearDataButton" class="button button--danger">
+                Clear Local Database
+              </button>
+            </div>
+            <p class="help-text">
+              Data is saved in this browser using IndexedDB. Export backups before
+              moving to another device.
+            </p>
+          </section>
+        </aside>
+
+        <section class="content">
+          <section class="card card--form">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Record Editor</p>
+                <h2 id="formHeading">Create a Museum Record</h2>
+              </div>
+              <button id="resetFormButton" class="button button--ghost">New Record</button>
+            </div>
+
+            <form id="recordForm" class="record-form">
+              <input id="recordId" type="hidden" />
+
+              <div class="form-grid">
+                <label class="field">
+                  <span>Accession ID</span>
+                  <input id="accessionNumber" name="accessionNumber" required />
+                </label>
+
+                <label class="field">
+                  <span>Title</span>
+                  <input id="title" name="title" required />
+                </label>
+
+                <label class="field">
+                  <span>Record Type</span>
+                  <select id="recordType" name="type" required>
+                    <option value="Artifact">Artifact</option>
+                    <option value="Archive">Archive</option>
+                    <option value="Collection">Collection</option>
+                    <option value="Exhibit">Exhibit</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span>Status</span>
+                  <select id="recordStatus" name="status" required>
+                    <option value="In Storage">In Storage</option>
+                    <option value="On Display">On Display</option>
+                    <option value="Loaned">Loaned</option>
+                    <option value="Needs Review">Needs Review</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span>Collection Name</span>
+                  <input id="collectionName" name="collectionName" />
+                </label>
+
+                <label class="field">
+                  <span>Location</span>
+                  <input id="location" name="location" placeholder="Storage Room A / Gallery 2" />
+                </label>
+
+                <label class="field">
+                  <span>Donor / Source</span>
+                  <input id="donor" name="donor" />
+                </label>
+
+                <label class="field">
+                  <span>Date or Era</span>
+                  <input id="era" name="era" placeholder="1924 / Late 19th century" />
+                </label>
+
+                <label class="field field--wide">
+                  <span>Description</span>
+                  <textarea id="description" name="description" rows="4"></textarea>
+                </label>
+
+                <label class="field field--wide">
+                  <span>Tags</span>
+                  <input id="tags" name="tags" placeholder="civil rights, textile, oral history" />
+                </label>
+
+                <label class="field field--wide">
+                  <span>Condition / Notes</span>
+                  <textarea id="notes" name="notes" rows="3"></textarea>
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="button button--primary">Save Record</button>
+                <button type="button" id="duplicateButton" class="button button--ghost">
+                  Duplicate Selected
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <section class="card">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Museum Database</p>
+                <h2>Records</h2>
+              </div>
+              <span id="recordCountLabel" class="pill">0 results</span>
+            </div>
+
+            <div id="recordList" class="record-list" aria-live="polite"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="recordCardTemplate">
+      <article class="record-card">
+        <div class="record-card__header">
+          <div>
+            <p class="record-card__meta"></p>
+            <h3></h3>
+          </div>
+          <span class="pill"></span>
+        </div>
+        <p class="record-card__description"></p>
+        <dl class="record-card__details"></dl>
+        <div class="record-card__footer">
+          <div class="tag-list"></div>
+          <div class="record-card__actions">
+            <button class="button button--ghost" data-action="edit">Edit</button>
+            <button class="button button--ghost" data-action="delete">Delete</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
