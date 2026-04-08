@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1f15cd0b-2fa7-4c65-b8a9-1d847c772001",
+    "accessionNumber": "SRM-1964-001",
+    "title": "Freedom Summer Registration Ledger",
+    "type": "Archive",
+    "status": "Needs Review",
+    "collectionName": "Civil Rights Papers",
+    "location": "Archive Room 2",
+    "donor": "Jackson Community Project",
+    "era": "1964",
+    "description": "Handwritten volunteer registration ledger documenting local organizing activity.",
+    "tags": ["civil rights", "manuscript", "community history"],
+    "notes": "Paper is fragile and should be rehoused in acid-free sleeves.",
+    "updatedAt": "2026-04-08T13:00:00.000Z"
+  },
+  {
+    "id": "1f15cd0b-2fa7-4c65-b8a9-1d847c772002",
+    "accessionNumber": "SRM-1938-014",
+    "title": "Student Debate Society Banner",
+    "type": "Artifact",
+    "status": "On Display",
+    "collectionName": "Education and Student Life",
+    "location": "Gallery A",
+    "donor": "Robertson Family Estate",
+    "era": "1938",
+    "description": "Painted fabric banner used by a local student debate society before desegregation.",
+    "tags": ["textile", "education", "banner"],
+    "notes": "Mounted with low-light conservation requirements.",
+    "updatedAt": "2026-04-08T13:00:00.000Z"
+  }
+]
