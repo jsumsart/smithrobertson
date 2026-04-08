@@ -42,6 +42,45 @@ textarea {
   padding: 1.5rem 0 3rem;
 }
 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.topbar__brand,
+.topbar__link {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.topbar__brand {
+  font-family: "Fraunces", serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.topbar__links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.topbar__link {
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.64);
+  font-weight: 700;
+}
+
+.topbar__link[aria-current="page"] {
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: #fff;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(320px, 390px);
@@ -104,6 +143,10 @@ h2 {
   color: var(--muted);
 }
 
+.help-text--error {
+  color: var(--danger);
+}
+
 .hero__actions,
 .form-actions,
 .stack,
@@ -144,6 +187,22 @@ h2 {
   color: #fff;
 }
 
+.auth-card {
+  display: grid;
+  gap: 0.8rem;
+  padding-bottom: 0.5rem;
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.auth-email {
+  margin: 0;
+  font-weight: 700;
+}
+
 .metric {
   background: rgba(255, 255, 255, 0.58);
   border-radius: 20px;
@@ -158,6 +217,10 @@ h2 {
   font-size: 2rem;
 }
 
+.hero--catalog h1 {
+  max-width: 12ch;
+}
+
 .metric__label {
   font-size: 0.85rem;
   letter-spacing: 0.08em;
@@ -170,6 +233,14 @@ h2 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.2rem;
   margin-top: 1.4rem;
+}
+
+.setup-banner {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  background: rgba(181, 140, 58, 0.14);
+  border: 1px solid rgba(181, 140, 58, 0.35);
 }
 
 .guide-card {
@@ -228,6 +299,10 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.field--checkbox {
+  align-content: start;
+}
+
 .field span {
   font-size: 0.92rem;
   font-weight: 700;
@@ -274,6 +349,13 @@ h2 {
   background: rgba(255, 255, 255, 0.66);
 }
 
+.record-card__badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .record-card__header,
 .record-card__footer {
   display: flex;
@@ -302,6 +384,15 @@ h2 {
 
 .record-card__description {
   margin: 0.9rem 0 0.5rem;
+}
+
+.record-card__image {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin: 0.9rem 0 0.4rem;
+  border: 1px solid var(--line);
 }
 
 .record-card__summary {
@@ -342,6 +433,11 @@ h2 {
   font-weight: 800;
 }
 
+.pill--forest {
+  background: rgba(84, 108, 71, 0.16);
+  color: #274329;
+}
+
 .tag {
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid var(--line);
@@ -356,6 +452,79 @@ h2 {
   border: 1px dashed var(--line);
   border-radius: 24px;
   color: var(--muted);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.toggle input {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.photo-upload {
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.photo-preview-wrap {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.catalog-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: var(--shadow);
+}
+
+.catalog-card__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+}
+
+.catalog-card__body {
+  padding: 1.2rem;
+}
+
+.catalog-card__meta {
+  margin: 0 0 0.25rem;
+  color: var(--accent-deep);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+.catalog-card__description,
+.catalog-card__significance {
+  color: var(--muted);
+}
+
+.catalog-card__significance {
+  padding-left: 0.9rem;
+  border-left: 3px solid rgba(181, 140, 58, 0.38);
 }
 
 .file-button {
@@ -380,6 +549,10 @@ h2 {
 }
 
 @media (max-width: 720px) {
+  .topbar {
+    display: grid;
+  }
+
   .form-grid,
   .record-card__details {
     grid-template-columns: 1fr;

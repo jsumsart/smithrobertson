@@ -1,106 +1,111 @@
-const DB_NAME = "smith-robertson-museum-db";
-const DB_VERSION = 1;
-const STORE_NAME = "records";
+import { createBrowserClient, isSupabaseReady, museumBucketName } from "./supabase-client.js";
 
 const sampleRecords = [
   {
-    id: crypto.randomUUID(),
-    accessionNumber: "SRM-FS-1952-001",
+    accession_number: "SRM-FS-1952-001",
     title: "Farish Street Beauty Shop Sign",
-    type: "Artifact",
+    record_type: "Artifact",
     status: "On Display",
-    collectionName: "Farish Street Business District",
+    collection_name: "Farish Street Business District",
     location: "Gallery 2",
-    historicalTheme: "Farish Street Business District",
+    historical_theme: "Farish Street Business District",
     neighborhood: "Farish Street",
-    timePeriod: "1950s",
+    time_period: "1950s",
     donor: "Farish Street Heritage Project",
-    era: "ca. 1952",
-    format: "painted metal sign",
+    object_date: "ca. 1952",
+    format_material: "painted metal sign",
     people: "Farish Street shop owners and beauticians",
     description: "Storefront sign from a Black-owned beauty shop that served the Farish Street business district.",
     significance:
-      "The sign represents Black entrepreneurship and the commercial life of Farish Street during segregation, when African American business districts were essential community anchors.",
+      "The sign represents Black entrepreneurship and the commercial life of Farish Street during segregation.",
     provenance: "Donated by a former business owner's family.",
     condition: "Stable",
-    rights: "Educational Use Approved",
+    rights_status: "Educational Use Approved",
     sensitivity: "Open Access",
-    studentSummary:
-      "This sign helps students see how Farish Street supported Black business owners, workers, and customers in Jackson.",
-    classroomConnection:
-      "Use this record in lessons about segregation, local business history, and how neighborhoods create economic opportunity.",
+    photo_url: "",
+    photo_path: "",
+    photo_credit: "",
+    is_public: true,
     tags: ["Farish Street", "business history", "Jackson history", "African American entrepreneurship"],
-    notes: "Surface paint loss along right edge.",
-    updatedAt: new Date().toISOString()
+    notes: "Surface paint loss along right edge."
   },
   {
-    id: crypto.randomUUID(),
-    accessionNumber: "SRM-EDU-1912-004",
-    title: "Smith Robertson School Attendance Register",
-    type: "Archive",
-    status: "Digitized",
-    collectionName: "Smith Robertson School Records",
-    location: "Archive Cabinet A",
-    historicalTheme: "African American Education",
-    neighborhood: "Smith Robertson Campus",
-    timePeriod: "1910s",
-    donor: "City of Jackson Transfer",
-    era: "1912",
-    format: "bound paper ledger",
-    people: "Students, teachers, and school administrators",
-    description: "Attendance register documenting enrollment at Smith Robertson School in the early twentieth century.",
-    significance:
-      "The register shows the importance of Black education in Jackson and helps researchers trace names, school routines, and the growth of educational institutions for African American families.",
-    provenance: "Transferred from city school storage to museum archives.",
+    accession_number: "SRM-TX-1948-003",
+    title: "Church Choir Robe",
+    record_type: "Textile",
+    status: "In Storage",
+    collection_name: "Faith And Community Life",
+    location: "Textile Cabinet 1",
+    historical_theme: "Faith And Community Life",
+    neighborhood: "Downtown Jackson",
+    time_period: "1940s",
+    donor: "Mt. Olive Collection Transfer",
+    object_date: "ca. 1948",
+    format_material: "fabric textile",
+    people: "Church choir members",
+    description: "Ceremonial choir robe associated with African American church life in Jackson.",
+    significance: "The robe connects worship, music, and community leadership in Black church history.",
+    provenance: "Transferred from congregational storage.",
     condition: "Fragile",
-    rights: "Museum Use Only",
-    sensitivity: "Review Before Classroom Use",
-    studentSummary:
-      "This ledger shows that education was a major priority in Jackson's Black community and that schools kept detailed records of student life.",
-    classroomConnection:
-      "Use with discussions about access to education, historical recordkeeping, and the role of schools in community leadership.",
-    tags: ["Smith Robertson", "African American education", "student research", "Jackson history"],
-    notes: "Handle with supports; digitized images available for classroom use.",
-    updatedAt: new Date().toISOString()
+    rights_status: "Museum Use Only",
+    sensitivity: "Review Before Public Display",
+    photo_url: "",
+    photo_path: "",
+    photo_credit: "",
+    is_public: false,
+    tags: ["textiles", "church life", "Jackson history"],
+    notes: "Needs conservation review before display."
   },
   {
-    id: crypto.randomUUID(),
-    accessionNumber: "SRM-OH-1987-012",
-    title: "Interview With Former Farish Street Musician",
-    type: "Oral History",
-    status: "Needs Review",
-    collectionName: "Community Oral Histories",
-    location: "Digital Audio Server",
-    historicalTheme: "Arts And Culture",
-    neighborhood: "Farish Street",
-    timePeriod: "1930s-1960s memories",
-    donor: "Museum Oral History Initiative",
-    era: "Recorded 1987",
-    format: "audio cassette transfer",
-    people: "Farish Street musicians, club owners, neighborhood residents",
-    description: "Recorded interview describing nightlife, performance spaces, and neighborhood culture on Farish Street.",
-    significance:
-      "The interview preserves memory that may not appear in official written records and captures community knowledge about music, business, and daily life.",
-    provenance: "Recorded by museum volunteers and digitized from cassette.",
-    condition: "Needs Conservation",
-    rights: "Rights Unknown",
-    sensitivity: "Review Before Classroom Use",
-    studentSummary:
-      "This interview lets students hear how local residents remembered the energy and creativity of Farish Street.",
-    classroomConnection:
-      "Useful for oral history projects, neighborhood studies, and conversations about how memory works as a historical source.",
-    tags: ["oral history", "Farish Street", "music", "community memory"],
-    notes: "Transcript needs cleanup before wider classroom use.",
-    updatedAt: new Date().toISOString()
+    accession_number: "SRM-SR-1931-004",
+    title: "Smith Robertson School Graduation Photograph",
+    record_type: "Photograph",
+    status: "Digitized",
+    collection_name: "School History Collection",
+    location: "Digital Archive",
+    historical_theme: "African American Education",
+    neighborhood: "Smith Robertson Campus",
+    time_period: "1930s",
+    donor: "Smith Robertson Alumni Circle",
+    object_date: "1931",
+    format_material: "gelatin silver print",
+    people: "Smith Robertson School graduating class",
+    description: "Class portrait documenting student life and graduation at Smith Robertson School.",
+    significance: "The image speaks directly to Black education history in Jackson and the museum's own site history.",
+    provenance: "Scanned from family album loaned by alumni descendants.",
+    condition: "Stable",
+    rights_status: "Educational Use Approved",
+    sensitivity: "Open Access",
+    photo_url: "",
+    photo_path: "",
+    photo_credit: "",
+    is_public: true,
+    tags: ["Smith Robertson", "African American education", "Jackson history"],
+    notes: "Original print housed in archival sleeve."
   }
 ];
 
 const state = {
   records: [],
-  selectedId: null
+  selectedId: null,
+  currentUser: null,
+  photoUploadPath: "",
+  photoPreviewUrl: "",
+  supabase: createBrowserClient()
 };
 
 const elements = {
+  authForm: document.querySelector("#authForm"),
+  signUpButton: document.querySelector("#signUpButton"),
+  signOutButton: document.querySelector("#signOutButton"),
+  signedOutView: document.querySelector("#signedOutView"),
+  signedInView: document.querySelector("#signedInView"),
+  currentUserEmail: document.querySelector("#currentUserEmail"),
+  authMessage: document.querySelector("#authMessage"),
+  emailInput: document.querySelector("#emailInput"),
+  passwordInput: document.querySelector("#passwordInput"),
+  setupBanner: document.querySelector("#setupBanner"),
+  setupDetails: document.querySelector("#setupDetails"),
   form: document.querySelector("#recordForm"),
   formHeading: document.querySelector("#formHeading"),
   recordId: document.querySelector("#recordId"),
@@ -115,29 +120,36 @@ const elements = {
   timePeriod: document.querySelector("#timePeriod"),
   people: document.querySelector("#people"),
   donor: document.querySelector("#donor"),
-  era: document.querySelector("#era"),
-  format: document.querySelector("#format"),
+  objectDate: document.querySelector("#era"),
+  formatMaterial: document.querySelector("#format"),
   condition: document.querySelector("#condition"),
-  rights: document.querySelector("#rights"),
+  rightsStatus: document.querySelector("#rights"),
   sensitivity: document.querySelector("#sensitivity"),
+  isPublic: document.querySelector("#isPublic"),
+  photoFile: document.querySelector("#photoFile"),
+  photoUrl: document.querySelector("#photoUrl"),
+  photoCredit: document.querySelector("#photoCredit"),
+  photoStatus: document.querySelector("#photoStatus"),
+  photoPreview: document.querySelector("#photoPreview"),
+  removePhotoButton: document.querySelector("#removePhotoButton"),
   description: document.querySelector("#description"),
   significance: document.querySelector("#significance"),
   provenance: document.querySelector("#provenance"),
   notes: document.querySelector("#notes"),
-  studentSummary: document.querySelector("#studentSummary"),
-  classroomConnection: document.querySelector("#classroomConnection"),
   tags: document.querySelector("#tags"),
   recordList: document.querySelector("#recordList"),
   recordCountLabel: document.querySelector("#recordCountLabel"),
   totalRecordsMetric: document.querySelector("#totalRecordsMetric"),
   farishMetric: document.querySelector("#farishMetric"),
-  studentReadyMetric: document.querySelector("#studentReadyMetric"),
+  textileMetric: document.querySelector("#textileMetric"),
+  publicMetric: document.querySelector("#publicMetric"),
   reviewMetric: document.querySelector("#reviewMetric"),
   searchInput: document.querySelector("#searchInput"),
   typeFilter: document.querySelector("#typeFilter"),
   statusFilter: document.querySelector("#statusFilter"),
   themeFilter: document.querySelector("#themeFilter"),
   neighborhoodFilter: document.querySelector("#neighborhoodFilter"),
+  visibilityFilter: document.querySelector("#visibilityFilter"),
   exportButton: document.querySelector("#exportButton"),
   importInput: document.querySelector("#importInput"),
   clearDataButton: document.querySelector("#clearDataButton"),
@@ -148,75 +160,52 @@ const elements = {
   template: document.querySelector("#recordCardTemplate")
 };
 
-function openDatabase() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, { keyPath: "id" });
-      }
-    };
-
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function withStore(mode, handler) {
-  const db = await openDatabase();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, mode);
-    const store = transaction.objectStore(STORE_NAME);
-    const result = handler(store);
-
-    transaction.oncomplete = () => resolve(result);
-    transaction.onerror = () => reject(transaction.error);
-    transaction.onabort = () => reject(transaction.error);
-  });
-}
-
-async function loadRecords() {
-  const db = await openDatabase();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readonly");
-    const store = transaction.objectStore(STORE_NAME);
-    const request = store.getAll();
-
-    request.onsuccess = () => {
-      resolve(
-        request.result.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-      );
-    };
-
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function saveRecord(record) {
-  await withStore("readwrite", (store) => {
-    store.put(record);
-  });
-}
-
-async function deleteRecord(id) {
-  await withStore("readwrite", (store) => {
-    store.delete(id);
-  });
-}
-
-async function clearRecords() {
-  await withStore("readwrite", (store) => {
-    store.clear();
-  });
-}
-
 function normalizedTags(value) {
   return (value || "")
     .split(",")
     .map((tag) => tag.trim())
     .filter(Boolean);
+}
+
+function setAuthMessage(message, isError = false) {
+  elements.authMessage.textContent = message;
+  elements.authMessage.classList.toggle("help-text--error", isError);
+}
+
+function setPhotoStatus(message, isError = false) {
+  elements.photoStatus.textContent = message;
+  elements.photoStatus.classList.toggle("help-text--error", isError);
+}
+
+function setPhotoPreview(url = "") {
+  state.photoPreviewUrl = url;
+  elements.photoPreview.hidden = !url;
+  elements.photoPreview.src = url || "";
+  elements.removePhotoButton.hidden = !url;
+}
+
+function canEditSharedData() {
+  return !isSupabaseReady || Boolean(state.currentUser);
+}
+
+function updateAuthUI() {
+  const signedIn = Boolean(state.currentUser);
+  elements.signedOutView.hidden = signedIn;
+  elements.signedInView.hidden = !signedIn;
+  elements.currentUserEmail.textContent = signedIn ? `Signed in as ${state.currentUser.email}` : "";
+
+  const isDisabled = !canEditSharedData();
+  elements.form.querySelectorAll("input, select, textarea, button").forEach((element) => {
+    const protectedIds = new Set(["emailInput", "passwordInput", "signUpButton", "signOutButton"]);
+    if (protectedIds.has(element.id)) {
+      return;
+    }
+    if (isDisabled) {
+      element.setAttribute("disabled", "disabled");
+    } else {
+      element.removeAttribute("disabled");
+    }
+  });
 }
 
 function getFilteredRecords() {
@@ -225,27 +214,30 @@ function getFilteredRecords() {
   const status = elements.statusFilter.value;
   const theme = elements.themeFilter.value;
   const neighborhood = elements.neighborhoodFilter.value;
+  const visibility = elements.visibilityFilter.value;
 
   return state.records.filter((record) => {
-    const matchesType = type === "all" || record.type === type;
+    const matchesType = type === "all" || record.record_type === type;
     const matchesStatus = status === "all" || record.status === status;
-    const matchesTheme = theme === "all" || record.historicalTheme === theme;
+    const matchesTheme = theme === "all" || record.historical_theme === theme;
     const matchesNeighborhood = neighborhood === "all" || record.neighborhood === neighborhood;
+    const matchesVisibility =
+      visibility === "all" ||
+      (visibility === "public" && record.is_public) ||
+      (visibility === "private" && !record.is_public);
 
     const haystack = [
-      record.accessionNumber,
+      record.accession_number,
       record.title,
-      record.collectionName,
+      record.collection_name,
       record.location,
-      record.historicalTheme,
+      record.historical_theme,
       record.neighborhood,
-      record.timePeriod,
+      record.time_period,
       record.people,
       record.donor,
       record.description,
       record.significance,
-      record.studentSummary,
-      record.classroomConnection,
       record.notes,
       ...(record.tags || [])
     ]
@@ -253,26 +245,29 @@ function getFilteredRecords() {
       .join(" ")
       .toLowerCase();
 
-    const matchesQuery = !query || haystack.includes(query);
-    return matchesType && matchesStatus && matchesTheme && matchesNeighborhood && matchesQuery;
+    return (
+      matchesType &&
+      matchesStatus &&
+      matchesTheme &&
+      matchesNeighborhood &&
+      matchesVisibility &&
+      (!query || haystack.includes(query))
+    );
   });
 }
 
 function renderMetrics(records) {
-  const farishCount = records.filter((record) => record.neighborhood === "Farish Street").length;
-  const studentReadyCount = records.filter(
-    (record) => record.studentSummary && record.classroomConnection && record.sensitivity !== "Restricted"
-  ).length;
-  const reviewCount = records.filter((record) => record.status === "Needs Review").length;
-
   elements.totalRecordsMetric.textContent = String(records.length);
-  elements.farishMetric.textContent = String(farishCount);
-  elements.studentReadyMetric.textContent = String(studentReadyCount);
-  elements.reviewMetric.textContent = String(reviewCount);
+  elements.farishMetric.textContent = String(records.filter((record) => record.neighborhood === "Farish Street").length);
+  elements.textileMetric.textContent = String(records.filter((record) => record.record_type === "Textile").length);
+  elements.publicMetric.textContent = String(records.filter((record) => record.is_public).length);
+  elements.reviewMetric.textContent = String(records.filter((record) => record.status === "Needs Review").length);
 }
 
 function renderRecordList() {
   const records = getFilteredRecords();
+  const signedIn = Boolean(state.currentUser);
+
   elements.recordCountLabel.textContent = `${records.length} result${records.length === 1 ? "" : "s"}`;
   elements.recordList.innerHTML = "";
 
@@ -292,32 +287,37 @@ function renderRecordList() {
     const title = fragment.querySelector("h3");
     const submeta = fragment.querySelector(".record-card__submeta");
     const status = fragment.querySelector(".pill");
+    const visibilityBadge = fragment.querySelector(".record-card__visibility");
+    const image = fragment.querySelector(".record-card__image");
     const description = fragment.querySelector(".record-card__description");
-    const summary = fragment.querySelector(".record-card__summary");
     const details = fragment.querySelector(".record-card__details");
     const tagList = fragment.querySelector(".tag-list");
     const editButton = fragment.querySelector('[data-action="edit"]');
     const deleteButton = fragment.querySelector('[data-action="delete"]');
 
-    meta.textContent = `${record.type} • ${record.accessionNumber}`;
+    meta.textContent = `${record.record_type} • ${record.accession_number}`;
     title.textContent = record.title;
-    submeta.textContent = [record.historicalTheme, record.neighborhood].filter(Boolean).join(" • ");
+    submeta.textContent = [record.historical_theme, record.neighborhood].filter(Boolean).join(" • ");
     status.textContent = record.status;
+    visibilityBadge.textContent = record.is_public ? "Public catalog" : "Internal only";
+    visibilityBadge.classList.toggle("pill--forest", record.is_public);
     description.textContent = record.description || "No description added yet.";
-    summary.textContent = record.studentSummary
-      ? `Student view: ${record.studentSummary}`
-      : "Student view: Add a plain-language summary to make this easier for classes and tours.";
+
+    if (record.photo_url) {
+      image.hidden = false;
+      image.src = record.photo_url;
+      image.alt = `${record.title} photo`;
+    }
 
     const detailEntries = [
-      ["Collection", record.collectionName || "Unassigned"],
+      ["Collection", record.collection_name || "Unassigned"],
       ["Location", record.location || "Not set"],
-      ["Time Period", record.timePeriod || record.era || "Not set"],
+      ["Time Period", record.time_period || record.object_date || "Not set"],
       ["People / Organizations", record.people || "Not set"],
-      ["Format", record.format || "Not set"],
+      ["Format", record.format_material || "Not set"],
       ["Condition", record.condition || "Not set"],
-      ["Rights", record.rights || "Not set"],
-      ["Sensitivity", record.sensitivity || "Not set"],
-      ["Last Updated", new Date(record.updatedAt).toLocaleDateString()]
+      ["Rights", record.rights_status || "Not set"],
+      ["Sensitivity", record.sensitivity || "Not set"]
     ];
 
     details.innerHTML = detailEntries
@@ -331,22 +331,32 @@ function renderRecordList() {
       )
       .join("");
 
-    const tags = record.tags?.length ? record.tags : ["untagged"];
-    tagList.innerHTML = tags.map((tag) => `<span class="tag">${tag}</span>`).join("");
+    tagList.innerHTML = (record.tags?.length ? record.tags : ["untagged"])
+      .map((tag) => `<span class="tag">${tag}</span>`)
+      .join("");
+
+    editButton.hidden = !signedIn;
+    deleteButton.hidden = !signedIn;
 
     editButton.addEventListener("click", () => populateForm(record));
     deleteButton.addEventListener("click", async () => {
-      const confirmed = window.confirm(`Delete "${record.title}" from the Smith Robertson database?`);
+      if (!canEditSharedData()) {
+        setAuthMessage("Sign in before deleting records.", true);
+        return;
+      }
+
+      const confirmed = window.confirm(`Delete "${record.title}" from the museum database?`);
       if (!confirmed) {
         return;
       }
 
-      if (state.selectedId === record.id) {
-        resetForm();
+      try {
+        await deleteRecord(record);
+        await refresh();
+        setAuthMessage("Record deleted.");
+      } catch (error) {
+        setAuthMessage(error.message, true);
       }
-
-      await deleteRecord(record.id);
-      await refresh();
     });
 
     elements.recordList.appendChild(fragment);
@@ -356,74 +366,222 @@ function renderRecordList() {
 function getFormData() {
   return {
     id: elements.recordId.value || crypto.randomUUID(),
-    accessionNumber: elements.accessionNumber.value.trim(),
+    accession_number: elements.accessionNumber.value.trim(),
     title: elements.title.value.trim(),
-    type: elements.recordType.value,
+    record_type: elements.recordType.value,
     status: elements.recordStatus.value,
-    collectionName: elements.collectionName.value.trim(),
+    collection_name: elements.collectionName.value.trim(),
     location: elements.location.value.trim(),
-    historicalTheme: elements.historicalTheme.value,
+    historical_theme: elements.historicalTheme.value,
     neighborhood: elements.neighborhood.value,
-    timePeriod: elements.timePeriod.value.trim(),
+    time_period: elements.timePeriod.value.trim(),
     people: elements.people.value.trim(),
     donor: elements.donor.value.trim(),
-    era: elements.era.value.trim(),
-    format: elements.format.value.trim(),
+    object_date: elements.objectDate.value.trim(),
+    format_material: elements.formatMaterial.value.trim(),
     condition: elements.condition.value,
-    rights: elements.rights.value,
+    rights_status: elements.rightsStatus.value,
     sensitivity: elements.sensitivity.value,
+    photo_url: elements.photoUrl.value.trim(),
+    photo_path: state.photoUploadPath,
+    photo_credit: elements.photoCredit.value.trim(),
     description: elements.description.value.trim(),
     significance: elements.significance.value.trim(),
     provenance: elements.provenance.value.trim(),
     notes: elements.notes.value.trim(),
-    studentSummary: elements.studentSummary.value.trim(),
-    classroomConnection: elements.classroomConnection.value.trim(),
-    tags: normalizedTags(elements.tags.value),
-    updatedAt: new Date().toISOString()
+    is_public: elements.isPublic.checked,
+    tags: normalizedTags(elements.tags.value)
   };
 }
 
 function populateForm(record) {
   state.selectedId = record.id;
+  state.photoUploadPath = record.photo_path || "";
   elements.formHeading.textContent = `Editing ${record.title}`;
-  elements.recordId.value = record.id;
-  elements.accessionNumber.value = record.accessionNumber || "";
+  elements.recordId.value = record.id || "";
+  elements.accessionNumber.value = record.accession_number || "";
   elements.title.value = record.title || "";
-  elements.recordType.value = record.type || "Artifact";
+  elements.recordType.value = record.record_type || "Artifact";
   elements.recordStatus.value = record.status || "In Storage";
-  elements.collectionName.value = record.collectionName || "";
+  elements.collectionName.value = record.collection_name || "";
   elements.location.value = record.location || "";
-  elements.historicalTheme.value = record.historicalTheme || "";
+  elements.historicalTheme.value = record.historical_theme || "";
   elements.neighborhood.value = record.neighborhood || "";
-  elements.timePeriod.value = record.timePeriod || "";
+  elements.timePeriod.value = record.time_period || "";
   elements.people.value = record.people || "";
   elements.donor.value = record.donor || "";
-  elements.era.value = record.era || "";
-  elements.format.value = record.format || "";
+  elements.objectDate.value = record.object_date || "";
+  elements.formatMaterial.value = record.format_material || "";
   elements.condition.value = record.condition || "";
-  elements.rights.value = record.rights || "";
+  elements.rightsStatus.value = record.rights_status || "";
   elements.sensitivity.value = record.sensitivity || "";
+  elements.isPublic.checked = Boolean(record.is_public);
+  elements.photoUrl.value = record.photo_url || "";
+  elements.photoCredit.value = record.photo_credit || "";
   elements.description.value = record.description || "";
   elements.significance.value = record.significance || "";
   elements.provenance.value = record.provenance || "";
   elements.notes.value = record.notes || "";
-  elements.studentSummary.value = record.studentSummary || "";
-  elements.classroomConnection.value = record.classroomConnection || "";
   elements.tags.value = (record.tags || []).join(", ");
-  elements.form.scrollIntoView({ behavior: "smooth", block: "start" });
+  elements.photoFile.value = "";
+  setPhotoPreview(record.photo_url || "");
+  setPhotoStatus(record.photo_url ? "Photo ready." : "");
 }
 
 function resetForm() {
   state.selectedId = null;
-  elements.formHeading.textContent = "Create A Smith Robertson Record";
+  state.photoUploadPath = "";
+  elements.formHeading.textContent = "Create A Museum Record";
   elements.form.reset();
   elements.recordId.value = "";
+  elements.isPublic.checked = false;
+  setPhotoPreview("");
+  setPhotoStatus("");
 }
 
-async function refresh() {
-  state.records = await loadRecords();
-  renderMetrics(state.records);
-  renderRecordList();
+function buildPhotoPath(accessionNumber, fileName) {
+  const safeAccession = accessionNumber.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const safeFileName = fileName.toLowerCase().replace(/[^a-z0-9.]+/g, "-");
+  return `records/${safeAccession}/${Date.now()}-${safeFileName}`;
+}
+
+async function uploadPhoto(file) {
+  if (!isSupabaseReady) {
+    throw new Error("Add Supabase configuration before uploading photos.");
+  }
+  if (!state.currentUser) {
+    throw new Error("Sign in before uploading photos.");
+  }
+
+  const accessionNumber = elements.accessionNumber.value.trim();
+  if (!accessionNumber) {
+    throw new Error("Add an accession ID before uploading a photo.");
+  }
+
+  const path = buildPhotoPath(accessionNumber, file.name);
+  const { error } = await state.supabase.storage.from(museumBucketName).upload(path, file, {
+    cacheControl: "3600",
+    upsert: true
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  const {
+    data: { publicUrl }
+  } = state.supabase.storage.from(museumBucketName).getPublicUrl(path);
+
+  state.photoUploadPath = path;
+  elements.photoUrl.value = publicUrl;
+  setPhotoPreview(publicUrl);
+  setPhotoStatus("Photo uploaded.");
+}
+
+async function removePhotoAsset() {
+  if (!state.photoUploadPath || !isSupabaseReady) {
+    return;
+  }
+  await state.supabase.storage.from(museumBucketName).remove([state.photoUploadPath]);
+}
+
+async function loadRecords() {
+  if (!isSupabaseReady) {
+    return [];
+  }
+
+  const { data, error } = await state.supabase
+    .from("museum_records")
+    .select("*")
+    .order("updated_at", { ascending: false });
+
+  if (error) {
+    throw error;
+  }
+
+  return data || [];
+}
+
+async function saveRecord(record) {
+  if (!isSupabaseReady) {
+    throw new Error("Supabase is not configured yet.");
+  }
+
+  const payload = {
+    ...record,
+    updated_by: state.currentUser?.email || null
+  };
+
+  const { error } = await state.supabase.from("museum_records").upsert(payload);
+  if (error) {
+    throw error;
+  }
+}
+
+async function deleteRecord(record) {
+  const { error } = await state.supabase.from("museum_records").delete().eq("id", record.id);
+  if (error) {
+    throw error;
+  }
+
+  if (record.photo_path) {
+    await state.supabase.storage.from(museumBucketName).remove([record.photo_path]);
+  }
+}
+
+async function clearRecords() {
+  const paths = state.records.map((record) => record.photo_path).filter(Boolean);
+  const { error } = await state.supabase.from("museum_records").delete().neq("id", "");
+  if (error) {
+    throw error;
+  }
+  if (paths.length) {
+    await state.supabase.storage.from(museumBucketName).remove(paths);
+  }
+}
+
+async function seedSampleData() {
+  if (!isSupabaseReady) {
+    setAuthMessage("Add Supabase keys first, then seed the shared database.", true);
+    return;
+  }
+  if (!state.currentUser) {
+    setAuthMessage("Sign in before loading sample records.", true);
+    return;
+  }
+
+  const payload = sampleRecords.map((record) => ({
+    ...record,
+    updated_by: state.currentUser.email
+  }));
+
+  const { error } = await state.supabase.from("museum_records").upsert(payload, { onConflict: "accession_number" });
+  if (error) {
+    setAuthMessage(error.message, true);
+    return;
+  }
+
+  await refresh();
+  setAuthMessage("Sample records loaded.");
+}
+
+async function importRecords(file) {
+  const imported = JSON.parse(await file.text());
+  if (!Array.isArray(imported)) {
+    throw new Error("Import file must be an array of records.");
+  }
+
+  const payload = imported.map((record) => ({
+    ...record,
+    photo_path: record.photo_path || "",
+    is_public: Boolean(record.is_public),
+    updated_by: state.currentUser?.email || record.updated_by || null
+  }));
+
+  const { error } = await state.supabase.from("museum_records").upsert(payload, { onConflict: "accession_number" });
+  if (error) {
+    throw error;
+  }
 }
 
 function downloadJson(filename, data) {
@@ -436,39 +594,6 @@ function downloadJson(filename, data) {
   URL.revokeObjectURL(url);
 }
 
-async function importRecords(file) {
-  const text = await file.text();
-  const imported = JSON.parse(text);
-
-  if (!Array.isArray(imported)) {
-    throw new Error("Backup file must contain an array of museum records.");
-  }
-
-  for (const record of imported) {
-    await saveRecord({
-      ...record,
-      id: record.id || crypto.randomUUID(),
-      tags: Array.isArray(record.tags) ? record.tags : [],
-      updatedAt: record.updatedAt || new Date().toISOString()
-    });
-  }
-}
-
-async function seedSampleData() {
-  if (state.records.length > 0) {
-    const confirmed = window.confirm("The local database already has records. Add Smith Robertson sample records anyway?");
-    if (!confirmed) {
-      return;
-    }
-  }
-
-  for (const record of sampleRecords) {
-    await saveRecord(record);
-  }
-
-  await refresh();
-}
-
 function addPresetTag(tag) {
   const currentTags = normalizedTags(elements.tags.value);
   if (!currentTags.includes(tag)) {
@@ -477,12 +602,128 @@ function addPresetTag(tag) {
   }
 }
 
+async function refresh() {
+  state.records = await loadRecords();
+  renderMetrics(state.records);
+  renderRecordList();
+}
+
+async function initializeAuth() {
+  if (!isSupabaseReady) {
+    elements.setupBanner.hidden = false;
+    elements.setupDetails.textContent =
+      "Add your Supabase project URL and anon key in supabase-config.js, then run the SQL in supabase/schema.sql.";
+    setAuthMessage("Supabase keys are missing. Shared sign-in and shared records are not active yet.");
+    updateAuthUI();
+    return;
+  }
+
+  elements.setupBanner.hidden = false;
+  elements.setupDetails.textContent =
+    "Before students start, make sure you have run supabase/schema.sql and created the museum-photos storage bucket.";
+
+  const {
+    data: { session }
+  } = await state.supabase.auth.getSession();
+  state.currentUser = session?.user || null;
+  updateAuthUI();
+
+  state.supabase.auth.onAuthStateChange((_event, sessionData) => {
+    state.currentUser = sessionData?.user || null;
+    updateAuthUI();
+    refresh().catch((error) => setAuthMessage(error.message, true));
+  });
+}
+
+elements.authForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!isSupabaseReady) {
+    return;
+  }
+
+  const { error } = await state.supabase.auth.signInWithPassword({
+    email: elements.emailInput.value,
+    password: elements.passwordInput.value
+  });
+
+  if (error) {
+    setAuthMessage(error.message, true);
+    return;
+  }
+
+  setAuthMessage("Signed in.");
+  elements.authForm.reset();
+});
+
+elements.signUpButton.addEventListener("click", async () => {
+  if (!isSupabaseReady) {
+    return;
+  }
+
+  const { error } = await state.supabase.auth.signUp({
+    email: elements.emailInput.value,
+    password: elements.passwordInput.value
+  });
+
+  if (error) {
+    setAuthMessage(error.message, true);
+    return;
+  }
+
+  setAuthMessage("Account created. Check your Supabase email confirmation settings if needed.");
+});
+
+elements.signOutButton.addEventListener("click", async () => {
+  if (!isSupabaseReady) {
+    return;
+  }
+  await state.supabase.auth.signOut();
+  setAuthMessage("Signed out.");
+});
+
 elements.form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const record = getFormData();
-  await saveRecord(record);
-  await refresh();
-  populateForm(record);
+
+  if (!canEditSharedData()) {
+    setAuthMessage("Sign in before saving records.", true);
+    return;
+  }
+
+  try {
+    await saveRecord(getFormData());
+    await refresh();
+    resetForm();
+    setAuthMessage("Record saved.");
+  } catch (error) {
+    setAuthMessage(error.message, true);
+  }
+});
+
+elements.photoFile.addEventListener("change", async (event) => {
+  const [file] = event.target.files || [];
+  if (!file) {
+    return;
+  }
+
+  try {
+    setPhotoStatus("Uploading photo...");
+    await uploadPhoto(file);
+  } catch (error) {
+    setPhotoStatus(error.message, true);
+  }
+});
+
+elements.removePhotoButton.addEventListener("click", async () => {
+  try {
+    await removePhotoAsset();
+    state.photoUploadPath = "";
+    elements.photoUrl.value = "";
+    elements.photoFile.value = "";
+    setPhotoPreview("");
+    setPhotoStatus("Photo removed.");
+  } catch (error) {
+    setPhotoStatus(error.message, true);
+  }
 });
 
 elements.searchInput.addEventListener("input", renderRecordList);
@@ -490,10 +731,10 @@ elements.typeFilter.addEventListener("change", renderRecordList);
 elements.statusFilter.addEventListener("change", renderRecordList);
 elements.themeFilter.addEventListener("change", renderRecordList);
 elements.neighborhoodFilter.addEventListener("change", renderRecordList);
-
-elements.exportButton.addEventListener("click", () => {
-  downloadJson("smith-robertson-records-backup.json", state.records);
-});
+elements.visibilityFilter.addEventListener("change", renderRecordList);
+elements.exportButton.addEventListener("click", () => downloadJson("smith-robertson-records-backup.json", state.records));
+elements.seedDataButton.addEventListener("click", () => seedSampleData());
+elements.resetFormButton.addEventListener("click", resetForm);
 
 elements.importInput.addEventListener("change", async (event) => {
   const [file] = event.target.files || [];
@@ -502,37 +743,42 @@ elements.importInput.addEventListener("change", async (event) => {
   }
 
   try {
+    if (!state.currentUser) {
+      throw new Error("Sign in before importing records.");
+    }
     await importRecords(file);
     await refresh();
-    window.alert("Backup imported successfully.");
+    setAuthMessage("Records imported.");
   } catch (error) {
-    console.error(error);
-    window.alert(error.message || "The backup could not be imported.");
+    setAuthMessage(error.message, true);
   } finally {
     elements.importInput.value = "";
   }
 });
 
 elements.clearDataButton.addEventListener("click", async () => {
-  const confirmed = window.confirm(
-    "Clear every local Smith Robertson record from this browser? Export a backup first if needed."
-  );
+  if (!canEditSharedData()) {
+    setAuthMessage("Sign in before deleting records.", true);
+    return;
+  }
 
+  const confirmed = window.confirm("Delete all shared records in the current Supabase project?");
   if (!confirmed) {
     return;
   }
 
-  await clearRecords();
-  resetForm();
-  await refresh();
+  try {
+    await clearRecords();
+    await refresh();
+    setAuthMessage("All records deleted.");
+  } catch (error) {
+    setAuthMessage(error.message, true);
+  }
 });
-
-elements.seedDataButton.addEventListener("click", seedSampleData);
-elements.resetFormButton.addEventListener("click", resetForm);
 
 elements.duplicateButton.addEventListener("click", async () => {
   if (!state.selectedId) {
-    window.alert("Select a record to duplicate first.");
+    setAuthMessage("Select a record to duplicate first.", true);
     return;
   }
 
@@ -544,14 +790,18 @@ elements.duplicateButton.addEventListener("click", async () => {
   const duplicate = {
     ...current,
     id: crypto.randomUUID(),
-    accessionNumber: `${current.accessionNumber}-COPY`,
+    accession_number: `${current.accession_number}-COPY`,
     title: `${current.title} Copy`,
-    updatedAt: new Date().toISOString()
+    is_public: false
   };
 
-  await saveRecord(duplicate);
-  await refresh();
-  populateForm(duplicate);
+  try {
+    await saveRecord(duplicate);
+    await refresh();
+    setAuthMessage("Record duplicated.");
+  } catch (error) {
+    setAuthMessage(error.message, true);
+  }
 });
 
 elements.presetTags.addEventListener("click", (event) => {
@@ -559,16 +809,9 @@ elements.presetTags.addEventListener("click", (event) => {
   if (!button) {
     return;
   }
-
   addPresetTag(button.dataset.tag);
 });
 
-refresh().catch((error) => {
-  console.error(error);
-  elements.recordList.innerHTML = `
-    <div class="empty-state">
-      <h3>Database unavailable</h3>
-      <p>This browser could not open IndexedDB. Try another browser or check privacy settings.</p>
-    </div>
-  `;
-});
+initializeAuth()
+  .then(() => refresh())
+  .catch((error) => setAuthMessage(error.message, true));

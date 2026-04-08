@@ -1,71 +1,63 @@
-# Smith Robertson Museum Collections Manager
+# Smith Robertson Museum Collections Database
 
-A static GitHub Pages app for the Smith Robertson Museum and Cultural Center in downtown Jackson, Mississippi.
+A GitHub Pages frontend for a shared Smith Robertson Museum collections database backed by Supabase.
 
-## Purpose
+## What changed
 
-This version is designed for:
+This app is now structured for a real web database:
 
-- museum staff
-- student interns
-- class visits
-- community history projects
+- shared records instead of browser-only storage
+- user login with Supabase Auth
+- a museum records table in Supabase Postgres
+- direct image uploads to Supabase Storage
+- a first-class `Textile` record type
+- a simpler cataloging workflow focused on collections work rather than student lesson-writing
+- a separate public read-only catalog page for published records
 
-The workflow is intentionally simple while still supporting richer metadata for:
+## Hosting model
 
-- African American history
-- Jackson history
-- Farish Street history
-- school and neighborhood history
-- oral histories and teaching collections
+- `GitHub Pages` hosts the frontend
+- `Supabase` provides the database, login, and future image storage
 
-## What the app now includes
+That means the site can still be deployed from GitHub, but the shared data is stored in Supabase rather than the browser.
 
-- A guided four-part cataloging workflow
-- Smith Robertson-specific sample records
-- Filters for type, status, historical theme, and neighborhood
-- Metadata for historical significance, provenance, rights, sensitivity, and classroom use
-- Student-friendly summaries for tours and lessons
-- Suggested tags for common local history topics
-- Local browser storage with JSON import and export
+## Files to know
 
-## GitHub-only design
+- [index.html](/Users/Birittany/Documents/SmithRobertson/index.html): UI structure
+- [styles.css](/Users/Birittany/Documents/SmithRobertson/styles.css): visual design
+- [app.js](/Users/Birittany/Documents/SmithRobertson/app.js): Supabase auth + shared catalog logic
+- [catalog.html](/Users/Birittany/Documents/SmithRobertson/catalog.html): public read-only catalog page
+- [catalog.js](/Users/Birittany/Documents/SmithRobertson/catalog.js): public catalog loading and filtering
+- [supabase-client.js](/Users/Birittany/Documents/SmithRobertson/supabase-client.js): shared browser client helper
+- [supabase-config.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.js): your local project URL and anon key
+- [supabase-config.example.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.example.js): template for config
+- [supabase/schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql): SQL for the shared records table and policies
 
-This app is built to run entirely on GitHub Pages, so there is no server and no hosted database. It uses:
+## Supabase setup
 
-- `index.html` for structure
-- `styles.css` for layout and visual design
-- `app.js` for the catalog workflow and IndexedDB storage
-- browser IndexedDB for local records
+1. Create a Supabase project.
+2. In Supabase SQL Editor, run [schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql).
+3. In Supabase Auth, enable email/password sign-in.
+4. Copy your Supabase anon key from the project settings. The project URL is already prefilled for this connected project.
+5. Put the anon key in [supabase-config.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.js).
+6. Push the updated site to GitHub Pages.
 
-## Important limitation
+The SQL file also creates the public `museum-photos` storage bucket and the storage policies used by the upload flow.
 
-Because the app is static and GitHub-hosted only, records are saved in the browser on the current computer. If multiple students or staff members use different devices, export and import backups to move the data.
+## Important note about config
 
-## Local preview
+The Supabase anon key is safe to use in the frontend. It is meant for browser clients and is protected by your Row Level Security policies.
 
-Open [index.html](/Users/Birittany/Documents/SmithRobertson/index.html) in a browser, or run a simple local server:
+Do not put a `service_role` key in this repo or in frontend code.
 
-```bash
-python3 -m http.server 8000
-```
+## Current limitations
 
-Then open `http://localhost:8000`.
+- all authenticated users currently share the same edit permissions
+- there is not yet an admin approval workflow beyond the public visibility toggle
+- bulk CSV import is not implemented yet
 
-## Deploy to GitHub Pages
+## Best next upgrades
 
-1. Push the repository to GitHub.
-2. Open repository `Settings` -> `Pages`.
-3. Set `Source` to `GitHub Actions`.
-4. Keep the default branch on `main`.
-5. Push a commit or use `Run workflow` in Actions if you need to redeploy.
-
-The site will publish from the GitHub Actions workflow in `.github/workflows/deploy-pages.yml`.
-
-## Good next upgrades
-
-- Add image upload with client-side compression
-- Add a printable object label and gallery card view
-- Add separate public description and internal staff notes
-- Add fields for exhibitions, loans, and conservation events
-- Add CSV import/export for larger student projects
+- staff/admin roles and approval workflow
+- bulk CSV import
+- dedicated people, places, and exhibitions tables

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smith Robertson Museum Public Catalog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="topbar">
+        <a class="topbar__brand" href="./index.html">Smith Robertson Collections</a>
+        <div class="topbar__links">
+          <a class="topbar__link" href="./index.html">Catalog Manager</a>
+          <a class="topbar__link" href="./catalog.html" aria-current="page">Public Catalog</a>
+        </div>
+      </nav>
+
+      <header class="hero hero--catalog">
+        <div class="hero__copy">
+          <p class="eyebrow">Public Catalog</p>
+          <h1>Browse published Smith Robertson records.</h1>
+          <p class="hero__lede">
+            This view is for visitors, partners, and researchers. Only records marked for public display are shown
+            here.
+          </p>
+        </div>
+        <section class="hero__panel" aria-label="Public catalog filters">
+          <label class="field">
+            <span>Search</span>
+            <input id="catalogSearch" type="search" placeholder="Search titles, themes, places, tags..." />
+          </label>
+          <label class="field">
+            <span>Theme</span>
+            <select id="catalogTheme">
+              <option value="all">All themes</option>
+              <option value="African American Education">African American Education</option>
+              <option value="Civil Rights">Civil Rights</option>
+              <option value="Farish Street Business District">Farish Street Business District</option>
+              <option value="Faith And Community Life">Faith And Community Life</option>
+              <option value="Arts And Culture">Arts And Culture</option>
+              <option value="Civic Leadership">Civic Leadership</option>
+              <option value="Family And Neighborhood Life">Family And Neighborhood Life</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Record Type</span>
+            <select id="catalogType">
+              <option value="all">All types</option>
+              <option value="Artifact">Artifact</option>
+              <option value="Archive">Archive</option>
+              <option value="Photograph">Photograph</option>
+              <option value="Oral History">Oral History</option>
+              <option value="Textile">Textile</option>
+              <option value="Exhibit">Exhibit</option>
+            </select>
+          </label>
+          <p id="catalogStatus" class="help-text"></p>
+          <div class="metric">
+            <span class="metric__label">Published Records</span>
+            <strong id="catalogTotal">0 public records</strong>
+          </div>
+        </section>
+      </header>
+
+      <main class="catalog-grid" id="catalogList" aria-live="polite"></main>
+    </div>
+
+    <template id="catalogCardTemplate">
+      <article class="catalog-card">
+        <img class="catalog-card__image" alt="" hidden />
+        <div class="catalog-card__body">
+          <p class="catalog-card__meta"></p>
+          <h3></h3>
+          <p class="catalog-card__description"></p>
+          <p class="catalog-card__significance"></p>
+          <div class="tag-list"></div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./supabase-config.js"></script>
+    <script type="module" src="./catalog.js"></script>
+  </body>
+</html>

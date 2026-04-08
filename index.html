@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smith Robertson Museum Collections Manager</title>
+    <title>Smith Robertson Museum Collections Database</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,22 +14,58 @@
   </head>
   <body>
     <div class="page-shell">
+      <nav class="topbar">
+        <a class="topbar__brand" href="./index.html">Smith Robertson Collections</a>
+        <div class="topbar__links">
+          <a class="topbar__link" href="./index.html" aria-current="page">Catalog Manager</a>
+          <a class="topbar__link" href="./catalog.html">Public Catalog</a>
+        </div>
+      </nav>
+
       <header class="hero">
         <div class="hero__copy">
           <p class="eyebrow">Smith Robertson Museum And Cultural Center</p>
-          <h1>A student-friendly collections system for Jackson history.</h1>
+          <h1>A shared collections database for Jackson history.</h1>
           <p class="hero__lede">
-            Catalog artifacts, archives, oral histories, and exhibitions connected to
-            African American history, downtown Jackson, and Farish Street with a
-            workflow that is easy for students, staff, and volunteers to follow.
+            Built for a real museum workflow: staff and students can log in, catalog
+            the same records, upload object photos, and manage collections tied to
+            African American history, Jackson history, and Farish Street.
           </p>
           <div class="hero__actions">
-            <button id="seedDataButton" class="button button--primary">Load Smith Robertson Examples</button>
-            <button id="exportButton" class="button button--ghost">Export Backup</button>
+            <button id="seedDataButton" class="button button--primary">Load Sample Records</button>
+            <button id="exportButton" class="button button--ghost">Export JSON</button>
           </div>
         </div>
 
-        <section class="hero__panel" aria-label="Museum summary">
+        <section class="hero__panel" aria-label="Database summary">
+          <div class="auth-card" id="authPanel">
+            <p class="eyebrow">Account</p>
+            <div id="signedOutView">
+              <h2>Sign In</h2>
+              <form id="authForm" class="auth-form">
+                <label class="field">
+                  <span>Email</span>
+                  <input id="emailInput" type="email" autocomplete="email" required />
+                </label>
+                <label class="field">
+                  <span>Password</span>
+                  <input id="passwordInput" type="password" autocomplete="current-password" required />
+                </label>
+                <div class="stack">
+                  <button type="submit" class="button button--primary">Sign In</button>
+                  <button type="button" id="signUpButton" class="button button--ghost">Create Account</button>
+                </div>
+              </form>
+            </div>
+            <div id="signedInView" hidden>
+              <p class="auth-email" id="currentUserEmail"></p>
+              <div class="stack">
+                <button id="signOutButton" class="button button--ghost">Sign Out</button>
+              </div>
+            </div>
+            <p id="authMessage" class="help-text"></p>
+          </div>
+
           <div class="metric">
             <span class="metric__label">Total Records</span>
             <strong id="totalRecordsMetric">0</strong>
@@ -39,8 +75,12 @@
             <strong id="farishMetric">0</strong>
           </div>
           <div class="metric">
-            <span class="metric__label">Student-Ready</span>
-            <strong id="studentReadyMetric">0</strong>
+            <span class="metric__label">Textiles</span>
+            <strong id="textileMetric">0</strong>
+          </div>
+          <div class="metric">
+            <span class="metric__label">Public Catalog</span>
+            <strong id="publicMetric">0</strong>
           </div>
           <div class="metric">
             <span class="metric__label">Needs Review</span>
@@ -49,22 +89,30 @@
         </section>
       </header>
 
-      <section class="guide-grid" aria-label="Cataloging guide">
+      <section class="guide-grid" aria-label="Museum workflow guide">
         <article class="card guide-card">
-          <p class="eyebrow">Step 1</p>
-          <h2>Identify The Item</h2>
-          <p>Start with the basic record: accession number, title, type, and current location.</p>
+          <p class="eyebrow">Shared Database</p>
+          <h2>One Catalog</h2>
+          <p>All signed-in users work with the same records instead of saving to separate browsers.</p>
         </article>
         <article class="card guide-card">
-          <p class="eyebrow">Step 2</p>
-          <h2>Place It In History</h2>
-          <p>Add themes, neighborhoods, time periods, and the people or organizations connected to it.</p>
+          <p class="eyebrow">Collections</p>
+          <h2>Rich Metadata</h2>
+          <p>Track themes, neighborhoods, provenance, condition, rights, and object format consistently.</p>
         </article>
         <article class="card guide-card">
-          <p class="eyebrow">Step 3</p>
-          <h2>Make It Teachable</h2>
-          <p>Write a plain-language student summary and note how it could support classroom learning.</p>
+          <p class="eyebrow">Images</p>
+          <h2>Photo Uploads</h2>
+          <p>Attach an object image URL now, with Supabase Storage support prepared for hosted uploads.</p>
         </article>
+      </section>
+
+      <section class="setup-banner" id="setupBanner">
+        <strong>Setup needed:</strong>
+        <span id="setupDetails">
+          add your Supabase project URL and anon key in <code>supabase-config.js</code> to enable shared sign-in and
+          shared records.
+        </span>
       </section>
 
       <main class="workspace">
@@ -84,6 +132,7 @@
                 <option value="Archive">Archive</option>
                 <option value="Photograph">Photograph</option>
                 <option value="Oral History">Oral History</option>
+                <option value="Textile">Textile</option>
                 <option value="Exhibit">Exhibit</option>
               </select>
             </label>
@@ -126,6 +175,15 @@
                 <option value="Statewide Mississippi">Statewide Mississippi</option>
               </select>
             </label>
+
+            <label class="field">
+              <span>Visibility</span>
+              <select id="visibilityFilter">
+                <option value="all">All records</option>
+                <option value="public">Public catalog</option>
+                <option value="private">Internal only</option>
+              </select>
+            </label>
           </section>
 
           <section class="card">
@@ -138,23 +196,21 @@
               <button class="chip" type="button" data-tag="church life">church life</button>
               <button class="chip" type="button" data-tag="business history">business history</button>
               <button class="chip" type="button" data-tag="oral history">oral history</button>
-              <button class="chip" type="button" data-tag="student research">student research</button>
+              <button class="chip" type="button" data-tag="textiles">textiles</button>
             </div>
-            <p class="help-text">Click a tag to add it into the current record’s tag list.</p>
           </section>
 
           <section class="card">
             <h2>Data Tools</h2>
             <div class="stack">
               <label class="button button--ghost file-button">
-                <span>Import Backup</span>
+                <span>Import JSON</span>
                 <input id="importInput" type="file" accept="application/json" />
               </label>
-              <button id="clearDataButton" class="button button--danger">Clear Local Database</button>
+              <button id="clearDataButton" class="button button--danger">Delete All Records</button>
             </div>
             <p class="help-text">
-              Records are stored in this browser with IndexedDB. Export often if students
-              work on more than one computer.
+              In Supabase mode these actions affect the shared project database, not just one browser.
             </p>
           </section>
         </aside>
@@ -163,8 +219,8 @@
           <section class="card card--form">
             <div class="section-heading">
               <div>
-                <p class="eyebrow">Record Workflow</p>
-                <h2 id="formHeading">Create A Smith Robertson Record</h2>
+                <p class="eyebrow">Catalog Record</p>
+                <h2 id="formHeading">Create A Museum Record</h2>
               </div>
               <button id="resetFormButton" class="button button--ghost">New Record</button>
             </div>
@@ -175,7 +231,7 @@
               <section class="form-section">
                 <div class="form-section__header">
                   <p class="eyebrow">Part 1</p>
-                  <h3>Basic Record</h3>
+                  <h3>Object Basics</h3>
                 </div>
                 <div class="form-grid">
                   <label class="field">
@@ -193,6 +249,7 @@
                       <option value="Archive">Archive</option>
                       <option value="Photograph">Photograph</option>
                       <option value="Oral History">Oral History</option>
+                      <option value="Textile">Textile</option>
                       <option value="Exhibit">Exhibit</option>
                     </select>
                   </label>
@@ -254,7 +311,7 @@
                   </label>
                   <label class="field">
                     <span>People / Organizations</span>
-                    <input id="people" placeholder="Teachers, churches, families, businesses, activists" />
+                    <input id="people" placeholder="Families, churches, businesses, activists" />
                   </label>
                   <label class="field field--wide">
                     <span>Description</span>
@@ -287,7 +344,7 @@
                   </label>
                   <label class="field">
                     <span>Format / Material</span>
-                    <input id="format" placeholder="photograph, textile, paper, audio" />
+                    <input id="format" placeholder="photograph, textile, paper, wood, audio" />
                   </label>
                   <label class="field">
                     <span>Condition</span>
@@ -314,9 +371,40 @@
                     <select id="sensitivity">
                       <option value="">Select sensitivity</option>
                       <option value="Open Access">Open Access</option>
-                      <option value="Review Before Classroom Use">Review Before Classroom Use</option>
+                      <option value="Review Before Public Display">Review Before Public Display</option>
                       <option value="Restricted">Restricted</option>
                     </select>
+                  </label>
+                  <div class="field field--wide">
+                    <span>Public Catalog Visibility</span>
+                    <label class="toggle" for="isPublic">
+                      <input id="isPublic" type="checkbox" />
+                      <span>Show this record on the public catalog site</span>
+                    </label>
+                  </div>
+                  <label class="field field--wide">
+                    <span>Upload Photo</span>
+                    <div class="photo-upload">
+                      <input id="photoFile" type="file" accept="image/*" />
+                      <p class="help-text">
+                        Images upload to the Supabase <code>museum-photos</code> bucket. Add an accession ID first.
+                      </p>
+                      <div class="photo-preview-wrap">
+                        <img id="photoPreview" class="record-card__image" alt="Record preview" hidden />
+                        <button id="removePhotoButton" type="button" class="button button--ghost" hidden>
+                          Remove Photo
+                        </button>
+                      </div>
+                      <p id="photoStatus" class="help-text"></p>
+                    </div>
+                  </label>
+                  <label class="field">
+                    <span>Primary Photo URL</span>
+                    <input id="photoUrl" type="url" placeholder="https://..." />
+                  </label>
+                  <label class="field">
+                    <span>Photo Credit</span>
+                    <input id="photoCredit" placeholder="Photographed by..." />
                   </label>
                   <label class="field field--wide">
                     <span>Provenance / Acquisition Notes</span>
@@ -326,34 +414,9 @@
                     <span>Condition / Staff Notes</span>
                     <textarea id="notes" rows="3"></textarea>
                   </label>
-                </div>
-              </section>
-
-              <section class="form-section">
-                <div class="form-section__header">
-                  <p class="eyebrow">Part 4</p>
-                  <h3>Student Learning</h3>
-                </div>
-                <div class="form-grid">
-                  <label class="field">
-                    <span>Student-Friendly Summary</span>
-                    <textarea
-                      id="studentSummary"
-                      rows="4"
-                      placeholder="Explain this record in plain language for a student audience."
-                    ></textarea>
-                  </label>
-                  <label class="field">
-                    <span>Classroom Connection</span>
-                    <textarea
-                      id="classroomConnection"
-                      rows="4"
-                      placeholder="How could this support a class discussion, tour, or project?"
-                    ></textarea>
-                  </label>
                   <label class="field field--wide">
                     <span>Keywords / Tags</span>
-                    <input id="tags" placeholder="Farish Street, local business, oral history, Jackson history" />
+                    <input id="tags" placeholder="Farish Street, textiles, church life, Jackson history" />
                   </label>
                 </div>
               </section>
@@ -368,8 +431,8 @@
           <section class="card">
             <div class="section-heading">
               <div>
-                <p class="eyebrow">Museum Database</p>
-                <h2>Catalog Records</h2>
+                <p class="eyebrow">Shared Catalog</p>
+                <h2>Museum Records</h2>
               </div>
               <span id="recordCountLabel" class="pill">0 results</span>
             </div>
@@ -387,10 +450,13 @@
             <h3></h3>
             <p class="record-card__submeta"></p>
           </div>
-          <span class="pill"></span>
+          <div class="record-card__badges">
+            <span class="pill"></span>
+            <span class="pill record-card__visibility"></span>
+          </div>
         </div>
+        <img class="record-card__image" alt="" hidden />
         <p class="record-card__description"></p>
-        <p class="record-card__summary"></p>
         <dl class="record-card__details"></dl>
         <div class="record-card__footer">
           <div class="tag-list"></div>
@@ -402,6 +468,7 @@
       </article>
     </template>
 
+    <script src="./supabase-config.js"></script>
     <script type="module" src="./app.js"></script>
   </body>
 </html>
