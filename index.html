@@ -216,16 +216,68 @@
         </aside>
 
         <section class="content">
-          <section class="card card--form">
+          <section class="card">
             <div class="section-heading">
               <div>
-                <p class="eyebrow">Catalog Record</p>
-                <h2 id="formHeading">Create A Museum Record</h2>
+                <p class="eyebrow">Workspace</p>
+                <h2>Collections Manager</h2>
               </div>
-              <button id="resetFormButton" class="button button--ghost">New Record</button>
+              <div class="toolbar toolbar--tight">
+                <button id="browseCardsTab" class="button button--ghost is-active" type="button">Card View</button>
+                <button id="browseTableTab" class="button button--ghost" type="button">Table View</button>
+                <button id="editorTab" class="button button--ghost" type="button">Record Editor</button>
+              </div>
             </div>
 
-            <form id="recordForm" class="record-form">
+            <section id="cardsView" class="panel-view panel-view--active">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Shared Catalog</p>
+                  <h2>Museum Records</h2>
+                </div>
+                <span id="recordCountLabel" class="pill">0 results</span>
+              </div>
+              <div id="activeFilterPills" class="toolbar toolbar--wrap"></div>
+              <div id="recordList" class="record-list" aria-live="polite"></div>
+            </section>
+
+            <section id="tableView" class="panel-view" hidden>
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Collection Table</p>
+                  <h2>Browse Records Fast</h2>
+                </div>
+                <span id="tableCountLabel" class="pill">0 rows</span>
+              </div>
+              <div class="table-shell">
+                <table class="records-table">
+                  <thead>
+                    <tr>
+                      <th>Accession</th>
+                      <th>Title</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>Theme</th>
+                      <th>Neighborhood</th>
+                      <th>Visibility</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recordTableBody"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="editorView" class="panel-view" hidden>
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Catalog Record</p>
+                  <h2 id="formHeading">Create A Museum Record</h2>
+                </div>
+                <button id="resetFormButton" class="button button--ghost">New Record</button>
+              </div>
+
+              <form id="recordForm" class="record-form">
               <input id="recordId" type="hidden" />
 
               <section class="form-section">
@@ -425,18 +477,8 @@
                 <button type="submit" class="button button--primary">Save Record</button>
                 <button type="button" id="duplicateButton" class="button button--ghost">Duplicate Selected</button>
               </div>
-            </form>
-          </section>
-
-          <section class="card">
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">Shared Catalog</p>
-                <h2>Museum Records</h2>
-              </div>
-              <span id="recordCountLabel" class="pill">0 results</span>
-            </div>
-            <div id="recordList" class="record-list" aria-live="polite"></div>
+              </form>
+            </section>
           </section>
         </section>
       </main>
@@ -466,6 +508,19 @@
           </div>
         </div>
       </article>
+    </template>
+
+    <template id="recordTableRowTemplate">
+      <tr>
+        <td data-column="accession"></td>
+        <td data-column="title"></td>
+        <td data-column="type"></td>
+        <td data-column="status"></td>
+        <td data-column="theme"></td>
+        <td data-column="neighborhood"></td>
+        <td data-column="visibility"></td>
+        <td data-column="actions" class="records-table__actions"></td>
+      </tr>
     </template>
 
     <script src="./supabase-config.js"></script>

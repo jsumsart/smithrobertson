@@ -152,7 +152,8 @@ h2 {
 .stack,
 .record-card__actions,
 .tag-list,
-.chip-grid {
+.chip-grid,
+.toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -180,6 +181,11 @@ h2 {
   background: rgba(255, 255, 255, 0.72);
   color: var(--ink);
   border: 1px solid var(--line);
+}
+
+.button.is-active {
+  background: linear-gradient(135deg, var(--forest), #2f4a2a);
+  color: #fff;
 }
 
 .button--danger {
@@ -263,6 +269,18 @@ h2 {
 
 .card {
   padding: 1.35rem;
+}
+
+.panel-view[hidden] {
+  display: none;
+}
+
+.toolbar--tight {
+  gap: 0.5rem;
+}
+
+.toolbar--wrap {
+  margin-bottom: 1rem;
 }
 
 .section-heading,
@@ -446,6 +464,19 @@ h2 {
   font-size: 0.84rem;
 }
 
+.tag--interactive {
+  cursor: pointer;
+}
+
+.filter-pill {
+  border: 1px solid rgba(84, 108, 71, 0.25);
+  background: rgba(84, 108, 71, 0.12);
+  color: #29402a;
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+
 .empty-state {
   padding: 2rem;
   text-align: center;
@@ -538,6 +569,47 @@ h2 {
   inset: 0;
   opacity: 0;
   cursor: pointer;
+}
+
+.table-shell {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.records-table th,
+.records-table td {
+  padding: 0.95rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.records-table th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.records-table__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.records-table__empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 2rem;
 }
 
 @media (max-width: 1100px) {

@@ -90,6 +90,7 @@ const state = {
   selectedId: null,
   currentUser: null,
   isStaff: false,
+  activeView: "cards",
   photoUploadPath: "",
   photoPreviewUrl: "",
   supabase: createBrowserClient()
@@ -109,6 +110,12 @@ const elements = {
   setupDetails: document.querySelector("#setupDetails"),
   form: document.querySelector("#recordForm"),
   formHeading: document.querySelector("#formHeading"),
+  browseCardsTab: document.querySelector("#browseCardsTab"),
+  browseTableTab: document.querySelector("#browseTableTab"),
+  editorTab: document.querySelector("#editorTab"),
+  cardsView: document.querySelector("#cardsView"),
+  tableView: document.querySelector("#tableView"),
+  editorView: document.querySelector("#editorView"),
   recordId: document.querySelector("#recordId"),
   accessionNumber: document.querySelector("#accessionNumber"),
   title: document.querySelector("#title"),
@@ -140,6 +147,9 @@ const elements = {
   tags: document.querySelector("#tags"),
   recordList: document.querySelector("#recordList"),
   recordCountLabel: document.querySelector("#recordCountLabel"),
+  tableCountLabel: document.querySelector("#tableCountLabel"),
+  activeFilterPills: document.querySelector("#activeFilterPills"),
+  recordTableBody: document.querySelector("#recordTableBody"),
   totalRecordsMetric: document.querySelector("#totalRecordsMetric"),
   farishMetric: document.querySelector("#farishMetric"),
   textileMetric: document.querySelector("#textileMetric"),
@@ -158,7 +168,8 @@ const elements = {
   resetFormButton: document.querySelector("#resetFormButton"),
   duplicateButton: document.querySelector("#duplicateButton"),
   presetTags: document.querySelector("#presetTags"),
-  template: document.querySelector("#recordCardTemplate")
+  template: document.querySelector("#recordCardTemplate"),
+  tableRowTemplate: document.querySelector("#recordTableRowTemplate")
 };
 
 function normalizedTags(value) {
@@ -194,7 +205,7 @@ function canEditSharedData() {
 }
 
 function canDeleteRecords() {
-  return !isSupabaseReady || state.isStaff;
+  return !isSupabaseReady || Boolean(state.currentUser);
 }
 
 function updateAuthUI() {
@@ -220,18 +231,95 @@ function updateAuthUI() {
   elements.clearDataButton.hidden = !state.isStaff;
 }
 
+function setActiveView(view) {
+  state.activeView = view;
+  const views = {
+    cards: elements.cardsView,
+    table: elements.tableView,
+    editor: elements.editorView
+  };
+  const tabs = {
+    cards: elements.browseCardsTab,
+    table: elements.browseTableTab,
+    editor: elements.editorTab
+  };
+
+  Object.entries(views).forEach(([key, node]) => {
+    const active = key === view;
+    node.hidden = !active;
+    node.classList.toggle("panel-view--active", active);
+  });
+
+  Object.entries(tabs).forEach(([key, node]) => {
+    node.classList.toggle("is-active", key === view);
+  });
+}
+
 function createTagElements(tags) {
   const fragment = document.createDocumentFragment();
   const values = tags?.length ? tags : ["untagged"];
 
   for (const value of values) {
-    const span = document.createElement("span");
-    span.className = "tag";
-    span.textContent = value;
-    fragment.appendChild(span);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "tag tag--interactive";
+    button.textContent = value;
+    button.addEventListener("click", () => {
+      elements.searchInput.value = value;
+      renderViews().catch((error) => setAuthMessage(error.message, true));
+    });
+    fragment.appendChild(button);
   }
 
   return fragment;
+}
+
+function renderActiveFilterPills() {
+  const pills = [];
+  const query = elements.searchInput.value.trim();
+  if (query) {
+    pills.push({ label: `Search: ${query}`, clear: () => (elements.searchInput.value = "") });
+  }
+  if (elements.typeFilter.value !== "all") {
+    pills.push({ label: elements.typeFilter.value, clear: () => (elements.typeFilter.value = "all") });
+  }
+  if (elements.statusFilter.value !== "all") {
+    pills.push({ label: elements.statusFilter.value, clear: () => (elements.statusFilter.value = "all") });
+  }
+  if (elements.themeFilter.value !== "all") {
+    pills.push({ label: elements.themeFilter.value, clear: () => (elements.themeFilter.value = "all") });
+  }
+  if (elements.neighborhoodFilter.value !== "all") {
+    pills.push({ label: elements.neighborhoodFilter.value, clear: () => (elements.neighborhoodFilter.value = "all") });
+  }
+  if (elements.visibilityFilter.value !== "all") {
+    pills.push({
+      label: elements.visibilityFilter.value === "public" ? "Public catalog" : "Internal only",
+      clear: () => (elements.visibilityFilter.value = "all")
+    });
+  }
+
+  elements.activeFilterPills.replaceChildren();
+
+  if (!pills.length) {
+    const hint = document.createElement("p");
+    hint.className = "help-text";
+    hint.textContent = "Use search, tags, or filters to narrow the collection.";
+    elements.activeFilterPills.appendChild(hint);
+    return;
+  }
+
+  for (const pill of pills) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "filter-pill";
+    button.textContent = `${pill.label} ×`;
+    button.addEventListener("click", () => {
+      pill.clear();
+      renderViews().catch((error) => setAuthMessage(error.message, true));
+    });
+    elements.activeFilterPills.appendChild(button);
+  }
 }
 
 function populateDetailsList(container, entries) {
@@ -333,6 +421,7 @@ async function renderRecordList() {
 
   elements.recordCountLabel.textContent = `${records.length} result${records.length === 1 ? "" : "s"}`;
   elements.recordList.innerHTML = "";
+  renderActiveFilterPills();
 
   if (!records.length) {
     elements.recordList.innerHTML = `
@@ -390,10 +479,13 @@ async function renderRecordList() {
     editButton.hidden = !signedIn;
     deleteButton.hidden = !canDeleteRecords();
 
-    editButton.addEventListener("click", () => populateForm(record));
+    editButton.addEventListener("click", () => {
+      populateForm(record);
+      setActiveView("editor");
+    });
     deleteButton.addEventListener("click", async () => {
       if (!canDeleteRecords()) {
-        setAuthMessage("Only museum staff can delete records.", true);
+        setAuthMessage("Sign in before deleting records.", true);
         return;
       }
 
@@ -412,6 +504,76 @@ async function renderRecordList() {
     });
 
     elements.recordList.appendChild(fragment);
+  }
+}
+
+function buildRowActionButton(label, handler, tone = "ghost") {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = `button button--${tone}`;
+  button.textContent = label;
+  button.addEventListener("click", handler);
+  return button;
+}
+
+function renderTableView() {
+  const records = getFilteredRecords();
+  const signedIn = Boolean(state.currentUser);
+  elements.tableCountLabel.textContent = `${records.length} row${records.length === 1 ? "" : "s"}`;
+  elements.recordTableBody.replaceChildren();
+
+  if (!records.length) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 8;
+    cell.className = "records-table__empty";
+    cell.textContent = "No records match this view.";
+    row.appendChild(cell);
+    elements.recordTableBody.appendChild(row);
+    return;
+  }
+
+  for (const record of records) {
+    const fragment = elements.tableRowTemplate.content.cloneNode(true);
+    fragment.querySelector('[data-column="accession"]').textContent = record.accession_number;
+    fragment.querySelector('[data-column="title"]').textContent = record.title;
+    fragment.querySelector('[data-column="type"]').textContent = record.record_type;
+    fragment.querySelector('[data-column="status"]').textContent = record.status;
+    fragment.querySelector('[data-column="theme"]').textContent = record.historical_theme || "—";
+    fragment.querySelector('[data-column="neighborhood"]').textContent = record.neighborhood || "—";
+    fragment.querySelector('[data-column="visibility"]').textContent = record.is_public ? "Public" : "Internal";
+
+    const actions = fragment.querySelector('[data-column="actions"]');
+    actions.appendChild(
+      buildRowActionButton("Edit", () => {
+        populateForm(record);
+        setActiveView("editor");
+      })
+    );
+
+    if (signedIn && canDeleteRecords()) {
+      actions.appendChild(
+        buildRowActionButton(
+          "Delete",
+          async () => {
+            const confirmed = window.confirm(`Delete "${record.title}" from the museum database?`);
+            if (!confirmed) {
+              return;
+            }
+            try {
+              await deleteRecord(record);
+              await refresh();
+              setAuthMessage("Record deleted.");
+            } catch (error) {
+              setAuthMessage(error.message, true);
+            }
+          },
+          "danger"
+        )
+      );
+    }
+
+    elements.recordTableBody.appendChild(fragment);
   }
 }
 
@@ -667,10 +829,17 @@ function addPresetTag(tag) {
 async function refresh() {
   state.records = await loadRecords();
   renderMetrics(state.records);
+  await renderViews();
+}
+
+async function renderViews() {
   await renderRecordList();
+  renderTableView();
 }
 
 async function initializeAuth() {
+  setActiveView("cards");
+
   if (!isSupabaseReady) {
     elements.setupBanner.hidden = false;
     elements.setupDetails.textContent =
@@ -797,15 +966,21 @@ elements.removePhotoButton.addEventListener("click", async () => {
   }
 });
 
-elements.searchInput.addEventListener("input", renderRecordList);
-elements.typeFilter.addEventListener("change", renderRecordList);
-elements.statusFilter.addEventListener("change", renderRecordList);
-elements.themeFilter.addEventListener("change", renderRecordList);
-elements.neighborhoodFilter.addEventListener("change", renderRecordList);
-elements.visibilityFilter.addEventListener("change", renderRecordList);
+elements.typeFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
+elements.statusFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
+elements.themeFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
+elements.neighborhoodFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
+elements.visibilityFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
+elements.searchInput.addEventListener("input", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.exportButton.addEventListener("click", () => downloadJson("smith-robertson-records-backup.json", state.records));
 elements.seedDataButton.addEventListener("click", () => seedSampleData());
-elements.resetFormButton.addEventListener("click", resetForm);
+elements.resetFormButton.addEventListener("click", () => {
+  resetForm();
+  setActiveView("editor");
+});
+elements.browseCardsTab.addEventListener("click", () => setActiveView("cards"));
+elements.browseTableTab.addEventListener("click", () => setActiveView("table"));
+elements.editorTab.addEventListener("click", () => setActiveView("editor"));
 
 elements.importInput.addEventListener("change", async (event) => {
   const [file] = event.target.files || [];
