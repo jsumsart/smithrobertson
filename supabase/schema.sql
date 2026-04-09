@@ -93,11 +93,12 @@ using (true)
 with check (true);
 
 drop policy if exists "authenticated users can delete museum records" on public.museum_records;
-create policy "museum staff can delete museum records"
+drop policy if exists "museum staff can delete museum records" on public.museum_records;
+create policy "authenticated users can delete museum records"
 on public.museum_records
 for delete
 to authenticated
-using ((select public.is_museum_staff()));
+using (true);
 
 insert into storage.buckets (id, name, public)
 values ('museum-photos', 'museum-photos', false)

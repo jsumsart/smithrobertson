@@ -10,7 +10,7 @@ This app is now structured for a real web database:
 - user login with Supabase Auth
 - a museum records table in Supabase Postgres
 - direct image uploads to Supabase Storage
-- a first-class `Textile` record type
+- first-class `Textile` and `Newspaper / Periodical` record types
 - a simpler cataloging workflow focused on collections work rather than student lesson-writing
 - a separate public read-only catalog page for published records
 

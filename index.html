@@ -31,10 +31,6 @@
             the same records, upload object photos, and manage collections tied to
             African American history, Jackson history, and Farish Street.
           </p>
-          <div class="hero__actions">
-            <button id="seedDataButton" class="button button--primary">Load Sample Records</button>
-            <button id="exportButton" class="button button--ghost">Export JSON</button>
-          </div>
         </div>
 
         <section class="hero__panel" aria-label="Database summary">
@@ -132,6 +128,7 @@
                 <option value="Archive">Archive</option>
                 <option value="Photograph">Photograph</option>
                 <option value="Oral History">Oral History</option>
+                <option value="Newspaper / Periodical">Newspaper / Periodical</option>
                 <option value="Textile">Textile</option>
                 <option value="Exhibit">Exhibit</option>
               </select>
@@ -222,10 +219,16 @@
                 <p class="eyebrow">Workspace</p>
                 <h2>Collections Manager</h2>
               </div>
-              <div class="toolbar toolbar--tight">
-                <button id="browseCardsTab" class="button button--ghost is-active" type="button">Card View</button>
-                <button id="browseTableTab" class="button button--ghost" type="button">Table View</button>
-                <button id="editorTab" class="button button--ghost" type="button">Record Editor</button>
+              <div class="workspace-controls">
+                <div class="toolbar toolbar--tight">
+                  <button id="browseCardsTab" class="button button--ghost is-active" type="button">Card View</button>
+                  <button id="browseTableTab" class="button button--ghost" type="button">Table View</button>
+                  <button id="editorTab" class="button button--ghost" type="button">Record Editor</button>
+                </div>
+                <div class="toolbar toolbar--tight">
+                  <button id="exportButton" class="button button--ghost" type="button">Export JSON</button>
+                  <button id="exportCsvButton" class="button button--ghost" type="button">Download CSV</button>
+                </div>
               </div>
             </div>
 
@@ -301,6 +304,7 @@
                       <option value="Archive">Archive</option>
                       <option value="Photograph">Photograph</option>
                       <option value="Oral History">Oral History</option>
+                      <option value="Newspaper / Periodical">Newspaper / Periodical</option>
                       <option value="Textile">Textile</option>
                       <option value="Exhibit">Exhibit</option>
                     </select>

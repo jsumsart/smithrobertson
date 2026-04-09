@@ -162,9 +162,9 @@ const elements = {
   neighborhoodFilter: document.querySelector("#neighborhoodFilter"),
   visibilityFilter: document.querySelector("#visibilityFilter"),
   exportButton: document.querySelector("#exportButton"),
+  exportCsvButton: document.querySelector("#exportCsvButton"),
   importInput: document.querySelector("#importInput"),
   clearDataButton: document.querySelector("#clearDataButton"),
-  seedDataButton: document.querySelector("#seedDataButton"),
   resetFormButton: document.querySelector("#resetFormButton"),
   duplicateButton: document.querySelector("#duplicateButton"),
   presetTags: document.querySelector("#presetTags"),
@@ -818,6 +818,55 @@ function downloadJson(filename, data) {
   URL.revokeObjectURL(url);
 }
 
+function escapeCsv(value) {
+  const stringValue = Array.isArray(value) ? value.join("; ") : String(value ?? "");
+  if (/[",\n]/.test(stringValue)) {
+    return `"${stringValue.replace(/"/g, '""')}"`;
+  }
+  return stringValue;
+}
+
+function downloadCsv(filename, records) {
+  const columns = [
+    "accession_number",
+    "title",
+    "record_type",
+    "status",
+    "collection_name",
+    "location",
+    "historical_theme",
+    "neighborhood",
+    "time_period",
+    "people",
+    "donor",
+    "object_date",
+    "format_material",
+    "condition",
+    "rights_status",
+    "sensitivity",
+    "is_public",
+    "photo_credit",
+    "description",
+    "significance",
+    "provenance",
+    "notes",
+    "tags"
+  ];
+
+  const lines = [
+    columns.join(","),
+    ...records.map((record) => columns.map((column) => escapeCsv(record[column])).join(","))
+  ];
+
+  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
 function addPresetTag(tag) {
   const currentTags = normalizedTags(elements.tags.value);
   if (!currentTags.includes(tag)) {
@@ -973,11 +1022,13 @@ elements.neighborhoodFilter.addEventListener("change", () => renderViews().catch
 elements.visibilityFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.searchInput.addEventListener("input", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.exportButton.addEventListener("click", () => downloadJson("smith-robertson-records-backup.json", state.records));
-elements.seedDataButton.addEventListener("click", () => seedSampleData());
 elements.resetFormButton.addEventListener("click", () => {
   resetForm();
   setActiveView("editor");
 });
+elements.exportCsvButton.addEventListener("click", () =>
+  downloadCsv("smith-robertson-records.csv", getFilteredRecords())
+);
 elements.browseCardsTab.addEventListener("click", () => setActiveView("cards"));
 elements.browseTableTab.addEventListener("click", () => setActiveView("table"));
 elements.editorTab.addEventListener("click", () => setActiveView("editor"));
