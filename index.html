@@ -60,6 +60,32 @@
           </section>
 
           <section class="dashboard-sidebar__section">
+            <p class="dashboard-sidebar__section-label">Snapshot</p>
+            <div class="sidebar-stats">
+              <div class="sidebar-stat">
+                <span class="sidebar-stat__label">Total</span>
+                <strong id="totalRecordsMetric">0</strong>
+              </div>
+              <div class="sidebar-stat">
+                <span class="sidebar-stat__label">Published</span>
+                <strong id="publicMetric">0</strong>
+              </div>
+              <div class="sidebar-stat">
+                <span class="sidebar-stat__label">Review</span>
+                <strong id="reviewMetric">0</strong>
+              </div>
+              <div class="sidebar-stat">
+                <span class="sidebar-stat__label">Farish</span>
+                <strong id="farishMetric">0</strong>
+              </div>
+              <div class="sidebar-stat">
+                <span class="sidebar-stat__label">Textiles</span>
+                <strong id="textileMetric">0</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="dashboard-sidebar__section">
             <p class="dashboard-sidebar__section-label">Utilities</p>
             <div class="stack stack--column">
               <button id="exportButton" class="button button--ghost" type="button">Export JSON</button>
@@ -93,29 +119,6 @@
               add your Supabase project URL and anon key in <code>supabase-config.js</code> to enable shared sign-in and
               shared records.
             </span>
-          </section>
-
-          <section class="dashboard-metrics">
-            <article class="summary-card">
-              <span class="summary-card__label">Total Records</span>
-              <strong id="totalRecordsMetric">0</strong>
-            </article>
-            <article class="summary-card">
-              <span class="summary-card__label">Published</span>
-              <strong id="publicMetric">0</strong>
-            </article>
-            <article class="summary-card">
-              <span class="summary-card__label">Needs Review</span>
-              <strong id="reviewMetric">0</strong>
-            </article>
-            <article class="summary-card">
-              <span class="summary-card__label">Farish Street</span>
-              <strong id="farishMetric">0</strong>
-            </article>
-            <article class="summary-card">
-              <span class="summary-card__label">Textiles</span>
-              <strong id="textileMetric">0</strong>
-            </article>
           </section>
 
           <section class="workspace-tabs">
