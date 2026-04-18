@@ -130,6 +130,7 @@ const elements = {
   form: document.querySelector("#recordForm"),
   formHeading: document.querySelector("#formHeading"),
   recordsToolbar: document.querySelector("#recordsToolbar"),
+  workspaceTabs: document.querySelectorAll("[data-dashboard-tab]"),
   browseCardsTab: document.querySelector("#browseCardsTab"),
   browseTableTab: document.querySelector("#browseTableTab"),
   editorTab: document.querySelector("#editorTab"),
@@ -825,6 +826,15 @@ function setActiveView(view) {
 
   Object.entries(tabs).forEach(([key, node]) => {
     node.classList.toggle("is-active", key === view);
+  });
+
+  elements.workspaceTabs.forEach((button) => {
+    const tab = button.dataset.dashboardTab;
+    const active =
+      (tab === "catalog" && (view === "cards" || view === "table")) ||
+      (tab === "editor" && view === "editor") ||
+      (tab === "settings" && view === "settings");
+    button.classList.toggle("is-active", active);
   });
 
   if (view === "editor") {
@@ -1643,6 +1653,18 @@ elements.browseCardsTab.addEventListener("click", () => setActiveView("cards"));
 elements.browseTableTab.addEventListener("click", () => setActiveView("table"));
 elements.editorTab.addEventListener("click", () => setActiveView("editor"));
 elements.settingsTab.addEventListener("click", () => setActiveView("settings"));
+elements.workspaceTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    const tab = button.dataset.dashboardTab;
+    if (tab === "catalog") {
+      setActiveView("cards");
+    } else if (tab === "editor") {
+      setActiveView("editor");
+    } else if (tab === "settings") {
+      setActiveView("settings");
+    }
+  });
+});
 elements.addRecordTypeButton.addEventListener("click", () => {
   state.recordTypes.push({
     slug: `custom-type-${Date.now()}`,

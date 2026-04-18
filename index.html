@@ -14,31 +14,27 @@
   </head>
   <body>
     <div class="page-shell">
-      <nav class="topbar">
-        <a id="topbarBrand" class="topbar__brand" href="./index.html">Smith Robertson Collections</a>
-        <div class="topbar__links">
-          <a class="topbar__link" href="./index.html" aria-current="page">Catalog Manager</a>
-          <a class="topbar__link" href="./catalog.html">Public Catalog</a>
-        </div>
-      </nav>
-
       <main class="app-shell">
-        <aside class="app-rail">
-          <section class="app-rail__section">
-            <p class="eyebrow">Navigation</p>
-            <div class="app-rail__nav">
-              <button id="browseCardsTab" class="button button--ghost is-active app-rail__nav-button" type="button">Records Board</button>
-              <button id="browseTableTab" class="button button--ghost app-rail__nav-button" type="button">Records Table</button>
-              <button id="editorTab" class="button button--ghost app-rail__nav-button" type="button">Record Editor</button>
-              <button id="settingsTab" class="button button--ghost app-rail__nav-button" type="button">Settings</button>
-              <a class="button button--ghost app-rail__nav-button" href="./catalog.html">Public Catalog</a>
-            </div>
+        <aside class="dashboard-sidebar">
+          <div class="dashboard-sidebar__brand">
+            <p class="dashboard-sidebar__label">Museum CMS</p>
+            <a id="topbarBrand" class="dashboard-sidebar__title" href="./index.html">Smith Robertson Collections</a>
+          </div>
+
+          <section class="dashboard-sidebar__section">
+            <p class="dashboard-sidebar__section-label">Catalog</p>
+            <nav class="dashboard-sidebar__nav">
+              <button id="browseCardsTab" class="dashboard-nav-item is-active" type="button">Records Board</button>
+              <button id="browseTableTab" class="dashboard-nav-item" type="button">Records Table</button>
+              <button id="editorTab" class="dashboard-nav-item" type="button">Record Editor</button>
+              <button id="settingsTab" class="dashboard-nav-item" type="button">Settings</button>
+              <a class="dashboard-nav-item" href="./catalog.html">Public Catalog</a>
+            </nav>
           </section>
 
-          <section class="app-rail__section" id="authPanel">
-            <p class="eyebrow">Account</p>
+          <section class="dashboard-sidebar__section" id="authPanel">
+            <p class="dashboard-sidebar__section-label">Account</p>
             <div id="signedOutView">
-              <h2>Sign In</h2>
               <form id="authForm" class="auth-form">
                 <label class="field">
                   <span>Email</span>
@@ -48,7 +44,7 @@
                   <span>Password</span>
                   <input id="passwordInput" type="password" autocomplete="current-password" required />
                 </label>
-                <div class="stack">
+                <div class="stack stack--column">
                   <button type="submit" class="button button--primary">Sign In</button>
                   <button type="button" id="signUpButton" class="button button--ghost">Create Account</button>
                 </div>
@@ -56,15 +52,15 @@
             </div>
             <div id="signedInView" hidden>
               <p class="auth-email" id="currentUserEmail"></p>
-              <div class="stack">
+              <div class="stack stack--column">
                 <button id="signOutButton" class="button button--ghost">Sign Out</button>
               </div>
             </div>
             <p id="authMessage" class="help-text"></p>
           </section>
 
-          <section class="app-rail__section">
-            <p class="eyebrow">Quick Actions</p>
+          <section class="dashboard-sidebar__section">
+            <p class="dashboard-sidebar__section-label">Utilities</p>
             <div class="stack stack--column">
               <button id="exportButton" class="button button--ghost" type="button">Export JSON</button>
               <button id="exportCsvButton" class="button button--ghost" type="button">Download CSV</button>
@@ -77,37 +73,17 @@
           </section>
         </aside>
 
-        <section class="app-main">
-          <header class="workspace-header card">
-            <div class="workspace-header__copy">
-              <p id="heroEyebrow" class="eyebrow">Collections Platform</p>
-              <h1 id="heroHeadline">Manage records, metadata, and public publishing from one place.</h1>
+        <section class="dashboard-main">
+          <header class="dashboard-header">
+            <div class="dashboard-header__copy">
+              <p id="heroEyebrow" class="eyebrow">Collections Dashboard</p>
+              <h1 id="heroHeadline">Collections Dashboard</h1>
               <p id="heroIntro" class="hero__lede">
-                A shared museum database for internal cataloging and public publishing. Use the manager to maintain
-                records, media, taxonomies, and site settings with one connected workflow.
+                Manage records, metadata, media, and public publishing from a shared museum workspace.
               </p>
             </div>
-            <div class="workspace-metrics">
-              <div class="metric">
-                <span class="metric__label">Total Records</span>
-                <strong id="totalRecordsMetric">0</strong>
-              </div>
-              <div class="metric">
-                <span class="metric__label">Published</span>
-                <strong id="publicMetric">0</strong>
-              </div>
-              <div class="metric">
-                <span class="metric__label">Needs Review</span>
-                <strong id="reviewMetric">0</strong>
-              </div>
-              <div class="metric">
-                <span class="metric__label">Farish Street</span>
-                <strong id="farishMetric">0</strong>
-              </div>
-              <div class="metric">
-                <span class="metric__label">Textiles</span>
-                <strong id="textileMetric">0</strong>
-              </div>
+            <div class="dashboard-header__actions">
+              <a class="button button--ghost" href="./catalog.html">Open Public Catalog</a>
             </div>
           </header>
 
@@ -119,8 +95,37 @@
             </span>
           </section>
 
-          <section class="card workspace-surface">
-            <div class="surface-header">
+          <section class="dashboard-metrics">
+            <article class="summary-card">
+              <span class="summary-card__label">Total Records</span>
+              <strong id="totalRecordsMetric">0</strong>
+            </article>
+            <article class="summary-card">
+              <span class="summary-card__label">Published</span>
+              <strong id="publicMetric">0</strong>
+            </article>
+            <article class="summary-card">
+              <span class="summary-card__label">Needs Review</span>
+              <strong id="reviewMetric">0</strong>
+            </article>
+            <article class="summary-card">
+              <span class="summary-card__label">Farish Street</span>
+              <strong id="farishMetric">0</strong>
+            </article>
+            <article class="summary-card">
+              <span class="summary-card__label">Textiles</span>
+              <strong id="textileMetric">0</strong>
+            </article>
+          </section>
+
+          <section class="workspace-tabs">
+            <button class="workspace-tab is-active" type="button" data-dashboard-tab="catalog">Catalog</button>
+            <button class="workspace-tab" type="button" data-dashboard-tab="editor">Editor</button>
+            <button class="workspace-tab" type="button" data-dashboard-tab="settings">Settings</button>
+          </section>
+
+          <section class="workspace-panel">
+            <div class="workspace-panel__header">
               <div>
                 <p class="eyebrow">Collections Manager</p>
                 <h2>Catalog Workspace</h2>
@@ -128,47 +133,47 @@
             </div>
 
             <div id="recordsToolbar" class="records-toolbar">
-                <div class="records-toolbar__search">
-                  <label class="field">
-                    <span>Search</span>
-                    <input id="searchInput" type="search" placeholder="Search titles, people, neighborhoods, themes..." />
-                  </label>
-                </div>
-                <div class="records-toolbar__filters">
-                  <label class="field">
-                    <span>Type</span>
-                    <select id="typeFilter">
-                      <option value="all">All types</option>
-                      <option value="Artifact">Artifact</option>
-                      <option value="Archive">Archive</option>
-                      <option value="Photograph">Photograph</option>
-                      <option value="Oral History">Oral History</option>
-                      <option value="Newspaper / Periodical">Newspaper / Periodical</option>
-                      <option value="Textile">Textile</option>
-                      <option value="Exhibit">Exhibit</option>
-                    </select>
-                  </label>
-                  <label class="field">
-                    <span>Status</span>
-                    <select id="statusFilter"></select>
-                  </label>
-                  <label class="field">
-                    <span>Theme</span>
-                    <select id="themeFilter"></select>
-                  </label>
-                  <label class="field">
-                    <span>Neighborhood</span>
-                    <select id="neighborhoodFilter"></select>
-                  </label>
-                  <label class="field">
-                    <span>Visibility</span>
-                    <select id="visibilityFilter">
-                      <option value="all">All records</option>
-                      <option value="public">Public catalog</option>
-                      <option value="private">Internal only</option>
-                    </select>
-                  </label>
-                </div>
+              <div class="records-toolbar__search">
+                <label class="field">
+                  <span>Search</span>
+                  <input id="searchInput" type="search" placeholder="Search titles, people, neighborhoods, themes..." />
+                </label>
+              </div>
+              <div class="records-toolbar__filters">
+                <label class="field">
+                  <span>Type</span>
+                  <select id="typeFilter">
+                    <option value="all">All types</option>
+                    <option value="Artifact">Artifact</option>
+                    <option value="Archive">Archive</option>
+                    <option value="Photograph">Photograph</option>
+                    <option value="Oral History">Oral History</option>
+                    <option value="Newspaper / Periodical">Newspaper / Periodical</option>
+                    <option value="Textile">Textile</option>
+                    <option value="Exhibit">Exhibit</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Status</span>
+                  <select id="statusFilter"></select>
+                </label>
+                <label class="field">
+                  <span>Theme</span>
+                  <select id="themeFilter"></select>
+                </label>
+                <label class="field">
+                  <span>Neighborhood</span>
+                  <select id="neighborhoodFilter"></select>
+                </label>
+                <label class="field">
+                  <span>Visibility</span>
+                  <select id="visibilityFilter">
+                    <option value="all">All records</option>
+                    <option value="public">Public catalog</option>
+                    <option value="private">Internal only</option>
+                  </select>
+                </label>
+              </div>
             </div>
 
             <section id="cardsView" class="panel-view panel-view--active">
