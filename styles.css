@@ -1139,6 +1139,74 @@ h2 {
   padding: 1rem;
 }
 
+.archive-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.archive-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow);
+}
+
+.archive-row__media {
+  min-height: 120px;
+}
+
+.archive-row__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #f3eee7;
+}
+
+.archive-row__body {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.archive-row__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.archive-row__meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.archive-row__body h3 {
+  margin: 0;
+  font-family: var(--catalog-display-font, "Fraunces", serif);
+  font-size: 1.6rem;
+}
+
+.archive-row__description {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.archive-row__badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .file-button {
   position: relative;
   overflow: hidden;
@@ -1240,6 +1308,8 @@ h2 {
   .slideshow-panel__header,
   .slideshow-panel__controls,
   .archive-toolbar,
+  .archive-row,
+  .archive-row__top,
   .theme-token-grid,
   .taxonomy-card__header,
   .taxonomy-card__controls,

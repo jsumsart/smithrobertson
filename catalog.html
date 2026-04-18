@@ -106,7 +106,7 @@
           </section>
 
           <p id="catalogStatus" class="help-text"></p>
-          <section id="catalogList" class="catalog-grid" aria-live="polite"></section>
+          <section id="catalogList" class="archive-list" aria-live="polite"></section>
         </section>
       </main>
     </div>
@@ -119,6 +119,23 @@
           <h3></h3>
           <p class="catalog-card__description"></p>
           <p class="catalog-card__significance"></p>
+          <div class="tag-list"></div>
+        </div>
+      </article>
+    </template>
+
+    <template id="archiveRowTemplate">
+      <article class="archive-row">
+        <div class="archive-row__media">
+          <img class="archive-row__image" alt="" hidden />
+        </div>
+        <div class="archive-row__body">
+          <div class="archive-row__top">
+            <p class="archive-row__meta"></p>
+            <div class="archive-row__badges"></div>
+          </div>
+          <h3></h3>
+          <p class="archive-row__description"></p>
           <div class="tag-list"></div>
         </div>
       </article>

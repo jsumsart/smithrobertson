@@ -45,6 +45,7 @@ const elements = {
   slideshowPrev: document.querySelector("#slideshowPrev"),
   slideshowNext: document.querySelector("#slideshowNext"),
   template: document.querySelector("#catalogCardTemplate"),
+  archiveRowTemplate: document.querySelector("#archiveRowTemplate"),
   slideshowTemplate: document.querySelector("#slideshowTemplate")
 };
 
@@ -222,7 +223,39 @@ async function renderArchive() {
   }
 
   for (const record of records) {
-    await populateCatalogCard(elements.list, record);
+    const fragment = elements.archiveRowTemplate.content.cloneNode(true);
+    const image = fragment.querySelector(".archive-row__image");
+    const title = fragment.querySelector("h3");
+    const meta = fragment.querySelector(".archive-row__meta");
+    const description = fragment.querySelector(".archive-row__description");
+    const badges = fragment.querySelector(".archive-row__badges");
+    const tags = fragment.querySelector(".tag-list");
+
+    title.textContent = record.title;
+    meta.textContent = [
+      record.accession_number,
+      record.record_type,
+      record.neighborhood,
+      record.time_period || record.object_date
+    ]
+      .filter(Boolean)
+      .join(" • ");
+    description.textContent = record.description || "No description available.";
+    tags.replaceChildren(createTagElements(record.tags));
+
+    const themeBadge = document.createElement("span");
+    themeBadge.className = "pill";
+    themeBadge.textContent = record.historical_theme || "General";
+    badges.appendChild(themeBadge);
+
+    const resolvedPhotoUrl = await resolvePublicPhotoUrl(record);
+    if (resolvedPhotoUrl) {
+      image.hidden = false;
+      image.src = resolvedPhotoUrl;
+      image.alt = `${record.title} image`;
+    }
+
+    elements.list.appendChild(fragment);
   }
 }
 

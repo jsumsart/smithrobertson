@@ -754,6 +754,17 @@ async function saveSiteSettings() {
 
   const { error } = await state.supabase.from("site_settings").upsert(payload);
   if (error) {
+    if (
+      error.message?.includes("public_featured_accessions") ||
+      error.message?.includes("public_slideshow_accessions") ||
+      error.message?.includes("public_gallery_title") ||
+      error.message?.includes("public_gallery_intro") ||
+      error.message?.includes("public_font_theme")
+    ) {
+      throw new Error(
+        "The public-site editor needs the latest Supabase schema. Re-run supabase/schema.sql once, then try saving again."
+      );
+    }
     throw error;
   }
 
