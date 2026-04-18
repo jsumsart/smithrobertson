@@ -1314,22 +1314,179 @@ async function seedSampleData() {
 }
 
 async function importRecords(file) {
-  const imported = JSON.parse(await file.text());
-  if (!Array.isArray(imported)) {
-    throw new Error("Import file must be an array of records.");
+  const fileName = (file?.name || "").toLowerCase();
+  const fileText = await file.text();
+
+  let imported;
+
+  if (fileName.endsWith(".json") || file.type === "application/json") {
+    imported = JSON.parse(fileText);
+    if (!Array.isArray(imported)) {
+      throw new Error("Import JSON must be an array of records.");
+    }
+  } else if (fileName.endsWith(".csv") || file.type === "text/csv") {
+    imported = parseCsvRecords(fileText);
+    if (!Array.isArray(imported) || !imported.length) {
+      throw new Error("CSV file did not contain any records.");
+    }
+  } else {
+    throw new Error("Unsupported file type. Please upload a CSV or JSON file.");
   }
 
-  const payload = imported.map((record) => ({
-    ...record,
-    photo_path: record.photo_path || "",
-    is_public: Boolean(record.is_public),
-    updated_by: state.currentUser?.email || record.updated_by || null
-  }));
+  const payload = imported.map((record) => normalizeImportedRecord(record));
 
-  const { error } = await state.supabase.from("museum_records").upsert(payload, { onConflict: "accession_number" });
+  const { error } = await state.supabase.from("museum_records").upsert(payload, {
+    onConflict: "accession_number"
+  });
+
   if (error) {
     throw error;
   }
+}
+
+function normalizeImportedRecord(record) {
+  return {
+    id: record.id || crypto.randomUUID(),
+    accession_number: String(record.accession_number || "").trim(),
+    title: String(record.title || "").trim(),
+    record_type: String(record.record_type || "Artifact").trim(),
+    status: String(record.status || "In Storage").trim(),
+    collection_name: String(record.collection_name || "").trim(),
+    location: String(record.location || "").trim(),
+    historical_theme: String(record.historical_theme || "").trim(),
+    neighborhood: String(record.neighborhood || "").trim(),
+    time_period: String(record.time_period || "").trim(),
+    people: String(record.people || "").trim(),
+    donor: String(record.donor || "").trim(),
+    object_date: String(record.object_date || "").trim(),
+    format_material: String(record.format_material || "").trim(),
+    condition: String(record.condition || "").trim(),
+    rights_status: String(record.rights_status || "").trim(),
+    sensitivity: String(record.sensitivity || "").trim(),
+    photo_url: String(record.photo_url || "").trim(),
+    photo_path: String(record.photo_path || "").trim(),
+    photo_credit: String(record.photo_credit || "").trim(),
+    description: String(record.description || "").trim(),
+    significance: String(record.significance || "").trim(),
+    provenance: String(record.provenance || "").trim(),
+    notes: String(record.notes || "").trim(),
+    is_public: parseBoolean(record.is_public),
+    tags: normalizeImportedTags(record.tags),
+    updated_by: state.currentUser?.email || record.updated_by || null
+  };
+}
+
+function normalizeImportedTags(value) {
+  if (Array.isArray(value)) {
+    return value.map((tag) => String(tag).trim()).filter(Boolean);
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split(/[;,]/)
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+function parseBoolean(value) {
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  const normalized = String(value ?? "")
+    .trim()
+    .toLowerCase();
+
+  return ["true", "1", "yes", "y"].includes(normalized);
+}
+
+function parseCsvRecords(csvText) {
+  const rows = parseCsv(csvText);
+
+  if (!rows.length) {
+    return [];
+  }
+
+  const headers = rows[0].map((header) => String(header || "").trim());
+  const requiredHeaders = ["accession_number", "title"];
+
+  for (const requiredHeader of requiredHeaders) {
+    if (!headers.includes(requiredHeader)) {
+      throw new Error(`CSV is missing required column: ${requiredHeader}`);
+    }
+  }
+
+  return rows
+    .slice(1)
+    .filter((row) => row.some((cell) => String(cell || "").trim() !== ""))
+    .map((row, index) => {
+      const record = {};
+
+      headers.forEach((header, columnIndex) => {
+        record[header] = row[columnIndex] ?? "";
+      });
+
+      if (!String(record.accession_number || "").trim()) {
+        throw new Error(`CSV row ${index + 2} is missing accession_number.`);
+      }
+
+      if (!String(record.title || "").trim()) {
+        throw new Error(`CSV row ${index + 2} is missing title.`);
+      }
+
+      return record;
+    });
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let inQuotes = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    const nextChar = text[index + 1];
+
+    if (char === '"') {
+      if (inQuotes && nextChar === '"') {
+        value += '"';
+        index += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      row.push(value);
+      value = "";
+      continue;
+    }
+
+    if ((char === "\n" || char === "\r") && !inQuotes) {
+      if (char === "\r" && nextChar === "\n") {
+        index += 1;
+      }
+      row.push(value);
+      rows.push(row);
+      row = [];
+      value = "";
+      continue;
+    }
+
+    value += char;
+  }
+
+  if (value.length || row.length) {
+    row.push(value);
+    rows.push(row);
+  }
+
+  return rows;
 }
 
 function downloadJson(filename, data) {
