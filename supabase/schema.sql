@@ -229,6 +229,7 @@ to authenticated
 using (true);
 
 drop policy if exists "authenticated users can upsert site settings" on public.site_settings;
+drop policy if exists "platform admins can manage site settings" on public.site_settings;
 create policy "platform admins can manage site settings"
 on public.site_settings
 for all
@@ -251,6 +252,7 @@ to authenticated
 using (true);
 
 drop policy if exists "authenticated users can manage record type definitions" on public.record_type_definitions;
+drop policy if exists "platform admins can manage record type definitions" on public.record_type_definitions;
 create policy "platform admins can manage record type definitions"
 on public.record_type_definitions
 for all
