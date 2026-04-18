@@ -136,41 +136,17 @@
 
             <label class="field">
               <span>Status</span>
-              <select id="statusFilter">
-                <option value="all">All statuses</option>
-                <option value="In Storage">In Storage</option>
-                <option value="On Display">On Display</option>
-                <option value="Digitized">Digitized</option>
-                <option value="Needs Review">Needs Review</option>
-                <option value="In Research">In Research</option>
-              </select>
+              <select id="statusFilter"></select>
             </label>
 
             <label class="field">
               <span>Historical Theme</span>
-              <select id="themeFilter">
-                <option value="all">All themes</option>
-                <option value="African American Education">African American Education</option>
-                <option value="Civil Rights">Civil Rights</option>
-                <option value="Farish Street Business District">Farish Street Business District</option>
-                <option value="Faith And Community Life">Faith And Community Life</option>
-                <option value="Arts And Culture">Arts And Culture</option>
-                <option value="Civic Leadership">Civic Leadership</option>
-                <option value="Family And Neighborhood Life">Family And Neighborhood Life</option>
-              </select>
+              <select id="themeFilter"></select>
             </label>
 
             <label class="field">
               <span>Neighborhood</span>
-              <select id="neighborhoodFilter">
-                <option value="all">All neighborhoods</option>
-                <option value="Farish Street">Farish Street</option>
-                <option value="Downtown Jackson">Downtown Jackson</option>
-                <option value="Smith Robertson Campus">Smith Robertson Campus</option>
-                <option value="West Jackson">West Jackson</option>
-                <option value="Belhaven">Belhaven</option>
-                <option value="Statewide Mississippi">Statewide Mississippi</option>
-              </select>
+              <select id="neighborhoodFilter"></select>
             </label>
 
             <label class="field">
@@ -184,17 +160,13 @@
           </section>
 
           <section class="card">
-            <h2>Suggested Tags</h2>
-            <div id="presetTags" class="chip-grid">
-              <button class="chip" type="button" data-tag="Farish Street">Farish Street</button>
-              <button class="chip" type="button" data-tag="Jackson history">Jackson history</button>
-              <button class="chip" type="button" data-tag="African American education">African American education</button>
-              <button class="chip" type="button" data-tag="civil rights">civil rights</button>
-              <button class="chip" type="button" data-tag="church life">church life</button>
-              <button class="chip" type="button" data-tag="business history">business history</button>
-              <button class="chip" type="button" data-tag="oral history">oral history</button>
-              <button class="chip" type="button" data-tag="textiles">textiles</button>
+            <div class="section-heading">
+              <div>
+                <h2>Suggested Tags</h2>
+                <p class="help-text">Admin-managed keywords for faster cataloging.</p>
+              </div>
             </div>
+            <div id="presetTags" class="chip-grid"></div>
           </section>
 
           <section class="card">
@@ -300,25 +272,11 @@
                   </label>
                   <label class="field">
                     <span>Record Type</span>
-                    <select id="recordType" required>
-                      <option value="Artifact">Artifact</option>
-                      <option value="Archive">Archive</option>
-                      <option value="Photograph">Photograph</option>
-                      <option value="Oral History">Oral History</option>
-                      <option value="Newspaper / Periodical">Newspaper / Periodical</option>
-                      <option value="Textile">Textile</option>
-                      <option value="Exhibit">Exhibit</option>
-                    </select>
+                    <select id="recordType" required></select>
                   </label>
                   <label class="field">
                     <span>Status</span>
-                    <select id="recordStatus" required>
-                      <option value="In Storage">In Storage</option>
-                      <option value="On Display">On Display</option>
-                      <option value="Digitized">Digitized</option>
-                      <option value="Needs Review">Needs Review</option>
-                      <option value="In Research">In Research</option>
-                    </select>
+                    <select id="recordStatus" required></select>
                   </label>
                   <label class="field">
                     <span>Collection</span>
@@ -339,28 +297,11 @@
                 <div class="form-grid">
                   <label class="field">
                     <span>Historical Theme</span>
-                    <select id="historicalTheme">
-                      <option value="">Select a theme</option>
-                      <option value="African American Education">African American Education</option>
-                      <option value="Civil Rights">Civil Rights</option>
-                      <option value="Farish Street Business District">Farish Street Business District</option>
-                      <option value="Faith And Community Life">Faith And Community Life</option>
-                      <option value="Arts And Culture">Arts And Culture</option>
-                      <option value="Civic Leadership">Civic Leadership</option>
-                      <option value="Family And Neighborhood Life">Family And Neighborhood Life</option>
-                    </select>
+                    <select id="historicalTheme"></select>
                   </label>
                   <label class="field">
                     <span>Neighborhood / Place</span>
-                    <select id="neighborhood">
-                      <option value="">Select a place</option>
-                      <option value="Farish Street">Farish Street</option>
-                      <option value="Downtown Jackson">Downtown Jackson</option>
-                      <option value="Smith Robertson Campus">Smith Robertson Campus</option>
-                      <option value="West Jackson">West Jackson</option>
-                      <option value="Belhaven">Belhaven</option>
-                      <option value="Statewide Mississippi">Statewide Mississippi</option>
-                    </select>
+                    <select id="neighborhood"></select>
                   </label>
                   <label class="field">
                     <span>Time Period</span>
@@ -405,32 +346,15 @@
                   </label>
                   <label class="field">
                     <span>Condition</span>
-                    <select id="condition">
-                      <option value="">Select condition</option>
-                      <option value="Excellent">Excellent</option>
-                      <option value="Stable">Stable</option>
-                      <option value="Fragile">Fragile</option>
-                      <option value="Needs Conservation">Needs Conservation</option>
-                    </select>
+                    <select id="condition"></select>
                   </label>
                   <label class="field">
                     <span>Rights / Usage</span>
-                    <select id="rights">
-                      <option value="">Select rights status</option>
-                      <option value="Museum Use Only">Museum Use Only</option>
-                      <option value="Educational Use Approved">Educational Use Approved</option>
-                      <option value="Public Domain">Public Domain</option>
-                      <option value="Rights Unknown">Rights Unknown</option>
-                    </select>
+                    <select id="rights"></select>
                   </label>
                   <label class="field">
                     <span>Sensitivity</span>
-                    <select id="sensitivity">
-                      <option value="">Select sensitivity</option>
-                      <option value="Open Access">Open Access</option>
-                      <option value="Review Before Public Display">Review Before Public Display</option>
-                      <option value="Restricted">Restricted</option>
-                    </select>
+                    <select id="sensitivity"></select>
                   </label>
                   <div class="field field--wide">
                     <span>Public Catalog Visibility</span>
@@ -488,11 +412,15 @@
             <section id="settingsView" class="panel-view" hidden>
               <div class="section-heading">
                 <div>
-                  <p class="eyebrow">Admin Settings</p>
-                  <h2>Brand, Public Site, And Record Types</h2>
+                  <p class="eyebrow">Platform Admin</p>
+                  <h2>Brand, Metadata, And Public Catalog Controls</h2>
                 </div>
-                <span class="pill">Whitelabel Controls</span>
+                <span class="pill">Admin Only</span>
               </div>
+              <section id="settingsAdminNotice" class="setup-banner" hidden>
+                <strong>Platform admin required:</strong>
+                <span>Only users with <code>platform_role = admin</code> can manage branding, taxonomies, and record types.</span>
+              </section>
 
               <form id="siteSettingsForm" class="record-form">
                 <section class="form-section">
@@ -553,11 +481,25 @@
                   <div class="section-heading">
                     <div>
                       <p class="eyebrow">Record Types</p>
-                      <h3>Enabled Categories</h3>
+                      <h3>Enabled Primary Categories</h3>
                     </div>
                     <button id="addRecordTypeButton" type="button" class="button button--ghost">Add Type</button>
                   </div>
                   <div id="recordTypeSettingsList" class="settings-list"></div>
+                </section>
+
+                <section class="form-section">
+                  <div class="section-heading">
+                    <div>
+                      <p class="eyebrow">Taxonomies</p>
+                      <h3>Controlled Metadata Vocabularies</h3>
+                    </div>
+                    <span class="pill">Statuses, themes, places, rights, tags</span>
+                  </div>
+                  <p class="help-text">
+                    These vocabularies drive filters, editor dropdowns, and tag suggestions across the product.
+                  </p>
+                  <div id="taxonomySettingsList" class="taxonomy-settings"></div>
                 </section>
 
                 <div class="form-actions">

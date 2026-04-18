@@ -526,6 +526,11 @@ h2 {
   gap: 1rem;
 }
 
+.taxonomy-settings {
+  display: grid;
+  gap: 1.1rem;
+}
+
 .settings-row {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(140px, 180px) minmax(180px, 220px);
@@ -537,6 +542,51 @@ h2 {
 }
 
 .settings-row__toggle {
+  align-self: end;
+}
+
+.taxonomy-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.taxonomy-card__header,
+.taxonomy-card__controls,
+.taxonomy-term-row {
+  display: grid;
+  gap: 1rem;
+}
+
+.taxonomy-card__header {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.taxonomy-card__controls {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(260px, 320px);
+}
+
+.taxonomy-terms {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.taxonomy-term-row {
+  grid-template-columns: minmax(0, 2fr) minmax(140px, 180px) minmax(180px, 220px);
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--line);
+}
+
+.taxonomy-term-row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.taxonomy-term-row__toggle {
   align-self: end;
 }
 
@@ -652,6 +702,9 @@ h2 {
     display: grid;
   }
 
+  .taxonomy-card__header,
+  .taxonomy-card__controls,
+  .taxonomy-term-row,
   .settings-row,
   .form-grid,
   .record-card__details {

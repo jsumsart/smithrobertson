@@ -1,10 +1,20 @@
 import { createBrowserClient, isSupabaseReady } from "./supabase-client.js";
-import { applyTheme, defaultRecordTypes, defaultSiteSettings, sortRecordTypes } from "./platform-config.js";
+import {
+  applyTheme,
+  defaultRecordTypes,
+  defaultSiteSettings,
+  defaultTaxonomyGroups,
+  defaultTaxonomyTerms,
+  sortRecordTypes,
+  sortTaxonomyEntries
+} from "./platform-config.js";
 
 const state = {
   records: [],
   siteSettings: { ...defaultSiteSettings },
   recordTypes: [...defaultRecordTypes],
+  taxonomyGroups: [...defaultTaxonomyGroups],
+  taxonomyTerms: [...defaultTaxonomyTerms],
   supabase: createBrowserClient()
 };
 
@@ -28,7 +38,7 @@ function setStatus(message, isError = false) {
 
 function createTagElements(tags) {
   const fragment = document.createDocumentFragment();
-  const values = tags?.length ? tags : ["Smith Robertson"];
+  const values = tags?.length ? tags : ["museum catalog"];
 
   for (const value of values) {
     const span = document.createElement("span");
@@ -76,6 +86,29 @@ function renderRecordTypeFilter() {
   }
 
   elements.type.value = [...elements.type.options].some((option) => option.value === currentValue) ? currentValue : "all";
+}
+
+function getEnabledTaxonomyTerms(groupSlug) {
+  return sortTaxonomyEntries(state.taxonomyTerms).filter((term) => term.group_slug === groupSlug && term.enabled);
+}
+
+function renderThemeFilter() {
+  const currentValue = elements.theme.value;
+  elements.theme.replaceChildren();
+
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "All themes";
+  elements.theme.appendChild(allOption);
+
+  for (const term of getEnabledTaxonomyTerms("historical-theme")) {
+    const option = document.createElement("option");
+    option.value = term.label;
+    option.textContent = term.label;
+    elements.theme.appendChild(option);
+  }
+
+  elements.theme.value = [...elements.theme.options].some((option) => option.value === currentValue) ? currentValue : "all";
 }
 
 function getFilteredRecords() {
@@ -153,10 +186,18 @@ async function loadCatalog() {
     return;
   }
 
-  const [{ data: settingsData, error: settingsError }, { data: typesData, error: typesError }, { data, error }] =
+  const [
+    { data: settingsData, error: settingsError },
+    { data: typesData, error: typesError },
+    { data: groupsData, error: groupsError },
+    { data: termsData, error: termsError },
+    { data, error }
+  ] =
     await Promise.all([
       state.supabase.from("site_settings").select("*").eq("id", "default").maybeSingle(),
       state.supabase.from("record_type_definitions").select("*").order("sort_order"),
+      state.supabase.from("taxonomy_groups").select("*").order("sort_order"),
+      state.supabase.from("taxonomy_terms").select("*").order("sort_order"),
       state.supabase.from("museum_records").select("*").eq("is_public", true).order("updated_at", { ascending: false })
     ]);
 
@@ -187,10 +228,13 @@ async function loadCatalog() {
         sort_order: type.sort_order
       }))
     : [...defaultRecordTypes];
+  state.taxonomyGroups = groupsError || !groupsData?.length ? [...defaultTaxonomyGroups] : groupsData;
+  state.taxonomyTerms = termsError || !termsData?.length ? [...defaultTaxonomyTerms] : termsData;
   state.records = data || [];
   applyCatalogSettings();
   renderRecordTypeFilter();
-  setStatus("Showing public Smith Robertson records.");
+  renderThemeFilter();
+  setStatus("Showing published records from the public catalog.");
   await renderCatalog();
 }
 

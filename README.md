@@ -14,6 +14,7 @@ This app is now structured for a real web database:
 - a simpler cataloging workflow focused on collections work rather than student lesson-writing
 - a separate public read-only catalog page for published records
 - admin-managed site settings and configurable record types
+- admin-managed taxonomies for statuses, themes, places, rights, condition, sensitivity, and suggested tags
 
 ## Hosting model
 
@@ -33,7 +34,7 @@ That means the site can still be deployed from GitHub, but the shared data is st
 - [supabase-client.js](/Users/Birittany/Documents/SmithRobertson/supabase-client.js): shared browser client helper
 - [supabase-config.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.js): your local project URL and anon key
 - [supabase-config.example.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.example.js): template for config
-- [supabase/schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql): SQL for records, site settings, record type definitions, and policies
+- [supabase/schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql): SQL for records, site settings, record type definitions, taxonomies, and policies
 
 ## Supabase setup
 
@@ -45,7 +46,15 @@ That means the site can still be deployed from GitHub, but the shared data is st
 6. Push the updated site to GitHub Pages.
 
 The SQL file also creates the public `museum-photos` storage bucket and the storage policies used by the upload flow.
-It now also creates `site_settings` and `record_type_definitions`, which power the admin-controlled branding and category system.
+It now also creates `site_settings`, `record_type_definitions`, `taxonomy_groups`, and `taxonomy_terms`, which power the admin-controlled branding and metadata system.
+
+## Admin access
+
+- users can catalog records with a normal authenticated account
+- platform settings now require `app_metadata.platform_role = "admin"`
+- record-wide destructive tools can still be separated further with museum staff metadata
+
+If your Settings tab disappears after this update, the frontend is working as intended and your account just needs platform-admin metadata in Supabase.
 
 ## Important note about config
 
@@ -55,13 +64,13 @@ Do not put a `service_role` key in this repo or in frontend code.
 
 ## Current limitations
 
-- all authenticated users currently share the same edit permissions
-- there is not yet an admin approval workflow beyond the public visibility toggle
+- record editing is shared, but full workflow roles like `editor` and `reviewer` are not implemented yet
+- the whitelabel model is still single-site rather than true multi-organization tenancy
+- custom metadata groups are currently focused on the core catalog fields already in the app
 - bulk CSV import is not implemented yet
-- the whitelabel model is currently single-site rather than true multi-organization tenancy
 
 ## Best next upgrades
 
-- staff/admin roles and approval workflow
+- editor/reviewer/admin workflow and approvals
 - bulk CSV import
 - dedicated people, places, and exhibitions tables

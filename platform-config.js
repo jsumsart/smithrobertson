@@ -23,6 +23,98 @@ export const defaultRecordTypes = [
   { slug: "exhibit", label: "Exhibit", enabled: true, sort_order: 70 }
 ];
 
+export const defaultTaxonomyGroups = [
+  {
+    slug: "status",
+    label: "Statuses",
+    description: "Workflow and storage status options for records.",
+    public_visible: false,
+    sort_order: 10
+  },
+  {
+    slug: "historical-theme",
+    label: "Themes",
+    description: "Themes used for filtering and interpretation.",
+    public_visible: true,
+    sort_order: 20
+  },
+  {
+    slug: "neighborhood",
+    label: "Places",
+    description: "Neighborhoods, campuses, or geographic contexts.",
+    public_visible: true,
+    sort_order: 30
+  },
+  {
+    slug: "rights-status",
+    label: "Rights",
+    description: "Usage and rights statements.",
+    public_visible: false,
+    sort_order: 40
+  },
+  {
+    slug: "condition",
+    label: "Condition",
+    description: "Condition and conservation states for records.",
+    public_visible: false,
+    sort_order: 45
+  },
+  {
+    slug: "sensitivity",
+    label: "Sensitivity",
+    description: "Internal/public sensitivity levels.",
+    public_visible: false,
+    sort_order: 50
+  },
+  {
+    slug: "suggested-tag",
+    label: "Suggested Tags",
+    description: "Reusable tags surfaced in the catalog UI.",
+    public_visible: false,
+    sort_order: 60
+  }
+];
+
+export const defaultTaxonomyTerms = [
+  { group_slug: "status", slug: "in-storage", label: "In Storage", enabled: true, sort_order: 10 },
+  { group_slug: "status", slug: "on-display", label: "On Display", enabled: true, sort_order: 20 },
+  { group_slug: "status", slug: "digitized", label: "Digitized", enabled: true, sort_order: 30 },
+  { group_slug: "status", slug: "needs-review", label: "Needs Review", enabled: true, sort_order: 40 },
+  { group_slug: "status", slug: "in-research", label: "In Research", enabled: true, sort_order: 50 },
+  { group_slug: "historical-theme", slug: "african-american-education", label: "African American Education", enabled: true, sort_order: 10 },
+  { group_slug: "historical-theme", slug: "civil-rights", label: "Civil Rights", enabled: true, sort_order: 20 },
+  { group_slug: "historical-theme", slug: "farish-street-business-district", label: "Farish Street Business District", enabled: true, sort_order: 30 },
+  { group_slug: "historical-theme", slug: "faith-and-community-life", label: "Faith And Community Life", enabled: true, sort_order: 40 },
+  { group_slug: "historical-theme", slug: "arts-and-culture", label: "Arts And Culture", enabled: true, sort_order: 50 },
+  { group_slug: "historical-theme", slug: "civic-leadership", label: "Civic Leadership", enabled: true, sort_order: 60 },
+  { group_slug: "historical-theme", slug: "family-and-neighborhood-life", label: "Family And Neighborhood Life", enabled: true, sort_order: 70 },
+  { group_slug: "neighborhood", slug: "farish-street", label: "Farish Street", enabled: true, sort_order: 10 },
+  { group_slug: "neighborhood", slug: "downtown-jackson", label: "Downtown Jackson", enabled: true, sort_order: 20 },
+  { group_slug: "neighborhood", slug: "smith-robertson-campus", label: "Smith Robertson Campus", enabled: true, sort_order: 30 },
+  { group_slug: "neighborhood", slug: "west-jackson", label: "West Jackson", enabled: true, sort_order: 40 },
+  { group_slug: "neighborhood", slug: "belhaven", label: "Belhaven", enabled: true, sort_order: 50 },
+  { group_slug: "neighborhood", slug: "statewide-mississippi", label: "Statewide Mississippi", enabled: true, sort_order: 60 },
+  { group_slug: "rights-status", slug: "museum-use-only", label: "Museum Use Only", enabled: true, sort_order: 10 },
+  { group_slug: "rights-status", slug: "educational-use-approved", label: "Educational Use Approved", enabled: true, sort_order: 20 },
+  { group_slug: "rights-status", slug: "public-domain", label: "Public Domain", enabled: true, sort_order: 30 },
+  { group_slug: "rights-status", slug: "rights-unknown", label: "Rights Unknown", enabled: true, sort_order: 40 },
+  { group_slug: "condition", slug: "excellent", label: "Excellent", enabled: true, sort_order: 10 },
+  { group_slug: "condition", slug: "stable", label: "Stable", enabled: true, sort_order: 20 },
+  { group_slug: "condition", slug: "fragile", label: "Fragile", enabled: true, sort_order: 30 },
+  { group_slug: "condition", slug: "needs-conservation", label: "Needs Conservation", enabled: true, sort_order: 40 },
+  { group_slug: "sensitivity", slug: "open-access", label: "Open Access", enabled: true, sort_order: 10 },
+  { group_slug: "sensitivity", slug: "review-before-public-display", label: "Review Before Public Display", enabled: true, sort_order: 20 },
+  { group_slug: "sensitivity", slug: "restricted", label: "Restricted", enabled: true, sort_order: 30 },
+  { group_slug: "suggested-tag", slug: "farish-street", label: "Farish Street", enabled: true, sort_order: 10 },
+  { group_slug: "suggested-tag", slug: "jackson-history", label: "Jackson history", enabled: true, sort_order: 20 },
+  { group_slug: "suggested-tag", slug: "african-american-education", label: "African American education", enabled: true, sort_order: 30 },
+  { group_slug: "suggested-tag", slug: "civil-rights", label: "civil rights", enabled: true, sort_order: 40 },
+  { group_slug: "suggested-tag", slug: "church-life", label: "church life", enabled: true, sort_order: 50 },
+  { group_slug: "suggested-tag", slug: "business-history", label: "business history", enabled: true, sort_order: 60 },
+  { group_slug: "suggested-tag", slug: "oral-history", label: "oral history", enabled: true, sort_order: 70 },
+  { group_slug: "suggested-tag", slug: "textiles", label: "textiles", enabled: true, sort_order: 80 }
+];
+
 export function slugifyRecordType(label) {
   return label
     .toLowerCase()
@@ -35,6 +127,15 @@ export function sortRecordTypes(types) {
   return [...types].sort((left, right) => {
     if (left.sort_order !== right.sort_order) {
       return left.sort_order - right.sort_order;
+    }
+    return left.label.localeCompare(right.label);
+  });
+}
+
+export function sortTaxonomyEntries(entries) {
+  return [...entries].sort((left, right) => {
+    if ((left.sort_order ?? 0) !== (right.sort_order ?? 0)) {
+      return (left.sort_order ?? 0) - (right.sort_order ?? 0);
     }
     return left.label.localeCompare(right.label);
   });

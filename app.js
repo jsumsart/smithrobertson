@@ -1,10 +1,13 @@
 import { createBrowserClient, isSupabaseReady, museumBucketName } from "./supabase-client.js";
 import {
   applyTheme,
+  defaultTaxonomyGroups,
+  defaultTaxonomyTerms,
   defaultRecordTypes,
   defaultSiteSettings,
   slugifyRecordType,
-  sortRecordTypes
+  sortRecordTypes,
+  sortTaxonomyEntries
 } from "./platform-config.js";
 
 const sampleRecords = [
@@ -96,8 +99,11 @@ const state = {
   records: [],
   siteSettings: { ...defaultSiteSettings },
   recordTypes: [...defaultRecordTypes],
+  taxonomyGroups: [...defaultTaxonomyGroups],
+  taxonomyTerms: [...defaultTaxonomyTerms],
   selectedId: null,
   currentUser: null,
+  isAdmin: false,
   isStaff: false,
   activeView: "cards",
   photoUploadPath: "",
@@ -142,7 +148,9 @@ const elements = {
   settingsAccentDeepColor: document.querySelector("#settingsAccentDeepColor"),
   settingsForestColor: document.querySelector("#settingsForestColor"),
   settingsMessage: document.querySelector("#settingsMessage"),
+  settingsAdminNotice: document.querySelector("#settingsAdminNotice"),
   recordTypeSettingsList: document.querySelector("#recordTypeSettingsList"),
+  taxonomySettingsList: document.querySelector("#taxonomySettingsList"),
   addRecordTypeButton: document.querySelector("#addRecordTypeButton"),
   recordId: document.querySelector("#recordId"),
   accessionNumber: document.querySelector("#accessionNumber"),
@@ -255,6 +263,90 @@ function populateSettingsForm() {
   elements.settingsPrimaryColor.value = settings.primary_color;
   elements.settingsAccentDeepColor.value = settings.accent_deep_color;
   elements.settingsForestColor.value = settings.forest_color;
+}
+
+function getTaxonomyGroup(groupSlug) {
+  return state.taxonomyGroups.find((group) => group.slug === groupSlug) || null;
+}
+
+function getEnabledTaxonomyTerms(groupSlug) {
+  return sortTaxonomyEntries(state.taxonomyTerms).filter((term) => term.group_slug === groupSlug && term.enabled);
+}
+
+function buildTaxonomyOptions(select, groupSlug, { includeAll = false, includeBlank = false, blankLabel = "Select an option" } = {}) {
+  const currentValue = select.value;
+  select.replaceChildren();
+
+  if (includeAll) {
+    const option = document.createElement("option");
+    option.value = "all";
+    option.textContent = `All ${getTaxonomyGroup(groupSlug)?.label?.toLowerCase() || "options"}`;
+    select.appendChild(option);
+  }
+
+  if (includeBlank) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = blankLabel;
+    select.appendChild(option);
+  }
+
+  for (const term of getEnabledTaxonomyTerms(groupSlug)) {
+    const option = document.createElement("option");
+    option.value = term.label;
+    option.textContent = term.label;
+    select.appendChild(option);
+  }
+
+  if ([...select.options].some((option) => option.value === currentValue)) {
+    select.value = currentValue;
+  } else if (includeAll) {
+    select.value = "all";
+  } else if (includeBlank) {
+    select.value = "";
+  } else if (select.options.length) {
+    select.value = select.options[0].value;
+  }
+}
+
+function renderManagedMetadataOptions() {
+  buildTaxonomyOptions(elements.statusFilter, "status", { includeAll: true });
+  buildTaxonomyOptions(elements.themeFilter, "historical-theme", { includeAll: true });
+  buildTaxonomyOptions(elements.neighborhoodFilter, "neighborhood", { includeAll: true });
+  buildTaxonomyOptions(elements.recordStatus, "status");
+  buildTaxonomyOptions(elements.historicalTheme, "historical-theme", {
+    includeBlank: true,
+    blankLabel: "Select a theme"
+  });
+  buildTaxonomyOptions(elements.neighborhood, "neighborhood", {
+    includeBlank: true,
+    blankLabel: "Select a place"
+  });
+  buildTaxonomyOptions(elements.condition, "condition", {
+    includeBlank: true,
+    blankLabel: "Select condition"
+  });
+  buildTaxonomyOptions(elements.rightsStatus, "rights-status", {
+    includeBlank: true,
+    blankLabel: "Select rights status"
+  });
+  buildTaxonomyOptions(elements.sensitivity, "sensitivity", {
+    includeBlank: true,
+    blankLabel: "Select sensitivity"
+  });
+}
+
+function renderPresetTagButtons() {
+  elements.presetTags.replaceChildren();
+
+  for (const term of getEnabledTaxonomyTerms("suggested-tag")) {
+    const button = document.createElement("button");
+    button.className = "chip";
+    button.type = "button";
+    button.dataset.tag = term.label;
+    button.textContent = term.label;
+    elements.presetTags.appendChild(button);
+  }
 }
 
 function buildRecordTypeOptions(select, includeAll = false) {
@@ -379,6 +471,199 @@ async function loadRecordTypes() {
   renderRecordTypeSettings();
 }
 
+function updateTaxonomyGroupAt(groupSlug, nextValues) {
+  const index = state.taxonomyGroups.findIndex((group) => group.slug === groupSlug);
+  if (index === -1) {
+    return;
+  }
+  state.taxonomyGroups[index] = {
+    ...state.taxonomyGroups[index],
+    ...nextValues
+  };
+}
+
+function updateTaxonomyTermAt(groupSlug, slug, nextValues) {
+  const index = state.taxonomyTerms.findIndex((term) => term.group_slug === groupSlug && term.slug === slug);
+  if (index === -1) {
+    return;
+  }
+  state.taxonomyTerms[index] = {
+    ...state.taxonomyTerms[index],
+    ...nextValues
+  };
+}
+
+function renderTaxonomySettings() {
+  elements.taxonomySettingsList.replaceChildren();
+
+  for (const group of sortTaxonomyEntries(state.taxonomyGroups)) {
+    const card = document.createElement("article");
+    card.className = "taxonomy-card";
+
+    const header = document.createElement("div");
+    header.className = "taxonomy-card__header";
+
+    const copy = document.createElement("div");
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "eyebrow";
+    eyebrow.textContent = group.slug;
+    const heading = document.createElement("h3");
+    heading.textContent = group.label;
+    const description = document.createElement("p");
+    description.className = "help-text";
+    description.textContent = group.description || "No description yet.";
+    copy.append(eyebrow, heading, description);
+
+    const addTermButton = document.createElement("button");
+    addTermButton.type = "button";
+    addTermButton.className = "button button--ghost";
+    addTermButton.textContent = "Add Term";
+    addTermButton.addEventListener("click", () => {
+      state.taxonomyTerms.push({
+        group_slug: group.slug,
+        slug: `${group.slug}-${Date.now()}`,
+        label: "New Term",
+        enabled: true,
+        sort_order: getEnabledTaxonomyTerms(group.slug).length * 10 + 10
+      });
+      renderTaxonomySettings();
+    });
+
+    header.append(copy, addTermButton);
+
+    const controls = document.createElement("div");
+    controls.className = "taxonomy-card__controls";
+
+    const groupLabel = document.createElement("label");
+    groupLabel.className = "field";
+    groupLabel.innerHTML = "<span>Display Label</span>";
+    const groupLabelInput = document.createElement("input");
+    groupLabelInput.value = group.label;
+    groupLabelInput.addEventListener("input", (event) => {
+      updateTaxonomyGroupAt(group.slug, { label: event.target.value });
+    });
+    groupLabel.appendChild(groupLabelInput);
+
+    const groupDescription = document.createElement("label");
+    groupDescription.className = "field field--wide";
+    groupDescription.innerHTML = "<span>Description</span>";
+    const groupDescriptionInput = document.createElement("textarea");
+    groupDescriptionInput.rows = 2;
+    groupDescriptionInput.value = group.description || "";
+    groupDescriptionInput.addEventListener("input", (event) => {
+      updateTaxonomyGroupAt(group.slug, { description: event.target.value });
+    });
+    groupDescription.appendChild(groupDescriptionInput);
+
+    const publicToggle = document.createElement("label");
+    publicToggle.className = "toggle";
+    const publicCheckbox = document.createElement("input");
+    publicCheckbox.type = "checkbox";
+    publicCheckbox.checked = Boolean(group.public_visible);
+    publicCheckbox.addEventListener("change", (event) => {
+      updateTaxonomyGroupAt(group.slug, { public_visible: event.target.checked });
+    });
+    const publicText = document.createElement("span");
+    publicText.textContent = "Show this vocabulary on the public site";
+    publicToggle.append(publicCheckbox, publicText);
+
+    controls.append(groupLabel, groupDescription, publicToggle);
+
+    const termsList = document.createElement("div");
+    termsList.className = "taxonomy-terms";
+
+    for (const term of sortTaxonomyEntries(state.taxonomyTerms.filter((entry) => entry.group_slug === group.slug))) {
+      const row = document.createElement("div");
+      row.className = "taxonomy-term-row";
+
+      const labelField = document.createElement("label");
+      labelField.className = "field";
+      labelField.innerHTML = "<span>Term Label</span>";
+      const labelInput = document.createElement("input");
+      labelInput.value = term.label;
+      labelInput.addEventListener("input", (event) => {
+        updateTaxonomyTermAt(group.slug, term.slug, { label: event.target.value });
+      });
+      labelField.appendChild(labelInput);
+
+      const sortField = document.createElement("label");
+      sortField.className = "field";
+      sortField.innerHTML = "<span>Sort Order</span>";
+      const sortInput = document.createElement("input");
+      sortInput.type = "number";
+      sortInput.min = "0";
+      sortInput.step = "1";
+      sortInput.value = String(term.sort_order ?? 0);
+      sortInput.addEventListener("input", (event) => {
+        updateTaxonomyTermAt(group.slug, term.slug, { sort_order: Number(event.target.value || 0) });
+      });
+      sortField.appendChild(sortInput);
+
+      const enabledToggle = document.createElement("label");
+      enabledToggle.className = "toggle taxonomy-term-row__toggle";
+      const enabledCheckbox = document.createElement("input");
+      enabledCheckbox.type = "checkbox";
+      enabledCheckbox.checked = Boolean(term.enabled);
+      enabledCheckbox.addEventListener("change", (event) => {
+        updateTaxonomyTermAt(group.slug, term.slug, { enabled: event.target.checked });
+      });
+      const enabledText = document.createElement("span");
+      enabledText.textContent = "Enabled";
+      enabledToggle.append(enabledCheckbox, enabledText);
+
+      row.append(labelField, sortField, enabledToggle);
+      termsList.appendChild(row);
+    }
+
+    card.append(header, controls, termsList);
+    elements.taxonomySettingsList.appendChild(card);
+  }
+}
+
+async function loadTaxonomies() {
+  if (!isSupabaseReady) {
+    state.taxonomyGroups = [...defaultTaxonomyGroups];
+    state.taxonomyTerms = [...defaultTaxonomyTerms];
+    renderManagedMetadataOptions();
+    renderPresetTagButtons();
+    renderTaxonomySettings();
+    return;
+  }
+
+  const [{ data: groupsData, error: groupsError }, { data: termsData, error: termsError }] = await Promise.all([
+    state.supabase.from("taxonomy_groups").select("*").order("sort_order"),
+    state.supabase.from("taxonomy_terms").select("*").order("sort_order")
+  ]);
+
+  if (groupsError || termsError) {
+    state.taxonomyGroups = [...defaultTaxonomyGroups];
+    state.taxonomyTerms = [...defaultTaxonomyTerms];
+  } else {
+    state.taxonomyGroups = groupsData?.length
+      ? groupsData.map((group) => ({
+          slug: group.slug,
+          label: group.label,
+          description: group.description || "",
+          public_visible: group.public_visible,
+          sort_order: group.sort_order
+        }))
+      : [...defaultTaxonomyGroups];
+    state.taxonomyTerms = termsData?.length
+      ? termsData.map((term) => ({
+          group_slug: term.group_slug,
+          slug: term.slug,
+          label: term.label,
+          enabled: term.enabled,
+          sort_order: term.sort_order
+        }))
+      : [...defaultTaxonomyTerms];
+  }
+
+  renderManagedMetadataOptions();
+  renderPresetTagButtons();
+  renderTaxonomySettings();
+}
+
 async function saveSiteSettings() {
   const payload = {
     id: "default",
@@ -423,6 +708,48 @@ async function saveRecordTypes() {
   renderRecordTypeSettings();
 }
 
+async function saveTaxonomies() {
+  const groupsPayload = sortTaxonomyEntries(state.taxonomyGroups).map((group, index) => ({
+    slug: group.slug,
+    label: group.label?.trim() || group.slug,
+    description: group.description?.trim() || "",
+    public_visible: Boolean(group.public_visible),
+    sort_order: Number(group.sort_order ?? index * 10)
+  }));
+
+  const termsPayload = sortTaxonomyEntries(state.taxonomyTerms)
+    .map((term, index) => ({
+      group_slug: term.group_slug,
+      slug: term.slug,
+      label: term.label?.trim() || "",
+      enabled: Boolean(term.enabled),
+      sort_order: Number(term.sort_order ?? index * 10)
+    }))
+    .filter((term) => term.label);
+
+  const [{ error: groupsError }, { error: termsError }] = await Promise.all([
+    state.supabase.from("taxonomy_groups").upsert(groupsPayload, { onConflict: "slug" }),
+    state.supabase.from("taxonomy_terms").upsert(termsPayload, { onConflict: "group_slug,slug" })
+  ]);
+
+  if (groupsError) {
+    throw groupsError;
+  }
+  if (termsError) {
+    throw termsError;
+  }
+
+  state.taxonomyGroups = groupsPayload;
+  state.taxonomyTerms = termsPayload;
+  renderManagedMetadataOptions();
+  renderPresetTagButtons();
+  renderTaxonomySettings();
+}
+
+function currentUserIsAdmin(user = state.currentUser) {
+  return user?.app_metadata?.platform_role === "admin";
+}
+
 function currentUserIsStaff(user = state.currentUser) {
   return user?.app_metadata?.museum_role === "staff";
 }
@@ -440,6 +767,7 @@ function updateAuthUI() {
   elements.signedOutView.hidden = signedIn;
   elements.signedInView.hidden = !signedIn;
   elements.currentUserEmail.textContent = signedIn ? `Signed in as ${state.currentUser.email}` : "";
+  state.isAdmin = currentUserIsAdmin();
   state.isStaff = currentUserIsStaff();
 
   const isDisabled = !canEditSharedData();
@@ -455,8 +783,8 @@ function updateAuthUI() {
     }
   });
 
-  elements.siteSettingsForm.querySelectorAll("input, textarea, button").forEach((element) => {
-    if (isDisabled) {
+  elements.siteSettingsForm.querySelectorAll("input, textarea, select, button").forEach((element) => {
+    if (isDisabled || !state.isAdmin) {
       element.setAttribute("disabled", "disabled");
     } else {
       element.removeAttribute("disabled");
@@ -464,7 +792,12 @@ function updateAuthUI() {
   });
 
   elements.clearDataButton.hidden = !state.isStaff;
-  elements.settingsTab.hidden = !signedIn && isSupabaseReady;
+  elements.settingsTab.hidden = (!signedIn || !state.isAdmin) && isSupabaseReady;
+  elements.settingsAdminNotice.hidden = state.isAdmin || !isSupabaseReady;
+
+  if (state.activeView === "settings" && !state.isAdmin && isSupabaseReady) {
+    setActiveView("cards");
+  }
 }
 
 function setActiveView(view) {
@@ -665,7 +998,7 @@ async function renderRecordList() {
     elements.recordList.innerHTML = `
       <div class="empty-state">
         <h3>No records match this view.</h3>
-        <p>Try changing a filter or create a new Smith Robertson record.</p>
+        <p>Try changing a filter or create a new catalog record.</p>
       </div>
     `;
     return;
@@ -1130,6 +1463,7 @@ async function initializeAuth() {
   if (!isSupabaseReady) {
     await loadSiteSettings();
     await loadRecordTypes();
+    await loadTaxonomies();
     elements.setupBanner.hidden = false;
     elements.setupDetails.textContent =
       "Add your Supabase project URL and anon key in supabase-config.js, then run the SQL in supabase/schema.sql.";
@@ -1142,6 +1476,7 @@ async function initializeAuth() {
 
   await loadSiteSettings();
   await loadRecordTypes();
+  await loadTaxonomies();
 
   const {
     data: { session }
@@ -1152,7 +1487,9 @@ async function initializeAuth() {
   state.supabase.auth.onAuthStateChange((_event, sessionData) => {
     state.currentUser = sessionData?.user || null;
     updateAuthUI();
-    Promise.all([loadSiteSettings(), loadRecordTypes(), refresh()]).catch((error) => setAuthMessage(error.message, true));
+    Promise.all([loadSiteSettings(), loadRecordTypes(), loadTaxonomies(), refresh()]).catch((error) =>
+      setAuthMessage(error.message, true)
+    );
   });
 }
 
@@ -1293,10 +1630,17 @@ elements.siteSettingsForm.addEventListener("submit", async (event) => {
     return;
   }
 
+  if (!state.isAdmin) {
+    setSettingsMessage("A platform admin account is required to save settings.", true);
+    return;
+  }
+
   try {
     await saveSiteSettings();
     await saveRecordTypes();
+    await saveTaxonomies();
     await loadRecordTypes();
+    await loadTaxonomies();
     setSettingsMessage("Settings saved.");
   } catch (error) {
     setSettingsMessage(error.message, true);
