@@ -521,6 +521,25 @@ h2 {
   margin-top: 0.5rem;
 }
 
+.settings-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(140px, 180px) minmax(180px, 220px);
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.settings-row__toggle {
+  align-self: end;
+}
+
 .catalog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -633,6 +652,7 @@ h2 {
     display: grid;
   }
 
+  .settings-row,
   .form-grid,
   .record-card__details {
     grid-template-columns: 1fr;

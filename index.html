@@ -15,7 +15,7 @@
   <body>
     <div class="page-shell">
       <nav class="topbar">
-        <a class="topbar__brand" href="./index.html">Smith Robertson Collections</a>
+        <a id="topbarBrand" class="topbar__brand" href="./index.html">Smith Robertson Collections</a>
         <div class="topbar__links">
           <a class="topbar__link" href="./index.html" aria-current="page">Catalog Manager</a>
           <a class="topbar__link" href="./catalog.html">Public Catalog</a>
@@ -24,9 +24,9 @@
 
       <header class="hero">
         <div class="hero__copy">
-          <p class="eyebrow">Smith Robertson Museum And Cultural Center</p>
-          <h1>A shared collections database for Jackson history.</h1>
-          <p class="hero__lede">
+          <p id="heroEyebrow" class="eyebrow">Smith Robertson Museum And Cultural Center</p>
+          <h1 id="heroHeadline">A shared collections database for Jackson history.</h1>
+          <p id="heroIntro" class="hero__lede">
             Built for a real museum workflow: staff and students can log in, catalog
             the same records, upload object photos, and manage collections tied to
             African American history, Jackson history, and Farish Street.
@@ -224,6 +224,7 @@
                   <button id="browseCardsTab" class="button button--ghost is-active" type="button">Card View</button>
                   <button id="browseTableTab" class="button button--ghost" type="button">Table View</button>
                   <button id="editorTab" class="button button--ghost" type="button">Record Editor</button>
+                  <button id="settingsTab" class="button button--ghost" type="button">Settings</button>
                 </div>
                 <div class="toolbar toolbar--tight">
                   <button id="exportButton" class="button button--ghost" type="button">Export JSON</button>
@@ -483,10 +484,109 @@
               </div>
               </form>
             </section>
+
+            <section id="settingsView" class="panel-view" hidden>
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Admin Settings</p>
+                  <h2>Brand, Public Site, And Record Types</h2>
+                </div>
+                <span class="pill">Whitelabel Controls</span>
+              </div>
+
+              <form id="siteSettingsForm" class="record-form">
+                <section class="form-section">
+                  <div class="form-section__header">
+                    <p class="eyebrow">Brand</p>
+                    <h3>Identity And Copy</h3>
+                  </div>
+                  <div class="form-grid">
+                    <label class="field">
+                      <span>Brand Name</span>
+                      <input id="settingsBrandName" placeholder="Smith Robertson Collections" />
+                    </label>
+                    <label class="field">
+                      <span>Museum Name</span>
+                      <input id="settingsMuseumName" placeholder="Smith Robertson Museum And Cultural Center" />
+                    </label>
+                    <label class="field field--wide">
+                      <span>Manager Headline</span>
+                      <input id="settingsManagerHeadline" placeholder="A shared collections database for Jackson history." />
+                    </label>
+                    <label class="field field--wide">
+                      <span>Manager Intro</span>
+                      <textarea id="settingsManagerIntro" rows="3"></textarea>
+                    </label>
+                    <label class="field field--wide">
+                      <span>Public Catalog Title</span>
+                      <input id="settingsPublicTitle" placeholder="Browse published Smith Robertson records." />
+                    </label>
+                    <label class="field field--wide">
+                      <span>Public Catalog Intro</span>
+                      <textarea id="settingsPublicIntro" rows="3"></textarea>
+                    </label>
+                  </div>
+                </section>
+
+                <section class="form-section">
+                  <div class="form-section__header">
+                    <p class="eyebrow">Theme</p>
+                    <h3>Visual Tokens</h3>
+                  </div>
+                  <div class="form-grid">
+                    <label class="field">
+                      <span>Primary Accent</span>
+                      <input id="settingsPrimaryColor" type="color" />
+                    </label>
+                    <label class="field">
+                      <span>Deep Accent</span>
+                      <input id="settingsAccentDeepColor" type="color" />
+                    </label>
+                    <label class="field">
+                      <span>Forest Accent</span>
+                      <input id="settingsForestColor" type="color" />
+                    </label>
+                  </div>
+                </section>
+
+                <section class="form-section">
+                  <div class="section-heading">
+                    <div>
+                      <p class="eyebrow">Record Types</p>
+                      <h3>Enabled Categories</h3>
+                    </div>
+                    <button id="addRecordTypeButton" type="button" class="button button--ghost">Add Type</button>
+                  </div>
+                  <div id="recordTypeSettingsList" class="settings-list"></div>
+                </section>
+
+                <div class="form-actions">
+                  <button type="submit" class="button button--primary">Save Settings</button>
+                </div>
+                <p id="settingsMessage" class="help-text"></p>
+              </form>
+            </section>
           </section>
         </section>
       </main>
     </div>
+
+    <template id="recordTypeSettingTemplate">
+      <article class="settings-row">
+        <label class="field">
+          <span>Label</span>
+          <input data-role="label" />
+        </label>
+        <label class="field">
+          <span>Sort Order</span>
+          <input data-role="sort" type="number" min="0" step="1" />
+        </label>
+        <label class="toggle settings-row__toggle">
+          <input data-role="enabled" type="checkbox" />
+          <span>Enabled</span>
+        </label>
+      </article>
+    </template>
 
     <template id="recordCardTemplate">
       <article class="record-card">

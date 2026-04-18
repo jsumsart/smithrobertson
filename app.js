@@ -1,4 +1,11 @@
 import { createBrowserClient, isSupabaseReady, museumBucketName } from "./supabase-client.js";
+import {
+  applyTheme,
+  defaultRecordTypes,
+  defaultSiteSettings,
+  slugifyRecordType,
+  sortRecordTypes
+} from "./platform-config.js";
 
 const sampleRecords = [
   {
@@ -87,6 +94,8 @@ const sampleRecords = [
 
 const state = {
   records: [],
+  siteSettings: { ...defaultSiteSettings },
+  recordTypes: [...defaultRecordTypes],
   selectedId: null,
   currentUser: null,
   isStaff: false,
@@ -104,6 +113,10 @@ const elements = {
   signedInView: document.querySelector("#signedInView"),
   currentUserEmail: document.querySelector("#currentUserEmail"),
   authMessage: document.querySelector("#authMessage"),
+  topbarBrand: document.querySelector("#topbarBrand"),
+  heroEyebrow: document.querySelector("#heroEyebrow"),
+  heroHeadline: document.querySelector("#heroHeadline"),
+  heroIntro: document.querySelector("#heroIntro"),
   emailInput: document.querySelector("#emailInput"),
   passwordInput: document.querySelector("#passwordInput"),
   setupBanner: document.querySelector("#setupBanner"),
@@ -113,9 +126,24 @@ const elements = {
   browseCardsTab: document.querySelector("#browseCardsTab"),
   browseTableTab: document.querySelector("#browseTableTab"),
   editorTab: document.querySelector("#editorTab"),
+  settingsTab: document.querySelector("#settingsTab"),
   cardsView: document.querySelector("#cardsView"),
   tableView: document.querySelector("#tableView"),
   editorView: document.querySelector("#editorView"),
+  settingsView: document.querySelector("#settingsView"),
+  siteSettingsForm: document.querySelector("#siteSettingsForm"),
+  settingsBrandName: document.querySelector("#settingsBrandName"),
+  settingsMuseumName: document.querySelector("#settingsMuseumName"),
+  settingsManagerHeadline: document.querySelector("#settingsManagerHeadline"),
+  settingsManagerIntro: document.querySelector("#settingsManagerIntro"),
+  settingsPublicTitle: document.querySelector("#settingsPublicTitle"),
+  settingsPublicIntro: document.querySelector("#settingsPublicIntro"),
+  settingsPrimaryColor: document.querySelector("#settingsPrimaryColor"),
+  settingsAccentDeepColor: document.querySelector("#settingsAccentDeepColor"),
+  settingsForestColor: document.querySelector("#settingsForestColor"),
+  settingsMessage: document.querySelector("#settingsMessage"),
+  recordTypeSettingsList: document.querySelector("#recordTypeSettingsList"),
+  addRecordTypeButton: document.querySelector("#addRecordTypeButton"),
   recordId: document.querySelector("#recordId"),
   accessionNumber: document.querySelector("#accessionNumber"),
   title: document.querySelector("#title"),
@@ -169,7 +197,8 @@ const elements = {
   duplicateButton: document.querySelector("#duplicateButton"),
   presetTags: document.querySelector("#presetTags"),
   template: document.querySelector("#recordCardTemplate"),
-  tableRowTemplate: document.querySelector("#recordTableRowTemplate")
+  tableRowTemplate: document.querySelector("#recordTableRowTemplate"),
+  recordTypeSettingTemplate: document.querySelector("#recordTypeSettingTemplate")
 };
 
 function normalizedTags(value) {
@@ -189,11 +218,209 @@ function setPhotoStatus(message, isError = false) {
   elements.photoStatus.classList.toggle("help-text--error", isError);
 }
 
+function setSettingsMessage(message, isError = false) {
+  elements.settingsMessage.textContent = message;
+  elements.settingsMessage.classList.toggle("help-text--error", isError);
+}
+
 function setPhotoPreview(url = "") {
   state.photoPreviewUrl = url;
   elements.photoPreview.hidden = !url;
   elements.photoPreview.src = url || "";
   elements.removePhotoButton.hidden = !url;
+}
+
+function getEnabledRecordTypes() {
+  return sortRecordTypes(state.recordTypes).filter((type) => type.enabled);
+}
+
+function applySiteSettingsToPage() {
+  const settings = state.siteSettings;
+  elements.topbarBrand.textContent = settings.brand_name;
+  elements.heroEyebrow.textContent = settings.museum_name;
+  elements.heroHeadline.textContent = settings.manager_headline;
+  elements.heroIntro.textContent = settings.manager_intro;
+  document.title = `${settings.brand_name} Manager`;
+  applyTheme(settings);
+}
+
+function populateSettingsForm() {
+  const settings = state.siteSettings;
+  elements.settingsBrandName.value = settings.brand_name;
+  elements.settingsMuseumName.value = settings.museum_name;
+  elements.settingsManagerHeadline.value = settings.manager_headline;
+  elements.settingsManagerIntro.value = settings.manager_intro;
+  elements.settingsPublicTitle.value = settings.public_catalog_title;
+  elements.settingsPublicIntro.value = settings.public_catalog_intro;
+  elements.settingsPrimaryColor.value = settings.primary_color;
+  elements.settingsAccentDeepColor.value = settings.accent_deep_color;
+  elements.settingsForestColor.value = settings.forest_color;
+}
+
+function buildRecordTypeOptions(select, includeAll = false) {
+  const currentValue = select.value;
+  select.replaceChildren();
+
+  if (includeAll) {
+    const allOption = document.createElement("option");
+    allOption.value = "all";
+    allOption.textContent = "All types";
+    select.appendChild(allOption);
+  }
+
+  for (const type of getEnabledRecordTypes()) {
+    const option = document.createElement("option");
+    option.value = type.label;
+    option.textContent = type.label;
+    select.appendChild(option);
+  }
+
+  if ([...select.options].some((option) => option.value === currentValue)) {
+    select.value = currentValue;
+  } else if (includeAll) {
+    select.value = "all";
+  } else if (select.options.length) {
+    select.value = select.options[0].value;
+  }
+}
+
+function renderRecordTypeOptions() {
+  buildRecordTypeOptions(elements.typeFilter, true);
+  buildRecordTypeOptions(elements.recordType, false);
+}
+
+function updateRecordTypeAt(index, nextValues) {
+  state.recordTypes[index] = {
+    ...state.recordTypes[index],
+    ...nextValues
+  };
+}
+
+function renderRecordTypeSettings() {
+  const sortedTypes = sortRecordTypes(state.recordTypes);
+  elements.recordTypeSettingsList.replaceChildren();
+
+  for (const type of sortedTypes) {
+    const index = state.recordTypes.findIndex((item) => item.slug === type.slug);
+    const fragment = elements.recordTypeSettingTemplate.content.cloneNode(true);
+    const labelInput = fragment.querySelector('[data-role="label"]');
+    const sortInput = fragment.querySelector('[data-role="sort"]');
+    const enabledInput = fragment.querySelector('[data-role="enabled"]');
+
+    labelInput.value = type.label;
+    sortInput.value = String(type.sort_order);
+    enabledInput.checked = type.enabled;
+
+    labelInput.addEventListener("input", (event) => {
+      updateRecordTypeAt(index, {
+        label: event.target.value,
+        slug: slugifyRecordType(event.target.value || type.slug)
+      });
+    });
+    sortInput.addEventListener("input", (event) => {
+      updateRecordTypeAt(index, {
+        sort_order: Number(event.target.value || 0)
+      });
+    });
+    enabledInput.addEventListener("change", (event) => {
+      updateRecordTypeAt(index, {
+        enabled: event.target.checked
+      });
+    });
+
+    elements.recordTypeSettingsList.appendChild(fragment);
+  }
+}
+
+async function loadSiteSettings() {
+  if (!isSupabaseReady) {
+    state.siteSettings = { ...defaultSiteSettings };
+    applySiteSettingsToPage();
+    populateSettingsForm();
+    return;
+  }
+
+  const { data, error } = await state.supabase.from("site_settings").select("*").eq("id", "default").maybeSingle();
+  if (error) {
+    throw error;
+  }
+
+  state.siteSettings = {
+    ...defaultSiteSettings,
+    ...(data || {})
+  };
+  applySiteSettingsToPage();
+  populateSettingsForm();
+}
+
+async function loadRecordTypes() {
+  if (!isSupabaseReady) {
+    state.recordTypes = [...defaultRecordTypes];
+    renderRecordTypeOptions();
+    renderRecordTypeSettings();
+    return;
+  }
+
+  const { data, error } = await state.supabase.from("record_type_definitions").select("*").order("sort_order");
+  if (error) {
+    throw error;
+  }
+
+  state.recordTypes = data?.length
+    ? data.map((type) => ({
+        slug: type.slug,
+        label: type.label,
+        enabled: type.enabled,
+        sort_order: type.sort_order
+      }))
+    : [...defaultRecordTypes];
+
+  renderRecordTypeOptions();
+  renderRecordTypeSettings();
+}
+
+async function saveSiteSettings() {
+  const payload = {
+    id: "default",
+    brand_name: elements.settingsBrandName.value.trim() || defaultSiteSettings.brand_name,
+    museum_name: elements.settingsMuseumName.value.trim() || defaultSiteSettings.museum_name,
+    manager_headline: elements.settingsManagerHeadline.value.trim() || defaultSiteSettings.manager_headline,
+    manager_intro: elements.settingsManagerIntro.value.trim() || defaultSiteSettings.manager_intro,
+    public_catalog_title: elements.settingsPublicTitle.value.trim() || defaultSiteSettings.public_catalog_title,
+    public_catalog_intro: elements.settingsPublicIntro.value.trim() || defaultSiteSettings.public_catalog_intro,
+    primary_color: elements.settingsPrimaryColor.value,
+    accent_deep_color: elements.settingsAccentDeepColor.value,
+    forest_color: elements.settingsForestColor.value
+  };
+
+  const { error } = await state.supabase.from("site_settings").upsert(payload);
+  if (error) {
+    throw error;
+  }
+
+  state.siteSettings = payload;
+  applySiteSettingsToPage();
+  populateSettingsForm();
+}
+
+async function saveRecordTypes() {
+  const payload = sortRecordTypes(state.recordTypes).map((type, index) => ({
+    slug: slugifyRecordType(type.label || `type-${index + 1}`),
+    label: type.label.trim(),
+    enabled: Boolean(type.enabled),
+    sort_order: Number(type.sort_order ?? index * 10)
+  }));
+
+  const cleaned = payload.filter((type) => type.label);
+
+  const { error } = await state.supabase.from("record_type_definitions").upsert(cleaned, { onConflict: "slug" });
+  if (error) {
+    throw error;
+  }
+
+  state.recordTypes = cleaned;
+  renderRecordTypeOptions();
+  renderRecordTypeSettings();
 }
 
 function currentUserIsStaff(user = state.currentUser) {
@@ -228,7 +455,16 @@ function updateAuthUI() {
     }
   });
 
+  elements.siteSettingsForm.querySelectorAll("input, textarea, button").forEach((element) => {
+    if (isDisabled) {
+      element.setAttribute("disabled", "disabled");
+    } else {
+      element.removeAttribute("disabled");
+    }
+  });
+
   elements.clearDataButton.hidden = !state.isStaff;
+  elements.settingsTab.hidden = !signedIn && isSupabaseReady;
 }
 
 function setActiveView(view) {
@@ -236,12 +472,14 @@ function setActiveView(view) {
   const views = {
     cards: elements.cardsView,
     table: elements.tableView,
-    editor: elements.editorView
+    editor: elements.editorView,
+    settings: elements.settingsView
   };
   const tabs = {
     cards: elements.browseCardsTab,
     table: elements.browseTableTab,
-    editor: elements.editorTab
+    editor: elements.editorTab,
+    settings: elements.settingsTab
   };
 
   Object.entries(views).forEach(([key, node]) => {
@@ -890,6 +1128,8 @@ async function initializeAuth() {
   setActiveView("cards");
 
   if (!isSupabaseReady) {
+    await loadSiteSettings();
+    await loadRecordTypes();
     elements.setupBanner.hidden = false;
     elements.setupDetails.textContent =
       "Add your Supabase project URL and anon key in supabase-config.js, then run the SQL in supabase/schema.sql.";
@@ -900,6 +1140,9 @@ async function initializeAuth() {
 
   elements.setupBanner.hidden = true;
 
+  await loadSiteSettings();
+  await loadRecordTypes();
+
   const {
     data: { session }
   } = await state.supabase.auth.getSession();
@@ -909,7 +1152,7 @@ async function initializeAuth() {
   state.supabase.auth.onAuthStateChange((_event, sessionData) => {
     state.currentUser = sessionData?.user || null;
     updateAuthUI();
-    refresh().catch((error) => setAuthMessage(error.message, true));
+    Promise.all([loadSiteSettings(), loadRecordTypes(), refresh()]).catch((error) => setAuthMessage(error.message, true));
   });
 }
 
@@ -1032,6 +1275,33 @@ elements.exportCsvButton.addEventListener("click", () =>
 elements.browseCardsTab.addEventListener("click", () => setActiveView("cards"));
 elements.browseTableTab.addEventListener("click", () => setActiveView("table"));
 elements.editorTab.addEventListener("click", () => setActiveView("editor"));
+elements.settingsTab.addEventListener("click", () => setActiveView("settings"));
+elements.addRecordTypeButton.addEventListener("click", () => {
+  state.recordTypes.push({
+    slug: `custom-type-${Date.now()}`,
+    label: "New Record Type",
+    enabled: true,
+    sort_order: state.recordTypes.length * 10 + 10
+  });
+  renderRecordTypeSettings();
+});
+elements.siteSettingsForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (!state.currentUser) {
+    setSettingsMessage("Sign in before saving settings.", true);
+    return;
+  }
+
+  try {
+    await saveSiteSettings();
+    await saveRecordTypes();
+    await loadRecordTypes();
+    setSettingsMessage("Settings saved.");
+  } catch (error) {
+    setSettingsMessage(error.message, true);
+  }
+});
 
 elements.importInput.addEventListener("change", async (event) => {
   const [file] = event.target.files || [];

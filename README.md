@@ -13,6 +13,7 @@ This app is now structured for a real web database:
 - first-class `Textile` and `Newspaper / Periodical` record types
 - a simpler cataloging workflow focused on collections work rather than student lesson-writing
 - a separate public read-only catalog page for published records
+- admin-managed site settings and configurable record types
 
 ## Hosting model
 
@@ -28,10 +29,11 @@ That means the site can still be deployed from GitHub, but the shared data is st
 - [app.js](/Users/Birittany/Documents/SmithRobertson/app.js): Supabase auth + shared catalog logic
 - [catalog.html](/Users/Birittany/Documents/SmithRobertson/catalog.html): public read-only catalog page
 - [catalog.js](/Users/Birittany/Documents/SmithRobertson/catalog.js): public catalog loading and filtering
+- [platform-config.js](/Users/Birittany/Documents/SmithRobertson/platform-config.js): shared defaults and theme helpers
 - [supabase-client.js](/Users/Birittany/Documents/SmithRobertson/supabase-client.js): shared browser client helper
 - [supabase-config.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.js): your local project URL and anon key
 - [supabase-config.example.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.example.js): template for config
-- [supabase/schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql): SQL for the shared records table and policies
+- [supabase/schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql): SQL for records, site settings, record type definitions, and policies
 
 ## Supabase setup
 
@@ -43,6 +45,7 @@ That means the site can still be deployed from GitHub, but the shared data is st
 6. Push the updated site to GitHub Pages.
 
 The SQL file also creates the public `museum-photos` storage bucket and the storage policies used by the upload flow.
+It now also creates `site_settings` and `record_type_definitions`, which power the admin-controlled branding and category system.
 
 ## Important note about config
 
@@ -55,6 +58,7 @@ Do not put a `service_role` key in this repo or in frontend code.
 - all authenticated users currently share the same edit permissions
 - there is not yet an admin approval workflow beyond the public visibility toggle
 - bulk CSV import is not implemented yet
+- the whitelabel model is currently single-site rather than true multi-organization tenancy
 
 ## Best next upgrades
 

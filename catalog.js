@@ -1,11 +1,17 @@
 import { createBrowserClient, isSupabaseReady } from "./supabase-client.js";
+import { applyTheme, defaultRecordTypes, defaultSiteSettings, sortRecordTypes } from "./platform-config.js";
 
 const state = {
   records: [],
+  siteSettings: { ...defaultSiteSettings },
+  recordTypes: [...defaultRecordTypes],
   supabase: createBrowserClient()
 };
 
 const elements = {
+  brand: document.querySelector("#catalogBrand"),
+  title: document.querySelector("#catalogTitle"),
+  intro: document.querySelector("#catalogIntro"),
   status: document.querySelector("#catalogStatus"),
   total: document.querySelector("#catalogTotal"),
   search: document.querySelector("#catalogSearch"),
@@ -43,6 +49,33 @@ async function resolvePublicPhotoUrl(record) {
   }
 
   return record.photo_url || "";
+}
+
+function applyCatalogSettings() {
+  elements.brand.textContent = state.siteSettings.brand_name;
+  elements.title.textContent = state.siteSettings.public_catalog_title;
+  elements.intro.textContent = state.siteSettings.public_catalog_intro;
+  document.title = `${state.siteSettings.brand_name} Public Catalog`;
+  applyTheme(state.siteSettings);
+}
+
+function renderRecordTypeFilter() {
+  const currentValue = elements.type.value;
+  elements.type.replaceChildren();
+
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "All types";
+  elements.type.appendChild(allOption);
+
+  for (const type of sortRecordTypes(state.recordTypes).filter((item) => item.enabled)) {
+    const option = document.createElement("option");
+    option.value = type.label;
+    option.textContent = type.label;
+    elements.type.appendChild(option);
+  }
+
+  elements.type.value = [...elements.type.options].some((option) => option.value === currentValue) ? currentValue : "all";
 }
 
 function getFilteredRecords() {
@@ -120,18 +153,43 @@ async function loadCatalog() {
     return;
   }
 
-  const { data, error } = await state.supabase
-    .from("museum_records")
-    .select("*")
-    .eq("is_public", true)
-    .order("updated_at", { ascending: false });
+  const [{ data: settingsData, error: settingsError }, { data: typesData, error: typesError }, { data, error }] =
+    await Promise.all([
+      state.supabase.from("site_settings").select("*").eq("id", "default").maybeSingle(),
+      state.supabase.from("record_type_definitions").select("*").order("sort_order"),
+      state.supabase.from("museum_records").select("*").eq("is_public", true).order("updated_at", { ascending: false })
+    ]);
+
+  if (settingsError) {
+    setStatus(settingsError.message, true);
+    return;
+  }
+
+  if (typesError) {
+    setStatus(typesError.message, true);
+    return;
+  }
 
   if (error) {
     setStatus(error.message, true);
     return;
   }
 
+  state.siteSettings = {
+    ...defaultSiteSettings,
+    ...(settingsData || {})
+  };
+  state.recordTypes = typesData?.length
+    ? typesData.map((type) => ({
+        slug: type.slug,
+        label: type.label,
+        enabled: type.enabled,
+        sort_order: type.sort_order
+      }))
+    : [...defaultRecordTypes];
   state.records = data || [];
+  applyCatalogSettings();
+  renderRecordTypeFilter();
   setStatus("Showing public Smith Robertson records.");
   await renderCatalog();
 }
