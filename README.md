@@ -51,10 +51,10 @@ It now also creates `site_settings`, `record_type_definitions`, `taxonomy_groups
 ## Admin access
 
 - users can catalog records with a normal authenticated account
-- platform settings now require `app_metadata.platform_role = "admin"`
+- while the platform is still being built, any authenticated user can access platform settings
 - record-wide destructive tools can still be separated further with museum staff metadata
 
-If your Settings tab disappears after this update, the frontend is working as intended and your account just needs platform-admin metadata in Supabase.
+This is a temporary build-mode shortcut. Before broader rollout, restore a true admin role for platform settings and taxonomy management.
 
 ## Important note about config
 

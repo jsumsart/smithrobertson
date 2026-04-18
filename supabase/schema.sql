@@ -128,7 +128,7 @@ returns boolean
 language sql
 stable
 as $$
-  select coalesce((auth.jwt() -> 'app_metadata' ->> 'platform_role') = 'admin', false);
+  select auth.role() = 'authenticated';
 $$;
 
 drop trigger if exists museum_records_set_updated_at on public.museum_records;

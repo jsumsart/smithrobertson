@@ -747,7 +747,7 @@ async function saveTaxonomies() {
 }
 
 function currentUserIsAdmin(user = state.currentUser) {
-  return user?.app_metadata?.platform_role === "admin";
+  return Boolean(user);
 }
 
 function currentUserIsStaff(user = state.currentUser) {
