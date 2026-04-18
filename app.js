@@ -939,6 +939,32 @@ function jumpToSection(targetId, shouldScroll = true) {
   }
 }
 
+function applyInitialRoute() {
+  const params = new URLSearchParams(window.location.search);
+  const view = params.get("view");
+  const section = params.get("section");
+
+  if (view === "settings") {
+    setActiveView("settings");
+    if (section) {
+      requestAnimationFrame(() => jumpToSection(section));
+    }
+    return;
+  }
+
+  if (view === "editor") {
+    setActiveView("editor");
+    if (section) {
+      requestAnimationFrame(() => jumpToSection(section));
+    }
+    return;
+  }
+
+  if (view === "records" || view === "table") {
+    setActiveView("table");
+  }
+}
+
 function createTagElements(tags) {
   const fragment = document.createDocumentFragment();
   const values = tags?.length ? tags : ["untagged"];
@@ -1648,6 +1674,7 @@ async function initializeAuth() {
       "Add your Supabase project URL and anon key in supabase-config.js, then run the SQL in supabase/schema.sql.";
     setAuthMessage("Supabase keys are missing. Shared sign-in and shared records are not active yet.");
     updateAuthUI();
+    applyInitialRoute();
     return;
   }
 
@@ -1662,6 +1689,7 @@ async function initializeAuth() {
   } = await state.supabase.auth.getSession();
   state.currentUser = session?.user || null;
   updateAuthUI();
+  applyInitialRoute();
 
   state.supabase.auth.onAuthStateChange((_event, sessionData) => {
     state.currentUser = sessionData?.user || null;

@@ -185,4 +185,5 @@ export function applyPublicSiteTheme(settings) {
   const theme = getPublicFontTheme(settings.public_font_theme);
   root.style.setProperty("--catalog-display-font", theme.displayFont);
   root.style.setProperty("--catalog-body-font", theme.bodyFont);
+  document.body.dataset.publicTheme = theme.value;
 }

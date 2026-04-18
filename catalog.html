@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smith Robertson Museum Public Site</title>
+    <title>Smith Robertson Museum Digital Gallery</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,14 +12,14 @@
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="catalog-page">
+  <body class="catalog-page" data-public-page="gallery">
     <div class="catalog-shell">
       <header class="catalog-site-header">
         <a id="catalogBrand" class="catalog-site-header__brand" href="./catalog.html">Smith Robertson Collections</a>
         <nav class="catalog-site-header__nav">
           <a class="button button--ghost" href="./index.html">Catalog Manager</a>
-          <button id="openGalleryView" class="button button--primary" type="button">Digital Gallery</button>
-          <button id="openArchiveView" class="button button--ghost" type="button">Archive</button>
+          <a class="button button--primary" href="./catalog.html" aria-current="page">Digital Gallery</a>
+          <a class="button button--ghost" href="./archive.html">Archive</a>
         </nav>
       </header>
 
@@ -29,84 +29,48 @@
           <strong id="catalogEditorEmail"></strong>
         </div>
         <div class="catalog-editor-bar__actions">
-          <a class="button button--ghost" href="./index.html">Edit Public Site</a>
+          <a class="button button--ghost" href="./index.html?view=settings&section=settingsPublicSiteSection">Edit Public Site</a>
           <a class="button button--ghost" href="./index.html">Open Records Manager</a>
         </div>
       </section>
 
       <main class="public-site">
-        <section id="galleryView" class="public-view public-view--active">
-          <section class="public-hero">
-            <div class="public-hero__copy">
-              <p id="catalogEyebrow" class="eyebrow">Digital Gallery</p>
-              <h1 id="catalogGalleryTitle">A living gallery of Jackson history.</h1>
-              <p id="catalogGalleryIntro" class="public-hero__intro">
-                Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.
-              </p>
-              <div class="public-hero__actions">
-                <button id="jumpToArchiveButton" class="button button--ghost" type="button">Browse the archive</button>
-              </div>
+        <section class="public-hero">
+          <div class="public-hero__copy">
+            <p id="catalogEyebrow" class="eyebrow">Digital Gallery</p>
+            <h1 id="catalogGalleryTitle">A living gallery of Jackson history.</h1>
+            <p id="catalogGalleryIntro" class="public-hero__intro">
+              Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.
+            </p>
+            <div class="public-hero__actions">
+              <a class="button button--ghost" href="./archive.html">Browse the archive</a>
             </div>
+          </div>
 
-            <section class="slideshow-panel" aria-label="Curated slideshow">
-              <div class="slideshow-panel__header">
-                <div>
-                  <p class="eyebrow">Curated Slideshow</p>
-                  <h2>Featured story objects</h2>
-                </div>
-                <div class="slideshow-panel__controls">
-                  <button id="slideshowPrev" class="button button--ghost" type="button">Previous</button>
-                  <button id="slideshowNext" class="button button--ghost" type="button">Next</button>
-                </div>
-              </div>
-              <article id="slideshowStage" class="slideshow-stage"></article>
-            </section>
-          </section>
-
-          <section class="public-section">
-            <div class="public-section__header">
+          <section class="slideshow-panel" aria-label="Curated slideshow">
+            <div class="slideshow-panel__header">
               <div>
-                <p class="eyebrow">Featured Records</p>
-                <h2>Curated highlights</h2>
+                <p class="eyebrow">Curated Slideshow</p>
+                <h2>Featured story objects</h2>
               </div>
-              <p class="help-text">Use featured accessions in settings to shape this exhibition-style grid.</p>
+              <div class="slideshow-panel__controls">
+                <button id="slideshowPrev" class="button button--ghost" type="button">Previous</button>
+                <button id="slideshowNext" class="button button--ghost" type="button">Next</button>
+              </div>
             </div>
-            <div id="featuredList" class="feature-grid" aria-live="polite"></div>
+            <article id="slideshowStage" class="slideshow-stage"></article>
           </section>
         </section>
 
-        <section id="archiveView" class="public-view" hidden>
-          <section class="archive-hero">
-            <div class="archive-hero__copy">
-              <p class="eyebrow">Public Archive</p>
-              <h1 id="catalogTitle">Browse published Smith Robertson records.</h1>
-              <p id="catalogIntro" class="hero__lede">
-                This view is for visitors, partners, and researchers. Only records marked for public display are shown here.
-              </p>
+        <section class="public-section">
+          <div class="public-section__header">
+            <div>
+              <p class="eyebrow">Featured Records</p>
+              <h2>Curated highlights</h2>
             </div>
-            <div class="archive-metric">
-              <span class="metric__label">Published Records</span>
-              <strong id="catalogTotal">0 public records</strong>
-            </div>
-          </section>
-
-          <section class="archive-toolbar" aria-label="Public archive filters">
-            <label class="field">
-              <span>Search</span>
-              <input id="catalogSearch" type="search" placeholder="Search titles, themes, key locations, tags..." />
-            </label>
-            <label class="field">
-              <span>Theme</span>
-              <select id="catalogTheme"></select>
-            </label>
-            <label class="field">
-              <span>Record Type</span>
-              <select id="catalogType"></select>
-            </label>
-          </section>
-
-          <p id="catalogStatus" class="help-text"></p>
-          <section id="catalogList" class="archive-list" aria-live="polite"></section>
+            <p class="help-text">Use featured accessions in settings to shape this exhibition-style grid.</p>
+          </div>
+          <div id="featuredList" class="feature-grid" aria-live="polite"></div>
         </section>
       </main>
     </div>
@@ -119,23 +83,6 @@
           <h3></h3>
           <p class="catalog-card__description"></p>
           <p class="catalog-card__significance"></p>
-          <div class="tag-list"></div>
-        </div>
-      </article>
-    </template>
-
-    <template id="archiveRowTemplate">
-      <article class="archive-row">
-        <div class="archive-row__media">
-          <img class="archive-row__image" alt="" hidden />
-        </div>
-        <div class="archive-row__body">
-          <div class="archive-row__top">
-            <p class="archive-row__meta"></p>
-            <div class="archive-row__badges"></div>
-          </div>
-          <h3></h3>
-          <p class="archive-row__description"></p>
           <div class="tag-list"></div>
         </div>
       </article>
