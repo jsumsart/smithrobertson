@@ -245,23 +245,49 @@
             </section>
 
             <section id="editorView" class="panel-view" hidden>
-              <div class="section-heading">
-                <div>
-                  <p class="eyebrow">Catalog Record</p>
-                  <h2 id="formHeading">Create A Museum Record</h2>
-                </div>
-                <button id="resetFormButton" class="button button--ghost">New Record</button>
-              </div>
+              <div class="panel-layout">
+                <aside class="panel-sidebar">
+                  <div class="panel-sidebar__inner">
+                    <p class="eyebrow">Editor Menu</p>
+                    <h3>Record Sections</h3>
+                    <div class="panel-nav-list">
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="editorBasicsSection">
+                        Object Basics
+                      </button>
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="editorContextSection">
+                        Historical Context
+                      </button>
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="editorMetadataSection">
+                        Collections Metadata
+                      </button>
+                    </div>
+                  </div>
+                </aside>
 
-              <form id="recordForm" class="record-form">
-              <input id="recordId" type="hidden" />
+                <div class="panel-main">
+                  <div class="section-heading">
+                    <div>
+                      <p class="eyebrow">Catalog Record</p>
+                      <h2 id="formHeading">Create A Museum Record</h2>
+                    </div>
+                    <button id="resetFormButton" class="button button--ghost">New Record</button>
+                  </div>
 
-              <section class="form-section">
-                <div class="form-section__header">
-                  <p class="eyebrow">Part 1</p>
-                  <h3>Object Basics</h3>
-                </div>
-                <div class="form-grid">
+                  <form id="recordForm" class="record-form">
+                  <input id="recordId" type="hidden" />
+
+                  <details id="editorBasicsSection" class="form-accordion" open>
+                    <summary class="form-accordion__summary">
+                      <div class="form-section__header">
+                        <div>
+                          <p class="eyebrow">Part 1</p>
+                          <h3>Object Basics</h3>
+                        </div>
+                        <span class="pill">Required core fields</span>
+                      </div>
+                    </summary>
+                    <div class="form-accordion__body">
+                      <div class="form-grid">
                   <label class="field">
                     <span>Accession ID</span>
                     <input id="accessionNumber" required />
@@ -286,15 +312,22 @@
                     <span>Current Location</span>
                     <input id="location" placeholder="Gallery 1 / Archive Cabinet B" />
                   </label>
-                </div>
-              </section>
+                      </div>
+                    </div>
+                  </details>
 
-              <section class="form-section">
-                <div class="form-section__header">
-                  <p class="eyebrow">Part 2</p>
-                  <h3>Historical Context</h3>
-                </div>
-                <div class="form-grid">
+                  <details id="editorContextSection" class="form-accordion" open>
+                    <summary class="form-accordion__summary">
+                      <div class="form-section__header">
+                        <div>
+                          <p class="eyebrow">Part 2</p>
+                          <h3>Historical Context</h3>
+                        </div>
+                        <span class="pill">Interpretation and place</span>
+                      </div>
+                    </summary>
+                    <div class="form-accordion__body">
+                      <div class="form-grid">
                   <label class="field">
                     <span>Historical Theme</span>
                     <select id="historicalTheme"></select>
@@ -323,15 +356,22 @@
                       placeholder="Why does this matter to African American history, Jackson history, or Farish Street history?"
                     ></textarea>
                   </label>
-                </div>
-              </section>
+                      </div>
+                    </div>
+                  </details>
 
-              <section class="form-section">
-                <div class="form-section__header">
-                  <p class="eyebrow">Part 3</p>
-                  <h3>Collections Metadata</h3>
-                </div>
-                <div class="form-grid">
+                  <details id="editorMetadataSection" class="form-accordion" open>
+                    <summary class="form-accordion__summary">
+                      <div class="form-section__header">
+                        <div>
+                          <p class="eyebrow">Part 3</p>
+                          <h3>Collections Metadata</h3>
+                        </div>
+                        <span class="pill">Rights, media, internal notes</span>
+                      </div>
+                    </summary>
+                    <div class="form-accordion__body">
+                      <div class="form-grid">
                   <label class="field">
                     <span>Donor / Source</span>
                     <input id="donor" />
@@ -399,36 +439,68 @@
                     <span>Keywords / Tags</span>
                     <input id="tags" placeholder="Farish Street, textiles, church life, Jackson history" />
                   </label>
-                </div>
-              </section>
+                      </div>
+                    </div>
+                  </details>
 
-              <div class="form-actions">
-                <button type="submit" class="button button--primary">Save Record</button>
-                <button type="button" id="duplicateButton" class="button button--ghost">Duplicate Selected</button>
+                  <div class="form-actions">
+                    <button type="submit" class="button button--primary">Save Record</button>
+                    <button type="button" id="duplicateButton" class="button button--ghost">Duplicate Selected</button>
+                  </div>
+                  </form>
+                </div>
               </div>
-              </form>
             </section>
 
             <section id="settingsView" class="panel-view" hidden>
-              <div class="section-heading">
-                <div>
-                  <p class="eyebrow">Platform Admin</p>
-                  <h2>Brand, Metadata, And Public Catalog Controls</h2>
-                </div>
-                <span class="pill">Admin Only</span>
-              </div>
-              <section id="settingsAdminNotice" class="setup-banner" hidden>
-                <strong>Platform admin required:</strong>
-                <span>Only users with <code>platform_role = admin</code> can manage branding, taxonomies, and record types.</span>
-              </section>
-
-              <form id="siteSettingsForm" class="record-form">
-                <section class="form-section">
-                  <div class="form-section__header">
-                    <p class="eyebrow">Brand</p>
-                    <h3>Identity And Copy</h3>
+              <div class="panel-layout">
+                <aside class="panel-sidebar">
+                  <div class="panel-sidebar__inner">
+                    <p class="eyebrow">Admin Menu</p>
+                    <h3>Settings Areas</h3>
+                    <div class="panel-nav-list">
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsBrandSection">
+                        Brand and Copy
+                      </button>
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsThemeSection">
+                        Theme Tokens
+                      </button>
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsTypesSection">
+                        Record Types
+                      </button>
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsTaxonomySection">
+                        Taxonomies
+                      </button>
+                    </div>
                   </div>
-                  <div class="form-grid">
+                </aside>
+
+                <div class="panel-main">
+                  <div class="section-heading">
+                    <div>
+                      <p class="eyebrow">Platform Admin</p>
+                      <h2>Brand, Metadata, And Public Catalog Controls</h2>
+                    </div>
+                    <span class="pill">Admin Only</span>
+                  </div>
+                  <section id="settingsAdminNotice" class="setup-banner" hidden>
+                    <strong>Platform admin required:</strong>
+                    <span>Only users with <code>platform_role = admin</code> can manage branding, taxonomies, and record types.</span>
+                  </section>
+
+                  <form id="siteSettingsForm" class="record-form">
+                    <details id="settingsBrandSection" class="form-accordion" open>
+                      <summary class="form-accordion__summary">
+                        <div class="form-section__header">
+                          <div>
+                            <p class="eyebrow">Brand</p>
+                            <h3>Identity And Copy</h3>
+                          </div>
+                          <span class="pill">Public-facing content</span>
+                        </div>
+                      </summary>
+                      <div class="form-accordion__body">
+                        <div class="form-grid">
                     <label class="field">
                       <span>Brand Name</span>
                       <input id="settingsBrandName" placeholder="Smith Robertson Collections" />
@@ -453,15 +525,22 @@
                       <span>Public Catalog Intro</span>
                       <textarea id="settingsPublicIntro" rows="3"></textarea>
                     </label>
-                  </div>
-                </section>
+                        </div>
+                      </div>
+                    </details>
 
-                <section class="form-section">
-                  <div class="form-section__header">
-                    <p class="eyebrow">Theme</p>
-                    <h3>Visual Tokens</h3>
-                  </div>
-                  <div class="form-grid">
+                    <details id="settingsThemeSection" class="form-accordion" open>
+                      <summary class="form-accordion__summary">
+                        <div class="form-section__header">
+                          <div>
+                            <p class="eyebrow">Theme</p>
+                            <h3>Visual Tokens</h3>
+                          </div>
+                          <span class="pill">Shared design system</span>
+                        </div>
+                      </summary>
+                      <div class="form-accordion__body">
+                        <div class="form-grid">
                     <label class="field">
                       <span>Primary Accent</span>
                       <input id="settingsPrimaryColor" type="color" />
@@ -474,39 +553,54 @@
                       <span>Forest Accent</span>
                       <input id="settingsForestColor" type="color" />
                     </label>
-                  </div>
-                </section>
+                        </div>
+                      </div>
+                    </details>
 
-                <section class="form-section">
-                  <div class="section-heading">
-                    <div>
-                      <p class="eyebrow">Record Types</p>
-                      <h3>Enabled Primary Categories</h3>
+                    <details id="settingsTypesSection" class="form-accordion" open>
+                      <summary class="form-accordion__summary">
+                        <div class="section-heading">
+                          <div>
+                            <p class="eyebrow">Record Types</p>
+                            <h3>Enabled Primary Categories</h3>
+                          </div>
+                          <span class="pill">Top-level object classes</span>
+                        </div>
+                      </summary>
+                      <div class="form-accordion__body">
+                        <div class="section-heading">
+                          <p class="help-text">Turn high-level record types on or off for the entire institution.</p>
+                          <button id="addRecordTypeButton" type="button" class="button button--ghost">Add Type</button>
+                        </div>
+                        <div id="recordTypeSettingsList" class="settings-list"></div>
+                      </div>
+                    </details>
+
+                    <details id="settingsTaxonomySection" class="form-accordion" open>
+                      <summary class="form-accordion__summary">
+                        <div class="section-heading">
+                          <div>
+                            <p class="eyebrow">Taxonomies</p>
+                            <h3>Controlled Metadata Vocabularies</h3>
+                          </div>
+                          <span class="pill">Statuses, themes, places, rights, tags</span>
+                        </div>
+                      </summary>
+                      <div class="form-accordion__body">
+                        <p class="help-text">
+                          These vocabularies drive filters, editor dropdowns, and tag suggestions across the product.
+                        </p>
+                        <div id="taxonomySettingsList" class="taxonomy-settings"></div>
+                      </div>
+                    </details>
+
+                    <div class="form-actions">
+                      <button type="submit" class="button button--primary">Save Settings</button>
                     </div>
-                    <button id="addRecordTypeButton" type="button" class="button button--ghost">Add Type</button>
-                  </div>
-                  <div id="recordTypeSettingsList" class="settings-list"></div>
-                </section>
-
-                <section class="form-section">
-                  <div class="section-heading">
-                    <div>
-                      <p class="eyebrow">Taxonomies</p>
-                      <h3>Controlled Metadata Vocabularies</h3>
-                    </div>
-                    <span class="pill">Statuses, themes, places, rights, tags</span>
-                  </div>
-                  <p class="help-text">
-                    These vocabularies drive filters, editor dropdowns, and tag suggestions across the product.
-                  </p>
-                  <div id="taxonomySettingsList" class="taxonomy-settings"></div>
-                </section>
-
-                <div class="form-actions">
-                  <button type="submit" class="button button--primary">Save Settings</button>
+                    <p id="settingsMessage" class="help-text"></p>
+                  </form>
                 </div>
-                <p id="settingsMessage" class="help-text"></p>
-              </form>
+              </div>
             </section>
           </section>
         </section>

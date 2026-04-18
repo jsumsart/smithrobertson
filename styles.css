@@ -283,6 +283,42 @@ h2 {
   display: none;
 }
 
+.panel-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.panel-sidebar {
+  align-self: start;
+}
+
+.panel-sidebar__inner {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.panel-nav-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.panel-nav-button {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.panel-main {
+  display: grid;
+  gap: 1rem;
+}
+
 .toolbar--tight {
   gap: 0.5rem;
 }
@@ -311,6 +347,37 @@ h2 {
 .form-section:first-of-type {
   border-top: 0;
   padding-top: 0;
+}
+
+.form-accordion {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.62);
+  overflow: hidden;
+}
+
+.form-accordion + .form-accordion {
+  margin-top: 1rem;
+}
+
+.form-accordion__summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem 1.15rem;
+}
+
+.form-accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+.form-accordion__summary .section-heading,
+.form-accordion__summary .form-section__header {
+  margin-bottom: 0;
+}
+
+.form-accordion__body {
+  padding: 0 1.15rem 1.15rem;
+  border-top: 1px solid var(--line);
 }
 
 .form-grid {
@@ -692,8 +759,13 @@ h2 {
 @media (max-width: 1100px) {
   .hero,
   .workspace,
-  .guide-grid {
+  .guide-grid,
+  .panel-layout {
     grid-template-columns: 1fr;
+  }
+
+  .panel-sidebar__inner {
+    position: static;
   }
 }
 

@@ -204,6 +204,7 @@ const elements = {
   resetFormButton: document.querySelector("#resetFormButton"),
   duplicateButton: document.querySelector("#duplicateButton"),
   presetTags: document.querySelector("#presetTags"),
+  sectionJumpButtons: document.querySelectorAll("[data-section-target]"),
   template: document.querySelector("#recordCardTemplate"),
   tableRowTemplate: document.querySelector("#recordTableRowTemplate"),
   recordTypeSettingTemplate: document.querySelector("#recordTypeSettingTemplate")
@@ -824,6 +825,19 @@ function setActiveView(view) {
   Object.entries(tabs).forEach(([key, node]) => {
     node.classList.toggle("is-active", key === view);
   });
+}
+
+function jumpToSection(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) {
+    return;
+  }
+
+  if (target.tagName === "DETAILS") {
+    target.open = true;
+  }
+
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function createTagElements(tags) {
@@ -1721,6 +1735,12 @@ elements.presetTags.addEventListener("click", (event) => {
     return;
   }
   addPresetTag(button.dataset.tag);
+});
+
+elements.sectionJumpButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    jumpToSection(button.dataset.sectionTarget);
+  });
 });
 
 initializeAuth()
