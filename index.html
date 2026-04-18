@@ -24,8 +24,7 @@
           <section class="dashboard-sidebar__section">
             <p class="dashboard-sidebar__section-label">Catalog</p>
             <nav class="dashboard-sidebar__nav">
-              <button id="browseCardsTab" class="dashboard-nav-item is-active" type="button">Records Board</button>
-              <button id="browseTableTab" class="dashboard-nav-item" type="button">Records Table</button>
+              <button id="browseTableTab" class="dashboard-nav-item is-active" type="button">Records</button>
               <button id="editorTab" class="dashboard-nav-item" type="button">Record Editor</button>
               <button id="settingsTab" class="dashboard-nav-item" type="button">Settings</button>
               <a class="dashboard-nav-item" href="./catalog.html">Public Catalog</a>
@@ -121,25 +120,12 @@
             </span>
           </section>
 
-          <section class="workspace-tabs">
-            <button class="workspace-tab is-active" type="button" data-dashboard-tab="catalog">Catalog</button>
-            <button class="workspace-tab" type="button" data-dashboard-tab="editor">Editor</button>
-            <button class="workspace-tab" type="button" data-dashboard-tab="settings">Settings</button>
-          </section>
-
           <section class="workspace-panel">
-            <div class="workspace-panel__header">
-              <div>
-                <p class="eyebrow">Collections Manager</p>
-                <h2>Catalog Workspace</h2>
-              </div>
-            </div>
-
             <div id="recordsToolbar" class="records-toolbar">
               <div class="records-toolbar__search">
                 <label class="field">
                   <span>Search</span>
-                  <input id="searchInput" type="search" placeholder="Search titles, people, neighborhoods, themes..." />
+                  <input id="searchInput" type="search" placeholder="Search titles, people, geographies, themes..." />
                 </label>
               </div>
               <div class="records-toolbar__filters">
@@ -165,7 +151,7 @@
                   <select id="themeFilter"></select>
                 </label>
                 <label class="field">
-                  <span>Neighborhood</span>
+                  <span>Geography</span>
                   <select id="neighborhoodFilter"></select>
                 </label>
                 <label class="field">
@@ -179,30 +165,18 @@
               </div>
             </div>
 
-            <section id="cardsView" class="panel-view panel-view--active">
-
+            <section id="tableView" class="panel-view panel-view--active">
               <div class="section-heading section-heading--compact">
                 <div>
-                  <p class="eyebrow">Shared Catalog</p>
-                  <h2>Museum Records</h2>
+                  <p class="eyebrow">Records</p>
+                  <h2>Records Table</h2>
                 </div>
-                <span id="recordCountLabel" class="pill">0 results</span>
+                <span id="tableCountLabel" class="pill">0 rows</span>
               </div>
               <div id="activeFilterPills" class="toolbar toolbar--wrap"></div>
               <div class="suggested-tag-bar">
                 <span class="suggested-tag-bar__label">Suggested Tags</span>
                 <div id="presetTags" class="chip-grid"></div>
-              </div>
-              <div id="recordList" class="record-list" aria-live="polite"></div>
-            </section>
-
-            <section id="tableView" class="panel-view" hidden>
-              <div class="section-heading section-heading--compact">
-                <div>
-                  <p class="eyebrow">Collection Table</p>
-                  <h2>Browse Records Fast</h2>
-                </div>
-                <span id="tableCountLabel" class="pill">0 rows</span>
               </div>
               <div class="table-shell">
                 <table class="records-table">
@@ -213,7 +187,7 @@
                       <th>Type</th>
                       <th>Status</th>
                       <th>Theme</th>
-                      <th>Neighborhood</th>
+                      <th>Geography</th>
                       <th>Visibility</th>
                       <th>Actions</th>
                     </tr>
@@ -312,7 +286,7 @@
                     <select id="historicalTheme"></select>
                   </label>
                   <label class="field">
-                    <span>Neighborhood / Place</span>
+                    <span>Geography / Place</span>
                     <select id="neighborhood"></select>
                   </label>
                   <label class="field">
@@ -519,18 +493,21 @@
                         </div>
                       </summary>
                       <div class="form-accordion__body">
-                        <div class="form-grid">
-                    <label class="field">
+                        <div class="theme-token-grid">
+                    <label class="field theme-token">
                       <span>Primary Accent</span>
                       <input id="settingsPrimaryColor" type="color" />
+                      <small class="help-text">Buttons and action emphasis</small>
                     </label>
-                    <label class="field">
+                    <label class="field theme-token">
                       <span>Deep Accent</span>
                       <input id="settingsAccentDeepColor" type="color" />
+                      <small class="help-text">Headers and dark highlights</small>
                     </label>
-                    <label class="field">
+                    <label class="field theme-token">
                       <span>Forest Accent</span>
                       <input id="settingsForestColor" type="color" />
+                      <small class="help-text">Secondary states and status color</small>
                     </label>
                         </div>
                       </div>
@@ -600,32 +577,6 @@
           <input data-role="enabled" type="checkbox" />
           <span>Enabled</span>
         </label>
-      </article>
-    </template>
-
-    <template id="recordCardTemplate">
-      <article class="record-card">
-        <div class="record-card__header">
-          <div>
-            <p class="record-card__meta"></p>
-            <h3></h3>
-            <p class="record-card__submeta"></p>
-          </div>
-          <div class="record-card__badges">
-            <span class="pill"></span>
-            <span class="pill record-card__visibility"></span>
-          </div>
-        </div>
-        <img class="record-card__image" alt="" hidden />
-        <p class="record-card__description"></p>
-        <dl class="record-card__details"></dl>
-        <div class="record-card__footer">
-          <div class="tag-list"></div>
-          <div class="record-card__actions">
-            <button class="button button--ghost" data-action="edit">Edit</button>
-            <button class="button button--ghost" data-action="delete">Delete</button>
-          </div>
-        </div>
       </article>
     </template>
 

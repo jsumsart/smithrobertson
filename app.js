@@ -105,7 +105,7 @@ const state = {
   currentUser: null,
   isAdmin: false,
   isStaff: false,
-  activeView: "cards",
+  activeView: "table",
   photoUploadPath: "",
   photoPreviewUrl: "",
   supabase: createBrowserClient()
@@ -130,12 +130,9 @@ const elements = {
   form: document.querySelector("#recordForm"),
   formHeading: document.querySelector("#formHeading"),
   recordsToolbar: document.querySelector("#recordsToolbar"),
-  workspaceTabs: document.querySelectorAll("[data-dashboard-tab]"),
-  browseCardsTab: document.querySelector("#browseCardsTab"),
   browseTableTab: document.querySelector("#browseTableTab"),
   editorTab: document.querySelector("#editorTab"),
   settingsTab: document.querySelector("#settingsTab"),
-  cardsView: document.querySelector("#cardsView"),
   tableView: document.querySelector("#tableView"),
   editorView: document.querySelector("#editorView"),
   settingsView: document.querySelector("#settingsView"),
@@ -183,8 +180,6 @@ const elements = {
   provenance: document.querySelector("#provenance"),
   notes: document.querySelector("#notes"),
   tags: document.querySelector("#tags"),
-  recordList: document.querySelector("#recordList"),
-  recordCountLabel: document.querySelector("#recordCountLabel"),
   tableCountLabel: document.querySelector("#tableCountLabel"),
   activeFilterPills: document.querySelector("#activeFilterPills"),
   recordTableBody: document.querySelector("#recordTableBody"),
@@ -207,7 +202,6 @@ const elements = {
   duplicateButton: document.querySelector("#duplicateButton"),
   presetTags: document.querySelector("#presetTags"),
   sectionJumpButtons: document.querySelectorAll("[data-section-target]"),
-  template: document.querySelector("#recordCardTemplate"),
   tableRowTemplate: document.querySelector("#recordTableRowTemplate"),
   recordTypeSettingTemplate: document.querySelector("#recordTypeSettingTemplate")
 };
@@ -268,8 +262,24 @@ function populateSettingsForm() {
   elements.settingsForestColor.value = settings.forest_color;
 }
 
+function normalizeTaxonomyGroup(group) {
+  if (!group) {
+    return null;
+  }
+
+  if (group.slug === "neighborhood") {
+    return {
+      ...group,
+      label: "Geographies",
+      description: "Neighborhoods, campuses, regions, or geographic contexts."
+    };
+  }
+
+  return group;
+}
+
 function getTaxonomyGroup(groupSlug) {
-  return state.taxonomyGroups.find((group) => group.slug === groupSlug) || null;
+  return normalizeTaxonomyGroup(state.taxonomyGroups.find((item) => item.slug === groupSlug) || null);
 }
 
 function getEnabledTaxonomyTerms(groupSlug) {
@@ -643,13 +653,15 @@ async function loadTaxonomies() {
     state.taxonomyTerms = [...defaultTaxonomyTerms];
   } else {
     state.taxonomyGroups = groupsData?.length
-      ? groupsData.map((group) => ({
-          slug: group.slug,
-          label: group.label,
-          description: group.description || "",
-          public_visible: group.public_visible,
-          sort_order: group.sort_order
-        }))
+      ? groupsData.map((group) =>
+          normalizeTaxonomyGroup({
+            slug: group.slug,
+            label: group.label,
+            description: group.description || "",
+            public_visible: group.public_visible,
+            sort_order: group.sort_order
+          })
+        )
       : [...defaultTaxonomyGroups];
     state.taxonomyTerms = termsData?.length
       ? termsData.map((term) => ({
@@ -799,20 +811,18 @@ function updateAuthUI() {
   elements.settingsAdminNotice.hidden = state.isAdmin || !isSupabaseReady;
 
   if (state.activeView === "settings" && !state.isAdmin && isSupabaseReady) {
-    setActiveView("cards");
+    setActiveView("table");
   }
 }
 
 function setActiveView(view) {
   state.activeView = view;
   const views = {
-    cards: elements.cardsView,
     table: elements.tableView,
     editor: elements.editorView,
     settings: elements.settingsView
   };
   const tabs = {
-    cards: elements.browseCardsTab,
     table: elements.browseTableTab,
     editor: elements.editorTab,
     settings: elements.settingsTab
@@ -828,28 +838,19 @@ function setActiveView(view) {
     node.classList.toggle("is-active", key === view);
   });
 
-  elements.workspaceTabs.forEach((button) => {
-    const tab = button.dataset.dashboardTab;
-    const active =
-      (tab === "catalog" && (view === "cards" || view === "table")) ||
-      (tab === "editor" && view === "editor") ||
-      (tab === "settings" && view === "settings");
-    button.classList.toggle("is-active", active);
-  });
-
   if (view === "editor") {
     elements.recordsToolbar.hidden = true;
-    jumpToSection("editorBasicsSection");
+    jumpToSection("editorBasicsSection", false);
   } else if (view === "settings") {
     elements.recordsToolbar.hidden = true;
-    jumpToSection("settingsBrandSection");
+    jumpToSection("settingsBrandSection", false);
   } else {
     elements.recordsToolbar.hidden = false;
     elements.sectionJumpButtons.forEach((button) => button.classList.remove("is-active"));
   }
 }
 
-function jumpToSection(targetId) {
+function jumpToSection(targetId, shouldScroll = true) {
   const target = document.getElementById(targetId);
   if (!target) {
     return;
@@ -863,7 +864,9 @@ function jumpToSection(targetId) {
     target.open = true;
   }
 
-  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (shouldScroll) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function createTagElements(tags) {
@@ -876,6 +879,7 @@ function createTagElements(tags) {
     button.className = "tag tag--interactive";
     button.textContent = value;
     button.addEventListener("click", () => {
+      setActiveView("table");
       elements.searchInput.value = value;
       renderViews().catch((error) => setAuthMessage(error.message, true));
     });
@@ -1026,98 +1030,6 @@ function renderMetrics(records) {
   elements.reviewMetric.textContent = String(records.filter((record) => record.status === "Needs Review").length);
 }
 
-async function renderRecordList() {
-  const records = getFilteredRecords();
-  const signedIn = Boolean(state.currentUser);
-
-  elements.recordCountLabel.textContent = `${records.length} result${records.length === 1 ? "" : "s"}`;
-  elements.recordList.innerHTML = "";
-  renderActiveFilterPills();
-
-  if (!records.length) {
-    elements.recordList.innerHTML = `
-      <div class="empty-state">
-        <h3>No records match this view.</h3>
-        <p>Try changing a filter or create a new catalog record.</p>
-      </div>
-    `;
-    return;
-  }
-
-  for (const record of records) {
-    const fragment = elements.template.content.cloneNode(true);
-    const meta = fragment.querySelector(".record-card__meta");
-    const title = fragment.querySelector("h3");
-    const submeta = fragment.querySelector(".record-card__submeta");
-    const status = fragment.querySelector(".pill");
-    const visibilityBadge = fragment.querySelector(".record-card__visibility");
-    const image = fragment.querySelector(".record-card__image");
-    const description = fragment.querySelector(".record-card__description");
-    const details = fragment.querySelector(".record-card__details");
-    const tagList = fragment.querySelector(".tag-list");
-    const editButton = fragment.querySelector('[data-action="edit"]');
-    const deleteButton = fragment.querySelector('[data-action="delete"]');
-
-    meta.textContent = `${record.record_type} • ${record.accession_number}`;
-    title.textContent = record.title;
-    submeta.textContent = [record.historical_theme, record.neighborhood].filter(Boolean).join(" • ");
-    status.textContent = record.status;
-    visibilityBadge.textContent = record.is_public ? "Public catalog" : "Internal only";
-    visibilityBadge.classList.toggle("pill--forest", record.is_public);
-    description.textContent = record.description || "No description added yet.";
-
-    const resolvedPhotoUrl = await resolvePhotoUrl(record);
-    if (resolvedPhotoUrl) {
-      image.hidden = false;
-      image.src = resolvedPhotoUrl;
-      image.alt = `${record.title} photo`;
-    }
-
-    const detailEntries = [
-      ["Collection", record.collection_name || "Unassigned"],
-      ["Location", record.location || "Not set"],
-      ["Time Period", record.time_period || record.object_date || "Not set"],
-      ["People / Organizations", record.people || "Not set"],
-      ["Format", record.format_material || "Not set"],
-      ["Condition", record.condition || "Not set"],
-      ["Rights", record.rights_status || "Not set"],
-      ["Sensitivity", record.sensitivity || "Not set"]
-    ];
-
-    populateDetailsList(details, detailEntries);
-    tagList.replaceChildren(createTagElements(record.tags));
-
-    editButton.hidden = !signedIn;
-    deleteButton.hidden = !canDeleteRecords();
-
-    editButton.addEventListener("click", () => {
-      populateForm(record);
-      setActiveView("editor");
-    });
-    deleteButton.addEventListener("click", async () => {
-      if (!canDeleteRecords()) {
-        setAuthMessage("Sign in before deleting records.", true);
-        return;
-      }
-
-      const confirmed = window.confirm(`Delete "${record.title}" from the museum database?`);
-      if (!confirmed) {
-        return;
-      }
-
-      try {
-        await deleteRecord(record);
-        await refresh();
-        setAuthMessage("Record deleted.");
-      } catch (error) {
-        setAuthMessage(error.message, true);
-      }
-    });
-
-    elements.recordList.appendChild(fragment);
-  }
-}
-
 function buildRowActionButton(label, handler, tone = "ghost") {
   const button = document.createElement("button");
   button.type = "button";
@@ -1132,6 +1044,7 @@ function renderTableView() {
   const signedIn = Boolean(state.currentUser);
   elements.tableCountLabel.textContent = `${records.length} row${records.length === 1 ? "" : "s"}`;
   elements.recordTableBody.replaceChildren();
+  renderActiveFilterPills();
 
   if (!records.length) {
     const row = document.createElement("tr");
@@ -1493,12 +1406,11 @@ async function refresh() {
 }
 
 async function renderViews() {
-  await renderRecordList();
   renderTableView();
 }
 
 async function initializeAuth() {
-  setActiveView("cards");
+  setActiveView("table");
 
   if (!isSupabaseReady) {
     await loadSiteSettings();
@@ -1649,22 +1561,9 @@ elements.resetFormButton.addEventListener("click", () => {
 elements.exportCsvButton.addEventListener("click", () =>
   downloadCsv("smith-robertson-records.csv", getFilteredRecords())
 );
-elements.browseCardsTab.addEventListener("click", () => setActiveView("cards"));
 elements.browseTableTab.addEventListener("click", () => setActiveView("table"));
 elements.editorTab.addEventListener("click", () => setActiveView("editor"));
 elements.settingsTab.addEventListener("click", () => setActiveView("settings"));
-elements.workspaceTabs.forEach((button) => {
-  button.addEventListener("click", () => {
-    const tab = button.dataset.dashboardTab;
-    if (tab === "catalog") {
-      setActiveView("cards");
-    } else if (tab === "editor") {
-      setActiveView("editor");
-    } else if (tab === "settings") {
-      setActiveView("settings");
-    }
-  });
-});
 elements.addRecordTypeButton.addEventListener("click", () => {
   state.recordTypes.push({
     slug: `custom-type-${Date.now()}`,

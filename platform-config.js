@@ -40,8 +40,8 @@ export const defaultTaxonomyGroups = [
   },
   {
     slug: "neighborhood",
-    label: "Places",
-    description: "Neighborhoods, campuses, or geographic contexts.",
+    label: "Geographies",
+    description: "Neighborhoods, campuses, regions, or geographic contexts.",
     public_visible: true,
     sort_order: 30
   },

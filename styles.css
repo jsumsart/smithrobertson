@@ -178,37 +178,10 @@ textarea {
   justify-self: end;
 }
 
-.workspace-tabs {
-  display: flex;
-  gap: 0.45rem;
-  flex-wrap: wrap;
-}
-
-.workspace-tab {
-  padding: 0.55rem 0.82rem;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.workspace-tab.is-active {
-  background: #efe6dc;
-  border-color: #decfc1;
-}
-
 .workspace-panel {
   display: grid;
   gap: 0.85rem;
   padding: 0.9rem;
-}
-
-.workspace-panel__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 1rem;
 }
 
 .records-toolbar {
@@ -229,6 +202,39 @@ textarea {
 .records-toolbar__filters {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.6rem;
+}
+
+.theme-token-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.theme-token {
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #faf8f5;
+  margin-bottom: 0;
+}
+
+.theme-token input[type="color"] {
+  width: 100%;
+  height: 48px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+}
+
+.theme-token input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 4px;
+}
+
+.theme-token input[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: 8px;
 }
 
 .suggested-tag-bar {
@@ -1003,6 +1009,7 @@ h2 {
   .dashboard-header,
   .records-toolbar,
   .records-toolbar__filters,
+  .theme-token-grid,
   .taxonomy-card__header,
   .taxonomy-card__controls,
   .taxonomy-term-row,

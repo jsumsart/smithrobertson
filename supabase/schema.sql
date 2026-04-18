@@ -322,7 +322,7 @@ insert into public.taxonomy_groups (slug, label, description, public_visible, so
 values
   ('status', 'Statuses', 'Workflow and storage status options for records.', false, 10),
   ('historical-theme', 'Themes', 'Themes used for filtering and interpretation.', true, 20),
-  ('neighborhood', 'Places', 'Neighborhoods, campuses, or geographic contexts.', true, 30),
+  ('neighborhood', 'Geographies', 'Neighborhoods, campuses, regions, or geographic contexts.', true, 30),
   ('rights-status', 'Rights', 'Usage and rights statements.', false, 40),
   ('condition', 'Condition', 'Condition and conservation states for records.', false, 45),
   ('sensitivity', 'Sensitivity', 'Internal/public sensitivity levels.', false, 50),
