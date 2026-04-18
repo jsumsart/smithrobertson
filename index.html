@@ -262,6 +262,12 @@
                     <input id="collectionName" placeholder="School History Collection" />
                   </label>
                   <label class="field">
+                    <span>Linked Collection</span>
+                    <select id="collectionEntityId">
+                      <option value="">No linked collection</option>
+                    </select>
+                  </label>
+                  <label class="field">
                     <span>Current Location</span>
                     <input id="location" placeholder="Gallery 1 / Archive Cabinet B" />
                   </label>
@@ -290,6 +296,12 @@
                     <select id="neighborhood"></select>
                   </label>
                   <label class="field">
+                    <span>Linked Place</span>
+                    <select id="placeEntityId">
+                      <option value="">No linked place</option>
+                    </select>
+                  </label>
+                  <label class="field">
                     <span>Time Period</span>
                     <input id="timePeriod" placeholder="1890s / Jim Crow era / 1960s" />
                   </label>
@@ -297,6 +309,11 @@
                     <span>People / Organizations</span>
                     <input id="people" placeholder="Families, churches, businesses, activists" />
                   </label>
+                  <div class="field field--wide">
+                    <span>Linked People</span>
+                    <div id="peopleEntityPicker" class="entity-picker"></div>
+                    <p class="help-text">Use shared people records to link this object to named individuals, families, or organizations.</p>
+                  </div>
                   <label class="field field--wide">
                     <span>Description</span>
                     <textarea id="description" rows="4" placeholder="What is this object or document?"></textarea>
@@ -423,6 +440,9 @@
                       </button>
                       <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsTypesSection">
                         Record Types
+                      </button>
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsEntitiesSection">
+                        Entity Directories
                       </button>
                       <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsTaxonomySection">
                         Taxonomies
@@ -579,6 +599,24 @@
                       </div>
                     </details>
 
+                    <details id="settingsEntitiesSection" class="form-accordion" open>
+                      <summary class="form-accordion__summary">
+                        <div class="section-heading">
+                          <div>
+                            <p class="eyebrow">Linked Entities</p>
+                            <h3>Collections, People, And Places</h3>
+                          </div>
+                          <span class="pill">Shared directories</span>
+                        </div>
+                      </summary>
+                      <div class="form-accordion__body">
+                        <p class="help-text">
+                          These directories support linked collections data so records can connect to shared people, places, and collections.
+                        </p>
+                        <div id="entityDirectorySettings" class="entity-directory-grid"></div>
+                      </div>
+                    </details>
+
                     <details id="settingsTaxonomySection" class="form-accordion" open>
                       <summary class="form-accordion__summary">
                         <div class="section-heading">
@@ -621,6 +659,41 @@
           <input data-role="sort" type="number" min="0" step="1" />
         </label>
         <label class="toggle settings-row__toggle">
+          <input data-role="enabled" type="checkbox" />
+          <span>Enabled</span>
+        </label>
+      </article>
+    </template>
+
+    <template id="entityDirectoryTemplate">
+      <article class="entity-directory-card">
+        <div class="entity-directory-card__header">
+          <div>
+            <p class="eyebrow" data-role="eyebrow"></p>
+            <h3 data-role="title"></h3>
+            <p class="help-text" data-role="description"></p>
+          </div>
+          <button type="button" class="button button--ghost" data-role="add">Add Entry</button>
+        </div>
+        <div class="entity-directory-card__list" data-role="list"></div>
+      </article>
+    </template>
+
+    <template id="entityRowTemplate">
+      <article class="entity-row">
+        <label class="field">
+          <span>Label</span>
+          <input data-role="label" />
+        </label>
+        <label class="field field--wide">
+          <span>Summary</span>
+          <textarea data-role="summary" rows="2"></textarea>
+        </label>
+        <label class="field">
+          <span>Sort Order</span>
+          <input data-role="sort" type="number" min="0" step="1" />
+        </label>
+        <label class="toggle entity-row__toggle">
           <input data-role="enabled" type="checkbox" />
           <span>Enabled</span>
         </label>

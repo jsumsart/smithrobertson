@@ -62,6 +62,18 @@ create table if not exists public.record_type_definitions (
   updated_at timestamptz not null default timezone('utc', now())
 );
 
+create table if not exists public.linked_entities (
+  id uuid primary key default gen_random_uuid(),
+  entity_type text not null,
+  label text not null,
+  summary text,
+  enabled boolean not null default true,
+  sort_order integer not null default 0,
+  created_at timestamptz not null default timezone('utc', now()),
+  updated_at timestamptz not null default timezone('utc', now()),
+  unique (entity_type, label)
+);
+
 create table if not exists public.taxonomy_groups (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
@@ -89,6 +101,9 @@ create table if not exists public.taxonomy_terms (
 alter table public.museum_records add column if not exists is_public boolean not null default false;
 alter table public.museum_records add column if not exists photo_path text;
 alter table public.museum_records add column if not exists created_by uuid default auth.uid();
+alter table public.museum_records add column if not exists collection_entity_id uuid;
+alter table public.museum_records add column if not exists place_entity_id uuid;
+alter table public.museum_records add column if not exists people_entity_ids uuid[] not null default '{}';
 alter table public.site_settings add column if not exists brand_name text not null default 'Smith Robertson Collections';
 alter table public.site_settings add column if not exists museum_name text not null default 'Smith Robertson Museum And Cultural Center';
 alter table public.site_settings add column if not exists manager_headline text not null default 'A shared collections database for Jackson history.';
@@ -107,6 +122,10 @@ alter table public.site_settings add column if not exists updated_at timestamptz
 alter table public.record_type_definitions add column if not exists enabled boolean not null default true;
 alter table public.record_type_definitions add column if not exists sort_order integer not null default 0;
 alter table public.record_type_definitions add column if not exists updated_at timestamptz not null default timezone('utc', now());
+alter table public.linked_entities add column if not exists summary text;
+alter table public.linked_entities add column if not exists enabled boolean not null default true;
+alter table public.linked_entities add column if not exists sort_order integer not null default 0;
+alter table public.linked_entities add column if not exists updated_at timestamptz not null default timezone('utc', now());
 alter table public.taxonomy_groups add column if not exists description text;
 alter table public.taxonomy_groups add column if not exists public_visible boolean not null default false;
 alter table public.taxonomy_groups add column if not exists sort_order integer not null default 0;
@@ -159,6 +178,12 @@ before update on public.record_type_definitions
 for each row
 execute procedure public.set_updated_at();
 
+drop trigger if exists linked_entities_set_updated_at on public.linked_entities;
+create trigger linked_entities_set_updated_at
+before update on public.linked_entities
+for each row
+execute procedure public.set_updated_at();
+
 drop trigger if exists taxonomy_groups_set_updated_at on public.taxonomy_groups;
 create trigger taxonomy_groups_set_updated_at
 before update on public.taxonomy_groups
@@ -174,6 +199,7 @@ execute procedure public.set_updated_at();
 alter table public.museum_records enable row level security;
 alter table public.site_settings enable row level security;
 alter table public.record_type_definitions enable row level security;
+alter table public.linked_entities enable row level security;
 alter table public.taxonomy_groups enable row level security;
 alter table public.taxonomy_terms enable row level security;
 
@@ -260,6 +286,28 @@ to authenticated
 using ((select public.is_platform_admin()))
 with check ((select public.is_platform_admin()));
 
+drop policy if exists "public can read linked entities" on public.linked_entities;
+create policy "public can read linked entities"
+on public.linked_entities
+for select
+to anon
+using (enabled = true);
+
+drop policy if exists "authenticated users can read linked entities" on public.linked_entities;
+create policy "authenticated users can read linked entities"
+on public.linked_entities
+for select
+to authenticated
+using (true);
+
+drop policy if exists "platform admins can manage linked entities" on public.linked_entities;
+create policy "platform admins can manage linked entities"
+on public.linked_entities
+for all
+to authenticated
+using ((select public.is_platform_admin()))
+with check ((select public.is_platform_admin()));
+
 drop policy if exists "public can read taxonomy groups" on public.taxonomy_groups;
 create policy "public can read taxonomy groups"
 on public.taxonomy_groups
@@ -329,6 +377,19 @@ on conflict (slug) do update
 set label = excluded.label,
     enabled = excluded.enabled,
     sort_order = excluded.sort_order;
+
+insert into public.linked_entities (entity_type, label, summary, enabled, sort_order)
+values
+  ('collection', 'School History Collection', 'School records, educational artifacts, and alumni materials.', true, 10),
+  ('collection', 'Farish Street Business District', 'Business history, storefront culture, and entrepreneurship.', true, 20),
+  ('collection', 'Faith And Community Life', 'Church, civic, and neighborhood life materials.', true, 30),
+  ('person', 'Smith Robertson Alumni Circle', 'Alumni and descendants connected to the school and museum site.', true, 10),
+  ('person', 'Farish Street shop owners', 'Business owners, workers, and entrepreneurs tied to Farish Street.', true, 20),
+  ('person', 'Church choir members', 'Individuals and groups connected to worship and community music traditions.', true, 30),
+  ('place', 'Smith Robertson Campus', 'Museum grounds and the historic school campus.', true, 10),
+  ('place', 'Farish Street', 'Historic commercial and cultural corridor in Jackson.', true, 20),
+  ('place', 'Downtown Jackson', 'Central Jackson geography connected to civic, business, and cultural records.', true, 30)
+on conflict (entity_type, label) do nothing;
 
 insert into public.taxonomy_groups (slug, label, description, public_visible, sort_order)
 values

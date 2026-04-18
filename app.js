@@ -102,6 +102,9 @@ const state = {
   recordTypes: [...defaultRecordTypes],
   taxonomyGroups: [...defaultTaxonomyGroups],
   taxonomyTerms: [...defaultTaxonomyTerms],
+  collectionEntities: [],
+  personEntities: [],
+  placeEntities: [],
   selectedId: null,
   currentUser: null,
   isAdmin: false,
@@ -155,6 +158,7 @@ const elements = {
   settingsMessage: document.querySelector("#settingsMessage"),
   settingsAdminNotice: document.querySelector("#settingsAdminNotice"),
   recordTypeSettingsList: document.querySelector("#recordTypeSettingsList"),
+  entityDirectorySettings: document.querySelector("#entityDirectorySettings"),
   taxonomySettingsList: document.querySelector("#taxonomySettingsList"),
   addRecordTypeButton: document.querySelector("#addRecordTypeButton"),
   recordId: document.querySelector("#recordId"),
@@ -163,11 +167,14 @@ const elements = {
   recordType: document.querySelector("#recordType"),
   recordStatus: document.querySelector("#recordStatus"),
   collectionName: document.querySelector("#collectionName"),
+  collectionEntityId: document.querySelector("#collectionEntityId"),
   location: document.querySelector("#location"),
   historicalTheme: document.querySelector("#historicalTheme"),
   neighborhood: document.querySelector("#neighborhood"),
+  placeEntityId: document.querySelector("#placeEntityId"),
   timePeriod: document.querySelector("#timePeriod"),
   people: document.querySelector("#people"),
+  peopleEntityPicker: document.querySelector("#peopleEntityPicker"),
   donor: document.querySelector("#donor"),
   objectDate: document.querySelector("#era"),
   formatMaterial: document.querySelector("#format"),
@@ -209,7 +216,9 @@ const elements = {
   presetTags: document.querySelector("#presetTags"),
   sectionJumpButtons: document.querySelectorAll("[data-section-target]"),
   tableRowTemplate: document.querySelector("#recordTableRowTemplate"),
-  recordTypeSettingTemplate: document.querySelector("#recordTypeSettingTemplate")
+  recordTypeSettingTemplate: document.querySelector("#recordTypeSettingTemplate"),
+  entityDirectoryTemplate: document.querySelector("#entityDirectoryTemplate"),
+  entityRowTemplate: document.querySelector("#entityRowTemplate")
 };
 
 function normalizedTags(value) {
@@ -278,6 +287,190 @@ function renderPublicFontThemeOptions() {
   )
     ? currentValue
     : publicFontThemes[0].value;
+}
+
+function normalizeEntity(entry, entityType) {
+  return {
+    id: entry.id || crypto.randomUUID(),
+    entity_type: entityType,
+    label: entry.label || "",
+    summary: entry.summary || "",
+    enabled: entry.enabled ?? true,
+    sort_order: entry.sort_order ?? 0
+  };
+}
+
+function sortEntities(entries) {
+  return [...entries].sort((left, right) => {
+    if ((left.sort_order ?? 0) !== (right.sort_order ?? 0)) {
+      return (left.sort_order ?? 0) - (right.sort_order ?? 0);
+    }
+    return (left.label || "").localeCompare(right.label || "");
+  });
+}
+
+function getEnabledEntities(entityType) {
+  const map = {
+    collection: state.collectionEntities,
+    person: state.personEntities,
+    place: state.placeEntities
+  };
+
+  return sortEntities(map[entityType] || []).filter((entry) => entry.enabled);
+}
+
+function buildEntitySelect(select, entityType, blankLabel) {
+  const currentValue = select.value;
+  select.replaceChildren();
+
+  const blankOption = document.createElement("option");
+  blankOption.value = "";
+  blankOption.textContent = blankLabel;
+  select.appendChild(blankOption);
+
+  for (const entry of getEnabledEntities(entityType)) {
+    const option = document.createElement("option");
+    option.value = entry.id;
+    option.textContent = entry.label;
+    select.appendChild(option);
+  }
+
+  select.value = [...select.options].some((option) => option.value === currentValue) ? currentValue : "";
+}
+
+function updateEntityAt(entityType, id, nextValues) {
+  const key = `${entityType}Entities`;
+  const index = state[key].findIndex((entry) => entry.id === id);
+  if (index === -1) {
+    return;
+  }
+  state[key][index] = {
+    ...state[key][index],
+    ...nextValues
+  };
+}
+
+function renderEntityPicker() {
+  elements.peopleEntityPicker.replaceChildren();
+
+  const selected = new Set((elements.peopleEntityPicker.dataset.selectedIds || "").split(",").filter(Boolean));
+
+  for (const person of getEnabledEntities("person")) {
+    const label = document.createElement("label");
+    label.className = "toggle entity-picker__option";
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.value = person.id;
+    input.checked = selected.has(person.id);
+    input.addEventListener("change", () => {
+      const current = new Set((elements.peopleEntityPicker.dataset.selectedIds || "").split(",").filter(Boolean));
+      if (input.checked) {
+        current.add(person.id);
+      } else {
+        current.delete(person.id);
+      }
+      elements.peopleEntityPicker.dataset.selectedIds = [...current].join(",");
+    });
+    const span = document.createElement("span");
+    span.textContent = person.label;
+    label.append(input, span);
+    elements.peopleEntityPicker.appendChild(label);
+  }
+}
+
+function getSelectedPeopleEntityIds() {
+  return (elements.peopleEntityPicker.dataset.selectedIds || "").split(",").filter(Boolean);
+}
+
+function getEntityLabelById(entityType, id) {
+  return getEnabledEntities(entityType)
+    .concat(sortEntities(state[`${entityType}Entities`]))
+    .find((entry) => entry.id === id)?.label;
+}
+
+function renderEntityOptions() {
+  buildEntitySelect(elements.collectionEntityId, "collection", "No linked collection");
+  buildEntitySelect(elements.placeEntityId, "place", "No linked place");
+  renderEntityPicker();
+}
+
+function renderEntityDirectorySettings() {
+  const directoryConfigs = [
+    {
+      entityType: "collection",
+      title: "Collections",
+      description: "Shared collection names for structured cataloging and public storytelling."
+    },
+    {
+      entityType: "person",
+      title: "People",
+      description: "Named individuals, families, groups, or organizations linked across records."
+    },
+    {
+      entityType: "place",
+      title: "Places",
+      description: "Key locations that can be connected to records, exhibitions, and archival descriptions."
+    }
+  ];
+
+  elements.entityDirectorySettings.replaceChildren();
+
+  for (const config of directoryConfigs) {
+    const fragment = elements.entityDirectoryTemplate.content.cloneNode(true);
+    fragment.querySelector('[data-role="eyebrow"]').textContent = config.entityType;
+    fragment.querySelector('[data-role="title"]').textContent = config.title;
+    fragment.querySelector('[data-role="description"]').textContent = config.description;
+
+    const list = fragment.querySelector('[data-role="list"]');
+    const addButton = fragment.querySelector('[data-role="add"]');
+
+    addButton.addEventListener("click", () => {
+      state[`${config.entityType}Entities`].push(
+        normalizeEntity(
+          {
+            label: `New ${config.title.slice(0, -1)}`,
+            sort_order: state[`${config.entityType}Entities`].length * 10 + 10
+          },
+          config.entityType
+        )
+      );
+      renderEntityDirectorySettings();
+      renderEntityOptions();
+    });
+
+    for (const entry of getEnabledEntities(config.entityType).concat(
+      sortEntities(state[`${config.entityType}Entities`]).filter((item) => !item.enabled)
+    )) {
+      const row = elements.entityRowTemplate.content.cloneNode(true);
+      const labelInput = row.querySelector('[data-role="label"]');
+      const summaryInput = row.querySelector('[data-role="summary"]');
+      const sortInput = row.querySelector('[data-role="sort"]');
+      const enabledInput = row.querySelector('[data-role="enabled"]');
+
+      labelInput.value = entry.label;
+      summaryInput.value = entry.summary || "";
+      sortInput.value = String(entry.sort_order ?? 0);
+      enabledInput.checked = Boolean(entry.enabled);
+
+      labelInput.addEventListener("input", (event) => {
+        updateEntityAt(config.entityType, entry.id, { label: event.target.value });
+      });
+      summaryInput.addEventListener("input", (event) => {
+        updateEntityAt(config.entityType, entry.id, { summary: event.target.value });
+      });
+      sortInput.addEventListener("input", (event) => {
+        updateEntityAt(config.entityType, entry.id, { sort_order: Number(event.target.value || 0) });
+      });
+      enabledInput.addEventListener("change", (event) => {
+        updateEntityAt(config.entityType, entry.id, { enabled: event.target.checked });
+        renderEntityOptions();
+      });
+
+      list.appendChild(row);
+    }
+
+    elements.entityDirectorySettings.appendChild(fragment);
+  }
 }
 
 function populateSettingsForm() {
@@ -534,6 +727,87 @@ async function loadRecordTypes() {
 
   renderRecordTypeOptions();
   renderRecordTypeSettings();
+}
+
+async function loadEntityDirectories() {
+  if (!isSupabaseReady) {
+    state.collectionEntities = [
+      normalizeEntity({ label: "School History Collection", summary: "School records, memorabilia, and educational materials.", sort_order: 10 }, "collection"),
+      normalizeEntity({ label: "Farish Street Business District", summary: "Business history and entrepreneurship linked to Farish Street.", sort_order: 20 }, "collection")
+    ];
+    state.personEntities = [
+      normalizeEntity({ label: "Smith Robertson Alumni Circle", summary: "Alumni and descendants connected to Smith Robertson School.", sort_order: 10 }, "person"),
+      normalizeEntity({ label: "Farish Street shop owners", summary: "Business owners and entrepreneurs active in the district.", sort_order: 20 }, "person")
+    ];
+    state.placeEntities = [
+      normalizeEntity({ label: "Smith Robertson Campus", summary: "Museum site and former school campus.", sort_order: 10 }, "place"),
+      normalizeEntity({ label: "Farish Street", summary: "Historic commercial and cultural corridor in Jackson.", sort_order: 20 }, "place")
+    ];
+    renderEntityDirectorySettings();
+    renderEntityOptions();
+    return;
+  }
+
+  const { data, error } = await state.supabase.from("linked_entities").select("*").order("sort_order");
+  if (error) {
+    if (error.message?.includes("linked_entities")) {
+      state.collectionEntities = [];
+      state.personEntities = [];
+      state.placeEntities = [];
+      renderEntityDirectorySettings();
+      renderEntityOptions();
+      return;
+    }
+    throw error;
+  }
+
+  const entries = data || [];
+  state.collectionEntities = entries
+    .filter((entry) => entry.entity_type === "collection")
+    .map((entry) => normalizeEntity(entry, "collection"));
+  state.personEntities = entries
+    .filter((entry) => entry.entity_type === "person")
+    .map((entry) => normalizeEntity(entry, "person"));
+  state.placeEntities = entries
+    .filter((entry) => entry.entity_type === "place")
+    .map((entry) => normalizeEntity(entry, "place"));
+
+  renderEntityDirectorySettings();
+  renderEntityOptions();
+}
+
+async function saveEntityDirectories() {
+  const payload = [...state.collectionEntities, ...state.personEntities, ...state.placeEntities]
+    .map((entry, index) => ({
+      id: entry.id,
+      entity_type: entry.entity_type,
+      label: entry.label?.trim() || "",
+      summary: entry.summary?.trim() || "",
+      enabled: Boolean(entry.enabled),
+      sort_order: Number(entry.sort_order ?? index * 10)
+    }))
+    .filter((entry) => entry.label);
+
+  const { error } = await state.supabase.from("linked_entities").upsert(payload, { onConflict: "id" });
+  if (error) {
+    if (error.message?.includes("linked_entities")) {
+      throw new Error("Linked entity directories need the latest Supabase schema. Re-run supabase/schema.sql once, then save again.");
+    }
+    throw error;
+  }
+
+  state.collectionEntities = payload
+    .filter((entry) => entry.entity_type === "collection")
+    .map((entry) => normalizeEntity(entry, "collection"));
+  state.personEntities = payload
+    .filter((entry) => entry.entity_type === "person")
+    .map((entry) => normalizeEntity(entry, "person"));
+  state.placeEntities = payload
+    .filter((entry) => entry.entity_type === "place")
+    .map((entry) => normalizeEntity(entry, "place"));
+
+  renderEntityDirectorySettings();
+  renderEntityOptions();
 }
 
 function updateTaxonomyGroupAt(groupSlug, nextValues) {
@@ -1198,18 +1472,30 @@ function renderTableView() {
 }
 
 function getFormData() {
+  const collectionEntityId = elements.collectionEntityId.value || null;
+  const placeEntityId = elements.placeEntityId.value || null;
+  const peopleEntityIds = getSelectedPeopleEntityIds();
+  const linkedCollectionLabel = collectionEntityId ? getEntityLabelById("collection", collectionEntityId) : "";
+  const linkedPlaceLabel = placeEntityId ? getEntityLabelById("place", placeEntityId) : "";
+  const linkedPeopleLabels = peopleEntityIds
+    .map((id) => getEntityLabelById("person", id))
+    .filter(Boolean);
+
   return {
     id: elements.recordId.value || crypto.randomUUID(),
     accession_number: elements.accessionNumber.value.trim(),
     title: elements.title.value.trim(),
     record_type: elements.recordType.value,
     status: elements.recordStatus.value,
-    collection_name: elements.collectionName.value.trim(),
+    collection_entity_id: collectionEntityId,
+    collection_name: elements.collectionName.value.trim() || linkedCollectionLabel,
     location: elements.location.value.trim(),
     historical_theme: elements.historicalTheme.value,
-    neighborhood: elements.neighborhood.value,
+    place_entity_id: placeEntityId,
+    neighborhood: elements.neighborhood.value || linkedPlaceLabel,
     time_period: elements.timePeriod.value.trim(),
-    people: elements.people.value.trim(),
+    people_entity_ids: peopleEntityIds,
+    people: elements.people.value.trim() || linkedPeopleLabels.join(", "),
     donor: elements.donor.value.trim(),
     object_date: elements.objectDate.value.trim(),
     format_material: elements.formatMaterial.value.trim(),
@@ -1238,11 +1524,15 @@ function populateForm(record) {
   elements.recordType.value = record.record_type || "Artifact";
   elements.recordStatus.value = record.status || "In Storage";
   elements.collectionName.value = record.collection_name || "";
+  elements.collectionEntityId.value = record.collection_entity_id || "";
   elements.location.value = record.location || "";
   elements.historicalTheme.value = record.historical_theme || "";
   elements.neighborhood.value = record.neighborhood || "";
+  elements.placeEntityId.value = record.place_entity_id || "";
   elements.timePeriod.value = record.time_period || "";
   elements.people.value = record.people || "";
+  elements.peopleEntityPicker.dataset.selectedIds = (record.people_entity_ids || []).join(",");
+  renderEntityPicker();
   elements.donor.value = record.donor || "";
   elements.objectDate.value = record.object_date || "";
   elements.formatMaterial.value = record.format_material || "";
@@ -1276,6 +1566,10 @@ function resetForm() {
   elements.form.reset();
   elements.recordId.value = "";
   elements.isPublic.checked = false;
+  elements.peopleEntityPicker.dataset.selectedIds = "";
+  elements.collectionEntityId.value = "";
+  elements.placeEntityId.value = "";
+  renderEntityPicker();
   setPhotoPreview("");
   setPhotoStatus("");
 }
@@ -1358,6 +1652,13 @@ async function saveRecord(record) {
 
   const { error } = await state.supabase.from("museum_records").upsert(payload);
   if (error) {
+    if (
+      error.message?.includes("collection_entity_id") ||
+      error.message?.includes("place_entity_id") ||
+      error.message?.includes("people_entity_ids")
+    ) {
+      throw new Error("Linked records need the latest Supabase schema. Re-run supabase/schema.sql once, then save again.");
+    }
     throw error;
   }
 }
@@ -1447,11 +1748,14 @@ function normalizeImportedRecord(record) {
     title: String(record.title || "").trim(),
     record_type: String(record.record_type || "Artifact").trim(),
     status: String(record.status || "In Storage").trim(),
+    collection_entity_id: String(record.collection_entity_id || "").trim() || null,
     collection_name: String(record.collection_name || "").trim(),
     location: String(record.location || "").trim(),
     historical_theme: String(record.historical_theme || "").trim(),
+    place_entity_id: String(record.place_entity_id || "").trim() || null,
     neighborhood: String(record.neighborhood || "").trim(),
     time_period: String(record.time_period || "").trim(),
+    people_entity_ids: normalizeImportedEntityIds(record.people_entity_ids),
     people: String(record.people || "").trim(),
     donor: String(record.donor || "").trim(),
     object_date: String(record.object_date || "").trim(),
@@ -1470,6 +1774,21 @@ function normalizeImportedRecord(record) {
     tags: normalizeImportedTags(record.tags),
     updated_by: state.currentUser?.email || record.updated_by || null
   };
+}
+
+function normalizeImportedEntityIds(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item).trim()).filter(Boolean);
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split(/[;,]/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
 }
 
 function normalizeImportedTags(value) {
@@ -1668,6 +1987,7 @@ async function initializeAuth() {
   if (!isSupabaseReady) {
     await loadSiteSettings();
     await loadRecordTypes();
+    await loadEntityDirectories();
     await loadTaxonomies();
     elements.setupBanner.hidden = false;
     elements.setupDetails.textContent =
@@ -1682,6 +2002,7 @@ async function initializeAuth() {
 
   await loadSiteSettings();
   await loadRecordTypes();
+  await loadEntityDirectories();
   await loadTaxonomies();
 
   const {
@@ -1694,7 +2015,7 @@ async function initializeAuth() {
   state.supabase.auth.onAuthStateChange((_event, sessionData) => {
     state.currentUser = sessionData?.user || null;
     updateAuthUI();
-    Promise.all([loadSiteSettings(), loadRecordTypes(), loadTaxonomies(), refresh()]).catch((error) =>
+    Promise.all([loadSiteSettings(), loadRecordTypes(), loadEntityDirectories(), loadTaxonomies(), refresh()]).catch((error) =>
       setAuthMessage(error.message, true)
     );
   });
@@ -1844,8 +2165,10 @@ elements.siteSettingsForm.addEventListener("submit", async (event) => {
   try {
     await saveSiteSettings();
     await saveRecordTypes();
+    await saveEntityDirectories();
     await saveTaxonomies();
     await loadRecordTypes();
+    await loadEntityDirectories();
     await loadTaxonomies();
     setSettingsMessage("Settings saved.");
   } catch (error) {
