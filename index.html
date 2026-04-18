@@ -22,18 +22,20 @@
         </div>
       </nav>
 
-      <header class="hero">
-        <div class="hero__copy">
-          <p id="heroEyebrow" class="eyebrow">Collections Platform</p>
-          <h1 id="heroHeadline">Manage records, metadata, and public publishing from one place.</h1>
-          <p id="heroIntro" class="hero__lede">
-            A shared museum database for internal cataloging and public publishing. Use the manager to maintain
-            records, media, taxonomies, and site settings with one connected workflow.
-          </p>
-        </div>
+      <main class="app-shell">
+        <aside class="app-rail">
+          <section class="app-rail__section">
+            <p class="eyebrow">Navigation</p>
+            <div class="app-rail__nav">
+              <button id="browseCardsTab" class="button button--ghost is-active app-rail__nav-button" type="button">Records Board</button>
+              <button id="browseTableTab" class="button button--ghost app-rail__nav-button" type="button">Records Table</button>
+              <button id="editorTab" class="button button--ghost app-rail__nav-button" type="button">Record Editor</button>
+              <button id="settingsTab" class="button button--ghost app-rail__nav-button" type="button">Settings</button>
+              <a class="button button--ghost app-rail__nav-button" href="./catalog.html">Public Catalog</a>
+            </div>
+          </section>
 
-        <section class="hero__panel" aria-label="Database summary">
-          <div class="auth-card" id="authPanel">
+          <section class="app-rail__section" id="authPanel">
             <p class="eyebrow">Account</p>
             <div id="signedOutView">
               <h2>Sign In</h2>
@@ -59,135 +61,119 @@
               </div>
             </div>
             <p id="authMessage" class="help-text"></p>
-          </div>
-
-          <div class="metric">
-            <span class="metric__label">Total Records</span>
-            <strong id="totalRecordsMetric">0</strong>
-          </div>
-          <div class="metric">
-            <span class="metric__label">Published</span>
-            <strong id="publicMetric">0</strong>
-          </div>
-          <div class="metric">
-            <span class="metric__label">Needs Review</span>
-            <strong id="reviewMetric">0</strong>
-          </div>
-          <div class="metric">
-            <span class="metric__label">Theme: Farish Street</span>
-            <strong id="farishMetric">0</strong>
-          </div>
-          <div class="metric">
-            <span class="metric__label">Textiles</span>
-            <strong id="textileMetric">0</strong>
-          </div>
-        </section>
-      </header>
-
-      <section class="setup-banner" id="setupBanner">
-        <strong>Setup needed:</strong>
-        <span id="setupDetails">
-          add your Supabase project URL and anon key in <code>supabase-config.js</code> to enable shared sign-in and
-          shared records.
-        </span>
-      </section>
-
-      <main class="workspace">
-        <aside class="sidebar">
-          <section class="card">
-            <h2>Find Records</h2>
-            <label class="field">
-              <span>Search Everything</span>
-              <input id="searchInput" type="search" placeholder="Search titles, people, neighborhoods, themes..." />
-            </label>
-
-            <label class="field">
-              <span>Record Type</span>
-              <select id="typeFilter">
-                <option value="all">All types</option>
-                <option value="Artifact">Artifact</option>
-                <option value="Archive">Archive</option>
-                <option value="Photograph">Photograph</option>
-                <option value="Oral History">Oral History</option>
-                <option value="Newspaper / Periodical">Newspaper / Periodical</option>
-                <option value="Textile">Textile</option>
-                <option value="Exhibit">Exhibit</option>
-              </select>
-            </label>
-
-            <label class="field">
-              <span>Status</span>
-              <select id="statusFilter"></select>
-            </label>
-
-            <label class="field">
-              <span>Historical Theme</span>
-              <select id="themeFilter"></select>
-            </label>
-
-            <label class="field">
-              <span>Neighborhood</span>
-              <select id="neighborhoodFilter"></select>
-            </label>
-
-            <label class="field">
-              <span>Visibility</span>
-              <select id="visibilityFilter">
-                <option value="all">All records</option>
-                <option value="public">Public catalog</option>
-                <option value="private">Internal only</option>
-              </select>
-            </label>
           </section>
 
-          <section class="card">
-            <div class="section-heading">
-              <div>
-                <h2>Suggested Tags</h2>
-                <p class="help-text">Admin-managed keywords for faster cataloging.</p>
-              </div>
-            </div>
-            <div id="presetTags" class="chip-grid"></div>
-          </section>
-
-          <section class="card">
-            <h2>Data Tools</h2>
-            <div class="stack">
+          <section class="app-rail__section">
+            <p class="eyebrow">Quick Actions</p>
+            <div class="stack stack--column">
+              <button id="exportButton" class="button button--ghost" type="button">Export JSON</button>
+              <button id="exportCsvButton" class="button button--ghost" type="button">Download CSV</button>
               <label class="button button--ghost file-button">
                 <span>Import JSON</span>
                 <input id="importInput" type="file" accept="application/json" />
               </label>
               <button id="clearDataButton" class="button button--danger">Delete All Records</button>
             </div>
-            <p class="help-text">
-              In Supabase mode these actions affect the shared project database, not just one browser.
-            </p>
           </section>
         </aside>
 
-        <section class="content">
-          <section class="card">
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">Workspace</p>
-                <h2>Collections Manager</h2>
+        <section class="app-main">
+          <header class="workspace-header card">
+            <div class="workspace-header__copy">
+              <p id="heroEyebrow" class="eyebrow">Collections Platform</p>
+              <h1 id="heroHeadline">Manage records, metadata, and public publishing from one place.</h1>
+              <p id="heroIntro" class="hero__lede">
+                A shared museum database for internal cataloging and public publishing. Use the manager to maintain
+                records, media, taxonomies, and site settings with one connected workflow.
+              </p>
+            </div>
+            <div class="workspace-metrics">
+              <div class="metric">
+                <span class="metric__label">Total Records</span>
+                <strong id="totalRecordsMetric">0</strong>
               </div>
-              <div class="workspace-controls">
-                <div class="toolbar toolbar--tight">
-                  <button id="browseCardsTab" class="button button--ghost is-active" type="button">Card View</button>
-                  <button id="browseTableTab" class="button button--ghost" type="button">Table View</button>
-                  <button id="editorTab" class="button button--ghost" type="button">Record Editor</button>
-                  <button id="settingsTab" class="button button--ghost" type="button">Settings</button>
-                </div>
-                <div class="toolbar toolbar--tight">
-                  <button id="exportButton" class="button button--ghost" type="button">Export JSON</button>
-                  <button id="exportCsvButton" class="button button--ghost" type="button">Download CSV</button>
-                </div>
+              <div class="metric">
+                <span class="metric__label">Published</span>
+                <strong id="publicMetric">0</strong>
+              </div>
+              <div class="metric">
+                <span class="metric__label">Needs Review</span>
+                <strong id="reviewMetric">0</strong>
+              </div>
+              <div class="metric">
+                <span class="metric__label">Farish Street</span>
+                <strong id="farishMetric">0</strong>
+              </div>
+              <div class="metric">
+                <span class="metric__label">Textiles</span>
+                <strong id="textileMetric">0</strong>
+              </div>
+            </div>
+          </header>
+
+          <section class="setup-banner" id="setupBanner">
+            <strong>Setup needed:</strong>
+            <span id="setupDetails">
+              add your Supabase project URL and anon key in <code>supabase-config.js</code> to enable shared sign-in and
+              shared records.
+            </span>
+          </section>
+
+          <section class="card workspace-surface">
+            <div class="surface-header">
+              <div>
+                <p class="eyebrow">Collections Manager</p>
+                <h2>Catalog Workspace</h2>
               </div>
             </div>
 
+            <div id="recordsToolbar" class="records-toolbar">
+                <div class="records-toolbar__search">
+                  <label class="field">
+                    <span>Search</span>
+                    <input id="searchInput" type="search" placeholder="Search titles, people, neighborhoods, themes..." />
+                  </label>
+                </div>
+                <div class="records-toolbar__filters">
+                  <label class="field">
+                    <span>Type</span>
+                    <select id="typeFilter">
+                      <option value="all">All types</option>
+                      <option value="Artifact">Artifact</option>
+                      <option value="Archive">Archive</option>
+                      <option value="Photograph">Photograph</option>
+                      <option value="Oral History">Oral History</option>
+                      <option value="Newspaper / Periodical">Newspaper / Periodical</option>
+                      <option value="Textile">Textile</option>
+                      <option value="Exhibit">Exhibit</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Status</span>
+                    <select id="statusFilter"></select>
+                  </label>
+                  <label class="field">
+                    <span>Theme</span>
+                    <select id="themeFilter"></select>
+                  </label>
+                  <label class="field">
+                    <span>Neighborhood</span>
+                    <select id="neighborhoodFilter"></select>
+                  </label>
+                  <label class="field">
+                    <span>Visibility</span>
+                    <select id="visibilityFilter">
+                      <option value="all">All records</option>
+                      <option value="public">Public catalog</option>
+                      <option value="private">Internal only</option>
+                    </select>
+                  </label>
+                </div>
+            </div>
+
             <section id="cardsView" class="panel-view panel-view--active">
-              <div class="section-heading">
+
+              <div class="section-heading section-heading--compact">
                 <div>
                   <p class="eyebrow">Shared Catalog</p>
                   <h2>Museum Records</h2>
@@ -195,11 +181,15 @@
                 <span id="recordCountLabel" class="pill">0 results</span>
               </div>
               <div id="activeFilterPills" class="toolbar toolbar--wrap"></div>
+              <div class="suggested-tag-bar">
+                <span class="suggested-tag-bar__label">Suggested Tags</span>
+                <div id="presetTags" class="chip-grid"></div>
+              </div>
               <div id="recordList" class="record-list" aria-live="polite"></div>
             </section>
 
             <section id="tableView" class="panel-view" hidden>
-              <div class="section-heading">
+              <div class="section-heading section-heading--compact">
                 <div>
                   <p class="eyebrow">Collection Table</p>
                   <h2>Browse Records Fast</h2>

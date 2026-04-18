@@ -129,6 +129,7 @@ const elements = {
   setupDetails: document.querySelector("#setupDetails"),
   form: document.querySelector("#recordForm"),
   formHeading: document.querySelector("#formHeading"),
+  recordsToolbar: document.querySelector("#recordsToolbar"),
   browseCardsTab: document.querySelector("#browseCardsTab"),
   browseTableTab: document.querySelector("#browseTableTab"),
   editorTab: document.querySelector("#editorTab"),
@@ -827,10 +828,13 @@ function setActiveView(view) {
   });
 
   if (view === "editor") {
+    elements.recordsToolbar.hidden = true;
     jumpToSection("editorBasicsSection");
   } else if (view === "settings") {
+    elements.recordsToolbar.hidden = true;
     jumpToSection("settingsBrandSection");
   } else {
+    elements.recordsToolbar.hidden = false;
     elements.sectionJumpButtons.forEach((button) => button.classList.remove("is-active"));
   }
 }
