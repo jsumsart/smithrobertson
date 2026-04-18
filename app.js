@@ -825,6 +825,14 @@ function setActiveView(view) {
   Object.entries(tabs).forEach(([key, node]) => {
     node.classList.toggle("is-active", key === view);
   });
+
+  if (view === "editor") {
+    jumpToSection("editorBasicsSection");
+  } else if (view === "settings") {
+    jumpToSection("settingsBrandSection");
+  } else {
+    elements.sectionJumpButtons.forEach((button) => button.classList.remove("is-active"));
+  }
 }
 
 function jumpToSection(targetId) {
@@ -832,6 +840,10 @@ function jumpToSection(targetId) {
   if (!target) {
     return;
   }
+
+  elements.sectionJumpButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.sectionTarget === targetId);
+  });
 
   if (target.tagName === "DETAILS") {
     target.open = true;
