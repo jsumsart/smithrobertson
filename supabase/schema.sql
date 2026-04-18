@@ -41,6 +41,11 @@ create table if not exists public.site_settings (
   manager_intro text not null default 'Built for a real museum workflow: staff and students can log in, catalog the same records, upload object photos, and manage collections tied to African American history, Jackson history, and Farish Street.',
   public_catalog_title text not null default 'Browse published Smith Robertson records.',
   public_catalog_intro text not null default 'This view is for visitors, partners, and researchers. Only records marked for public display are shown here.',
+  public_gallery_title text not null default 'A living gallery of Jackson history.',
+  public_gallery_intro text not null default 'Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.',
+  public_font_theme text not null default 'editorial',
+  public_slideshow_accessions text[] not null default '{}',
+  public_featured_accessions text[] not null default '{}',
   primary_color text not null default '#9f4728',
   accent_deep_color text not null default '#71311b',
   forest_color text not null default '#546c47',
@@ -90,6 +95,11 @@ alter table public.site_settings add column if not exists manager_headline text 
 alter table public.site_settings add column if not exists manager_intro text not null default 'Built for a real museum workflow: staff and students can log in, catalog the same records, upload object photos, and manage collections tied to African American history, Jackson history, and Farish Street.';
 alter table public.site_settings add column if not exists public_catalog_title text not null default 'Browse published Smith Robertson records.';
 alter table public.site_settings add column if not exists public_catalog_intro text not null default 'This view is for visitors, partners, and researchers. Only records marked for public display are shown here.';
+alter table public.site_settings add column if not exists public_gallery_title text not null default 'A living gallery of Jackson history.';
+alter table public.site_settings add column if not exists public_gallery_intro text not null default 'Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.';
+alter table public.site_settings add column if not exists public_font_theme text not null default 'editorial';
+alter table public.site_settings add column if not exists public_slideshow_accessions text[] not null default '{}';
+alter table public.site_settings add column if not exists public_featured_accessions text[] not null default '{}';
 alter table public.site_settings add column if not exists primary_color text not null default '#9f4728';
 alter table public.site_settings add column if not exists accent_deep_color text not null default '#71311b';
 alter table public.site_settings add column if not exists forest_color text not null default '#546c47';
@@ -322,7 +332,7 @@ insert into public.taxonomy_groups (slug, label, description, public_visible, so
 values
   ('status', 'Statuses', 'Workflow and storage status options for records.', false, 10),
   ('historical-theme', 'Themes', 'Themes used for filtering and interpretation.', true, 20),
-  ('neighborhood', 'Geographies', 'Neighborhoods, campuses, regions, or geographic contexts.', true, 30),
+  ('neighborhood', 'Geographies', 'Key locations, campuses, regions, or geographic contexts.', true, 30),
   ('rights-status', 'Rights', 'Usage and rights statements.', false, 40),
   ('condition', 'Condition', 'Condition and conservation states for records.', false, 45),
   ('sensitivity', 'Sensitivity', 'Internal/public sensitivity levels.', false, 50),
@@ -346,7 +356,7 @@ values
   ('historical-theme', 'faith-and-community-life', 'Faith And Community Life', true, 40),
   ('historical-theme', 'arts-and-culture', 'Arts And Culture', true, 50),
   ('historical-theme', 'civic-leadership', 'Civic Leadership', true, 60),
-  ('historical-theme', 'family-and-neighborhood-life', 'Family And Neighborhood Life', true, 70),
+  ('historical-theme', 'family-and-neighborhood-life', 'Family And Local Life', true, 70),
   ('neighborhood', 'farish-street', 'Farish Street', true, 10),
   ('neighborhood', 'downtown-jackson', 'Downtown Jackson', true, 20),
   ('neighborhood', 'smith-robertson-campus', 'Smith Robertson Campus', true, 30),

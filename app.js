@@ -5,6 +5,7 @@ import {
   defaultTaxonomyTerms,
   defaultRecordTypes,
   defaultSiteSettings,
+  publicFontThemes,
   slugifyRecordType,
   sortRecordTypes,
   sortTaxonomyEntries
@@ -143,6 +144,11 @@ const elements = {
   settingsManagerIntro: document.querySelector("#settingsManagerIntro"),
   settingsPublicTitle: document.querySelector("#settingsPublicTitle"),
   settingsPublicIntro: document.querySelector("#settingsPublicIntro"),
+  settingsPublicFontTheme: document.querySelector("#settingsPublicFontTheme"),
+  settingsGalleryTitle: document.querySelector("#settingsGalleryTitle"),
+  settingsGalleryIntro: document.querySelector("#settingsGalleryIntro"),
+  settingsSlideshowAccessions: document.querySelector("#settingsSlideshowAccessions"),
+  settingsFeaturedAccessions: document.querySelector("#settingsFeaturedAccessions"),
   settingsPrimaryColor: document.querySelector("#settingsPrimaryColor"),
   settingsAccentDeepColor: document.querySelector("#settingsAccentDeepColor"),
   settingsForestColor: document.querySelector("#settingsForestColor"),
@@ -249,6 +255,31 @@ function applySiteSettingsToPage() {
   applyTheme(settings);
 }
 
+function parseCommaSeparatedList(value) {
+  return (value || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function renderPublicFontThemeOptions() {
+  const currentValue = elements.settingsPublicFontTheme.value || state.siteSettings.public_font_theme;
+  elements.settingsPublicFontTheme.replaceChildren();
+
+  for (const optionDef of publicFontThemes) {
+    const option = document.createElement("option");
+    option.value = optionDef.value;
+    option.textContent = optionDef.label;
+    elements.settingsPublicFontTheme.appendChild(option);
+  }
+
+  elements.settingsPublicFontTheme.value = [...elements.settingsPublicFontTheme.options].some(
+    (option) => option.value === currentValue
+  )
+    ? currentValue
+    : publicFontThemes[0].value;
+}
+
 function populateSettingsForm() {
   const settings = state.siteSettings;
   elements.settingsBrandName.value = settings.brand_name;
@@ -257,6 +288,12 @@ function populateSettingsForm() {
   elements.settingsManagerIntro.value = settings.manager_intro;
   elements.settingsPublicTitle.value = settings.public_catalog_title;
   elements.settingsPublicIntro.value = settings.public_catalog_intro;
+  renderPublicFontThemeOptions();
+  elements.settingsPublicFontTheme.value = settings.public_font_theme;
+  elements.settingsGalleryTitle.value = settings.public_gallery_title;
+  elements.settingsGalleryIntro.value = settings.public_gallery_intro;
+  elements.settingsSlideshowAccessions.value = (settings.public_slideshow_accessions || []).join(", ");
+  elements.settingsFeaturedAccessions.value = (settings.public_featured_accessions || []).join(", ");
   elements.settingsPrimaryColor.value = settings.primary_color;
   elements.settingsAccentDeepColor.value = settings.accent_deep_color;
   elements.settingsForestColor.value = settings.forest_color;
@@ -271,11 +308,26 @@ function normalizeTaxonomyGroup(group) {
     return {
       ...group,
       label: "Geographies",
-      description: "Neighborhoods, campuses, regions, or geographic contexts."
+      description: "Key locations, campuses, regions, or geographic contexts."
     };
   }
 
   return group;
+}
+
+function normalizeTaxonomyTerm(term) {
+  if (!term) {
+    return null;
+  }
+
+  if (term.group_slug === "historical-theme" && term.slug === "family-and-neighborhood-life") {
+    return {
+      ...term,
+      label: "Family And Local Life"
+    };
+  }
+
+  return term;
 }
 
 function getTaxonomyGroup(groupSlug) {
@@ -664,13 +716,15 @@ async function loadTaxonomies() {
         )
       : [...defaultTaxonomyGroups];
     state.taxonomyTerms = termsData?.length
-      ? termsData.map((term) => ({
-          group_slug: term.group_slug,
-          slug: term.slug,
-          label: term.label,
-          enabled: term.enabled,
-          sort_order: term.sort_order
-        }))
+      ? termsData.map((term) =>
+          normalizeTaxonomyTerm({
+            group_slug: term.group_slug,
+            slug: term.slug,
+            label: term.label,
+            enabled: term.enabled,
+            sort_order: term.sort_order
+          })
+        )
       : [...defaultTaxonomyTerms];
   }
 
@@ -688,6 +742,11 @@ async function saveSiteSettings() {
     manager_intro: elements.settingsManagerIntro.value.trim() || defaultSiteSettings.manager_intro,
     public_catalog_title: elements.settingsPublicTitle.value.trim() || defaultSiteSettings.public_catalog_title,
     public_catalog_intro: elements.settingsPublicIntro.value.trim() || defaultSiteSettings.public_catalog_intro,
+    public_gallery_title: elements.settingsGalleryTitle.value.trim() || defaultSiteSettings.public_gallery_title,
+    public_gallery_intro: elements.settingsGalleryIntro.value.trim() || defaultSiteSettings.public_gallery_intro,
+    public_font_theme: elements.settingsPublicFontTheme.value || defaultSiteSettings.public_font_theme,
+    public_slideshow_accessions: parseCommaSeparatedList(elements.settingsSlideshowAccessions.value),
+    public_featured_accessions: parseCommaSeparatedList(elements.settingsFeaturedAccessions.value),
     primary_color: elements.settingsPrimaryColor.value,
     accent_deep_color: elements.settingsAccentDeepColor.value,
     forest_color: elements.settingsForestColor.value
@@ -755,7 +814,7 @@ async function saveTaxonomies() {
   }
 
   state.taxonomyGroups = groupsPayload;
-  state.taxonomyTerms = termsPayload;
+  state.taxonomyTerms = termsPayload.map((term) => normalizeTaxonomyTerm(term));
   renderManagedMetadataOptions();
   renderPresetTagButtons();
   renderTaxonomySettings();

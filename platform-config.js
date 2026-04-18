@@ -8,10 +8,37 @@ export const defaultSiteSettings = {
   public_catalog_title: "Browse published Smith Robertson records.",
   public_catalog_intro:
     "This view is for visitors, partners, and researchers. Only records marked for public display are shown here.",
+  public_gallery_title: "A living gallery of Jackson history.",
+  public_gallery_intro:
+    "Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.",
+  public_font_theme: "editorial",
+  public_slideshow_accessions: [],
+  public_featured_accessions: [],
   primary_color: "#9f4728",
   accent_deep_color: "#71311b",
   forest_color: "#546c47"
 };
+
+export const publicFontThemes = [
+  {
+    value: "editorial",
+    label: "Editorial",
+    displayFont: "\"Cormorant Garamond\", serif",
+    bodyFont: "\"Manrope\", sans-serif"
+  },
+  {
+    value: "heritage",
+    label: "Heritage",
+    displayFont: "\"Libre Baskerville\", serif",
+    bodyFont: "\"Source Sans 3\", sans-serif"
+  },
+  {
+    value: "modern",
+    label: "Modern",
+    displayFont: "\"Fraunces\", serif",
+    bodyFont: "\"DM Sans\", sans-serif"
+  }
+];
 
 export const defaultRecordTypes = [
   { slug: "artifact", label: "Artifact", enabled: true, sort_order: 10 },
@@ -41,7 +68,7 @@ export const defaultTaxonomyGroups = [
   {
     slug: "neighborhood",
     label: "Geographies",
-    description: "Neighborhoods, campuses, regions, or geographic contexts.",
+    description: "Key locations, campuses, regions, or geographic contexts.",
     public_visible: true,
     sort_order: 30
   },
@@ -87,7 +114,7 @@ export const defaultTaxonomyTerms = [
   { group_slug: "historical-theme", slug: "faith-and-community-life", label: "Faith And Community Life", enabled: true, sort_order: 40 },
   { group_slug: "historical-theme", slug: "arts-and-culture", label: "Arts And Culture", enabled: true, sort_order: 50 },
   { group_slug: "historical-theme", slug: "civic-leadership", label: "Civic Leadership", enabled: true, sort_order: 60 },
-  { group_slug: "historical-theme", slug: "family-and-neighborhood-life", label: "Family And Neighborhood Life", enabled: true, sort_order: 70 },
+  { group_slug: "historical-theme", slug: "family-and-neighborhood-life", label: "Family And Local Life", enabled: true, sort_order: 70 },
   { group_slug: "neighborhood", slug: "farish-street", label: "Farish Street", enabled: true, sort_order: 10 },
   { group_slug: "neighborhood", slug: "downtown-jackson", label: "Downtown Jackson", enabled: true, sort_order: 20 },
   { group_slug: "neighborhood", slug: "smith-robertson-campus", label: "Smith Robertson Campus", enabled: true, sort_order: 30 },
@@ -146,4 +173,16 @@ export function applyTheme(settings) {
   root.style.setProperty("--accent", settings.primary_color || defaultSiteSettings.primary_color);
   root.style.setProperty("--accent-deep", settings.accent_deep_color || defaultSiteSettings.accent_deep_color);
   root.style.setProperty("--forest", settings.forest_color || defaultSiteSettings.forest_color);
+}
+
+export function getPublicFontTheme(value) {
+  return publicFontThemes.find((theme) => theme.value === value) || publicFontThemes[0];
+}
+
+export function applyPublicSiteTheme(settings) {
+  applyTheme(settings);
+  const root = document.documentElement;
+  const theme = getPublicFontTheme(settings.public_font_theme);
+  root.style.setProperty("--catalog-display-font", theme.displayFont);
+  root.style.setProperty("--catalog-body-font", theme.bodyFont);
 }

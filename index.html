@@ -27,7 +27,7 @@
               <button id="browseTableTab" class="dashboard-nav-item is-active" type="button">Records</button>
               <button id="editorTab" class="dashboard-nav-item" type="button">Record Editor</button>
               <button id="settingsTab" class="dashboard-nav-item" type="button">Settings</button>
-              <a class="dashboard-nav-item" href="./catalog.html">Public Catalog</a>
+              <a class="dashboard-nav-item" href="./catalog.html">Public Site</a>
             </nav>
           </section>
 
@@ -108,7 +108,7 @@
               </p>
             </div>
             <div class="dashboard-header__actions">
-              <a class="button button--ghost" href="./catalog.html">Open Public Catalog</a>
+              <a class="button button--ghost" href="./catalog.html">Open Public Site</a>
             </div>
           </header>
 
@@ -350,10 +350,10 @@
                     <select id="sensitivity"></select>
                   </label>
                   <div class="field field--wide">
-                    <span>Public Catalog Visibility</span>
+                    <span>Public Site Visibility</span>
                     <label class="toggle" for="isPublic">
                       <input id="isPublic" type="checkbox" />
-                      <span>Show this record on the public catalog site</span>
+                      <span>Show this record on the public site</span>
                     </label>
                   </div>
                   <label class="field field--wide">
@@ -418,6 +418,9 @@
                       <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsThemeSection">
                         Theme Tokens
                       </button>
+                      <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsPublicSiteSection">
+                        Public Site
+                      </button>
                       <button class="button button--ghost panel-nav-button" type="button" data-section-target="settingsTypesSection">
                         Record Types
                       </button>
@@ -432,7 +435,7 @@
                   <div class="section-heading">
                     <div>
                       <p class="eyebrow">Platform Admin</p>
-                      <h2>Brand, Metadata, And Public Catalog Controls</h2>
+                      <h2>Brand, Metadata, And Public Site Controls</h2>
                     </div>
                     <span class="pill">Admin Only</span>
                   </div>
@@ -447,7 +450,7 @@
                         <div class="form-section__header">
                           <div>
                             <p class="eyebrow">Brand</p>
-                            <h3>Identity And Copy</h3>
+                            <h3>Identity And Core Copy</h3>
                           </div>
                           <span class="pill">Public-facing content</span>
                         </div>
@@ -471,11 +474,11 @@
                       <textarea id="settingsManagerIntro" rows="3"></textarea>
                     </label>
                     <label class="field field--wide">
-                      <span>Public Catalog Title</span>
+                      <span>Archive Title</span>
                       <input id="settingsPublicTitle" placeholder="Browse published Smith Robertson records." />
                     </label>
                     <label class="field field--wide">
-                      <span>Public Catalog Intro</span>
+                      <span>Archive Intro</span>
                       <textarea id="settingsPublicIntro" rows="3"></textarea>
                     </label>
                         </div>
@@ -513,6 +516,50 @@
                       </div>
                     </details>
 
+                    <details id="settingsPublicSiteSection" class="form-accordion" open>
+                      <summary class="form-accordion__summary">
+                        <div class="form-section__header">
+                          <div>
+                            <p class="eyebrow">Public Site</p>
+                            <h3>Digital Gallery Experience</h3>
+                          </div>
+                          <span class="pill">Homepage, typography, curation</span>
+                        </div>
+                      </summary>
+                      <div class="form-accordion__body">
+                        <div class="form-grid">
+                          <label class="field">
+                            <span>Public Font Theme</span>
+                            <select id="settingsPublicFontTheme"></select>
+                          </label>
+                          <label class="field field--wide">
+                            <span>Gallery Title</span>
+                            <input id="settingsGalleryTitle" placeholder="A living gallery of Jackson history." />
+                          </label>
+                          <label class="field field--wide">
+                            <span>Gallery Intro</span>
+                            <textarea id="settingsGalleryIntro" rows="3"></textarea>
+                          </label>
+                          <label class="field field--wide">
+                            <span>Slideshow Records</span>
+                            <input
+                              id="settingsSlideshowAccessions"
+                              placeholder="SRM-FS-1952-001, SRM-SR-1931-004"
+                            />
+                            <small class="help-text">Enter accession IDs separated by commas to create the hero slideshow.</small>
+                          </label>
+                          <label class="field field--wide">
+                            <span>Featured Records</span>
+                            <input
+                              id="settingsFeaturedAccessions"
+                              placeholder="SRM-TX-1948-003, SRM-SR-1931-004"
+                            />
+                            <small class="help-text">These appear in the featured gallery section before visitors open the archive.</small>
+                          </label>
+                        </div>
+                      </div>
+                    </details>
+
                     <details id="settingsTypesSection" class="form-accordion" open>
                       <summary class="form-accordion__summary">
                         <div class="section-heading">
@@ -539,7 +586,7 @@
                             <p class="eyebrow">Taxonomies</p>
                             <h3>Controlled Metadata Vocabularies</h3>
                           </div>
-                          <span class="pill">Statuses, themes, places, rights, tags</span>
+                          <span class="pill">Statuses, themes, geographies, rights, tags</span>
                         </div>
                       </summary>
                       <div class="form-accordion__body">

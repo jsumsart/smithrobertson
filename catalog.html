@@ -3,56 +3,112 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smith Robertson Museum Public Catalog</title>
+    <title>Smith Robertson Museum Public Site</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <div class="page-shell">
-      <nav class="topbar">
-        <a id="catalogBrand" class="topbar__brand" href="./index.html">Smith Robertson Collections</a>
-        <div class="topbar__links">
-          <a class="topbar__link" href="./index.html">Catalog Manager</a>
-          <a class="topbar__link" href="./catalog.html" aria-current="page">Public Catalog</a>
-        </div>
-      </nav>
-
-      <header class="hero hero--catalog">
-        <div class="hero__copy">
-          <p class="eyebrow">Public Catalog</p>
-          <h1 id="catalogTitle">Browse published Smith Robertson records.</h1>
-          <p id="catalogIntro" class="hero__lede">
-            This view is for visitors, partners, and researchers. Only records marked for public display are shown
-            here.
-          </p>
-        </div>
-        <section class="hero__panel" aria-label="Public catalog filters">
-          <label class="field">
-            <span>Search</span>
-            <input id="catalogSearch" type="search" placeholder="Search titles, themes, places, tags..." />
-          </label>
-          <label class="field">
-            <span>Theme</span>
-            <select id="catalogTheme"></select>
-          </label>
-          <label class="field">
-            <span>Record Type</span>
-            <select id="catalogType"></select>
-          </label>
-          <p id="catalogStatus" class="help-text"></p>
-          <div class="metric">
-            <span class="metric__label">Published Records</span>
-            <strong id="catalogTotal">0 public records</strong>
-          </div>
-        </section>
+  <body class="catalog-page">
+    <div class="catalog-shell">
+      <header class="catalog-site-header">
+        <a id="catalogBrand" class="catalog-site-header__brand" href="./catalog.html">Smith Robertson Collections</a>
+        <nav class="catalog-site-header__nav">
+          <a class="button button--ghost" href="./index.html">Catalog Manager</a>
+          <button id="openGalleryView" class="button button--primary" type="button">Digital Gallery</button>
+          <button id="openArchiveView" class="button button--ghost" type="button">Archive</button>
+        </nav>
       </header>
 
-      <main class="catalog-grid" id="catalogList" aria-live="polite"></main>
+      <section id="catalogEditorBar" class="catalog-editor-bar" hidden>
+        <div>
+          <p class="eyebrow">Signed In</p>
+          <strong id="catalogEditorEmail"></strong>
+        </div>
+        <div class="catalog-editor-bar__actions">
+          <a class="button button--ghost" href="./index.html">Edit Public Site</a>
+          <a class="button button--ghost" href="./index.html">Open Records Manager</a>
+        </div>
+      </section>
+
+      <main class="public-site">
+        <section id="galleryView" class="public-view public-view--active">
+          <section class="public-hero">
+            <div class="public-hero__copy">
+              <p id="catalogEyebrow" class="eyebrow">Digital Gallery</p>
+              <h1 id="catalogGalleryTitle">A living gallery of Jackson history.</h1>
+              <p id="catalogGalleryIntro" class="public-hero__intro">
+                Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.
+              </p>
+              <div class="public-hero__actions">
+                <button id="jumpToArchiveButton" class="button button--ghost" type="button">Browse the archive</button>
+              </div>
+            </div>
+
+            <section class="slideshow-panel" aria-label="Curated slideshow">
+              <div class="slideshow-panel__header">
+                <div>
+                  <p class="eyebrow">Curated Slideshow</p>
+                  <h2>Featured story objects</h2>
+                </div>
+                <div class="slideshow-panel__controls">
+                  <button id="slideshowPrev" class="button button--ghost" type="button">Previous</button>
+                  <button id="slideshowNext" class="button button--ghost" type="button">Next</button>
+                </div>
+              </div>
+              <article id="slideshowStage" class="slideshow-stage"></article>
+            </section>
+          </section>
+
+          <section class="public-section">
+            <div class="public-section__header">
+              <div>
+                <p class="eyebrow">Featured Records</p>
+                <h2>Curated highlights</h2>
+              </div>
+              <p class="help-text">Use featured accessions in settings to shape this exhibition-style grid.</p>
+            </div>
+            <div id="featuredList" class="feature-grid" aria-live="polite"></div>
+          </section>
+        </section>
+
+        <section id="archiveView" class="public-view" hidden>
+          <section class="archive-hero">
+            <div class="archive-hero__copy">
+              <p class="eyebrow">Public Archive</p>
+              <h1 id="catalogTitle">Browse published Smith Robertson records.</h1>
+              <p id="catalogIntro" class="hero__lede">
+                This view is for visitors, partners, and researchers. Only records marked for public display are shown here.
+              </p>
+            </div>
+            <div class="archive-metric">
+              <span class="metric__label">Published Records</span>
+              <strong id="catalogTotal">0 public records</strong>
+            </div>
+          </section>
+
+          <section class="archive-toolbar" aria-label="Public archive filters">
+            <label class="field">
+              <span>Search</span>
+              <input id="catalogSearch" type="search" placeholder="Search titles, themes, key locations, tags..." />
+            </label>
+            <label class="field">
+              <span>Theme</span>
+              <select id="catalogTheme"></select>
+            </label>
+            <label class="field">
+              <span>Record Type</span>
+              <select id="catalogType"></select>
+            </label>
+          </section>
+
+          <p id="catalogStatus" class="help-text"></p>
+          <section id="catalogList" class="catalog-grid" aria-live="polite"></section>
+        </section>
+      </main>
     </div>
 
     <template id="catalogCardTemplate">
@@ -64,6 +120,17 @@
           <p class="catalog-card__description"></p>
           <p class="catalog-card__significance"></p>
           <div class="tag-list"></div>
+        </div>
+      </article>
+    </template>
+
+    <template id="slideshowTemplate">
+      <article class="slideshow-card">
+        <img class="slideshow-card__image" alt="" hidden />
+        <div class="slideshow-card__body">
+          <p class="slideshow-card__meta"></p>
+          <h3></h3>
+          <p class="slideshow-card__description"></p>
         </div>
       </article>
     </template>
