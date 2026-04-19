@@ -24,6 +24,7 @@ const state = {
 
 const elements = {
   brand: document.querySelector("#catalogBrand"),
+  loginBar: document.querySelector("#catalogLoginBar"),
   editorBar: document.querySelector("#catalogEditorBar"),
   editorEmail: document.querySelector("#catalogEditorEmail"),
   galleryTitle: document.querySelector("#catalogGalleryTitle"),
@@ -364,6 +365,9 @@ async function loadCurrentUser() {
 
   state.currentUser = data.user || null;
   elements.editorBar.hidden = !state.currentUser;
+  if (elements.loginBar) {
+    elements.loginBar.hidden = Boolean(state.currentUser);
+  }
   if (elements.editorEmail) {
     elements.editorEmail.textContent = state.currentUser?.email || "";
   }
