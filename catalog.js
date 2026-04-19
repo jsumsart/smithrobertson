@@ -24,9 +24,7 @@ const state = {
 
 const elements = {
   brand: document.querySelector("#catalogBrand"),
-  loginBar: document.querySelector("#catalogLoginBar"),
-  editorBar: document.querySelector("#catalogEditorBar"),
-  editorEmail: document.querySelector("#catalogEditorEmail"),
+  authAction: document.querySelector("#catalogAuthAction"),
   galleryTitle: document.querySelector("#catalogGalleryTitle"),
   galleryIntro: document.querySelector("#catalogGalleryIntro"),
   archiveTitle: document.querySelector("#catalogTitle"),
@@ -354,7 +352,7 @@ async function renderArchive() {
 }
 
 async function loadCurrentUser() {
-  if (!isSupabaseReady || !elements.editorBar) {
+  if (!isSupabaseReady || !elements.authAction) {
     return;
   }
 
@@ -364,12 +362,13 @@ async function loadCurrentUser() {
   }
 
   state.currentUser = data.user || null;
-  elements.editorBar.hidden = !state.currentUser;
-  if (elements.loginBar) {
-    elements.loginBar.hidden = Boolean(state.currentUser);
-  }
-  if (elements.editorEmail) {
-    elements.editorEmail.textContent = state.currentUser?.email || "";
+
+  if (state.currentUser) {
+    elements.authAction.textContent = "Edit Public Site";
+    elements.authAction.href = "./index.html?view=settings&section=settingsPublicSiteSection";
+  } else {
+    elements.authAction.textContent = "Log In";
+    elements.authAction.href = "./index.html#authPanel";
   }
 }
 
