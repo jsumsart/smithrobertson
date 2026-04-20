@@ -364,8 +364,8 @@ async function loadCurrentUser() {
   state.currentUser = data.user || null;
 
   if (state.currentUser) {
-    elements.authAction.textContent = "Edit Public Site";
-    elements.authAction.href = "./index.html?view=settings&section=settingsPublicSiteSection";
+    elements.authAction.textContent = "Dashboard";
+    elements.authAction.href = "./index.html";
   } else {
     elements.authAction.textContent = "Log In";
     elements.authAction.href = "./index.html#authPanel";
