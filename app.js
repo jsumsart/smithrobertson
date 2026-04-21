@@ -1409,7 +1409,7 @@ function buildRowActionButton(label, handler, tone = "ghost") {
   return button;
 }
 
-function renderTableView() {
+async function renderTableView() {
   const records = getFilteredRecords();
   const signedIn = Boolean(state.currentUser);
   elements.tableCountLabel.textContent = `${records.length} row${records.length === 1 ? "" : "s"}`;
@@ -1433,22 +1433,18 @@ function renderTableView() {
     const thumbFrame = document.createElement("div");
     thumbFrame.className = "records-table__thumb";
     thumbFrame.textContent = "No image";
-
-    resolvePhotoUrl(record)
-      .then((url) => {
-        if (!url) {
-          return;
-        }
-
+    try {
+      const url = await resolvePhotoUrl(record);
+      if (url) {
         const image = document.createElement("img");
         image.className = "records-table__thumb-image";
         image.src = url;
         image.alt = `${record.title} thumbnail`;
         thumbFrame.replaceChildren(image);
-      })
-      .catch(() => {
-        thumbFrame.textContent = "No image";
-      });
+      }
+    } catch (_error) {
+      thumbFrame.textContent = "No image";
+    }
 
     thumbnailCell.appendChild(thumbFrame);
     fragment.querySelector('[data-column="accession"]').textContent = record.accession_number;
@@ -2000,7 +1996,7 @@ async function refresh() {
 }
 
 async function renderViews() {
-  renderTableView();
+  await renderTableView();
 }
 
 async function initializeAuth() {
