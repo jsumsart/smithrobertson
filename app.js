@@ -1419,7 +1419,7 @@ function renderTableView() {
   if (!records.length) {
     const row = document.createElement("tr");
     const cell = document.createElement("td");
-    cell.colSpan = 8;
+    cell.colSpan = 9;
     cell.className = "records-table__empty";
     cell.textContent = "No records match this view.";
     row.appendChild(cell);
@@ -1429,6 +1429,28 @@ function renderTableView() {
 
   for (const record of records) {
     const fragment = elements.tableRowTemplate.content.cloneNode(true);
+    const thumbnailCell = fragment.querySelector('[data-column="thumbnail"]');
+    const thumbFrame = document.createElement("div");
+    thumbFrame.className = "records-table__thumb";
+    thumbFrame.textContent = "No image";
+
+    resolvePhotoUrl(record)
+      .then((url) => {
+        if (!url) {
+          return;
+        }
+
+        const image = document.createElement("img");
+        image.className = "records-table__thumb-image";
+        image.src = url;
+        image.alt = `${record.title} thumbnail`;
+        thumbFrame.replaceChildren(image);
+      })
+      .catch(() => {
+        thumbFrame.textContent = "No image";
+      });
+
+    thumbnailCell.appendChild(thumbFrame);
     fragment.querySelector('[data-column="accession"]').textContent = record.accession_number;
     fragment.querySelector('[data-column="title"]').textContent = record.title;
     fragment.querySelector('[data-column="type"]').textContent = record.record_type;
