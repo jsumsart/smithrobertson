@@ -77,6 +77,22 @@ function createTagElements(tags) {
   return fragment;
 }
 
+function dedupeRecordsByAccession(records) {
+  const seen = new Set();
+  const deduped = [];
+
+  for (const record of records || []) {
+    const key = String(record.accession_number || record.id || "").trim().toLowerCase();
+    if (!key || seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    deduped.push(record);
+  }
+
+  return deduped;
+}
+
 async function resolvePublicPhotoUrl(record) {
   if (record.photo_path && state.supabase) {
     const { data, error } = await state.supabase.storage.from("museum-photos").createSignedUrl(record.photo_path, 3600);
@@ -192,7 +208,20 @@ function findRecordByAccession(accession) {
 }
 
 function getCuratedRecords(list, fallbackCount) {
-  const curated = (list || []).map(findRecordByAccession).filter(Boolean);
+  const seen = new Set();
+  const curated = (list || [])
+    .map(findRecordByAccession)
+    .filter((record) => {
+      if (!record) {
+        return false;
+      }
+      const key = String(record.accession_number || record.id || "").trim().toLowerCase();
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
   return curated.length ? curated : state.records.slice(0, fallbackCount);
 }
 
@@ -416,7 +445,7 @@ async function loadCatalog() {
     : [...defaultRecordTypes];
   state.taxonomyGroups = groupsError || !groupsData?.length ? [...defaultTaxonomyGroups] : groupsData;
   state.taxonomyTerms = termsError || !termsData?.length ? [...defaultTaxonomyTerms] : termsData.map(normalizeTaxonomyTerm);
-  state.records = data || [];
+  state.records = dedupeRecordsByAccession(data || []);
 
   applyCatalogSettings();
   renderRecordTypeFilter();

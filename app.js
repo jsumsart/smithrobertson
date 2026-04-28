@@ -271,6 +271,22 @@ function parseCommaSeparatedList(value) {
     .filter(Boolean);
 }
 
+function dedupeRecordsByAccession(records) {
+  const seen = new Set();
+  const deduped = [];
+
+  for (const record of records || []) {
+    const key = String(record.accession_number || record.id || "").trim().toLowerCase();
+    if (!key || seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    deduped.push(record);
+  }
+
+  return deduped;
+}
+
 function renderPublicFontThemeOptions() {
   const currentValue = elements.settingsPublicFontTheme.value || state.siteSettings.public_font_theme;
   elements.settingsPublicFontTheme.replaceChildren();
@@ -1990,7 +2006,7 @@ function addPresetTag(tag) {
 }
 
 async function refresh() {
-  state.records = await loadRecords();
+  state.records = dedupeRecordsByAccession(await loadRecords());
   renderMetrics(state.records);
   await renderViews();
 }
