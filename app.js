@@ -123,6 +123,13 @@ const elements = {
   signedInView: document.querySelector("#signedInView"),
   currentUserEmail: document.querySelector("#currentUserEmail"),
   authMessage: document.querySelector("#authMessage"),
+  catalogSection: document.querySelector("#catalogSection"),
+  snapshotSection: document.querySelector("#snapshotSection"),
+  utilitiesSection: document.querySelector("#utilitiesSection"),
+  dashboardMain: document.querySelector("#dashboardMain"),
+  dashboardHeader: document.querySelector("#dashboardHeader"),
+  workspacePanel: document.querySelector("#workspacePanel"),
+  managerLockout: document.querySelector("#managerLockout"),
   topbarBrand: document.querySelector("#topbarBrand"),
   heroEyebrow: document.querySelector("#heroEyebrow"),
   heroHeadline: document.querySelector("#heroHeadline"),
@@ -1129,16 +1136,21 @@ function currentUserIsStaff(user = state.currentUser) {
   return user?.app_metadata?.museum_role === "staff";
 }
 
-function canEditSharedData() {
+function canAccessBackend() {
   return !isSupabaseReady || Boolean(state.currentUser);
 }
 
+function canEditSharedData() {
+  return canAccessBackend();
+}
+
 function canDeleteRecords() {
-  return !isSupabaseReady || Boolean(state.currentUser);
+  return canAccessBackend();
 }
 
 function updateAuthUI() {
   const signedIn = Boolean(state.currentUser);
+  const backendVisible = canAccessBackend();
   elements.signedOutView.hidden = signedIn;
   elements.signedInView.hidden = !signedIn;
   elements.currentUserEmail.textContent = signedIn ? `Signed in as ${state.currentUser.email}` : "";
@@ -1169,13 +1181,29 @@ function updateAuthUI() {
   elements.clearDataButton.hidden = !state.isStaff;
   elements.settingsTab.hidden = (!signedIn || !state.isAdmin) && isSupabaseReady;
   elements.settingsAdminNotice.hidden = state.isAdmin || !isSupabaseReady;
+  elements.catalogSection.hidden = !backendVisible;
+  elements.snapshotSection.hidden = !backendVisible;
+  elements.utilitiesSection.hidden = !backendVisible;
+  elements.dashboardHeader.hidden = !backendVisible;
+  elements.workspacePanel.hidden = !backendVisible;
+  elements.managerLockout.hidden = backendVisible;
 
   if (state.activeView === "settings" && !state.isAdmin && isSupabaseReady) {
     setActiveView("table");
   }
+
+  if (backendVisible) {
+    setActiveView(state.activeView || "table");
+  }
 }
 
 function setActiveView(view) {
+  if (isSupabaseReady && !state.currentUser) {
+    state.activeView = "table";
+    elements.recordsToolbar.hidden = true;
+    return;
+  }
+
   state.activeView = view;
   const views = {
     table: elements.tableView,
@@ -1658,6 +1686,10 @@ async function removePhotoAsset() {
 }
 
 async function loadRecords() {
+  if (!canAccessBackend()) {
+    return [];
+  }
+
   if (!isSupabaseReady) {
     return [];
   }
@@ -2163,14 +2195,24 @@ elements.themeFilter.addEventListener("change", () => renderViews().catch((error
 elements.neighborhoodFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.visibilityFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.searchInput.addEventListener("input", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
-elements.exportButton.addEventListener("click", () => downloadJson("smith-robertson-records-backup.json", state.records));
 elements.resetFormButton.addEventListener("click", () => {
   resetForm();
   setActiveView("editor");
 });
-elements.exportCsvButton.addEventListener("click", () =>
-  downloadCsv("smith-robertson-records.csv", getFilteredRecords())
-);
+elements.exportCsvButton.addEventListener("click", () => {
+  if (!canAccessBackend()) {
+    setAuthMessage("Sign in before exporting records.", true);
+    return;
+  }
+  downloadCsv("smith-robertson-records.csv", getFilteredRecords());
+});
+elements.exportButton.addEventListener("click", () => {
+  if (!canAccessBackend()) {
+    setAuthMessage("Sign in before exporting records.", true);
+    return;
+  }
+  downloadJson("smith-robertson-records-backup.json", state.records);
+});
 elements.browseTableTab.addEventListener("click", () => setActiveView("table"));
 elements.editorTab.addEventListener("click", () => setActiveView("editor"));
 elements.settingsTab.addEventListener("click", () => setActiveView("settings"));

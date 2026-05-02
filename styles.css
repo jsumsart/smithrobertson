@@ -267,6 +267,19 @@ textarea {
   min-width: 0;
 }
 
+.manager-lockout {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #faf8f5;
+}
+
+.manager-lockout h2 {
+  margin: 0;
+}
+
 .dashboard-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
