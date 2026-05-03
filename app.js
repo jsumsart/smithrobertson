@@ -214,6 +214,7 @@ const elements = {
   themeFilter: document.querySelector("#themeFilter"),
   neighborhoodFilter: document.querySelector("#neighborhoodFilter"),
   visibilityFilter: document.querySelector("#visibilityFilter"),
+  sortFilter: document.querySelector("#sortFilter"),
   exportButton: document.querySelector("#exportButton"),
   exportCsvButton: document.querySelector("#exportCsvButton"),
   importInput: document.querySelector("#importInput"),
@@ -1140,6 +1141,10 @@ function canAccessBackend() {
   return !isSupabaseReady || Boolean(state.currentUser);
 }
 
+function redirectToLogin() {
+  window.location.replace("./login.html");
+}
+
 function canEditSharedData() {
   return canAccessBackend();
 }
@@ -1258,6 +1263,10 @@ function jumpToSection(targetId, shouldScroll = true) {
 }
 
 function applyInitialRoute() {
+  if (isSupabaseReady && !state.currentUser) {
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const view = params.get("view");
   const section = params.get("section");
@@ -1395,8 +1404,9 @@ function getFilteredRecords() {
   const theme = elements.themeFilter.value;
   const neighborhood = elements.neighborhoodFilter.value;
   const visibility = elements.visibilityFilter.value;
+  const sort = elements.sortFilter?.value || "accession-asc";
 
-  return state.records.filter((record) => {
+  const filtered = state.records.filter((record) => {
     const matchesType = type === "all" || record.record_type === type;
     const matchesStatus = status === "all" || record.status === status;
     const matchesTheme = theme === "all" || record.historical_theme === theme;
@@ -1434,6 +1444,14 @@ function getFilteredRecords() {
       (!query || haystack.includes(query))
     );
   });
+
+  const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+  filtered.sort((left, right) => {
+    const comparison = collator.compare(left.accession_number || "", right.accession_number || "");
+    return sort === "accession-desc" ? comparison * -1 : comparison;
+  });
+
+  return filtered;
 }
 
 function renderMetrics(records) {
@@ -2075,11 +2093,19 @@ async function initializeAuth() {
     data: { session }
   } = await state.supabase.auth.getSession();
   state.currentUser = session?.user || null;
+  if (!state.currentUser) {
+    redirectToLogin();
+    return;
+  }
   updateAuthUI();
   applyInitialRoute();
 
   state.supabase.auth.onAuthStateChange((_event, sessionData) => {
     state.currentUser = sessionData?.user || null;
+    if (!state.currentUser) {
+      redirectToLogin();
+      return;
+    }
     updateAuthUI();
     Promise.all([loadSiteSettings(), loadRecordTypes(), loadEntityDirectories(), loadTaxonomies(), refresh()]).catch((error) =>
       setAuthMessage(error.message, true)
@@ -2130,7 +2156,6 @@ elements.signOutButton.addEventListener("click", async () => {
     return;
   }
   await state.supabase.auth.signOut();
-  setAuthMessage("Signed out.");
 });
 
 elements.form.addEventListener("submit", async (event) => {
@@ -2194,6 +2219,7 @@ elements.statusFilter.addEventListener("change", () => renderViews().catch((erro
 elements.themeFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.neighborhoodFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.visibilityFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
+elements.sortFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.searchInput.addEventListener("input", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
 elements.resetFormButton.addEventListener("click", () => {
   resetForm();

@@ -397,7 +397,7 @@ async function loadCurrentUser() {
     elements.authAction.href = "./index.html";
   } else {
     elements.authAction.textContent = "Log In";
-    elements.authAction.href = "./index.html#authPanel";
+    elements.authAction.href = "./login.html";
   }
 }
 
