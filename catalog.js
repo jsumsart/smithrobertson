@@ -499,30 +499,24 @@ async function renderArchive() {
       image.hidden = false;
       image.src = cachedUrl;
       image.alt = `${record.title} image`;
+      image.loading = "lazy";
+      image.decoding = "async";
     } else if (record.photo_path || record.photo_url) {
-      const previewButton = document.createElement("button");
-      previewButton.type = "button";
-      previewButton.className = "button button--ghost";
-      previewButton.textContent = "Load image";
-      previewButton.addEventListener("click", async () => {
-        previewButton.disabled = true;
-        previewButton.textContent = "Loading...";
-        try {
-          const resolvedPhotoUrl = await resolvePublicPhotoUrl(record, "thumb");
-          if (!resolvedPhotoUrl) {
-            previewButton.textContent = "No image";
-            return;
-          }
+      try {
+        const resolvedPhotoUrl = await resolvePublicPhotoUrl(record, "thumb");
+        if (resolvedPhotoUrl) {
           state.archivePreviewUrls.set(cacheKey, resolvedPhotoUrl);
           image.hidden = false;
           image.src = resolvedPhotoUrl;
           image.alt = `${record.title} image`;
-          previewButton.remove();
-        } catch (_error) {
-          previewButton.textContent = "Unavailable";
+          image.loading = "lazy";
+          image.decoding = "async";
         }
-      });
-      media.appendChild(previewButton);
+      } catch (_error) {
+        media.hidden = true;
+      }
+    } else {
+      media.hidden = true;
     }
 
     elements.list.appendChild(fragment);
