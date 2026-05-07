@@ -235,6 +235,7 @@ const elements = {
   sortFilter: document.querySelector("#sortFilter"),
   exportButton: document.querySelector("#exportButton"),
   exportCsvButton: document.querySelector("#exportCsvButton"),
+  backfillImagesButton: document.querySelector("#backfillImagesButton"),
   importInput: document.querySelector("#importInput"),
   clearDataButton: document.querySelector("#clearDataButton"),
   resetFormButton: document.querySelector("#resetFormButton"),
@@ -1537,12 +1538,33 @@ function deriveVariantPath(photoPath, variant = "web") {
   return photoPath;
 }
 
+function photoPathIsOptimized(photoPath) {
+  return Boolean(photoPath && photoPath.includes("-web."));
+}
+
+function recordNeedsImageBackfill(record) {
+  return Boolean((record.photo_path || record.photo_url) && !photoPathIsOptimized(record.photo_path));
+}
+
 function photoPathMatchesVisibility(photoPath, isPublic) {
   if (!photoPath) {
     return true;
   }
 
   return photoPath.split("/")[0] === getPhotoFolder(isPublic);
+}
+
+function blobFileExtension(type = "") {
+  if (type.includes("png")) {
+    return "png";
+  }
+  if (type.includes("webp")) {
+    return "webp";
+  }
+  if (type.includes("gif")) {
+    return "gif";
+  }
+  return "jpg";
 }
 
 function loadImageFromFile(file) {
@@ -1593,8 +1615,131 @@ async function buildImageDerivative(file, { maxDimension, type = "image/webp", q
   return convertCanvasToBlob(canvas, type, quality);
 }
 
+async function uploadPhotoVariantsForRecord(record, file) {
+  const accessionNumber = String(record.accession_number || "").trim();
+  if (!accessionNumber) {
+    throw new Error("This record needs an accession ID before its image can be optimized.");
+  }
+
+  const basePath = `${getPhotoFolder(Boolean(record.is_public))}/${buildPhotoPath(accessionNumber, file.name)}`;
+  const webPath = `${basePath}-web.webp`;
+  const thumbPath = `${basePath}-thumb.webp`;
+  const [webBlob, thumbBlob] = await Promise.all([
+    buildImageDerivative(file, { maxDimension: 1600, quality: 0.88 }),
+    buildImageDerivative(file, { maxDimension: 320, quality: 0.8 })
+  ]);
+
+  const [{ error: webError }, { error: thumbError }] = await Promise.all([
+    state.supabase.storage.from(museumBucketName).upload(webPath, webBlob, {
+      cacheControl: "86400",
+      upsert: true,
+      contentType: "image/webp"
+    }),
+    state.supabase.storage.from(museumBucketName).upload(thumbPath, thumbBlob, {
+      cacheControl: "86400",
+      upsert: true,
+      contentType: "image/webp"
+    })
+  ]);
+
+  if (webError) {
+    throw webError;
+  }
+  if (thumbError) {
+    throw thumbError;
+  }
+
+  return { webPath, thumbPath };
+}
+
+async function fetchLegacyImageFile(record) {
+  const sourceUrl = await resolvePhotoUrl(record, "web");
+  if (!sourceUrl) {
+    throw new Error(`No source image found for ${record.accession_number || record.title}.`);
+  }
+
+  const response = await fetch(sourceUrl);
+  if (!response.ok) {
+    throw new Error(`Could not fetch the existing image for ${record.accession_number || record.title}.`);
+  }
+
+  const blob = await response.blob();
+  const extension = blobFileExtension(blob.type);
+  const fileName = `${String(record.accession_number || "record").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.${extension}`;
+  return new File([blob], fileName, {
+    type: blob.type || "image/jpeg"
+  });
+}
+
+async function optimizeRecordImage(record) {
+  if (!isSupabaseReady) {
+    throw new Error("Supabase must be configured before optimizing legacy images.");
+  }
+  if (!state.currentUser) {
+    throw new Error("Sign in before optimizing record images.");
+  }
+
+  if (!record.photo_path && !record.photo_url) {
+    throw new Error(`No existing image is attached to ${record.title}.`);
+  }
+
+  if (photoPathIsOptimized(record.photo_path)) {
+    return { skipped: true };
+  }
+
+  const sourceFile = await fetchLegacyImageFile(record);
+  const { webPath } = await uploadPhotoVariantsForRecord(record, sourceFile);
+  const legacyPaths = record.photo_path
+    ? [record.photo_path, deriveVariantPath(record.photo_path, "thumb")].filter(Boolean)
+    : [];
+
+  const updatePayload = {
+    ...record,
+    photo_path: webPath,
+    updated_by: state.currentUser?.email || null
+  };
+
+  const { error } = await state.supabase.from("museum_records").upsert(updatePayload);
+  if (error) {
+    throw error;
+  }
+
+  if (legacyPaths.length) {
+    await state.supabase.storage.from(museumBucketName).remove(legacyPaths);
+  }
+
+  state.tablePreviewUrls.delete(record.id || record.accession_number);
+  return { skipped: false };
+}
+
+async function backfillVisibleRecordImages() {
+  const candidates = state.records.filter((record) => recordNeedsImageBackfill(record));
+  if (!candidates.length) {
+    setAuthMessage("No legacy images on this page need backfilling.");
+    return;
+  }
+
+  let optimizedCount = 0;
+  let skippedCount = 0;
+
+  for (const record of candidates) {
+    const result = await optimizeRecordImage(record);
+    if (result.skipped) {
+      skippedCount += 1;
+    } else {
+      optimizedCount += 1;
+    }
+  }
+
+  await refresh();
+  setAuthMessage(`Backfilled ${optimizedCount} image${optimizedCount === 1 ? "" : "s"} on this page${skippedCount ? `, skipped ${skippedCount}` : ""}.`);
+}
+
 async function resolvePhotoUrl(record, variant = "web") {
-  const path = deriveVariantPath(record.photo_path, variant) || (variant === "web" ? record.photo_path : "");
+  const path =
+    deriveVariantPath(record.photo_path, variant) ||
+    record.photo_path ||
+    "";
   if (path && state.supabase) {
     const { data, error } = await state.supabase.storage.from(museumBucketName).createSignedUrl(path, 3600);
     if (!error && data?.signedUrl) {
@@ -1602,7 +1747,7 @@ async function resolvePhotoUrl(record, variant = "web") {
     }
   }
 
-  return variant === "web" ? record.photo_url || "" : "";
+  return record.photo_url || "";
 }
 
 function getFilteredRecords() {
@@ -2486,6 +2631,18 @@ elements.exportButton.addEventListener("click", () => {
     return;
   }
   downloadJson("smith-robertson-records-backup.json", state.records);
+});
+elements.backfillImagesButton?.addEventListener("click", async () => {
+  if (!canEditSharedData()) {
+    setAuthMessage("Sign in before optimizing legacy images.", true);
+    return;
+  }
+
+  try {
+    await backfillVisibleRecordImages();
+  } catch (error) {
+    setAuthMessage(error.message, true);
+  }
 });
 elements.browseTableTab.addEventListener("click", () => setActiveView("table"));
 elements.editorTab.addEventListener("click", () => setActiveView("editor"));

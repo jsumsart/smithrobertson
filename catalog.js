@@ -155,7 +155,10 @@ function deriveVariantPath(photoPath, variant = "web") {
 }
 
 async function resolvePublicPhotoUrl(record, variant = "web") {
-  const path = deriveVariantPath(record.photo_path, variant) || (variant === "web" ? record.photo_path : "");
+  const path =
+    deriveVariantPath(record.photo_path, variant) ||
+    record.photo_path ||
+    "";
   if (path && state.supabase) {
     const { data, error } = await state.supabase.storage.from("museum-photos").createSignedUrl(path, 3600);
     if (!error && data?.signedUrl) {
@@ -163,7 +166,7 @@ async function resolvePublicPhotoUrl(record, variant = "web") {
     }
   }
 
-  return variant === "web" ? record.photo_url || "" : "";
+  return record.photo_url || "";
 }
 
 function applyCatalogSettings() {
@@ -584,7 +587,7 @@ async function loadCatalog() {
     : [...defaultRecordTypes];
   state.taxonomyGroups = groupsError || !groupsData?.length ? [...defaultTaxonomyGroups] : groupsData;
   state.taxonomyTerms = termsError || !termsData?.length ? [...defaultTaxonomyTerms] : termsData.map(normalizeTaxonomyTerm);
-  state.records = dedupeRecordsByAccession(data || []);
+  state.records = [];
 
   applyCatalogSettings();
   renderRecordTypeFilter();
