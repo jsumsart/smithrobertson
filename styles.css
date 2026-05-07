@@ -327,6 +327,20 @@ textarea {
   gap: 0.6rem;
 }
 
+.pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding-top: 0.15rem;
+}
+
+.pagination-bar__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
 .login-page {
   min-height: 100vh;
   display: grid;
@@ -1351,6 +1365,9 @@ body.archive-page .archive-hero__copy h1 {
 
 .archive-row__media {
   min-height: 120px;
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
 }
 
 .archive-row__image {
@@ -1360,6 +1377,10 @@ body.archive-page .archive-hero__copy h1 {
   border-radius: 14px;
   border: 1px solid var(--line);
   background: #f3eee7;
+}
+
+.archive-row__media .button {
+  width: fit-content;
 }
 
 .archive-row__body {
@@ -1453,6 +1474,9 @@ body.archive-page .archive-hero__copy h1 {
   display: grid;
   place-items: center;
   overflow: hidden;
+  gap: 0.3rem;
+  text-align: center;
+  padding: 0.35rem;
 }
 
 .records-table__thumb-image {
@@ -1460,6 +1484,12 @@ body.archive-page .archive-hero__copy h1 {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.records-table__thumb .button {
+  min-height: auto;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.68rem;
 }
 
 .records-table__actions {
@@ -1508,6 +1538,11 @@ body.archive-page .archive-hero__copy h1 {
   .archive-toolbar {
     grid-template-columns: 1fr 1fr;
   }
+
+  .pagination-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1539,5 +1574,13 @@ body.archive-page .archive-hero__copy h1 {
 
   .catalog-shell {
     width: min(100% - 1rem, 1450px);
+  }
+
+  .pagination-bar__actions {
+    width: 100%;
+  }
+
+  .pagination-bar__actions .button {
+    flex: 1 1 0;
   }
 }

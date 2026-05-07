@@ -98,6 +98,18 @@ const sampleRecords = [
 
 const state = {
   records: [],
+  recordMetrics: {
+    total: 0,
+    publicCount: 0,
+    reviewCount: 0,
+    farishCount: 0,
+    textileCount: 0
+  },
+  recordsPagination: {
+    page: 1,
+    pageSize: 25,
+    total: 0
+  },
   siteSettings: { ...defaultSiteSettings },
   recordTypes: [...defaultRecordTypes],
   taxonomyGroups: [...defaultTaxonomyGroups],
@@ -112,6 +124,9 @@ const state = {
   activeView: "table",
   photoUploadPath: "",
   photoPreviewUrl: "",
+  tablePreviewUrls: new Map(),
+  pendingRecordsRequestId: 0,
+  searchDebounceId: null,
   supabase: createBrowserClient()
 };
 
@@ -201,6 +216,9 @@ const elements = {
   notes: document.querySelector("#notes"),
   tags: document.querySelector("#tags"),
   tableCountLabel: document.querySelector("#tableCountLabel"),
+  tablePaginationInfo: document.querySelector("#tablePaginationInfo"),
+  tablePrevPage: document.querySelector("#tablePrevPage"),
+  tableNextPage: document.querySelector("#tableNextPage"),
   activeFilterPills: document.querySelector("#activeFilterPills"),
   recordTableBody: document.querySelector("#recordTableBody"),
   totalRecordsMetric: document.querySelector("#totalRecordsMetric"),
@@ -293,6 +311,131 @@ function dedupeRecordsByAccession(records) {
   }
 
   return deduped;
+}
+
+function debounceRender(delay = 250) {
+  window.clearTimeout(state.searchDebounceId);
+  state.searchDebounceId = window.setTimeout(() => {
+    refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true));
+  }, delay);
+}
+
+function getBackendFilterState() {
+  return {
+    query: elements.searchInput.value.trim(),
+    type: elements.typeFilter.value,
+    status: elements.statusFilter.value,
+    theme: elements.themeFilter.value,
+    neighborhood: elements.neighborhoodFilter.value,
+    visibility: elements.visibilityFilter.value,
+    sort: elements.sortFilter?.value || "accession-asc"
+  };
+}
+
+function buildRecordSearchColumns() {
+  const columns = [
+    "accession_number",
+    "title",
+    "collection_name",
+    "location",
+    "historical_theme",
+    "neighborhood",
+    "time_period",
+    "people",
+    "donor",
+    "description",
+    "significance",
+    "notes"
+  ];
+
+  return columns;
+}
+
+function applyRecordFilters(query, filters) {
+  if (filters.type !== "all") {
+    query = query.eq("record_type", filters.type);
+  }
+  if (filters.status !== "all") {
+    query = query.eq("status", filters.status);
+  }
+  if (filters.theme !== "all") {
+    query = query.eq("historical_theme", filters.theme);
+  }
+  if (filters.neighborhood !== "all") {
+    query = query.eq("neighborhood", filters.neighborhood);
+  }
+  if (filters.visibility === "public") {
+    query = query.eq("is_public", true);
+  }
+  if (filters.visibility === "private") {
+    query = query.eq("is_public", false);
+  }
+  if (filters.query) {
+    const safeQuery = filters.query.replaceAll(",", " ").trim();
+    const searchClause = buildRecordSearchColumns()
+      .map((column) => `${column}.ilike.%${safeQuery}%`)
+      .join(",");
+    query = query.or(searchClause);
+  }
+
+  return query.order("accession_number", {
+    ascending: filters.sort !== "accession-desc"
+  });
+}
+
+function updateTablePaginationUI() {
+  const total = state.recordsPagination.total;
+  const page = state.recordsPagination.page;
+  const pageSize = state.recordsPagination.pageSize;
+  const start = total ? (page - 1) * pageSize + 1 : 0;
+  const end = total ? Math.min(page * pageSize, total) : 0;
+
+  elements.tablePaginationInfo.textContent = `Showing ${start}-${end} of ${total} matching records`;
+  elements.tablePrevPage.disabled = page <= 1;
+  elements.tableNextPage.disabled = end >= total;
+}
+
+async function loadBackendMetrics() {
+  if (!canAccessBackend() || !isSupabaseReady) {
+    state.recordMetrics = {
+      total: sampleRecords.length,
+      publicCount: sampleRecords.filter((record) => record.is_public).length,
+      reviewCount: sampleRecords.filter((record) => record.status === "Needs Review").length,
+      farishCount: sampleRecords.filter((record) => record.neighborhood === "Farish Street").length,
+      textileCount: sampleRecords.filter((record) => record.record_type === "Textile").length
+    };
+    return;
+  }
+
+  const buildHeadCount = (column, value) => {
+    let query = state.supabase.from("museum_records").select("id", { count: "exact", head: true });
+    if (typeof value !== "undefined") {
+      query = query.eq(column, value);
+    }
+    return query;
+  };
+
+  const [
+    { count: totalCount },
+    { count: publicCount },
+    { count: reviewCount },
+    { count: farishCount },
+    { count: textileCount }
+  ] = await Promise.all([
+    buildHeadCount(),
+    buildHeadCount("is_public", true),
+    buildHeadCount("status", "Needs Review"),
+    buildHeadCount("neighborhood", "Farish Street"),
+    buildHeadCount("record_type", "Textile")
+  ]);
+
+  state.recordMetrics = {
+    total: totalCount || 0,
+    publicCount: publicCount || 0,
+    reviewCount: reviewCount || 0,
+    farishCount: farishCount || 0,
+    textileCount: textileCount || 0
+  };
 }
 
 function renderPublicFontThemeOptions() {
@@ -1304,7 +1447,7 @@ function createTagElements(tags) {
     button.addEventListener("click", () => {
       setActiveView("table");
       elements.searchInput.value = value;
-      renderViews().catch((error) => setAuthMessage(error.message, true));
+      refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true));
     });
     fragment.appendChild(button);
   }
@@ -1354,7 +1497,7 @@ function renderActiveFilterPills() {
     button.textContent = `${pill.label} ×`;
     button.addEventListener("click", () => {
       pill.clear();
-      renderViews().catch((error) => setAuthMessage(error.message, true));
+      refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true));
     });
     elements.activeFilterPills.appendChild(button);
   }
@@ -1398,68 +1541,16 @@ async function resolvePhotoUrl(record) {
 }
 
 function getFilteredRecords() {
-  const query = elements.searchInput.value.trim().toLowerCase();
-  const type = elements.typeFilter.value;
-  const status = elements.statusFilter.value;
-  const theme = elements.themeFilter.value;
-  const neighborhood = elements.neighborhoodFilter.value;
-  const visibility = elements.visibilityFilter.value;
-  const sort = elements.sortFilter?.value || "accession-asc";
-
-  const filtered = state.records.filter((record) => {
-    const matchesType = type === "all" || record.record_type === type;
-    const matchesStatus = status === "all" || record.status === status;
-    const matchesTheme = theme === "all" || record.historical_theme === theme;
-    const matchesNeighborhood = neighborhood === "all" || record.neighborhood === neighborhood;
-    const matchesVisibility =
-      visibility === "all" ||
-      (visibility === "public" && record.is_public) ||
-      (visibility === "private" && !record.is_public);
-
-    const haystack = [
-      record.accession_number,
-      record.title,
-      record.collection_name,
-      record.location,
-      record.historical_theme,
-      record.neighborhood,
-      record.time_period,
-      record.people,
-      record.donor,
-      record.description,
-      record.significance,
-      record.notes,
-      ...(record.tags || [])
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return (
-      matchesType &&
-      matchesStatus &&
-      matchesTheme &&
-      matchesNeighborhood &&
-      matchesVisibility &&
-      (!query || haystack.includes(query))
-    );
-  });
-
-  const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
-  filtered.sort((left, right) => {
-    const comparison = collator.compare(left.accession_number || "", right.accession_number || "");
-    return sort === "accession-desc" ? comparison * -1 : comparison;
-  });
-
-  return filtered;
+  return state.records;
 }
 
 function renderMetrics(records) {
-  elements.totalRecordsMetric.textContent = String(records.length);
-  elements.farishMetric.textContent = String(records.filter((record) => record.neighborhood === "Farish Street").length);
-  elements.textileMetric.textContent = String(records.filter((record) => record.record_type === "Textile").length);
-  elements.publicMetric.textContent = String(records.filter((record) => record.is_public).length);
-  elements.reviewMetric.textContent = String(records.filter((record) => record.status === "Needs Review").length);
+  void records;
+  elements.totalRecordsMetric.textContent = String(state.recordMetrics.total);
+  elements.farishMetric.textContent = String(state.recordMetrics.farishCount);
+  elements.textileMetric.textContent = String(state.recordMetrics.textileCount);
+  elements.publicMetric.textContent = String(state.recordMetrics.publicCount);
+  elements.reviewMetric.textContent = String(state.recordMetrics.reviewCount);
 }
 
 function buildRowActionButton(label, handler, tone = "ghost") {
@@ -1474,9 +1565,10 @@ function buildRowActionButton(label, handler, tone = "ghost") {
 async function renderTableView() {
   const records = getFilteredRecords();
   const signedIn = Boolean(state.currentUser);
-  elements.tableCountLabel.textContent = `${records.length} row${records.length === 1 ? "" : "s"}`;
+  elements.tableCountLabel.textContent = `${state.recordsPagination.total} matching row${state.recordsPagination.total === 1 ? "" : "s"}`;
   elements.recordTableBody.replaceChildren();
   renderActiveFilterPills();
+  updateTablePaginationUI();
 
   if (!records.length) {
     const row = document.createElement("tr");
@@ -1494,17 +1586,37 @@ async function renderTableView() {
     const thumbnailCell = fragment.querySelector('[data-column="thumbnail"]');
     const thumbFrame = document.createElement("div");
     thumbFrame.className = "records-table__thumb";
-    thumbFrame.textContent = "No image";
-    try {
-      const url = await resolvePhotoUrl(record);
-      if (url) {
-        const image = document.createElement("img");
-        image.className = "records-table__thumb-image";
-        image.src = url;
-        image.alt = `${record.title} thumbnail`;
-        thumbFrame.replaceChildren(image);
-      }
-    } catch (_error) {
+    const cacheKey = record.id || record.accession_number;
+    const cachedUrl = state.tablePreviewUrls.get(cacheKey);
+
+    if (cachedUrl) {
+      const image = document.createElement("img");
+      image.className = "records-table__thumb-image";
+      image.src = cachedUrl;
+      image.alt = `${record.title} thumbnail`;
+      thumbFrame.replaceChildren(image);
+    } else if (record.photo_path || record.photo_url) {
+      const loadButton = buildRowActionButton("Load", async () => {
+        loadButton.disabled = true;
+        loadButton.textContent = "Loading...";
+        try {
+          const url = await resolvePhotoUrl(record);
+          if (!url) {
+            thumbFrame.textContent = "No image";
+            return;
+          }
+          state.tablePreviewUrls.set(cacheKey, url);
+          const image = document.createElement("img");
+          image.className = "records-table__thumb-image";
+          image.src = url;
+          image.alt = `${record.title} thumbnail`;
+          thumbFrame.replaceChildren(image);
+        } catch (_error) {
+          thumbFrame.textContent = "Image unavailable";
+        }
+      });
+      thumbFrame.replaceChildren(loadButton);
+    } else {
       thumbFrame.textContent = "No image";
     }
 
@@ -1536,7 +1648,7 @@ async function renderTableView() {
             }
             try {
               await deleteRecord(record);
-              await refresh();
+              await refresh({ reloadMetrics: true });
               setAuthMessage("Record deleted.");
             } catch (error) {
               setAuthMessage(error.message, true);
@@ -1709,19 +1821,29 @@ async function loadRecords() {
   }
 
   if (!isSupabaseReady) {
-    return [];
+    state.recordsPagination.total = sampleRecords.length;
+    return sampleRecords;
   }
 
-  const { data, error } = await state.supabase
-    .from("museum_records")
-    .select("*")
-    .order("updated_at", { ascending: false });
+  const filters = getBackendFilterState();
+  const from = (state.recordsPagination.page - 1) * state.recordsPagination.pageSize;
+  const to = from + state.recordsPagination.pageSize - 1;
+  const requestId = ++state.pendingRecordsRequestId;
+  let query = state.supabase.from("museum_records").select("*", { count: "exact" });
+  query = applyRecordFilters(query, filters).range(from, to);
+
+  const { data, error, count } = await query;
 
   if (error) {
     throw error;
   }
 
-  return data || [];
+  if (requestId !== state.pendingRecordsRequestId) {
+    return state.records;
+  }
+
+  state.recordsPagination.total = count || 0;
+  return dedupeRecordsByAccession(data || []);
 }
 
 async function saveRecord(record) {
@@ -1790,7 +1912,7 @@ async function seedSampleData() {
     return;
   }
 
-  await refresh();
+  await refresh({ reloadMetrics: true });
   setAuthMessage("Sample records loaded.");
 }
 
@@ -2055,8 +2177,14 @@ function addPresetTag(tag) {
   }
 }
 
-async function refresh() {
-  state.records = dedupeRecordsByAccession(await loadRecords());
+async function refresh({ resetPage = false, reloadMetrics = false } = {}) {
+  if (resetPage) {
+    state.recordsPagination.page = 1;
+  }
+  state.records = await loadRecords();
+  if (reloadMetrics) {
+    await loadBackendMetrics();
+  }
   renderMetrics(state.records);
   await renderViews();
 }
@@ -2099,17 +2227,27 @@ async function initializeAuth() {
   }
   updateAuthUI();
   applyInitialRoute();
+  await refresh({ resetPage: true, reloadMetrics: true });
 
-  state.supabase.auth.onAuthStateChange((_event, sessionData) => {
-    state.currentUser = sessionData?.user || null;
+  state.supabase.auth.onAuthStateChange((event, sessionData) => {
+    const nextUser = sessionData?.user || null;
+    const previousUserId = state.currentUser?.id || null;
+    if (event === "INITIAL_SESSION" && previousUserId === (nextUser?.id || null)) {
+      return;
+    }
+    state.currentUser = nextUser;
     if (!state.currentUser) {
       redirectToLogin();
       return;
     }
     updateAuthUI();
-    Promise.all([loadSiteSettings(), loadRecordTypes(), loadEntityDirectories(), loadTaxonomies(), refresh()]).catch((error) =>
-      setAuthMessage(error.message, true)
-    );
+    Promise.all([
+      loadSiteSettings(),
+      loadRecordTypes(),
+      loadEntityDirectories(),
+      loadTaxonomies(),
+      refresh({ resetPage: true, reloadMetrics: true })
+    ]).catch((error) => setAuthMessage(error.message, true));
   });
 }
 
@@ -2171,7 +2309,7 @@ elements.form.addEventListener("submit", async (event) => {
       throw new Error("Photo visibility changed after upload. Remove and upload the photo again.");
     }
     await saveRecord(getFormData());
-    await refresh();
+    await refresh({ reloadMetrics: true });
     resetForm();
     setAuthMessage("Record saved.");
   } catch (error) {
@@ -2214,13 +2352,28 @@ elements.removePhotoButton.addEventListener("click", async () => {
   }
 });
 
-elements.typeFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
-elements.statusFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
-elements.themeFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
-elements.neighborhoodFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
-elements.visibilityFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
-elements.sortFilter.addEventListener("change", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
-elements.searchInput.addEventListener("input", () => renderViews().catch((error) => setAuthMessage(error.message, true)));
+elements.typeFilter.addEventListener("change", () => refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true)));
+elements.statusFilter.addEventListener("change", () => refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true)));
+elements.themeFilter.addEventListener("change", () => refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true)));
+elements.neighborhoodFilter.addEventListener("change", () => refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true)));
+elements.visibilityFilter.addEventListener("change", () => refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true)));
+elements.sortFilter.addEventListener("change", () => refresh({ resetPage: true }).catch((error) => setAuthMessage(error.message, true)));
+elements.searchInput.addEventListener("input", () => debounceRender());
+elements.tablePrevPage.addEventListener("click", () => {
+  if (state.recordsPagination.page <= 1) {
+    return;
+  }
+  state.recordsPagination.page -= 1;
+  refresh().catch((error) => setAuthMessage(error.message, true));
+});
+elements.tableNextPage.addEventListener("click", () => {
+  const pageCount = Math.ceil(state.recordsPagination.total / state.recordsPagination.pageSize);
+  if (state.recordsPagination.page >= pageCount) {
+    return;
+  }
+  state.recordsPagination.page += 1;
+  refresh().catch((error) => setAuthMessage(error.message, true));
+});
 elements.resetFormButton.addEventListener("click", () => {
   resetForm();
   setActiveView("editor");
@@ -2289,7 +2442,7 @@ elements.importInput.addEventListener("change", async (event) => {
       throw new Error("Sign in before importing records.");
     }
     await importRecords(file);
-    await refresh();
+    await refresh({ reloadMetrics: true });
     setAuthMessage("Records imported.");
   } catch (error) {
     setAuthMessage(error.message, true);
@@ -2311,7 +2464,7 @@ elements.clearDataButton.addEventListener("click", async () => {
 
   try {
     await clearRecords();
-    await refresh();
+    await refresh({ reloadMetrics: true });
     setAuthMessage("All records deleted.");
   } catch (error) {
     setAuthMessage(error.message, true);
@@ -2339,7 +2492,7 @@ elements.duplicateButton.addEventListener("click", async () => {
 
   try {
     await saveRecord(duplicate);
-    await refresh();
+    await refresh({ reloadMetrics: true });
     setAuthMessage("Record duplicated.");
   } catch (error) {
     setAuthMessage(error.message, true);
@@ -2360,6 +2513,4 @@ elements.sectionJumpButtons.forEach((button) => {
   });
 });
 
-initializeAuth()
-  .then(() => refresh())
-  .catch((error) => setAuthMessage(error.message, true));
+initializeAuth().catch((error) => setAuthMessage(error.message, true));
