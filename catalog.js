@@ -138,15 +138,32 @@ function dedupeRecordsByAccession(records) {
   return deduped;
 }
 
-async function resolvePublicPhotoUrl(record) {
-  if (record.photo_path && state.supabase) {
-    const { data, error } = await state.supabase.storage.from("museum-photos").createSignedUrl(record.photo_path, 3600);
+function deriveVariantPath(photoPath, variant = "web") {
+  if (!photoPath) {
+    return "";
+  }
+
+  if (!photoPath.includes("-web.")) {
+    return variant === "web" ? photoPath : "";
+  }
+
+  if (variant === "thumb") {
+    return photoPath.replace("-web.", "-thumb.");
+  }
+
+  return photoPath;
+}
+
+async function resolvePublicPhotoUrl(record, variant = "web") {
+  const path = deriveVariantPath(record.photo_path, variant) || (variant === "web" ? record.photo_path : "");
+  if (path && state.supabase) {
+    const { data, error } = await state.supabase.storage.from("museum-photos").createSignedUrl(path, 3600);
     if (!error && data?.signedUrl) {
       return data.signedUrl;
     }
   }
 
-  return record.photo_url || "";
+  return variant === "web" ? record.photo_url || "" : "";
 }
 
 function applyCatalogSettings() {
@@ -344,7 +361,7 @@ async function populateCatalogCard(container, record) {
   significance.textContent = record.significance || "Historical significance not yet added.";
   tags.replaceChildren(createTagElements(record.tags));
 
-  const resolvedPhotoUrl = await resolvePublicPhotoUrl(record);
+    const resolvedPhotoUrl = await resolvePublicPhotoUrl(record, "web");
   if (resolvedPhotoUrl) {
     image.hidden = false;
     image.src = resolvedPhotoUrl;
@@ -408,7 +425,7 @@ async function renderSlideshow() {
     .join(" • ");
   description.textContent = current.significance || current.description || "No description available.";
 
-  const resolvedPhotoUrl = await resolvePublicPhotoUrl(current);
+  const resolvedPhotoUrl = await resolvePublicPhotoUrl(current, "web");
   if (resolvedPhotoUrl) {
     image.hidden = false;
     image.src = resolvedPhotoUrl;
@@ -488,7 +505,7 @@ async function renderArchive() {
         previewButton.disabled = true;
         previewButton.textContent = "Loading...";
         try {
-          const resolvedPhotoUrl = await resolvePublicPhotoUrl(record);
+          const resolvedPhotoUrl = await resolvePublicPhotoUrl(record, "thumb");
           if (!resolvedPhotoUrl) {
             previewButton.textContent = "No image";
             return;

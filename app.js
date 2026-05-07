@@ -1521,6 +1521,22 @@ function getPhotoFolder(isPublic) {
   return isPublic ? "public" : "internal";
 }
 
+function deriveVariantPath(photoPath, variant = "web") {
+  if (!photoPath) {
+    return "";
+  }
+
+  if (!photoPath.includes("-web.")) {
+    return variant === "web" ? photoPath : "";
+  }
+
+  if (variant === "thumb") {
+    return photoPath.replace("-web.", "-thumb.");
+  }
+
+  return photoPath;
+}
+
 function photoPathMatchesVisibility(photoPath, isPublic) {
   if (!photoPath) {
     return true;
@@ -1529,15 +1545,64 @@ function photoPathMatchesVisibility(photoPath, isPublic) {
   return photoPath.split("/")[0] === getPhotoFolder(isPublic);
 }
 
-async function resolvePhotoUrl(record) {
-  if (record.photo_path && state.supabase) {
-    const { data, error } = await state.supabase.storage.from(museumBucketName).createSignedUrl(record.photo_path, 3600);
+function loadImageFromFile(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(image);
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Unable to read the uploaded image."));
+    };
+    image.src = url;
+  });
+}
+
+function convertCanvasToBlob(canvas, type, quality) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        reject(new Error("Unable to prepare an optimized image derivative."));
+        return;
+      }
+      resolve(blob);
+    }, type, quality);
+  });
+}
+
+async function buildImageDerivative(file, { maxDimension, type = "image/webp", quality = 0.86 }) {
+  const image = await loadImageFromFile(file);
+  const width = image.naturalWidth || image.width;
+  const height = image.naturalHeight || image.height;
+  const scale = Math.min(1, maxDimension / Math.max(width, height));
+  const targetWidth = Math.max(1, Math.round(width * scale));
+  const targetHeight = Math.max(1, Math.round(height * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = targetWidth;
+  canvas.height = targetHeight;
+  const context = canvas.getContext("2d");
+
+  if (!context) {
+    throw new Error("Unable to prepare an image canvas in this browser.");
+  }
+
+  context.drawImage(image, 0, 0, targetWidth, targetHeight);
+  return convertCanvasToBlob(canvas, type, quality);
+}
+
+async function resolvePhotoUrl(record, variant = "web") {
+  const path = deriveVariantPath(record.photo_path, variant) || (variant === "web" ? record.photo_path : "");
+  if (path && state.supabase) {
+    const { data, error } = await state.supabase.storage.from(museumBucketName).createSignedUrl(path, 3600);
     if (!error && data?.signedUrl) {
       return data.signedUrl;
     }
   }
 
-  return record.photo_url || "";
+  return variant === "web" ? record.photo_url || "" : "";
 }
 
 function getFilteredRecords() {
@@ -1600,7 +1665,7 @@ async function renderTableView() {
         loadButton.disabled = true;
         loadButton.textContent = "Loading...";
         try {
-          const url = await resolvePhotoUrl(record);
+          const url = await resolvePhotoUrl(record, "thumb");
           if (!url) {
             thumbFrame.textContent = "No image";
             return;
@@ -1740,7 +1805,7 @@ function populateForm(record) {
   elements.notes.value = record.notes || "";
   elements.tags.value = (record.tags || []).join(", ");
   elements.photoFile.value = "";
-  resolvePhotoUrl(record)
+  resolvePhotoUrl(record, "web")
     .then((url) => {
       setPhotoPreview(url);
       setPhotoStatus(url ? "Photo ready." : "");
@@ -1768,8 +1833,11 @@ function resetForm() {
 
 function buildPhotoPath(accessionNumber, fileName) {
   const safeAccession = accessionNumber.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-  const safeFileName = fileName.toLowerCase().replace(/[^a-z0-9.]+/g, "-");
-  return `records/${safeAccession}/${Date.now()}-${safeFileName}`;
+  const safeBaseName = fileName
+    .replace(/\.[^.]+$/, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-");
+  return `records/${safeAccession}/${Date.now()}-${safeBaseName}`;
 }
 
 async function uploadPhoto(file) {
@@ -1785,34 +1853,53 @@ async function uploadPhoto(file) {
     throw new Error("Add an accession ID before uploading a photo.");
   }
 
-  const path = `${getPhotoFolder(elements.isPublic.checked)}/${buildPhotoPath(accessionNumber, file.name)}`;
-  const { error } = await state.supabase.storage.from(museumBucketName).upload(path, file, {
-    cacheControl: "3600",
-    upsert: true
-  });
+  const basePath = `${getPhotoFolder(elements.isPublic.checked)}/${buildPhotoPath(accessionNumber, file.name)}`;
+  const webPath = `${basePath}-web.webp`;
+  const thumbPath = `${basePath}-thumb.webp`;
+  const [webBlob, thumbBlob] = await Promise.all([
+    buildImageDerivative(file, { maxDimension: 1600, quality: 0.88 }),
+    buildImageDerivative(file, { maxDimension: 320, quality: 0.8 })
+  ]);
 
-  if (error) {
-    throw error;
+  const [{ error: webError }, { error: thumbError }] = await Promise.all([
+    state.supabase.storage.from(museumBucketName).upload(webPath, webBlob, {
+      cacheControl: "86400",
+      upsert: true,
+      contentType: "image/webp"
+    }),
+    state.supabase.storage.from(museumBucketName).upload(thumbPath, thumbBlob, {
+      cacheControl: "86400",
+      upsert: true,
+      contentType: "image/webp"
+    })
+  ]);
+
+  if (webError) {
+    throw webError;
+  }
+  if (thumbError) {
+    throw thumbError;
   }
 
   const { data: signedData, error: signedError } = await state.supabase.storage
     .from(museumBucketName)
-    .createSignedUrl(path, 3600);
+    .createSignedUrl(webPath, 3600);
 
   if (signedError) {
     throw signedError;
   }
 
-  state.photoUploadPath = path;
+  state.photoUploadPath = webPath;
   setPhotoPreview(signedData?.signedUrl || "");
-  setPhotoStatus("Photo uploaded.");
+  setPhotoStatus("Optimized web image and thumbnail uploaded.");
 }
 
 async function removePhotoAsset() {
   if (!state.photoUploadPath || !isSupabaseReady) {
     return;
   }
-  await state.supabase.storage.from(museumBucketName).remove([state.photoUploadPath]);
+  const paths = [state.photoUploadPath, deriveVariantPath(state.photoUploadPath, "thumb")].filter(Boolean);
+  await state.supabase.storage.from(museumBucketName).remove(paths);
 }
 
 async function loadRecords() {
@@ -1876,12 +1963,20 @@ async function deleteRecord(record) {
   }
 
   if (record.photo_path) {
-    await state.supabase.storage.from(museumBucketName).remove([record.photo_path]);
+    const paths = [record.photo_path, deriveVariantPath(record.photo_path, "thumb")].filter(Boolean);
+    await state.supabase.storage.from(museumBucketName).remove(paths);
   }
 }
 
 async function clearRecords() {
-  const paths = state.records.map((record) => record.photo_path).filter(Boolean);
+  const { data: allRecords, error: fetchError } = await state.supabase.from("museum_records").select("photo_path");
+  if (fetchError) {
+    throw fetchError;
+  }
+
+  const paths = (allRecords || []).flatMap((record) =>
+    [record.photo_path, deriveVariantPath(record.photo_path, "thumb")].filter(Boolean)
+  );
   const { error } = await state.supabase.from("museum_records").delete().neq("id", "");
   if (error) {
     throw error;
