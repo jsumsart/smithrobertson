@@ -36,6 +36,28 @@ That means the site can still be deployed from GitHub, but the shared data is st
 - [supabase-config.example.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.example.js): template for config
 - [supabase/schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql): SQL for records, site settings, record type definitions, taxonomies, and policies
 
+## Next-generation platform scaffold
+
+The repo now also includes a separate migration track in [platform](/Users/Birittany/Documents/SmithRobertson/platform).
+
+That folder is the beginning of the long-term architecture:
+
+- a real `Next.js` app
+- public routes separated from private dashboard routes
+- server-side Supabase access
+- room for pagination, media derivatives, exhibits, and better auth boundaries
+
+There is also a new non-destructive schema extension draft at [schema-v2.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema-v2.sql) for:
+
+- `organizations`
+- `media_assets`
+- `public_pages`
+- `exhibits`
+- `exhibit_items`
+- `audit_log`
+
+The current GitHub Pages app remains the live system for now; the `platform/` directory is the migration path forward.
+
 ## Supabase setup
 
 1. Create a Supabase project.
