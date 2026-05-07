@@ -1712,10 +1712,34 @@ async function optimizeRecordImage(record) {
   return { skipped: false };
 }
 
+async function fetchRecordsByAccessions(accessions) {
+  const cleaned = [...new Set((accessions || []).map((value) => String(value || "").trim()).filter(Boolean))];
+  if (!cleaned.length || !isSupabaseReady) {
+    return [];
+  }
+
+  const { data, error } = await state.supabase
+    .from("museum_records")
+    .select("*")
+    .in("accession_number", cleaned);
+
+  if (error) {
+    throw error;
+  }
+
+  return dedupeRecordsByAccession(data || []);
+}
+
 async function backfillVisibleRecordImages() {
-  const candidates = state.records.filter((record) => recordNeedsImageBackfill(record));
+  const curatedAccessions = [
+    ...(state.siteSettings.public_featured_accessions || []),
+    ...(state.siteSettings.public_slideshow_accessions || [])
+  ];
+  const curatedRecords = await fetchRecordsByAccessions(curatedAccessions);
+  const mergedRecords = dedupeRecordsByAccession([...state.records, ...curatedRecords]);
+  const candidates = mergedRecords.filter((record) => recordNeedsImageBackfill(record));
   if (!candidates.length) {
-    setAuthMessage("No legacy images on this page need backfilling.");
+    setAuthMessage("No legacy images on this page or in the featured public site need backfilling.");
     return;
   }
 
@@ -1732,7 +1756,9 @@ async function backfillVisibleRecordImages() {
   }
 
   await refresh();
-  setAuthMessage(`Backfilled ${optimizedCount} image${optimizedCount === 1 ? "" : "s"} on this page${skippedCount ? `, skipped ${skippedCount}` : ""}.`);
+  setAuthMessage(
+    `Backfilled ${optimizedCount} image${optimizedCount === 1 ? "" : "s"} across this page and featured public records${skippedCount ? `, skipped ${skippedCount}` : ""}.`
+  );
 }
 
 async function resolvePhotoUrl(record, variant = "web") {
