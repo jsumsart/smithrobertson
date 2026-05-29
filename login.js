@@ -1,5 +1,6 @@
 import { createBrowserClient, isSupabaseReady } from "./supabase-client.js";
 import { defaultSiteSettings } from "./platform-config.js";
+import { buildConfiguredSiteSettings, dataSourceConfig } from "./csv-data.js";
 
 const supabase = createBrowserClient();
 
@@ -11,7 +12,11 @@ const elements = {
   email: document.querySelector("#loginEmail"),
   password: document.querySelector("#loginPassword"),
   createAccount: document.querySelector("#loginCreateAccount"),
-  message: document.querySelector("#loginMessage")
+  message: document.querySelector("#loginMessage"),
+  csvActions: document.querySelector("#loginCsvActions"),
+  dashboardLink: document.querySelector("#loginDashboardLink"),
+  googleFormLink: document.querySelector("#loginGoogleFormLink"),
+  googleSheetLink: document.querySelector("#loginGoogleSheetLink")
 };
 
 function setMessage(message, isError = false) {
@@ -25,7 +30,12 @@ function goToDashboard() {
 
 async function loadLoginBranding() {
   if (!isSupabaseReady || !supabase) {
-    document.title = `${defaultSiteSettings.brand_name} Login`;
+    const settings = buildConfiguredSiteSettings();
+    document.title = `${settings.brand_name} Collections Access`;
+    elements.eyebrow.textContent = `${settings.brand_name} Workflow`;
+    elements.title.textContent = "Open the collections workspace.";
+    elements.intro.textContent =
+      "This site is running in CSV / Google Sheets mode. Use the Google Form for data entry, the Google Sheet for review, or the CSV workspace for import and export.";
     return;
   }
 
@@ -40,8 +50,19 @@ async function loadLoginBranding() {
 
 async function initialize() {
   if (!isSupabaseReady || !supabase) {
-    setMessage("Supabase is not configured yet, so sign-in is unavailable.", true);
-    elements.form.querySelectorAll("input, button").forEach((element) => element.setAttribute("disabled", "disabled"));
+    await loadLoginBranding();
+    elements.form.hidden = true;
+    elements.csvActions.hidden = false;
+    elements.dashboardLink.href = "./index.html";
+    if (dataSourceConfig.googleFormUrl) {
+      elements.googleFormLink.hidden = false;
+      elements.googleFormLink.href = dataSourceConfig.googleFormUrl;
+    }
+    if (dataSourceConfig.googleSheetUrl) {
+      elements.googleSheetLink.hidden = false;
+      elements.googleSheetLink.href = dataSourceConfig.googleSheetUrl;
+    }
+    setMessage("Supabase sign-in is off. Use the Google workflow or the CSV workspace instead.");
     return;
   }
 

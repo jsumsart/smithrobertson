@@ -10,6 +10,19 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
+import {
+  buildConfiguredSiteSettings,
+  dataSourceConfig,
+  dedupeRecordsByAccession as dedupeCsvRecordsByAccession,
+  loadStoredValue,
+  localKeys,
+  normalizeImportedEntityIds,
+  normalizeImportedRecord,
+  normalizeImportedTags,
+  parseCsvRecords,
+  saveStoredValue,
+  serializeRecordsToCsv
+} from "./csv-data.js";
 
 const sampleRecords = [
   {
@@ -235,6 +248,8 @@ const elements = {
   sortFilter: document.querySelector("#sortFilter"),
   exportButton: document.querySelector("#exportButton"),
   exportCsvButton: document.querySelector("#exportCsvButton"),
+  googleSheetButton: document.querySelector("#googleSheetButton"),
+  googleFormButton: document.querySelector("#googleFormButton"),
   backfillImagesButton: document.querySelector("#backfillImagesButton"),
   importInput: document.querySelector("#importInput"),
   clearDataButton: document.querySelector("#clearDataButton"),
@@ -281,6 +296,26 @@ function getEnabledRecordTypes() {
   return sortRecordTypes(state.recordTypes).filter((type) => type.enabled);
 }
 
+function updateCsvWorkspaceLinks() {
+  if (elements.googleSheetButton) {
+    if (dataSourceConfig.googleSheetUrl) {
+      elements.googleSheetButton.hidden = false;
+      elements.googleSheetButton.href = dataSourceConfig.googleSheetUrl;
+    } else {
+      elements.googleSheetButton.hidden = true;
+    }
+  }
+
+  if (elements.googleFormButton) {
+    if (dataSourceConfig.googleFormUrl) {
+      elements.googleFormButton.hidden = false;
+      elements.googleFormButton.href = dataSourceConfig.googleFormUrl;
+    } else {
+      elements.googleFormButton.hidden = true;
+    }
+  }
+}
+
 function applySiteSettingsToPage() {
   const settings = state.siteSettings;
   elements.topbarBrand.textContent = settings.brand_name;
@@ -289,6 +324,7 @@ function applySiteSettingsToPage() {
   elements.heroIntro.textContent = settings.manager_intro;
   document.title = `${settings.brand_name} Manager`;
   applyTheme(settings);
+  updateCsvWorkspaceLinks();
 }
 
 function parseCommaSeparatedList(value) {
@@ -299,19 +335,7 @@ function parseCommaSeparatedList(value) {
 }
 
 function dedupeRecordsByAccession(records) {
-  const seen = new Set();
-  const deduped = [];
-
-  for (const record of records || []) {
-    const key = String(record.accession_number || record.id || "").trim().toLowerCase();
-    if (!key || seen.has(key)) {
-      continue;
-    }
-    seen.add(key);
-    deduped.push(record);
-  }
-
-  return deduped;
+  return dedupeCsvRecordsByAccession(records);
 }
 
 function debounceRender(delay = 250) {
@@ -384,6 +408,58 @@ function applyRecordFilters(query, filters) {
   });
 }
 
+function filterRecordsClientSide(records, filters) {
+  const query = String(filters.query || "")
+    .trim()
+    .toLowerCase();
+
+  return [...(records || [])]
+    .filter((record) => {
+      if (filters.type !== "all" && record.record_type !== filters.type) {
+        return false;
+      }
+      if (filters.status !== "all" && record.status !== filters.status) {
+        return false;
+      }
+      if (filters.theme !== "all" && record.historical_theme !== filters.theme) {
+        return false;
+      }
+      if (filters.neighborhood !== "all" && record.neighborhood !== filters.neighborhood) {
+        return false;
+      }
+      if (filters.visibility === "public" && !record.is_public) {
+        return false;
+      }
+      if (filters.visibility === "private" && record.is_public) {
+        return false;
+      }
+      if (!query) {
+        return true;
+      }
+
+      return buildRecordSearchColumns().some((column) =>
+        String(record[column] || "")
+          .toLowerCase()
+          .includes(query)
+      );
+    })
+    .sort((left, right) => {
+      const leftAccession = String(left.accession_number || "");
+      const rightAccession = String(right.accession_number || "");
+      return filters.sort === "accession-desc"
+        ? rightAccession.localeCompare(leftAccession, undefined, { numeric: true, sensitivity: "base" })
+        : leftAccession.localeCompare(rightAccession, undefined, { numeric: true, sensitivity: "base" });
+    });
+}
+
+function loadLocalRecords() {
+  return dedupeRecordsByAccession(loadStoredValue(localKeys.records, []));
+}
+
+function saveLocalRecords(records) {
+  saveStoredValue(localKeys.records, dedupeRecordsByAccession(records));
+}
+
 function updateTablePaginationUI() {
   const total = state.recordsPagination.total;
   const page = state.recordsPagination.page;
@@ -397,13 +473,25 @@ function updateTablePaginationUI() {
 }
 
 async function loadBackendMetrics() {
-  if (!canAccessBackend() || !isSupabaseReady) {
+  if (!canAccessBackend()) {
     state.recordMetrics = {
-      total: sampleRecords.length,
-      publicCount: sampleRecords.filter((record) => record.is_public).length,
-      reviewCount: sampleRecords.filter((record) => record.status === "Needs Review").length,
-      farishCount: sampleRecords.filter((record) => record.neighborhood === "Farish Street").length,
-      textileCount: sampleRecords.filter((record) => record.record_type === "Textile").length
+      total: 0,
+      publicCount: 0,
+      reviewCount: 0,
+      farishCount: 0,
+      textileCount: 0
+    };
+    return;
+  }
+
+  if (!isSupabaseReady) {
+    const localRecords = loadLocalRecords();
+    state.recordMetrics = {
+      total: localRecords.length,
+      publicCount: localRecords.filter((record) => record.is_public).length,
+      reviewCount: localRecords.filter((record) => record.status === "Needs Review").length,
+      farishCount: localRecords.filter((record) => record.neighborhood === "Farish Street").length,
+      textileCount: localRecords.filter((record) => record.record_type === "Textile").length
     };
     return;
   }
@@ -852,7 +940,10 @@ function renderRecordTypeSettings() {
 
 async function loadSiteSettings() {
   if (!isSupabaseReady) {
-    state.siteSettings = { ...defaultSiteSettings };
+    state.siteSettings = {
+      ...buildConfiguredSiteSettings(),
+      ...loadStoredValue(localKeys.siteSettings, buildConfiguredSiteSettings())
+    };
     applySiteSettingsToPage();
     populateSettingsForm();
     return;
@@ -873,7 +964,7 @@ async function loadSiteSettings() {
 
 async function loadRecordTypes() {
   if (!isSupabaseReady) {
-    state.recordTypes = [...defaultRecordTypes];
+    state.recordTypes = loadStoredValue(localKeys.recordTypes, [...defaultRecordTypes]);
     renderRecordTypeOptions();
     renderRecordTypeSettings();
     return;
@@ -899,18 +990,18 @@ async function loadRecordTypes() {
 
 async function loadEntityDirectories() {
   if (!isSupabaseReady) {
-    state.collectionEntities = [
+    state.collectionEntities = loadStoredValue(localKeys.collectionEntities, [
       normalizeEntity({ label: "School History Collection", summary: "School records, memorabilia, and educational materials.", sort_order: 10 }, "collection"),
       normalizeEntity({ label: "Farish Street Business District", summary: "Business history and entrepreneurship linked to Farish Street.", sort_order: 20 }, "collection")
-    ];
-    state.personEntities = [
+    ]);
+    state.personEntities = loadStoredValue(localKeys.personEntities, [
       normalizeEntity({ label: "Smith Robertson Alumni Circle", summary: "Alumni and descendants connected to Smith Robertson School.", sort_order: 10 }, "person"),
       normalizeEntity({ label: "Farish Street shop owners", summary: "Business owners and entrepreneurs active in the district.", sort_order: 20 }, "person")
-    ];
-    state.placeEntities = [
+    ]);
+    state.placeEntities = loadStoredValue(localKeys.placeEntities, [
       normalizeEntity({ label: "Smith Robertson Campus", summary: "Museum site and former school campus.", sort_order: 10 }, "place"),
       normalizeEntity({ label: "Farish Street", summary: "Historic commercial and cultural corridor in Jackson.", sort_order: 20 }, "place")
-    ];
+    ]);
     renderEntityDirectorySettings();
     renderEntityOptions();
     return;
@@ -945,6 +1036,15 @@ async function loadEntityDirectories() {
 }
 
 async function saveEntityDirectories() {
+  if (!isSupabaseReady) {
+    saveStoredValue(localKeys.collectionEntities, state.collectionEntities);
+    saveStoredValue(localKeys.personEntities, state.personEntities);
+    saveStoredValue(localKeys.placeEntities, state.placeEntities);
+    renderEntityDirectorySettings();
+    renderEntityOptions();
+    return;
+  }
+
   const payload = [...state.collectionEntities, ...state.personEntities, ...state.placeEntities]
     .map((entry, index) => ({
       id: entry.id,
@@ -1129,8 +1229,8 @@ function renderTaxonomySettings() {
 
 async function loadTaxonomies() {
   if (!isSupabaseReady) {
-    state.taxonomyGroups = [...defaultTaxonomyGroups];
-    state.taxonomyTerms = [...defaultTaxonomyTerms];
+    state.taxonomyGroups = loadStoredValue(localKeys.taxonomyGroups, [...defaultTaxonomyGroups]);
+    state.taxonomyTerms = loadStoredValue(localKeys.taxonomyTerms, [...defaultTaxonomyTerms]);
     renderManagedMetadataOptions();
     renderPresetTagButtons();
     renderTaxonomySettings();
@@ -1194,6 +1294,14 @@ async function saveSiteSettings() {
     forest_color: elements.settingsForestColor.value
   };
 
+  if (!isSupabaseReady) {
+    state.siteSettings = payload;
+    saveStoredValue(localKeys.siteSettings, payload);
+    applySiteSettingsToPage();
+    populateSettingsForm();
+    return;
+  }
+
   const { error } = await state.supabase.from("site_settings").upsert(payload);
   if (error) {
     if (
@@ -1225,6 +1333,14 @@ async function saveRecordTypes() {
 
   const cleaned = payload.filter((type) => type.label);
 
+  if (!isSupabaseReady) {
+    state.recordTypes = cleaned;
+    saveStoredValue(localKeys.recordTypes, cleaned);
+    renderRecordTypeOptions();
+    renderRecordTypeSettings();
+    return;
+  }
+
   const { error } = await state.supabase.from("record_type_definitions").upsert(cleaned, { onConflict: "slug" });
   if (error) {
     throw error;
@@ -1254,6 +1370,17 @@ async function saveTaxonomies() {
     }))
     .filter((term) => term.label);
 
+  if (!isSupabaseReady) {
+    state.taxonomyGroups = groupsPayload;
+    state.taxonomyTerms = termsPayload.map((term) => normalizeTaxonomyTerm(term));
+    saveStoredValue(localKeys.taxonomyGroups, state.taxonomyGroups);
+    saveStoredValue(localKeys.taxonomyTerms, state.taxonomyTerms);
+    renderManagedMetadataOptions();
+    renderPresetTagButtons();
+    renderTaxonomySettings();
+    return;
+  }
+
   const [{ error: groupsError }, { error: termsError }] = await Promise.all([
     state.supabase.from("taxonomy_groups").upsert(groupsPayload, { onConflict: "slug" }),
     state.supabase.from("taxonomy_terms").upsert(termsPayload, { onConflict: "group_slug,slug" })
@@ -1274,11 +1401,11 @@ async function saveTaxonomies() {
 }
 
 function currentUserIsAdmin(user = state.currentUser) {
-  return Boolean(user);
+  return !isSupabaseReady || Boolean(user);
 }
 
 function currentUserIsStaff(user = state.currentUser) {
-  return user?.app_metadata?.museum_role === "staff";
+  return !isSupabaseReady || user?.app_metadata?.museum_role === "staff";
 }
 
 function canAccessBackend() {
@@ -1298,11 +1425,43 @@ function canDeleteRecords() {
 }
 
 function updateAuthUI() {
+  if (!isSupabaseReady) {
+    state.isAdmin = true;
+    state.isStaff = true;
+    elements.signedOutView.hidden = true;
+    elements.signedInView.hidden = false;
+    elements.currentUserEmail.textContent = "CSV / Google Sheets mode";
+    elements.signOutButton.hidden = true;
+    elements.settingsTab.hidden = false;
+    elements.settingsAdminNotice.hidden = true;
+    elements.catalogSection.hidden = false;
+    elements.snapshotSection.hidden = false;
+    elements.utilitiesSection.hidden = false;
+    elements.dashboardHeader.hidden = false;
+    elements.workspacePanel.hidden = false;
+    elements.managerLockout.hidden = true;
+    elements.form.querySelectorAll("input, select, textarea, button").forEach((element) => {
+      if (element.id === "photoFile") {
+        element.setAttribute("disabled", "disabled");
+        return;
+      }
+      element.removeAttribute("disabled");
+    });
+    elements.siteSettingsForm.querySelectorAll("input, textarea, select, button").forEach((element) => {
+      element.removeAttribute("disabled");
+    });
+    elements.clearDataButton.hidden = false;
+    elements.backfillImagesButton.hidden = true;
+    setActiveView(state.activeView || "table");
+    return;
+  }
+
   const signedIn = Boolean(state.currentUser);
   const backendVisible = canAccessBackend();
   elements.signedOutView.hidden = signedIn;
   elements.signedInView.hidden = !signedIn;
   elements.currentUserEmail.textContent = signedIn ? `Signed in as ${state.currentUser.email}` : "";
+  elements.signOutButton.hidden = false;
   state.isAdmin = currentUserIsAdmin();
   state.isStaff = currentUserIsStaff();
 
@@ -1328,6 +1487,7 @@ function updateAuthUI() {
   });
 
   elements.clearDataButton.hidden = !state.isStaff;
+  elements.backfillImagesButton.hidden = false;
   elements.settingsTab.hidden = (!signedIn || !state.isAdmin) && isSupabaseReady;
   elements.settingsAdminNotice.hidden = state.isAdmin || !isSupabaseReady;
   elements.catalogSection.hidden = !backendVisible;
@@ -1780,6 +1940,10 @@ function getFilteredRecords() {
   return state.records;
 }
 
+function getExportableRecords() {
+  return !isSupabaseReady ? loadLocalRecords() : state.records;
+}
+
 function renderMetrics(records) {
   void records;
   elements.totalRecordsMetric.textContent = String(state.recordMetrics.total);
@@ -1800,7 +1964,7 @@ function buildRowActionButton(label, handler, tone = "ghost") {
 
 async function renderTableView() {
   const records = getFilteredRecords();
-  const signedIn = Boolean(state.currentUser);
+  const signedIn = !isSupabaseReady || Boolean(state.currentUser);
   elements.tableCountLabel.textContent = `${state.recordsPagination.total} matching row${state.recordsPagination.total === 1 ? "" : "s"}`;
   elements.recordTableBody.replaceChildren();
   renderActiveFilterPills();
@@ -2013,7 +2177,8 @@ function buildPhotoPath(accessionNumber, fileName) {
 
 async function uploadPhoto(file) {
   if (!isSupabaseReady) {
-    throw new Error("Add Supabase configuration before uploading photos.");
+    void file;
+    throw new Error("CSV mode does not upload image files directly. Use a Google Form file upload or paste a Google Drive/public image URL into Photo URL.");
   }
   if (!state.currentUser) {
     throw new Error("Sign in before uploading photos.");
@@ -2079,8 +2244,12 @@ async function loadRecords() {
   }
 
   if (!isSupabaseReady) {
-    state.recordsPagination.total = sampleRecords.length;
-    return sampleRecords;
+    const filters = getBackendFilterState();
+    const filtered = filterRecordsClientSide(loadLocalRecords(), filters);
+    state.recordsPagination.total = filtered.length;
+    const from = (state.recordsPagination.page - 1) * state.recordsPagination.pageSize;
+    const to = from + state.recordsPagination.pageSize;
+    return filtered.slice(from, to);
   }
 
   const filters = getBackendFilterState();
@@ -2106,7 +2275,26 @@ async function loadRecords() {
 
 async function saveRecord(record) {
   if (!isSupabaseReady) {
-    throw new Error("Supabase is not configured yet.");
+    const records = loadLocalRecords();
+    const normalized = normalizeImportedRecord({
+      ...record,
+      photo_url: record.photo_url,
+      photo_path: "",
+      updated_by: "csv-mode"
+    });
+    const existingIndex = records.findIndex(
+      (entry) => entry.id === normalized.id || entry.accession_number === normalized.accession_number
+    );
+    if (existingIndex === -1) {
+      records.push(normalized);
+    } else {
+      records[existingIndex] = {
+        ...records[existingIndex],
+        ...normalized
+      };
+    }
+    saveLocalRecords(records);
+    return;
   }
 
   const payload = {
@@ -2128,6 +2316,11 @@ async function saveRecord(record) {
 }
 
 async function deleteRecord(record) {
+  if (!isSupabaseReady) {
+    saveLocalRecords(loadLocalRecords().filter((entry) => entry.id !== record.id));
+    return;
+  }
+
   const { error } = await state.supabase.from("museum_records").delete().eq("id", record.id);
   if (error) {
     throw error;
@@ -2140,6 +2333,11 @@ async function deleteRecord(record) {
 }
 
 async function clearRecords() {
+  if (!isSupabaseReady) {
+    saveLocalRecords([]);
+    return;
+  }
+
   const { data: allRecords, error: fetchError } = await state.supabase.from("museum_records").select("photo_path");
   if (fetchError) {
     throw fetchError;
@@ -2204,6 +2402,25 @@ async function importRecords(file) {
 
   const payload = imported.map((record) => normalizeImportedRecord(record));
 
+  if (!isSupabaseReady) {
+    const records = loadLocalRecords();
+    for (const record of payload) {
+      const existingIndex = records.findIndex(
+        (entry) => entry.id === record.id || entry.accession_number === record.accession_number
+      );
+      if (existingIndex === -1) {
+        records.push(record);
+      } else {
+        records[existingIndex] = {
+          ...records[existingIndex],
+          ...record
+        };
+      }
+    }
+    saveLocalRecords(records);
+    return;
+  }
+
   const { error } = await state.supabase.from("museum_records").upsert(payload, {
     onConflict: "accession_number"
   });
@@ -2211,169 +2428,6 @@ async function importRecords(file) {
   if (error) {
     throw error;
   }
-}
-
-function normalizeImportedRecord(record) {
-  return {
-    id: record.id || crypto.randomUUID(),
-    accession_number: String(record.accession_number || "").trim(),
-    title: String(record.title || "").trim(),
-    record_type: String(record.record_type || "Artifact").trim(),
-    status: String(record.status || "In Storage").trim(),
-    collection_entity_id: String(record.collection_entity_id || "").trim() || null,
-    collection_name: String(record.collection_name || "").trim(),
-    location: String(record.location || "").trim(),
-    historical_theme: String(record.historical_theme || "").trim(),
-    place_entity_id: String(record.place_entity_id || "").trim() || null,
-    neighborhood: String(record.neighborhood || "").trim(),
-    time_period: String(record.time_period || "").trim(),
-    people_entity_ids: normalizeImportedEntityIds(record.people_entity_ids),
-    people: String(record.people || "").trim(),
-    donor: String(record.donor || "").trim(),
-    object_date: String(record.object_date || "").trim(),
-    format_material: String(record.format_material || "").trim(),
-    condition: String(record.condition || "").trim(),
-    rights_status: String(record.rights_status || "").trim(),
-    sensitivity: String(record.sensitivity || "").trim(),
-    photo_url: String(record.photo_url || "").trim(),
-    photo_path: String(record.photo_path || "").trim(),
-    photo_credit: String(record.photo_credit || "").trim(),
-    description: String(record.description || "").trim(),
-    significance: String(record.significance || "").trim(),
-    provenance: String(record.provenance || "").trim(),
-    notes: String(record.notes || "").trim(),
-    is_public: parseBoolean(record.is_public),
-    tags: normalizeImportedTags(record.tags),
-    updated_by: state.currentUser?.email || record.updated_by || null
-  };
-}
-
-function normalizeImportedEntityIds(value) {
-  if (Array.isArray(value)) {
-    return value.map((item) => String(item).trim()).filter(Boolean);
-  }
-
-  if (typeof value === "string") {
-    return value
-      .split(/[;,]/)
-      .map((item) => item.trim())
-      .filter(Boolean);
-  }
-
-  return [];
-}
-
-function normalizeImportedTags(value) {
-  if (Array.isArray(value)) {
-    return value.map((tag) => String(tag).trim()).filter(Boolean);
-  }
-
-  if (typeof value === "string") {
-    return value
-      .split(/[;,]/)
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-  }
-
-  return [];
-}
-
-function parseBoolean(value) {
-  if (typeof value === "boolean") {
-    return value;
-  }
-
-  const normalized = String(value ?? "")
-    .trim()
-    .toLowerCase();
-
-  return ["true", "1", "yes", "y"].includes(normalized);
-}
-
-function parseCsvRecords(csvText) {
-  const rows = parseCsv(csvText);
-
-  if (!rows.length) {
-    return [];
-  }
-
-  const headers = rows[0].map((header) => String(header || "").trim());
-  const requiredHeaders = ["accession_number", "title"];
-
-  for (const requiredHeader of requiredHeaders) {
-    if (!headers.includes(requiredHeader)) {
-      throw new Error(`CSV is missing required column: ${requiredHeader}`);
-    }
-  }
-
-  return rows
-    .slice(1)
-    .filter((row) => row.some((cell) => String(cell || "").trim() !== ""))
-    .map((row, index) => {
-      const record = {};
-
-      headers.forEach((header, columnIndex) => {
-        record[header] = row[columnIndex] ?? "";
-      });
-
-      if (!String(record.accession_number || "").trim()) {
-        throw new Error(`CSV row ${index + 2} is missing accession_number.`);
-      }
-
-      if (!String(record.title || "").trim()) {
-        throw new Error(`CSV row ${index + 2} is missing title.`);
-      }
-
-      return record;
-    });
-}
-
-function parseCsv(text) {
-  const rows = [];
-  let row = [];
-  let value = "";
-  let inQuotes = false;
-
-  for (let index = 0; index < text.length; index += 1) {
-    const char = text[index];
-    const nextChar = text[index + 1];
-
-    if (char === '"') {
-      if (inQuotes && nextChar === '"') {
-        value += '"';
-        index += 1;
-      } else {
-        inQuotes = !inQuotes;
-      }
-      continue;
-    }
-
-    if (char === "," && !inQuotes) {
-      row.push(value);
-      value = "";
-      continue;
-    }
-
-    if ((char === "\n" || char === "\r") && !inQuotes) {
-      if (char === "\r" && nextChar === "\n") {
-        index += 1;
-      }
-      row.push(value);
-      rows.push(row);
-      row = [];
-      value = "";
-      continue;
-    }
-
-    value += char;
-  }
-
-  if (value.length || row.length) {
-    row.push(value);
-    rows.push(row);
-  }
-
-  return rows;
 }
 
 function downloadJson(filename, data) {
@@ -2386,47 +2440,8 @@ function downloadJson(filename, data) {
   URL.revokeObjectURL(url);
 }
 
-function escapeCsv(value) {
-  const stringValue = Array.isArray(value) ? value.join("; ") : String(value ?? "");
-  if (/[",\n]/.test(stringValue)) {
-    return `"${stringValue.replace(/"/g, '""')}"`;
-  }
-  return stringValue;
-}
-
 function downloadCsv(filename, records) {
-  const columns = [
-    "accession_number",
-    "title",
-    "record_type",
-    "status",
-    "collection_name",
-    "location",
-    "historical_theme",
-    "neighborhood",
-    "time_period",
-    "people",
-    "donor",
-    "object_date",
-    "format_material",
-    "condition",
-    "rights_status",
-    "sensitivity",
-    "is_public",
-    "photo_credit",
-    "description",
-    "significance",
-    "provenance",
-    "notes",
-    "tags"
-  ];
-
-  const lines = [
-    columns.join(","),
-    ...records.map((record) => columns.map((column) => escapeCsv(record[column])).join(","))
-  ];
-
-  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+  const blob = new Blob([serializeRecordsToCsv(records)], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
@@ -2469,10 +2484,11 @@ async function initializeAuth() {
     await loadTaxonomies();
     elements.setupBanner.hidden = false;
     elements.setupDetails.textContent =
-      "Add your Supabase project URL and anon key in supabase-config.js, then run the SQL in supabase/schema.sql.";
-    setAuthMessage("Supabase keys are missing. Shared sign-in and shared records are not active yet.");
+      "CSV / Google Sheets mode is active. Import a CSV from Google Sheets, or set a published CSV URL in data-source-config.js for the public site.";
+    setAuthMessage("CSV mode is active. Use Download CSV / Import CSV, or open the linked Google Form and Google Sheet.");
     updateAuthUI();
     applyInitialRoute();
+    await refresh({ resetPage: true, reloadMetrics: true });
     return;
   }
 
@@ -2649,14 +2665,14 @@ elements.exportCsvButton.addEventListener("click", () => {
     setAuthMessage("Sign in before exporting records.", true);
     return;
   }
-  downloadCsv("smith-robertson-records.csv", getFilteredRecords());
+  downloadCsv("smith-robertson-records.csv", getExportableRecords());
 });
 elements.exportButton.addEventListener("click", () => {
   if (!canAccessBackend()) {
     setAuthMessage("Sign in before exporting records.", true);
     return;
   }
-  downloadJson("smith-robertson-records-backup.json", state.records);
+  downloadJson("smith-robertson-records-backup.json", getExportableRecords());
 });
 elements.backfillImagesButton?.addEventListener("click", async () => {
   if (!canEditSharedData()) {
@@ -2716,7 +2732,7 @@ elements.importInput.addEventListener("change", async (event) => {
   }
 
   try {
-    if (!state.currentUser) {
+    if (isSupabaseReady && !state.currentUser) {
       throw new Error("Sign in before importing records.");
     }
     await importRecords(file);

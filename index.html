@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260507a" />
+    <link rel="stylesheet" href="./styles.css?v=20260529a" />
   </head>
   <body>
     <div class="page-shell">
@@ -89,6 +89,8 @@
             <div class="stack stack--column">
               <button id="exportButton" class="button button--ghost" type="button">Export JSON</button>
               <button id="exportCsvButton" class="button button--ghost" type="button">Download CSV</button>
+              <a id="googleSheetButton" class="button button--ghost" href="#" target="_blank" rel="noreferrer" hidden>Open Google Sheet</a>
+              <a id="googleFormButton" class="button button--ghost" href="#" target="_blank" rel="noreferrer" hidden>Open Google Form</a>
               <button id="backfillImagesButton" class="button button--ghost" type="button">Backfill Visible Images</button>
               <label class="button button--ghost file-button">
   <span>Import CSV / JSON</span>
@@ -403,7 +405,7 @@
                     <div class="photo-upload">
                       <input id="photoFile" type="file" accept="image/*" />
                       <p class="help-text">
-                        Images upload to the Supabase <code>museum-photos</code> bucket. Add an accession ID first.
+                        In CSV mode, use a Google Form upload or paste a Google Drive / public image URL below. Direct file upload only works if Supabase is still configured.
                       </p>
                       <div class="photo-preview-wrap">
                         <img id="photoPreview" class="record-card__image" alt="Record preview" hidden />
@@ -739,7 +741,8 @@
       </tr>
     </template>
 
+    <script src="./data-source-config.js"></script>
     <script src="./supabase-config.js"></script>
-    <script type="module" src="./app.js?v=20260507a"></script>
+    <script type="module" src="./app.js?v=20260529b"></script>
   </body>
 </html>

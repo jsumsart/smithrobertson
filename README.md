@@ -1,98 +1,64 @@
-# Smith Robertson Museum Collections Database
+# Smith Robertson Collections
 
-A GitHub Pages frontend for a shared Smith Robertson Museum collections database backed by Supabase.
+This project is now moving away from Supabase and toward a CSV-first workflow built around Google Sheets and Google Forms.
 
-## What changed
+## Recommended operating model
 
-This app is now structured for a real web database:
+- `Google Form` for student record entry
+- `Google Sheet` as the source of truth
+- `CSV import/export` in the dashboard for review and cleanup
+- `Published CSV URL` for the public gallery and archive
 
-- shared records instead of browser-only storage
-- user login with Supabase Auth
-- a museum records table in Supabase Postgres
-- direct image uploads to Supabase Storage
-- first-class `Textile` and `Newspaper / Periodical` record types
-- a simpler cataloging workflow focused on collections work rather than student lesson-writing
-- a separate public read-only catalog page for published records
-- admin-managed site settings and configurable record types
-- admin-managed taxonomies for statuses, themes, places, rights, condition, sensitivity, and suggested tags
+That means records can live outside the website and do not disappear just because the site sits idle.
 
-## Hosting model
+## Current architecture
 
-- `GitHub Pages` hosts the frontend
-- `Supabase` provides the database, login, and future image storage
+### Public site
 
-That means the site can still be deployed from GitHub, but the shared data is stored in Supabase rather than the browser.
+- [catalog.html](/Users/Birittany/Documents/SmithRobertson/catalog.html): digital gallery
+- [archive.html](/Users/Birittany/Documents/SmithRobertson/archive.html): search-first archive
+- [catalog.js](/Users/Birittany/Documents/SmithRobertson/catalog.js): loads either a published CSV source or Supabase if still configured
 
-## Files to know
+### Dashboard
 
-- [index.html](/Users/Birittany/Documents/SmithRobertson/index.html): UI structure
-- [styles.css](/Users/Birittany/Documents/SmithRobertson/styles.css): visual design
-- [app.js](/Users/Birittany/Documents/SmithRobertson/app.js): Supabase auth + shared catalog logic
-- [catalog.html](/Users/Birittany/Documents/SmithRobertson/catalog.html): public read-only catalog page
-- [catalog.js](/Users/Birittany/Documents/SmithRobertson/catalog.js): public catalog loading and filtering
-- [platform-config.js](/Users/Birittany/Documents/SmithRobertson/platform-config.js): shared defaults and theme helpers
-- [supabase-client.js](/Users/Birittany/Documents/SmithRobertson/supabase-client.js): shared browser client helper
-- [supabase-config.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.js): your local project URL and anon key
-- [supabase-config.example.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.example.js): template for config
-- [supabase/schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql): SQL for records, site settings, record type definitions, taxonomies, and policies
+- [index.html](/Users/Birittany/Documents/SmithRobertson/index.html): records workspace
+- [app.js](/Users/Birittany/Documents/SmithRobertson/app.js): CSV import/export, local editing, and optional Supabase support
+- [login.html](/Users/Birittany/Documents/SmithRobertson/login.html): access page that now points users into the CSV / Google workflow when Supabase is not active
 
-## Next-generation platform scaffold
+### Configuration
 
-The repo now also includes a separate migration track in [platform](/Users/Birittany/Documents/SmithRobertson/platform).
+- [data-source-config.js](/Users/Birittany/Documents/SmithRobertson/data-source-config.js): configure Google Sheet / Form URLs and the published CSV source
+- [data-source-config.example.js](/Users/Birittany/Documents/SmithRobertson/data-source-config.example.js): example config
+- [google-sheets-template.csv](/Users/Birittany/Documents/SmithRobertson/data/google-sheets-template.csv): starter CSV template
+- [google-sheets-workflow.md](/Users/Birittany/Documents/SmithRobertson/docs/google-sheets-workflow.md): workflow notes
 
-That folder is the beginning of the long-term architecture:
+## How to use it now
 
-- a real `Next.js` app
-- public routes separated from private dashboard routes
-- server-side Supabase access
-- room for pagination, media derivatives, exhibits, and better auth boundaries
+1. Put your Google Sheet URL and Google Form URL into [data-source-config.js](/Users/Birittany/Documents/SmithRobertson/data-source-config.js).
+2. If you want the public site to read directly from the Sheet, publish the Sheet as CSV and place that URL in `publishedCsvUrl`.
+3. Students can use the Google Form for entry.
+4. Staff can download CSV from the Sheet and import it into the dashboard for review.
+5. Staff can export CSV back out after cleanup.
 
-There is also a new non-destructive schema extension draft at [schema-v2.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema-v2.sql) for:
+## Important image note
 
-- `organizations`
-- `media_assets`
-- `public_pages`
-- `exhibits`
-- `exhibit_items`
-- `audit_log`
+The CSV does not carry image binaries. Instead, it carries image links in `photo_url`.
 
-The current GitHub Pages app remains the live system for now; the `platform/` directory is the migration path forward.
+The intended pattern is:
 
-## Supabase setup
+- students upload images through Google Forms
+- Google Drive stores the files
+- the linked Google Sheet captures the file links
+- the app reads those links from the CSV
 
-1. Create a Supabase project.
-2. In Supabase SQL Editor, run [schema.sql](/Users/Birittany/Documents/SmithRobertson/supabase/schema.sql).
-3. In Supabase Auth, enable email/password sign-in.
-4. Copy your Supabase anon key from the project settings. The project URL is already prefilled for this connected project.
-5. Put the anon key in [supabase-config.js](/Users/Birittany/Documents/SmithRobertson/supabase-config.js).
-6. Push the updated site to GitHub Pages.
+This keeps image storage outside Supabase and avoids the storage-egress problem that hit the earlier build.
 
-The SQL file also creates the public `museum-photos` storage bucket and the storage policies used by the upload flow.
-It now also creates `site_settings`, `record_type_definitions`, `taxonomy_groups`, and `taxonomy_terms`, which power the admin-controlled branding and metadata system.
+## Supabase status
 
-## Admin access
+Supabase support still exists in the codebase as a fallback path, but it is no longer the recommended operating model for this museum workflow.
 
-- users can catalog records with a normal authenticated account
-- while the platform is still being built, any authenticated user can access platform settings
-- record-wide destructive tools can still be separated further with museum staff metadata
+The project is now being optimized around:
 
-This is a temporary build-mode shortcut. Before broader rollout, restore a true admin role for platform settings and taxonomy management.
-
-## Important note about config
-
-The Supabase anon key is safe to use in the frontend. It is meant for browser clients and is protected by your Row Level Security policies.
-
-Do not put a `service_role` key in this repo or in frontend code.
-
-## Current limitations
-
-- record editing is shared, but full workflow roles like `editor` and `reviewer` are not implemented yet
-- the whitelabel model is still single-site rather than true multi-organization tenancy
-- custom metadata groups are currently focused on the core catalog fields already in the app
-- bulk CSV import is not implemented yet
-
-## Best next upgrades
-
-- editor/reviewer/admin workflow and approvals
-- bulk CSV import
-- dedicated people, places, and exhibitions tables
+- durable records in Google Sheets
+- lightweight CSV handoff
+- external image links instead of bucket-hosted media

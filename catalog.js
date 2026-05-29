@@ -8,10 +8,12 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
+import { buildConfiguredSiteSettings, dataSourceConfig, fetchPublishedCsvRecords } from "./csv-data.js";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 
 const state = {
+  allRecords: [],
   records: [],
   siteSettings: { ...defaultSiteSettings },
   recordTypes: [...defaultRecordTypes],
@@ -247,7 +249,7 @@ function getFilteredRecords() {
 }
 
 function findRecordByAccession(accession) {
-  return state.records.find((record) => record.accession_number === accession);
+  return (state.allRecords.length ? state.allRecords : state.records).find((record) => record.accession_number === accession);
 }
 
 function getCuratedRecords(list, fallbackCount) {
@@ -265,7 +267,8 @@ function getCuratedRecords(list, fallbackCount) {
       seen.add(key);
       return true;
     });
-  return curated.length ? curated : state.records.slice(0, fallbackCount);
+  const pool = state.allRecords.length ? state.allRecords : state.records;
+  return curated.length ? curated : pool.slice(0, fallbackCount);
 }
 
 async function fetchGalleryRecords() {
@@ -286,6 +289,7 @@ async function fetchGalleryRecords() {
     }
 
     state.records = dedupeRecordsByAccession(data || []);
+    state.allRecords = [...state.records];
     return;
   }
 
@@ -301,6 +305,7 @@ async function fetchGalleryRecords() {
   }
 
   state.records = dedupeRecordsByAccession(data || []);
+  state.allRecords = [...state.records];
 }
 
 async function fetchArchiveRecords() {
@@ -345,6 +350,64 @@ async function fetchArchiveRecords() {
 
   state.archivePagination.total = count || 0;
   state.records = dedupeRecordsByAccession(data || []);
+}
+
+async function loadCsvDataset() {
+  if (state.allRecords.length) {
+    return state.allRecords;
+  }
+
+  state.allRecords = await fetchPublishedCsvRecords(dataSourceConfig.publishedCsvUrl);
+  return state.allRecords;
+}
+
+async function fetchGalleryRecordsFromCsv() {
+  const records = await loadCsvDataset();
+  state.records = dedupeRecordsByAccession(records);
+}
+
+async function fetchArchiveRecordsFromCsv() {
+  const filters = getArchiveFilterState();
+  const allRecords = await loadCsvDataset();
+  const query = String(filters.query || "")
+    .trim()
+    .toLowerCase();
+
+  const filtered = allRecords
+    .filter((record) => {
+      if (filters.theme !== "all" && record.historical_theme !== filters.theme) {
+        return false;
+      }
+      if (filters.type !== "all" && record.record_type !== filters.type) {
+        return false;
+      }
+      if (!query) {
+        return true;
+      }
+
+      return [
+        record.accession_number,
+        record.title,
+        record.historical_theme,
+        record.neighborhood,
+        record.description,
+        ...(record.tags || [])
+      ]
+        .join(" ")
+        .toLowerCase()
+        .includes(query);
+    })
+    .sort((left, right) =>
+      String(left.accession_number || "").localeCompare(String(right.accession_number || ""), undefined, {
+        numeric: true,
+        sensitivity: "base"
+      })
+    );
+
+  state.archivePagination.total = filtered.length;
+  const from = (state.archivePagination.page - 1) * state.archivePagination.pageSize;
+  const to = from + state.archivePagination.pageSize;
+  state.records = filtered.slice(from, to);
 }
 
 async function populateCatalogCard(container, record) {
@@ -524,7 +587,13 @@ async function renderArchive() {
 }
 
 async function loadCurrentUser() {
-  if (!isSupabaseReady || !elements.authAction) {
+  if (!elements.authAction) {
+    return;
+  }
+
+  if (!isSupabaseReady) {
+    elements.authAction.textContent = "Log In";
+    elements.authAction.href = "./login.html";
     return;
   }
 
@@ -545,8 +614,33 @@ async function loadCurrentUser() {
 }
 
 async function loadCatalog() {
+  if (dataSourceConfig.publishedCsvUrl) {
+    state.siteSettings = buildConfiguredSiteSettings();
+    state.recordTypes = [...defaultRecordTypes];
+    state.taxonomyGroups = [...defaultTaxonomyGroups];
+    state.taxonomyTerms = [...defaultTaxonomyTerms].map(normalizeTaxonomyTerm);
+
+    applyCatalogSettings();
+    renderRecordTypeFilter();
+    renderThemeFilter();
+
+    if (pageMode === "archive") {
+      await fetchArchiveRecordsFromCsv();
+      await renderArchive();
+      updateArchivePaginationUI();
+      await loadCurrentUser();
+      setStatus("Showing the searchable public archive from the published CSV.");
+      return;
+    }
+
+    await fetchGalleryRecordsFromCsv();
+    await Promise.all([renderFeaturedRecords(), renderSlideshow(), loadCurrentUser()]);
+    setStatus("Showing the curated digital gallery from the published CSV.");
+    return;
+  }
+
   if (!isSupabaseReady) {
-    setStatus("Add your Supabase project URL and anon key in supabase-config.js to load the public site.", true);
+    setStatus("Add a published CSV URL in data-source-config.js or restore Supabase configuration to load the public site.", true);
     return;
   }
 
