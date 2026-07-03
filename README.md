@@ -26,15 +26,21 @@ There is no active web login and no live backend editor right now.
 
 ## Images
 
-Images are either:
+The image system is intentionally simple:
 
-- linked in the CSV through `photo_url`, or
-- stored in this repository under [public-images](/Users/Birittany/Documents/SmithRobertson/public-images)
+- every image lives under [public-images](/Users/Birittany/Documents/SmithRobertson/public-images)
+- the CSV uses the `image_file` column
+- `image_file` should contain the path relative to `public-images`
+
+Example:
+
+- `image_file = untitled-37/20.png`
+- the site loads `./public-images/untitled-37/20.png`
 
 The public site only shows images for records that are both:
 
 - marked `is_public = true`
-- supplied with a valid image path or image URL
+- supplied with a valid `image_file`
 
 ## Notes
 

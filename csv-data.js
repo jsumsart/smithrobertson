@@ -18,17 +18,6 @@ export const dataSourceConfig = {
   ...(window.COLLECTIONS_DATA_SOURCE || {})
 };
 
-export const localKeys = {
-  records: "smith-robertson.records",
-  siteSettings: "smith-robertson.site-settings",
-  recordTypes: "smith-robertson.record-types",
-  collectionEntities: "smith-robertson.collection-entities",
-  personEntities: "smith-robertson.person-entities",
-  placeEntities: "smith-robertson.place-entities",
-  taxonomyGroups: "smith-robertson.taxonomy-groups",
-  taxonomyTerms: "smith-robertson.taxonomy-terms"
-};
-
 export function buildConfiguredSiteSettings() {
   return {
     ...defaultSiteSettings,
@@ -48,65 +37,6 @@ export function buildConfiguredSiteSettings() {
       ? dataSourceConfig.slideshowAccessions
       : []
   };
-}
-
-export function loadStoredValue(key, fallback) {
-  try {
-    const raw = window.localStorage.getItem(key);
-    if (!raw) {
-      return structuredClone(fallback);
-    }
-    return JSON.parse(raw);
-  } catch (_error) {
-    return structuredClone(fallback);
-  }
-}
-
-export function saveStoredValue(key, value) {
-  window.localStorage.setItem(key, JSON.stringify(value));
-}
-
-export function extractFirstUrl(value) {
-  const stringValue = String(value || "").trim();
-  const remoteMatch = stringValue.match(/https?:\/\/[^\s,]+/i);
-  if (remoteMatch) {
-    return remoteMatch[0];
-  }
-
-  const localAssetMatch = stringValue.match(/(\.\/public-images\/[^\s,]+?\.(?:png|jpe?g|webp|gif))/i);
-  if (localAssetMatch) {
-    return localAssetMatch[1];
-  }
-
-  return stringValue;
-}
-
-export function normalizeGoogleDriveUrl(value, size = 1200) {
-  const rawUrl = extractFirstUrl(value);
-  if (!rawUrl || !rawUrl.includes("drive.google.com")) {
-    return rawUrl;
-  }
-
-  let fileId = "";
-  const fileMatch = rawUrl.match(/\/file\/d\/([^/]+)/i);
-  const openMatch = rawUrl.match(/[?&]id=([^&#]+)/i);
-
-  if (fileMatch?.[1]) {
-    fileId = fileMatch[1];
-  } else if (openMatch?.[1]) {
-    fileId = openMatch[1];
-  }
-
-  if (!fileId) {
-    return rawUrl;
-  }
-
-  return `https://drive.google.com/thumbnail?id=${fileId}&sz=w${size}`;
-}
-
-export function normalizeImageUrl(value) {
-  const normalized = extractFirstUrl(value);
-  return normalizeGoogleDriveUrl(normalized);
 }
 
 export function parseBoolean(value) {
@@ -151,6 +81,16 @@ export function normalizeImportedEntityIds(value) {
   return [];
 }
 
+export function normalizeImageFile(value) {
+  const normalized = String(value || "").trim().replace(/^\.?\/*public-images\//i, "");
+  return normalized.replace(/^\/+/, "");
+}
+
+export function buildImageSrc(imageFile) {
+  const normalized = normalizeImageFile(imageFile);
+  return normalized ? `./public-images/${normalized}` : "";
+}
+
 export function normalizeImportedRecord(record) {
   return {
     id: record.id || crypto.randomUUID(),
@@ -173,8 +113,7 @@ export function normalizeImportedRecord(record) {
     condition: String(record.condition || "").trim(),
     rights_status: String(record.rights_status || "").trim(),
     sensitivity: String(record.sensitivity || "").trim(),
-    photo_url: normalizeImageUrl(record.photo_url || record.image_url || record.image || ""),
-    photo_path: String(record.photo_path || "").trim(),
+    image_file: normalizeImageFile(record.image_file),
     photo_credit: String(record.photo_credit || "").trim(),
     description: String(record.description || "").trim(),
     significance: String(record.significance || "").trim(),
@@ -299,7 +238,7 @@ export function serializeRecordsToCsv(records) {
     "rights_status",
     "sensitivity",
     "is_public",
-    "photo_url",
+    "image_file",
     "photo_credit",
     "description",
     "significance",

@@ -7,7 +7,7 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, dataSourceConfig, fetchPublishedCsvRecords, normalizeImageUrl } from "./csv-data.js";
+import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedCsvRecords } from "./csv-data.js";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 
@@ -137,25 +137,8 @@ function dedupeRecordsByAccession(records) {
   return deduped;
 }
 
-function deriveVariantPath(photoPath, variant = "web") {
-  if (!photoPath) {
-    return "";
-  }
-
-  if (!photoPath.includes("-web.")) {
-    return variant === "web" ? photoPath : "";
-  }
-
-  if (variant === "thumb") {
-    return photoPath.replace("-web.", "-thumb.");
-  }
-
-  return photoPath;
-}
-
-async function resolvePublicPhotoUrl(record, variant = "web") {
-  const path = deriveVariantPath(record.photo_path, variant) || record.photo_path || record.photo_url || "";
-  return normalizeImageUrl(path);
+function resolvePublicPhotoUrl(record) {
+  return buildImageSrc(record.image_file);
 }
 
 function applyCatalogSettings() {
@@ -333,7 +316,7 @@ async function populateCatalogCard(container, record) {
   significance.textContent = record.significance || "Historical significance not yet added.";
   tags.replaceChildren(createTagElements(record.tags));
 
-    const resolvedPhotoUrl = await resolvePublicPhotoUrl(record, "web");
+  const resolvedPhotoUrl = resolvePublicPhotoUrl(record);
   if (resolvedPhotoUrl) {
     image.hidden = false;
     image.src = resolvedPhotoUrl;
@@ -397,7 +380,7 @@ async function renderSlideshow() {
     .join(" • ");
   description.textContent = current.significance || current.description || "No description available.";
 
-  const resolvedPhotoUrl = await resolvePublicPhotoUrl(current, "web");
+  const resolvedPhotoUrl = resolvePublicPhotoUrl(current);
   if (resolvedPhotoUrl) {
     image.hidden = false;
     image.src = resolvedPhotoUrl;
@@ -470,9 +453,9 @@ async function renderArchive() {
       image.alt = `${record.title} image`;
       image.loading = "lazy";
       image.decoding = "async";
-    } else if (record.photo_path || record.photo_url) {
+    } else if (record.image_file) {
       try {
-        const resolvedPhotoUrl = await resolvePublicPhotoUrl(record, "thumb");
+        const resolvedPhotoUrl = resolvePublicPhotoUrl(record);
         if (resolvedPhotoUrl) {
           state.archivePreviewUrls.set(cacheKey, resolvedPhotoUrl);
           image.hidden = false;
