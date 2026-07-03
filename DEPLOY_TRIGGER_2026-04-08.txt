@@ -1,1 +1,2 @@
 GitHub Pages redeploy triggered on 2026-04-08 after repository visibility changed to public.
+GitHub Pages redeploy refreshed on 2026-07-03 to publish the static public-site routing update.
