@@ -3,29 +3,91 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smith Robertson Collections</title>
-    <meta http-equiv="refresh" content="0; url=./catalog.html" />
+    <title>Smith Robertson Museum Digital Gallery</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css?v=20260703a" />
   </head>
-  <body class="login-page">
-    <main class="login-shell">
-      <section class="login-card">
-        <p class="eyebrow">Smith Robertson Collections</p>
-        <h1>Redirecting to the digital gallery.</h1>
-        <p class="hero__lede">
-          The public site is now centered on the digital gallery and archive while the old dashboard is retired.
-        </p>
-        <div class="login-card__footer">
-          <a class="button button--primary" href="./catalog.html">Open Digital Gallery</a>
-          <a class="button button--ghost" href="./archive.html">Open Archive</a>
+  <body class="catalog-page" data-public-page="gallery">
+    <div class="catalog-shell">
+      <header class="catalog-site-header">
+        <a id="catalogBrand" class="catalog-site-header__brand" href="./">Smith Robertson Collections</a>
+        <nav class="catalog-site-header__nav">
+          <a class="button button--primary" href="./" aria-current="page">Digital Gallery</a>
+          <a class="button button--ghost" href="./archive.html">Archive</a>
+        </nav>
+      </header>
+
+      <main class="public-site">
+        <section class="public-hero">
+          <div class="public-hero__copy">
+            <p id="catalogEyebrow" class="eyebrow">Digital Gallery</p>
+            <h1 id="catalogGalleryTitle">A living gallery of Jackson history.</h1>
+            <p id="catalogGalleryIntro" class="public-hero__intro">
+              Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.
+            </p>
+            <div class="public-hero__actions">
+              <a class="button button--ghost" href="./archive.html">Browse the archive</a>
+            </div>
+          </div>
+
+          <section class="slideshow-panel" aria-label="Curated slideshow">
+            <div class="slideshow-panel__header">
+              <div>
+                <p class="eyebrow">Curated Slideshow</p>
+                <h2>Featured story objects</h2>
+              </div>
+              <div class="slideshow-panel__controls">
+                <button id="slideshowPrev" class="button button--ghost" type="button">Previous</button>
+                <button id="slideshowNext" class="button button--ghost" type="button">Next</button>
+              </div>
+            </div>
+            <article id="slideshowStage" class="slideshow-stage"></article>
+          </section>
+        </section>
+
+        <section class="public-section">
+          <div class="public-section__header">
+            <div>
+              <p class="eyebrow">Featured Records</p>
+              <h2>Curated highlights</h2>
+            </div>
+            <p class="help-text">Selected records from the published collection CSV.</p>
+          </div>
+          <div id="featuredList" class="feature-grid" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="catalogCardTemplate">
+      <article class="catalog-card">
+        <img class="catalog-card__image" alt="" hidden />
+        <div class="catalog-card__body">
+          <p class="catalog-card__meta"></p>
+          <h3></h3>
+          <p class="catalog-card__description"></p>
+          <p class="catalog-card__significance"></p>
+          <div class="tag-list"></div>
         </div>
-      </section>
-    </main>
+      </article>
+    </template>
+
+    <template id="slideshowTemplate">
+      <article class="slideshow-card">
+        <img class="slideshow-card__image" alt="" hidden />
+        <div class="slideshow-card__body">
+          <p class="slideshow-card__meta"></p>
+          <h3></h3>
+          <p class="slideshow-card__description"></p>
+        </div>
+      </article>
+    </template>
+
+    <script src="./data-source-config.js"></script>
+    <script type="module" src="./catalog.js?v=20260703c"></script>
   </body>
 </html>

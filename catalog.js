@@ -502,7 +502,7 @@ async function loadCurrentUser() {
 
 async function loadCatalog() {
   if (!dataSourceConfig.publishedCsvUrl) {
-    setStatus("Add a published CSV URL in data-source-config.js or restore Supabase configuration to load the public site.", true);
+    setStatus("Add a published CSV URL in data-source-config.js to load the public site.", true);
     return;
   }
 

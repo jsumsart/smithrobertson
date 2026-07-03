@@ -14,16 +14,16 @@ function setMessage(message, isError = false) {
 
 async function loadLoginBranding() {
   const settings = buildConfiguredSiteSettings();
-  document.title = `${settings.brand_name} Login`;
-  elements.eyebrow.textContent = `${settings.brand_name} Login`;
-  elements.title.textContent = "Collections manager rebuild in progress.";
+  document.title = `${settings.brand_name} Editor Status`;
+  elements.eyebrow.textContent = `${settings.brand_name} Editor Status`;
+  elements.title.textContent = "The public site is live. The old editor is offline.";
   elements.intro.textContent =
-    "This site is being migrated to a cleaner CollectionBuilder-style architecture. Public browsing remains available while the editor is rebuilt outside the public site.";
+    "Published records now come from the CSV stored in this GitHub repository at data/records.csv. There is no active web login or live backend editor at the moment.";
 }
 
 async function initialize() {
   await loadLoginBranding();
-  setMessage("The old in-browser editor has been retired from the public site during migration.");
+  setMessage("Current source of truth: data/records.csv in the repository, updated through the spreadsheet-to-GitHub workflow.");
 }
 
 initialize().catch((error) => setMessage(error.message, true));
