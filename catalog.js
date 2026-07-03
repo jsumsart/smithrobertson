@@ -1,4 +1,3 @@
-import { createBrowserClient, isSupabaseReady } from "./supabase-client.js";
 import {
   applyPublicSiteTheme,
   defaultRecordTypes,
@@ -8,7 +7,7 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, dataSourceConfig, fetchPublishedCsvRecords } from "./csv-data.js";
+import { buildConfiguredSiteSettings, dataSourceConfig, fetchPublishedCsvRecords, normalizeImageUrl } from "./csv-data.js";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 
@@ -25,10 +24,8 @@ const state = {
     total: 0
   },
   slideshowIndex: 0,
-  currentUser: null,
   archivePreviewUrls: new Map(),
-  archiveSearchDebounceId: null,
-  supabase: createBrowserClient()
+  archiveSearchDebounceId: null
 };
 
 const elements = {
@@ -157,18 +154,8 @@ function deriveVariantPath(photoPath, variant = "web") {
 }
 
 async function resolvePublicPhotoUrl(record, variant = "web") {
-  const path =
-    deriveVariantPath(record.photo_path, variant) ||
-    record.photo_path ||
-    "";
-  if (path && state.supabase) {
-    const { data, error } = await state.supabase.storage.from("museum-photos").createSignedUrl(path, 3600);
-    if (!error && data?.signedUrl) {
-      return data.signedUrl;
-    }
-  }
-
-  return record.photo_url || "";
+  const path = deriveVariantPath(record.photo_path, variant) || record.photo_path || record.photo_url || "";
+  return normalizeImageUrl(path);
 }
 
 function applyCatalogSettings() {
@@ -269,87 +256,6 @@ function getCuratedRecords(list, fallbackCount) {
     });
   const pool = state.allRecords.length ? state.allRecords : state.records;
   return curated.length ? curated : pool.slice(0, fallbackCount);
-}
-
-async function fetchGalleryRecords() {
-  const curatedAccessions = [
-    ...(state.siteSettings.public_slideshow_accessions || []),
-    ...(state.siteSettings.public_featured_accessions || [])
-  ].filter(Boolean);
-
-  if (curatedAccessions.length) {
-    const { data, error } = await state.supabase
-      .from("museum_records")
-      .select("*")
-      .eq("is_public", true)
-      .in("accession_number", curatedAccessions);
-
-    if (error) {
-      throw error;
-    }
-
-    state.records = dedupeRecordsByAccession(data || []);
-    state.allRecords = [...state.records];
-    return;
-  }
-
-  const { data, error } = await state.supabase
-    .from("museum_records")
-    .select("*")
-    .eq("is_public", true)
-    .order("updated_at", { ascending: false })
-    .limit(6);
-
-  if (error) {
-    throw error;
-  }
-
-  state.records = dedupeRecordsByAccession(data || []);
-  state.allRecords = [...state.records];
-}
-
-async function fetchArchiveRecords() {
-  const filters = getArchiveFilterState();
-  const from = (state.archivePagination.page - 1) * state.archivePagination.pageSize;
-  const to = from + state.archivePagination.pageSize - 1;
-
-  let query = state.supabase
-    .from("museum_records")
-    .select(
-      "id,accession_number,title,record_type,historical_theme,neighborhood,time_period,object_date,description,tags,photo_url,photo_path",
-      { count: "exact" }
-    )
-    .eq("is_public", true);
-
-  if (filters.theme !== "all") {
-    query = query.eq("historical_theme", filters.theme);
-  }
-  if (filters.type !== "all") {
-    query = query.eq("record_type", filters.type);
-  }
-  if (filters.query) {
-    const safeQuery = filters.query.replaceAll(",", " ").trim();
-    query = query.or(
-      [
-        `accession_number.ilike.%${safeQuery}%`,
-        `title.ilike.%${safeQuery}%`,
-        `historical_theme.ilike.%${safeQuery}%`,
-        `neighborhood.ilike.%${safeQuery}%`,
-        `description.ilike.%${safeQuery}%`
-      ].join(",")
-    );
-  }
-
-  const { data, error, count } = await query
-    .order("accession_number", { ascending: true })
-    .range(from, to);
-
-  if (error) {
-    throw error;
-  }
-
-  state.archivePagination.total = count || 0;
-  state.records = dedupeRecordsByAccession(data || []);
 }
 
 async function loadCsvDataset() {
@@ -590,105 +496,35 @@ async function loadCurrentUser() {
   if (!elements.authAction) {
     return;
   }
-
-  if (!isSupabaseReady) {
-    elements.authAction.textContent = "Log In";
-    elements.authAction.href = "./login.html";
-    return;
-  }
-
-  const { data, error } = await state.supabase.auth.getUser();
-  if (error) {
-    return;
-  }
-
-  state.currentUser = data.user || null;
-
-  if (state.currentUser) {
-    elements.authAction.textContent = "Dashboard";
-    elements.authAction.href = "./index.html";
-  } else {
-    elements.authAction.textContent = "Log In";
-    elements.authAction.href = "./login.html";
-  }
+  elements.authAction.textContent = "Collections Manager";
+  elements.authAction.href = "./login.html";
 }
 
 async function loadCatalog() {
-  if (dataSourceConfig.publishedCsvUrl) {
-    state.siteSettings = buildConfiguredSiteSettings();
-    state.recordTypes = [...defaultRecordTypes];
-    state.taxonomyGroups = [...defaultTaxonomyGroups];
-    state.taxonomyTerms = [...defaultTaxonomyTerms].map(normalizeTaxonomyTerm);
-
-    applyCatalogSettings();
-    renderRecordTypeFilter();
-    renderThemeFilter();
-
-    if (pageMode === "archive") {
-      await fetchArchiveRecordsFromCsv();
-      await renderArchive();
-      updateArchivePaginationUI();
-      await loadCurrentUser();
-      setStatus("Showing the searchable public archive from the published CSV.");
-      return;
-    }
-
-    await fetchGalleryRecordsFromCsv();
-    await Promise.all([renderFeaturedRecords(), renderSlideshow(), loadCurrentUser()]);
-    setStatus("Showing the curated digital gallery from the published CSV.");
-    return;
-  }
-
-  if (!isSupabaseReady) {
+  if (!dataSourceConfig.publishedCsvUrl) {
     setStatus("Add a published CSV URL in data-source-config.js or restore Supabase configuration to load the public site.", true);
     return;
   }
 
-  const [
-    { data: settingsData, error: settingsError },
-    { data: typesData, error: typesError },
-    { data: groupsData, error: groupsError },
-    { data: termsData, error: termsError },
-  ] = await Promise.all([
-    state.supabase.from("site_settings").select("*").eq("id", "default").maybeSingle(),
-    state.supabase.from("record_type_definitions").select("*").order("sort_order"),
-    state.supabase.from("taxonomy_groups").select("*").order("sort_order"),
-    state.supabase.from("taxonomy_terms").select("*").order("sort_order")
-  ]);
-
-  if (settingsError) {
-    setStatus(settingsError.message, true);
-    return;
-  }
-  if (typesError) {
-    setStatus(typesError.message, true);
-    return;
-  }
-  state.siteSettings = { ...defaultSiteSettings, ...(settingsData || {}) };
-  state.recordTypes = typesData?.length
-    ? typesData.map((type) => ({
-        slug: type.slug,
-        label: type.label,
-        enabled: type.enabled,
-        sort_order: type.sort_order
-      }))
-    : [...defaultRecordTypes];
-  state.taxonomyGroups = groupsError || !groupsData?.length ? [...defaultTaxonomyGroups] : groupsData;
-  state.taxonomyTerms = termsError || !termsData?.length ? [...defaultTaxonomyTerms] : termsData.map(normalizeTaxonomyTerm);
-  state.records = [];
+  state.siteSettings = buildConfiguredSiteSettings();
+  state.recordTypes = [...defaultRecordTypes];
+  state.taxonomyGroups = [...defaultTaxonomyGroups];
+  state.taxonomyTerms = [...defaultTaxonomyTerms].map(normalizeTaxonomyTerm);
 
   applyCatalogSettings();
   renderRecordTypeFilter();
   renderThemeFilter();
 
   if (pageMode === "archive") {
-    await refreshArchivePage({ resetPage: true });
+    await fetchArchiveRecordsFromCsv();
+    await renderArchive();
+    updateArchivePaginationUI();
     await loadCurrentUser();
     setStatus("Showing the searchable public archive.");
     return;
   }
 
-  await fetchGalleryRecords();
+  await fetchGalleryRecordsFromCsv();
   await Promise.all([renderFeaturedRecords(), renderSlideshow(), loadCurrentUser()]);
   setStatus("Showing the curated digital gallery.");
 }

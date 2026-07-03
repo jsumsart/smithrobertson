@@ -67,8 +67,18 @@ export function saveStoredValue(key, value) {
 }
 
 export function extractFirstUrl(value) {
-  const match = String(value || "").match(/https?:\/\/[^\s,]+/i);
-  return match ? match[0] : String(value || "").trim();
+  const stringValue = String(value || "").trim();
+  const remoteMatch = stringValue.match(/https?:\/\/[^\s,]+/i);
+  if (remoteMatch) {
+    return remoteMatch[0];
+  }
+
+  const localAssetMatch = stringValue.match(/(\.\/public-images\/[^\s,]+?\.(?:png|jpe?g|webp|gif))/i);
+  if (localAssetMatch) {
+    return localAssetMatch[1];
+  }
+
+  return stringValue;
 }
 
 export function normalizeGoogleDriveUrl(value, size = 1200) {

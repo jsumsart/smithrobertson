@@ -21,28 +21,7 @@
           This login takes you into the private cataloging dashboard for records, media, and metadata management.
         </p>
 
-        <form id="loginForm" class="auth-form auth-form--standalone">
-          <label class="field">
-            <span>Email</span>
-            <input id="loginEmail" type="email" autocomplete="email" required />
-          </label>
-          <label class="field">
-            <span>Password</span>
-            <input id="loginPassword" type="password" autocomplete="current-password" required />
-          </label>
-          <div class="stack stack--column">
-            <button type="submit" class="button button--primary">Sign In</button>
-            <button type="button" id="loginCreateAccount" class="button button--ghost">Create Account</button>
-          </div>
-        </form>
-
         <p id="loginMessage" class="help-text"></p>
-
-        <div id="loginCsvActions" class="stack stack--column" hidden>
-          <a id="loginDashboardLink" class="button button--primary" href="./index.html">Open CSV Workspace</a>
-          <a id="loginGoogleFormLink" class="button button--ghost" href="#" target="_blank" rel="noreferrer" hidden>Open Google Form</a>
-          <a id="loginGoogleSheetLink" class="button button--ghost" href="#" target="_blank" rel="noreferrer" hidden>Open Google Sheet</a>
-        </div>
 
         <div class="login-card__footer">
           <a class="button button--ghost" href="./catalog.html">Back to Digital Gallery</a>
@@ -52,7 +31,6 @@
     </main>
 
     <script src="./data-source-config.js"></script>
-    <script src="./supabase-config.js"></script>
-    <script type="module" src="./login.js?v=20260703a"></script>
+    <script type="module" src="./login.js?v=20260703b"></script>
   </body>
 </html>

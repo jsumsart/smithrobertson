@@ -14,6 +14,6 @@ window.COLLECTIONS_DATA_SOURCE = {
   publicArchiveIntro:
     "This view is for visitors, partners, and researchers. Only records marked for public display are shown here.",
   publicFontTheme: "editorial",
-  featuredAccessions: [],
-  slideshowAccessions: []
+  featuredAccessions: ["SRM-2026-081", "SRM-2026-099", "SRM-2026-101"],
+  slideshowAccessions: ["SRM-2026-081", "SRM-2026-099", "SRM-2026-100", "SRM-2026-101"]
 };
