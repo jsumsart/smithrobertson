@@ -329,3 +329,13 @@ export async function fetchPublishedCsvRecords(url) {
   const csvText = await response.text();
   return dedupeRecordsByAccession(parseCsvRecords(csvText)).filter((record) => record.is_public);
 }
+
+export async function fetchCsvRecords(url) {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Could not load the CSV source (${response.status}).`);
+  }
+
+  const csvText = await response.text();
+  return dedupeRecordsByAccession(parseCsvRecords(csvText));
+}

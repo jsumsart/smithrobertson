@@ -14,6 +14,7 @@ import {
   buildConfiguredSiteSettings,
   dataSourceConfig,
   dedupeRecordsByAccession as dedupeCsvRecordsByAccession,
+  fetchCsvRecords,
   loadStoredValue,
   localKeys,
   normalizeImportedEntityIds,
@@ -111,6 +112,7 @@ const sampleRecords = [
 
 const state = {
   records: [],
+  csvModeRepoRecords: [],
   recordMetrics: {
     total: 0,
     publicCount: 0,
@@ -460,6 +462,19 @@ function saveLocalRecords(records) {
   saveStoredValue(localKeys.records, dedupeRecordsByAccession(records));
 }
 
+async function loadCsvModeRecords() {
+  const localRecords = loadLocalRecords();
+  if (localRecords.length) {
+    return localRecords;
+  }
+
+  if (!state.csvModeRepoRecords.length && dataSourceConfig.publishedCsvUrl) {
+    state.csvModeRepoRecords = await fetchCsvRecords(dataSourceConfig.publishedCsvUrl);
+  }
+
+  return state.csvModeRepoRecords.length ? state.csvModeRepoRecords : sampleRecords;
+}
+
 function updateTablePaginationUI() {
   const total = state.recordsPagination.total;
   const page = state.recordsPagination.page;
@@ -485,7 +500,7 @@ async function loadBackendMetrics() {
   }
 
   if (!isSupabaseReady) {
-    const localRecords = loadLocalRecords();
+    const localRecords = await loadCsvModeRecords();
     state.recordMetrics = {
       total: localRecords.length,
       publicCount: localRecords.filter((record) => record.is_public).length,
@@ -1941,7 +1956,11 @@ function getFilteredRecords() {
 }
 
 function getExportableRecords() {
-  return !isSupabaseReady ? loadLocalRecords() : state.records;
+  if (!isSupabaseReady) {
+    const localRecords = loadLocalRecords();
+    return localRecords.length ? localRecords : state.csvModeRepoRecords;
+  }
+  return state.records;
 }
 
 function renderMetrics(records) {
@@ -2245,7 +2264,7 @@ async function loadRecords() {
 
   if (!isSupabaseReady) {
     const filters = getBackendFilterState();
-    const filtered = filterRecordsClientSide(loadLocalRecords(), filters);
+    const filtered = filterRecordsClientSide(await loadCsvModeRecords(), filters);
     state.recordsPagination.total = filtered.length;
     const from = (state.recordsPagination.page - 1) * state.recordsPagination.pageSize;
     const to = from + state.recordsPagination.pageSize;
@@ -2484,8 +2503,10 @@ async function initializeAuth() {
     await loadTaxonomies();
     elements.setupBanner.hidden = false;
     elements.setupDetails.textContent =
-      "CSV / Google Sheets mode is active. Import a CSV from Google Sheets, or set a published CSV URL in data-source-config.js for the public site.";
-    setAuthMessage("CSV mode is active. Use Download CSV / Import CSV, or open the linked Google Form and Google Sheet.");
+      "GitHub CSV mode is active. The site now reads from data/records.csv in this repo, and you can replace that file whenever you export a fresh CSV from Google Sheets.";
+    setAuthMessage(
+      "GitHub CSV mode is active. The dashboard is preloading the repo copy of the collection and can still import or export CSV for review."
+    );
     updateAuthUI();
     applyInitialRoute();
     await refresh({ resetPage: true, reloadMetrics: true });

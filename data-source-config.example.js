@@ -1,5 +1,5 @@
 window.COLLECTIONS_DATA_SOURCE = {
-  publishedCsvUrl: "https://docs.google.com/spreadsheets/d/.../export?format=csv&gid=0",
+  publishedCsvUrl: "./data/records.csv",
   googleSheetUrl: "https://docs.google.com/spreadsheets/d/.../edit",
   googleFormUrl: "https://docs.google.com/forms/d/.../viewform",
   brandName: "Smith Robertson Collections",

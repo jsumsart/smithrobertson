@@ -9,7 +9,7 @@ This project now supports a CSV-first workflow so your records can live outside 
 3. Link the form responses to a Google Sheet.
 4. Keep that Sheet as the source of truth for record metadata.
 5. Download the Sheet as CSV when you want to import it into the dashboard.
-6. Optionally publish the Sheet as CSV and place that URL in [data-source-config.js](/Users/Birittany/Documents/SmithRobertson/data-source-config.js) so the public archive/gallery can read directly from it.
+6. Export the Sheet as CSV and replace [records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv) in the repo when you are ready to publish changes.
 
 ## Important image note
 
@@ -35,11 +35,11 @@ The included template at [google-sheets-template.csv](/Users/Birittany/Documents
 
 ## Public site mode
 
-If you place a published Sheet CSV URL in [data-source-config.js](/Users/Birittany/Documents/SmithRobertson/data-source-config.js):
+If you keep [records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv) updated in the repo:
 
 - the public gallery and archive can load records without Supabase
-- records persist in Google Sheets instead of the website
-- images come from the `photo_url` column
+- the published site reads from the repo copy of the CSV
+- images come from local repo paths or external links in the `photo_url` column
 
 ## Dashboard mode
 
