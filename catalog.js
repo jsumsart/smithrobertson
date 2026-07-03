@@ -702,6 +702,12 @@ async function refreshArchivePage({ resetPage = false } = {}) {
     state.archivePagination.page = 1;
   }
 
+  if (dataSourceConfig.publishedCsvUrl) {
+    await fetchArchiveRecordsFromCsv();
+    await renderArchive();
+    return;
+  }
+
   await fetchArchiveRecords();
   await renderArchive();
 }
