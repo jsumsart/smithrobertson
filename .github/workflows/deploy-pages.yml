@@ -28,10 +28,17 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Prepare static site artifact
+        run: |
+          mkdir -p _site
+          cp archive.html catalog.html catalog.js civil-rights.html csv-data.js data-source-config.js farish-street-history.html index.html login.html login.js platform-config.js scott-ford-houses.html smith-robertson-history.html styles.css _site/
+          cp -R data public-images public-thumbs docs _site/
+          touch _site/.nojekyll
+
       - name: Upload static site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ./_site
 
       - name: Deploy to GitHub Pages
         id: deployment
