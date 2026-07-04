@@ -10,6 +10,103 @@ import {
 import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
+const collectionView = document.body.dataset.collectionView || "";
+
+function normalizeText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function buildSearchHaystack(record) {
+  return normalizeText(
+    [
+      record.accession_number,
+      record.title,
+      record.record_type,
+      record.historical_theme,
+      record.neighborhood,
+      record.time_period,
+      record.object_date,
+      record.people,
+      record.organizations,
+      record.description,
+      record.significance,
+      record.curator_notes,
+      ...(record.tags || [])
+    ].join(" ")
+  );
+}
+
+function matchesKeyword(record, keywords) {
+  const haystack = buildSearchHaystack(record);
+  return keywords.some((keyword) => haystack.includes(normalizeText(keyword)));
+}
+
+const collectionViews = {
+  "scott-ford": {
+    title: "Scott Ford Houses Records",
+    intro:
+      "This focused public view gathers published records tied to the Scott Ford Houses and the residents whose lives help tell that story.",
+    status: "Showing the Scott Ford Houses public view.",
+    matches(record) {
+      return matchesKeyword(record, ["Scott Ford Houses", "Mary Scott", "Virginia Scott"]);
+    }
+  },
+  "smith-robertson-history": {
+    title: "Smith Robertson History Records",
+    intro:
+      "This view highlights published records about the school's history, its leadership, and the people who shaped the Smith Robertson story.",
+    status: "Showing the Smith Robertson history public view.",
+    matches(record) {
+      return matchesKeyword(record, [
+        "Smith Robertson",
+        "Smith Robertson Campus",
+        "principal",
+        "A.N. Jackson",
+        "James Gooden",
+        "Luther Marshall",
+        "Charles S. Wilson",
+        "Lv Randolph"
+      ]);
+    }
+  },
+  "civil-rights": {
+    title: "Civil Rights Related Records",
+    intro:
+      "This public view gathers published records connected to local and regional civil rights history, activism, and organizing.",
+    status: "Showing the civil rights public view.",
+    matches(record) {
+      if (normalizeText(record.historical_theme) === normalizeText("Civil Rights")) {
+        return true;
+      }
+      return matchesKeyword(record, [
+        "civil rights",
+        "Medgar Evers",
+        "Fannie Lou Hamer",
+        "SNCC",
+        "SCLC",
+        "Poor People's Campaign",
+        "freedom movement"
+      ]);
+    }
+  },
+  "farish-street-history": {
+    title: "Farish Street History Records",
+    intro:
+      "This public view gathers published records tied to Farish Street, its businesses, institutions, and community memory.",
+    status: "Showing the Farish Street history public view.",
+    matches(record) {
+      return matchesKeyword(record, [
+        "Farish Street",
+        "Alamo Theatre",
+        "Mount Helm",
+        "Farish Street Historic District"
+      ]);
+    }
+  }
+};
 
 const state = {
   allRecords: [],
@@ -142,6 +239,7 @@ function resolvePublicPhotoUrl(record) {
 }
 
 function applyCatalogSettings() {
+  const activeCollectionView = collectionViews[collectionView];
   if (elements.brand) {
     elements.brand.textContent = state.siteSettings.brand_name;
   }
@@ -152,15 +250,17 @@ function applyCatalogSettings() {
     elements.galleryIntro.textContent = state.siteSettings.public_gallery_intro;
   }
   if (elements.archiveTitle) {
-    elements.archiveTitle.textContent = state.siteSettings.public_catalog_title;
+    elements.archiveTitle.textContent = activeCollectionView?.title || state.siteSettings.public_catalog_title;
   }
   if (elements.archiveIntro) {
-    elements.archiveIntro.textContent = state.siteSettings.public_catalog_intro;
+    elements.archiveIntro.textContent = activeCollectionView?.intro || state.siteSettings.public_catalog_intro;
   }
   document.title =
-    pageMode === "archive"
-      ? `${state.siteSettings.brand_name} Archive`
-      : `${state.siteSettings.brand_name} Digital Gallery`;
+    pageMode === "gallery"
+      ? `${state.siteSettings.brand_name} Digital Gallery`
+      : pageMode === "collection" && activeCollectionView
+        ? `${activeCollectionView.title} | ${state.siteSettings.brand_name}`
+        : `${state.siteSettings.brand_name} Archive`;
   applyPublicSiteTheme(state.siteSettings);
 }
 
@@ -261,12 +361,16 @@ async function fetchGalleryRecordsFromCsv() {
 async function fetchArchiveRecordsFromCsv() {
   const filters = getArchiveFilterState();
   const allRecords = await loadCsvDataset();
+  const activeCollectionView = collectionViews[collectionView];
   const query = String(filters.query || "")
     .trim()
     .toLowerCase();
 
   const filtered = allRecords
     .filter((record) => {
+      if (pageMode === "collection" && activeCollectionView && !activeCollectionView.matches(record)) {
+        return false;
+      }
       if (filters.theme !== "all" && record.historical_theme !== filters.theme) {
         return false;
       }
@@ -510,13 +614,22 @@ async function loadCatalog() {
     return;
   }
 
+  if (pageMode === "collection") {
+    await fetchArchiveRecordsFromCsv();
+    await renderArchive();
+    updateArchivePaginationUI();
+    await loadCurrentUser();
+    setStatus(collectionViews[collectionView]?.status || "Showing a collection-focused public view.");
+    return;
+  }
+
   await fetchGalleryRecordsFromCsv();
   await Promise.all([renderFeaturedRecords(), renderSlideshow(), loadCurrentUser()]);
   setStatus("Showing the curated digital gallery.");
 }
 
 async function refreshArchivePage({ resetPage = false } = {}) {
-  if (pageMode !== "archive") {
+  if (pageMode !== "archive" && pageMode !== "collection") {
     return;
   }
 

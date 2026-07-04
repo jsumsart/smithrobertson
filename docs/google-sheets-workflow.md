@@ -3,10 +3,16 @@
 This site now uses a very simple collections workflow:
 
 1. Keep the master data in a spreadsheet.
-2. Export it as CSV.
-3. Replace [records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv).
-4. Keep the matching image files in [public-images](/Users/Birittany/Documents/SmithRobertson/public-images).
-5. Push to GitHub Pages.
+2. Add each new record image to [public-images/records](/Users/Birittany/Documents/SmithRobertson/public-images/records) using the next simple sequential filename, such as `coll109.png`.
+3. Put that path in the CSV `image_file` column as `records/coll109.png`.
+4. Replace [records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv) if you exported from Google Sheets.
+5. Run `node ./scripts/validate-collection.mjs`.
+6. Run `node ./scripts/generate-public-data.mjs`.
+7. Push to GitHub Pages.
+
+If you want the repo to assign the next filename for you, run:
+
+- `node ./scripts/add-record-image.mjs /path/to/photo.png`
 
 ## Required image rule
 
@@ -14,9 +20,9 @@ The CSV does not store image files. It only stores the image path in the `image_
 
 Example:
 
-- CSV value: `untitled-37/20.png`
-- Actual file: [public-images](/Users/Birittany/Documents/SmithRobertson/public-images) + `untitled-37/20.png`
-- Site path: `./public-images/untitled-37/20.png`
+- CSV value: `records/coll109.png`
+- Actual file: [public-images](/Users/Birittany/Documents/SmithRobertson/public-images) + `records/coll109.png`
+- Site path: `./public-images/records/coll109.png`
 
 ## Required columns
 
