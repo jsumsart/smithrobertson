@@ -87,6 +87,11 @@ export function normalizeImageFile(value) {
   return normalized.replace(/^\/+/, "");
 }
 
+export function buildThumbnailImageFile(imageFile) {
+  const normalized = normalizeImageFile(imageFile);
+  return normalized ? `thumbs/${normalized}` : "";
+}
+
 export function buildImageSrc(imageFile) {
   const normalized = normalizeImageFile(imageFile);
   return normalized ? `./public-images/${normalized}` : "";
@@ -296,7 +301,10 @@ export function buildPublishedRecordsPayload(records) {
   return {
     generated_at: new Date().toISOString(),
     total_public_records: publicRecords.length,
-    records: publicRecords
+    records: publicRecords.map((record) => ({
+      ...record,
+      image_thumb_file: buildThumbnailImageFile(record.image_file)
+    }))
   };
 }
 

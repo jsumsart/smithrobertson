@@ -138,7 +138,7 @@ function dedupeRecordsByAccession(records) {
 }
 
 function resolvePublicPhotoUrl(record) {
-  return buildImageSrc(record.image_file);
+  return buildImageSrc(record.image_thumb_file || record.image_file);
 }
 
 function applyCatalogSettings() {

@@ -15,6 +15,7 @@ This repository now publishes a static public collections site from GitHub Pages
 - [data/public-records.json](/Users/Birittany/Documents/SmithRobertson/data/public-records.json): build-generated public data used for faster page loads
 - [data-source-config.js](/Users/Birittany/Documents/SmithRobertson/data-source-config.js): branding, curated accessions, and the CSV path
 - [data/google-sheets-template.csv](/Users/Birittany/Documents/SmithRobertson/data/google-sheets-template.csv): starter sheet template
+- [public-images/thumbs](/Users/Birittany/Documents/SmithRobertson/public-images/thumbs): build-generated thumbnails used by the public pages
 
 There is no active web login and no live backend editor right now.
 
@@ -47,7 +48,7 @@ The public site only shows images for records that are both:
 ## Build step
 
 - The browser now prefers [data/public-records.json](/Users/Birittany/Documents/SmithRobertson/data/public-records.json) for faster loads.
-- Regenerate that file any time [data/records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv) changes by running `node ./scripts/generate-public-data.mjs`.
+- Regenerate that file and the public thumbnails any time [data/records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv) changes by running `node ./scripts/generate-public-data.mjs`.
 - If the JSON file is missing, the public site falls back to loading the CSV directly.
 
 ## Notes
