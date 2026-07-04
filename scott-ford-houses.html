@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260703d" />
+    <link rel="stylesheet" href="./styles.css?v=20260704b" />
   </head>
   <body class="catalog-page archive-page" data-public-page="collection" data-collection-view="scott-ford">
     <div class="catalog-shell">
@@ -19,9 +19,21 @@
         <nav class="catalog-site-header__nav">
           <a class="button button--ghost" href="./">Digital Gallery</a>
           <a class="button button--ghost" href="./archive.html">Archive</a>
-          <a class="button button--primary" href="./scott-ford-houses.html" aria-current="page">Scott Ford Houses</a>
         </nav>
       </header>
+
+      <section class="story-nav" aria-label="Exhibits navigation">
+        <div class="story-nav__intro">
+          <p class="eyebrow">Digital Exhibits</p>
+          <h2>Move between story paths</h2>
+        </div>
+        <div class="story-nav__links">
+          <a class="story-nav__link is-active" href="./scott-ford-houses.html" aria-current="page">Scott Ford Houses</a>
+          <a class="story-nav__link" href="./smith-robertson-history.html">Smith Robertson History</a>
+          <a class="story-nav__link" href="./civil-rights.html">Civil Rights</a>
+          <a class="story-nav__link" href="./farish-street-history.html">Farish Street History</a>
+        </div>
+      </section>
 
       <main class="public-site">
         <section class="archive-hero">
@@ -34,6 +46,27 @@
             <span class="metric__label">Published Records</span>
             <strong id="catalogTotal">0 public records</strong>
           </div>
+        </section>
+
+        <section class="public-section">
+          <div class="public-section__header">
+            <div>
+              <p class="eyebrow">Exhibit Lead</p>
+              <h2>Start with a spotlight record</h2>
+            </div>
+            <p class="help-text">A lead object opens the story, followed by a few related highlights.</p>
+          </div>
+          <div id="collectionLead"></div>
+        </section>
+
+        <section class="public-section">
+          <div class="public-section__header">
+            <div>
+              <p class="eyebrow">Highlights</p>
+              <h2>Related records</h2>
+            </div>
+          </div>
+          <div id="collectionHighlights" class="feature-grid" aria-live="polite"></div>
         </section>
 
         <section class="archive-toolbar" aria-label="Scott Ford Houses filters">
@@ -81,6 +114,6 @@
     </template>
 
     <script src="./data-source-config.js"></script>
-    <script type="module" src="./catalog.js?v=20260703d"></script>
+    <script type="module" src="./catalog.js?v=20260704b"></script>
   </body>
 </html>

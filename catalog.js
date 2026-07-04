@@ -7,7 +7,7 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js";
+import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260704b";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 const collectionView = document.body.dataset.collectionView || "";
@@ -46,6 +46,8 @@ function matchesKeyword(record, keywords) {
 
 const collectionViews = {
   "scott-ford": {
+    navLabel: "Scott Ford Houses",
+    deck: "Home, kinship, and neighborhood memory tied to the Scott Ford Houses.",
     title: "Scott Ford Houses Records",
     intro:
       "This focused public view gathers published records tied to the Scott Ford Houses and the residents whose lives help tell that story.",
@@ -55,6 +57,8 @@ const collectionViews = {
     }
   },
   "smith-robertson-history": {
+    navLabel: "Smith Robertson History",
+    deck: "School history, leadership, and memory across the Smith Robertson story.",
     title: "Smith Robertson History Records",
     intro:
       "This view highlights published records about the school's history, its leadership, and the people who shaped the Smith Robertson story.",
@@ -73,6 +77,8 @@ const collectionViews = {
     }
   },
   "civil-rights": {
+    navLabel: "Civil Rights",
+    deck: "Organizing, protest, and public memory linked to civil rights history.",
     title: "Civil Rights Related Records",
     intro:
       "This public view gathers published records connected to local and regional civil rights history, activism, and organizing.",
@@ -93,6 +99,8 @@ const collectionViews = {
     }
   },
   "farish-street-history": {
+    navLabel: "Farish Street History",
+    deck: "Business, culture, and community life connected to Farish Street.",
     title: "Farish Street History Records",
     intro:
       "This public view gathers published records tied to Farish Street, its businesses, institutions, and community memory.",
@@ -110,6 +118,7 @@ const collectionViews = {
 
 const state = {
   allRecords: [],
+  filteredRecords: [],
   records: [],
   siteSettings: { ...defaultSiteSettings },
   recordTypes: [...defaultRecordTypes],
@@ -142,6 +151,8 @@ const elements = {
   archiveNextPage: document.querySelector("#archiveNextPage"),
   list: document.querySelector("#catalogList"),
   featuredList: document.querySelector("#featuredList"),
+  collectionLead: document.querySelector("#collectionLead"),
+  collectionHighlights: document.querySelector("#collectionHighlights"),
   slideshowStage: document.querySelector("#slideshowStage"),
   slideshowPrev: document.querySelector("#slideshowPrev"),
   slideshowNext: document.querySelector("#slideshowNext"),
@@ -238,6 +249,44 @@ function resolvePublicPhotoUrl(record) {
   return buildImageSrc(record.image_thumb_file || record.image_file);
 }
 
+function resolvePrimaryImageUrl(record) {
+  return buildImageSrc(record.image_file);
+}
+
+function applyRecordImage(image, record, altText, { eager = false } = {}) {
+  if (!image || !record) {
+    return;
+  }
+
+  const thumbUrl = resolvePublicPhotoUrl(record);
+  const fullUrl = resolvePrimaryImageUrl(record);
+  const initialUrl = thumbUrl || fullUrl;
+
+  if (!initialUrl) {
+    image.hidden = true;
+    return;
+  }
+
+  image.hidden = false;
+  image.alt = altText;
+  image.loading = eager ? "eager" : "lazy";
+  image.decoding = "async";
+  image.dataset.fullUrl = fullUrl || "";
+  image.dataset.fallbackApplied = "false";
+  image.onerror = () => {
+    const fallbackUrl = image.dataset.fullUrl;
+    if (!fallbackUrl || image.dataset.fallbackApplied === "true" || image.src.endsWith(fallbackUrl)) {
+      image.hidden = true;
+      image.removeAttribute("src");
+      return;
+    }
+
+    image.dataset.fallbackApplied = "true";
+    image.src = fallbackUrl;
+  };
+  image.src = initialUrl;
+}
+
 function applyCatalogSettings() {
   const activeCollectionView = collectionViews[collectionView];
   if (elements.brand) {
@@ -316,6 +365,10 @@ function renderThemeFilter() {
 
 function getFilteredRecords() {
   return state.records;
+}
+
+function getCollectionRecords() {
+  return state.filteredRecords.length ? state.filteredRecords : state.records;
 }
 
 function findRecordByAccession(accession) {
@@ -400,6 +453,7 @@ async function fetchArchiveRecordsFromCsv() {
       })
     );
 
+  state.filteredRecords = filtered;
   state.archivePagination.total = filtered.length;
   const from = (state.archivePagination.page - 1) * state.archivePagination.pageSize;
   const to = from + state.archivePagination.pageSize;
@@ -423,12 +477,7 @@ async function populateCatalogCard(container, record) {
   significance.textContent = record.significance || "Historical significance not yet added.";
   tags.replaceChildren(createTagElements(record.tags));
 
-  const resolvedPhotoUrl = resolvePublicPhotoUrl(record);
-  if (resolvedPhotoUrl) {
-    image.hidden = false;
-    image.src = resolvedPhotoUrl;
-    image.alt = `${record.title} image`;
-  }
+  applyRecordImage(image, record, `${record.title} image`);
 
   container.appendChild(fragment);
 }
@@ -453,6 +502,81 @@ async function renderFeaturedRecords() {
 
   for (const record of featured) {
     await populateCatalogCard(elements.featuredList, record);
+  }
+}
+
+async function renderCollectionExhibit() {
+  if (pageMode !== "collection") {
+    return;
+  }
+
+  const allCollectionRecords = getCollectionRecords();
+
+  if (elements.collectionLead) {
+    elements.collectionLead.replaceChildren();
+
+    const lead = allCollectionRecords[0];
+    if (lead) {
+      const article = document.createElement("article");
+      article.className = "exhibit-lead";
+
+      const media = document.createElement("div");
+      media.className = "exhibit-lead__media";
+
+      const image = document.createElement("img");
+      image.className = "exhibit-lead__image";
+      applyRecordImage(image, lead, `${lead.title} image`, { eager: true });
+      if (!image.hidden) {
+        media.appendChild(image);
+      }
+
+      const body = document.createElement("div");
+      body.className = "exhibit-lead__body";
+
+      const eyebrow = document.createElement("p");
+      eyebrow.className = "eyebrow";
+      eyebrow.textContent = collectionViews[collectionView]?.navLabel || "Digital Exhibit";
+
+      const title = document.createElement("h2");
+      title.textContent = lead.title;
+
+      const meta = document.createElement("p");
+      meta.className = "exhibit-lead__meta";
+      meta.textContent = [lead.record_type, lead.neighborhood, lead.time_period || lead.object_date]
+        .filter(Boolean)
+        .join(" • ");
+
+      const description = document.createElement("p");
+      description.className = "exhibit-lead__description";
+      description.textContent = lead.significance || lead.description || "No description available.";
+
+      const tags = document.createElement("div");
+      tags.className = "tag-list";
+      tags.replaceChildren(createTagElements(lead.tags));
+
+      body.append(eyebrow, title, meta, description, tags);
+      article.append(media, body);
+      elements.collectionLead.appendChild(article);
+    }
+  }
+
+  if (elements.collectionHighlights) {
+    elements.collectionHighlights.replaceChildren();
+
+    const highlights = allCollectionRecords.slice(1, 5);
+    if (!highlights.length) {
+      elements.collectionHighlights.innerHTML = `
+        <div class="empty-state">
+          <h3>No additional highlights yet.</h3>
+          <p>Publish more records in this story view to build out the exhibit.</p>
+        </div>
+      `;
+      return;
+    }
+
+    for (const record of highlights) {
+      await populateCatalogCard(elements.collectionHighlights, record);
+    }
   }
 }
 
@@ -487,12 +611,7 @@ async function renderSlideshow() {
     .join(" • ");
   description.textContent = current.significance || current.description || "No description available.";
 
-  const resolvedPhotoUrl = resolvePublicPhotoUrl(current);
-  if (resolvedPhotoUrl) {
-    image.hidden = false;
-    image.src = resolvedPhotoUrl;
-    image.alt = `${current.title} image`;
-  }
+  applyRecordImage(image, current, `${current.title} image`, { eager: true });
 
   elements.slideshowStage.appendChild(fragment);
   if (elements.slideshowPrev) {
@@ -556,20 +675,28 @@ async function renderArchive() {
     const cachedUrl = state.archivePreviewUrls.get(cacheKey);
     if (cachedUrl) {
       image.hidden = false;
-      image.src = cachedUrl;
       image.alt = `${record.title} image`;
       image.loading = "lazy";
       image.decoding = "async";
-    } else if (record.image_file) {
+      image.dataset.fullUrl = resolvePrimaryImageUrl(record) || "";
+      image.dataset.fallbackApplied = "false";
+      image.onerror = () => {
+        const fallbackUrl = image.dataset.fullUrl;
+        if (!fallbackUrl || image.dataset.fallbackApplied === "true" || image.src.endsWith(fallbackUrl)) {
+          media.hidden = true;
+          image.removeAttribute("src");
+          return;
+        }
+        image.dataset.fallbackApplied = "true";
+        image.src = fallbackUrl;
+      };
+      image.src = cachedUrl;
+    } else if (record.image_file || record.image_thumb_file) {
       try {
-        const resolvedPhotoUrl = resolvePublicPhotoUrl(record);
+        const resolvedPhotoUrl = resolvePublicPhotoUrl(record) || resolvePrimaryImageUrl(record);
         if (resolvedPhotoUrl) {
           state.archivePreviewUrls.set(cacheKey, resolvedPhotoUrl);
-          image.hidden = false;
-          image.src = resolvedPhotoUrl;
-          image.alt = `${record.title} image`;
-          image.loading = "lazy";
-          image.decoding = "async";
+          applyRecordImage(image, record, `${record.title} image`);
         }
       } catch (_error) {
         media.hidden = true;
@@ -616,6 +743,7 @@ async function loadCatalog() {
 
   if (pageMode === "collection") {
     await fetchArchiveRecordsFromCsv();
+    await renderCollectionExhibit();
     await renderArchive();
     updateArchivePaginationUI();
     await loadCurrentUser();
@@ -639,6 +767,9 @@ async function refreshArchivePage({ resetPage = false } = {}) {
 
   if (dataSourceConfig.publishedCsvUrl) {
     await fetchArchiveRecordsFromCsv();
+    if (pageMode === "collection") {
+      await renderCollectionExhibit();
+    }
     await renderArchive();
     return;
   }
