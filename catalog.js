@@ -44,6 +44,11 @@ function matchesKeyword(record, keywords) {
   return keywords.some((keyword) => haystack.includes(normalizeText(keyword)));
 }
 
+function matchesAnyField(value, expectedValues) {
+  const normalizedValue = normalizeText(value);
+  return expectedValues.some((expectedValue) => normalizedValue.includes(normalizeText(expectedValue)));
+}
+
 const collectionViews = {
   "scott-ford": {
     navLabel: "Scott Ford Houses",
@@ -53,7 +58,11 @@ const collectionViews = {
       "This focused public view gathers published records tied to the Scott Ford Houses and the residents whose lives help tell that story.",
     status: "Showing the Scott Ford Houses public view.",
     matches(record) {
-      return matchesKeyword(record, ["Scott Ford Houses", "Mary Scott", "Virginia Scott"]);
+      return (
+        matchesAnyField(record.neighborhood, ["Scott Ford Houses"]) ||
+        matchesAnyField(record.people, ["Mary Scott", "Virginia Scott"]) ||
+        matchesKeyword(record, ["Scott Ford Houses", "Mary Scott", "Virginia Scott"])
+      );
     }
   },
   "smith-robertson-history": {
@@ -64,16 +73,22 @@ const collectionViews = {
       "This view highlights published records about the school's history, its leadership, and the people who shaped the Smith Robertson story.",
     status: "Showing the Smith Robertson history public view.",
     matches(record) {
-      return matchesKeyword(record, [
-        "Smith Robertson",
-        "Smith Robertson Campus",
-        "principal",
-        "A.N. Jackson",
-        "James Gooden",
-        "Luther Marshall",
-        "Charles S. Wilson",
-        "Lv Randolph"
-      ]);
+      return (
+        matchesAnyField(record.neighborhood, ["Smith Robertson Campus"]) ||
+        matchesAnyField(record.collection_name, ["School History Collection", "Smith Robertson"]) ||
+        matchesAnyField(record.people, ["A. N. Jackson", "James Gooden", "Luther Marshall", "Charles S. Wilson", "Lv Randolph"]) ||
+        matchesKeyword(record, [
+          "Smith Robertson",
+          "Smith Robertson Campus",
+          "principal",
+          "A.N. Jackson",
+          "A. N. Jackson",
+          "James Gooden",
+          "Luther Marshall",
+          "Charles S. Wilson",
+          "Lv Randolph"
+        ])
+      );
     }
   },
   "civil-rights": {
@@ -84,7 +99,10 @@ const collectionViews = {
       "This public view gathers published records connected to local and regional civil rights history, activism, and organizing.",
     status: "Showing the civil rights public view.",
     matches(record) {
-      if (normalizeText(record.historical_theme) === normalizeText("Civil Rights")) {
+      if (
+        matchesAnyField(record.historical_theme, ["Civil Rights", "Civil Rights and Citizenship"]) ||
+        matchesAnyField(record.collection_name, ["Civil Rights Collection"])
+      ) {
         return true;
       }
       return matchesKeyword(record, [
@@ -106,12 +124,17 @@ const collectionViews = {
       "This public view gathers published records tied to Farish Street, its businesses, institutions, and community memory.",
     status: "Showing the Farish Street history public view.",
     matches(record) {
-      return matchesKeyword(record, [
-        "Farish Street",
-        "Alamo Theatre",
-        "Mount Helm",
-        "Farish Street Historic District"
-      ]);
+      return (
+        matchesAnyField(record.neighborhood, ["Farish Street"]) ||
+        matchesAnyField(record.historical_theme, ["Farish Street Business District"]) ||
+        matchesAnyField(record.collection_name, ["Farish Street Business District"]) ||
+        matchesKeyword(record, [
+          "Farish Street",
+          "Alamo Theatre",
+          "Mount Helm",
+          "Farish Street Historic District"
+        ])
+      );
     }
   }
 };
@@ -461,13 +484,52 @@ async function fetchArchiveRecordsFromCsv() {
 }
 
 async function populateCatalogCard(container, record) {
-  const fragment = elements.cardTemplate.content.cloneNode(true);
-  const image = fragment.querySelector(".catalog-card__image");
-  const title = fragment.querySelector("h3");
-  const meta = fragment.querySelector(".catalog-card__meta");
-  const description = fragment.querySelector(".catalog-card__description");
-  const significance = fragment.querySelector(".catalog-card__significance");
-  const tags = fragment.querySelector(".tag-list");
+  let image;
+  let title;
+  let meta;
+  let description;
+  let significance;
+  let tags;
+  let fragment;
+
+  if (elements.cardTemplate) {
+    fragment = elements.cardTemplate.content.cloneNode(true);
+    image = fragment.querySelector(".catalog-card__image");
+    title = fragment.querySelector("h3");
+    meta = fragment.querySelector(".catalog-card__meta");
+    description = fragment.querySelector(".catalog-card__description");
+    significance = fragment.querySelector(".catalog-card__significance");
+    tags = fragment.querySelector(".tag-list");
+  } else {
+    const article = document.createElement("article");
+    article.className = "catalog-card";
+
+    image = document.createElement("img");
+    image.className = "catalog-card__image";
+    image.alt = "";
+    image.hidden = true;
+
+    const body = document.createElement("div");
+    body.className = "catalog-card__body";
+
+    meta = document.createElement("p");
+    meta.className = "catalog-card__meta";
+
+    title = document.createElement("h3");
+
+    description = document.createElement("p");
+    description.className = "catalog-card__description";
+
+    significance = document.createElement("p");
+    significance.className = "catalog-card__significance";
+
+    tags = document.createElement("div");
+    tags.className = "tag-list";
+
+    body.append(meta, title, description, significance, tags);
+    article.append(image, body);
+    fragment = article;
+  }
 
   title.textContent = record.title;
   meta.textContent = [record.record_type, record.neighborhood, record.time_period || record.object_date]

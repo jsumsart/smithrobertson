@@ -27,6 +27,7 @@ body {
 }
 
 body.catalog-page {
+  --catalog-display-font: "Cormorant Garamond";
   font-family: var(--catalog-body-font, "Manrope", sans-serif);
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 34%),
@@ -1152,7 +1153,7 @@ h2 {
 }
 
 .catalog-shell {
-  width: min(1400px, calc(100% - 2rem));
+  width: min(1360px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 1.1rem 0 3rem;
 }
@@ -1169,10 +1170,11 @@ h2 {
   color: var(--ink);
   text-decoration: none;
   font-family: var(--catalog-display-font, "Fraunces", serif);
-  font-size: clamp(1.45rem, 2vw, 2.15rem);
+  font-size: clamp(1.3rem, 1.65vw, 1.9rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  max-width: 16ch;
+  line-height: 0.98;
+  max-width: 14ch;
 }
 
 .catalog-site-header__nav {
@@ -1205,7 +1207,8 @@ h2 {
 .story-nav__intro h2 {
   margin: 0;
   font-family: var(--catalog-display-font, "Fraunces", serif);
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+  line-height: 1;
   letter-spacing: -0.03em;
 }
 
@@ -1219,14 +1222,14 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 78px;
-  padding: 1rem;
+  min-height: 68px;
+  padding: 0.9rem 1rem;
   text-align: center;
   text-decoration: none;
   color: var(--ink);
   font-family: var(--catalog-display-font, "Fraunces", serif);
-  font-size: 1.1rem;
-  line-height: 1.1;
+  font-size: 0.95rem;
+  line-height: 1.05;
   border: 1px solid rgba(127, 63, 39, 0.16);
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(247, 241, 232, 0.92));
@@ -1293,10 +1296,10 @@ h2 {
 .public-hero__copy h1,
 .archive-hero__copy h1 {
   margin: 0;
-  font-size: clamp(3rem, 5.8vw, 5.25rem);
-  line-height: 0.92;
+  font-size: clamp(2.45rem, 4.8vw, 4.35rem);
+  line-height: 0.94;
   letter-spacing: -0.05em;
-  max-width: 11ch;
+  max-width: 13ch;
 }
 
 .public-hero__intro {
@@ -1392,6 +1395,11 @@ h2 {
   gap: 1rem;
 }
 
+.public-section__header h2 {
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 0.98;
+}
+
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1431,9 +1439,9 @@ h2 {
 }
 
 .exhibit-nav-card h3 {
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  line-height: 0.95;
-  max-width: 10ch;
+  font-size: clamp(1.45rem, 2vw, 1.95rem);
+  line-height: 0.98;
+  max-width: 12ch;
 }
 
 .exhibit-nav-card p:last-child {
@@ -1473,8 +1481,8 @@ body.archive-page .archive-row {
 }
 
 body.archive-page .archive-hero__copy h1 {
-  font-size: clamp(2.2rem, 3.5vw, 3.5rem);
-  line-height: 1.02;
+  font-size: clamp(1.95rem, 3vw, 3rem);
+  line-height: 0.96;
 }
 
 .archive-metric {
@@ -1556,14 +1564,14 @@ body.archive-page .archive-hero__copy h1 {
 .archive-row__body h3 {
   margin: 0;
   font-family: var(--catalog-display-font, "Fraunces", serif);
-  font-size: 1.72rem;
-  line-height: 1.04;
+  font-size: clamp(1.35rem, 1.75vw, 1.62rem);
+  line-height: 1;
 }
 
 .archive-row__description {
   margin: 0;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 .archive-row__badges {
@@ -1575,7 +1583,7 @@ body.archive-page .archive-hero__copy h1 {
 
 .exhibit-lead {
   display: grid;
-  grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.05fr);
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
   gap: 1.3rem;
   align-items: stretch;
   padding: 1rem;
@@ -1593,7 +1601,8 @@ body.archive-page .archive-hero__copy h1 {
 .exhibit-lead__image {
   width: 100%;
   height: 100%;
-  min-height: 340px;
+  min-height: 270px;
+  max-height: 460px;
   object-fit: cover;
   border-radius: 18px;
   border: 1px solid rgba(127, 63, 39, 0.14);
@@ -1608,8 +1617,9 @@ body.archive-page .archive-hero__copy h1 {
 }
 
 .exhibit-lead__body h2 {
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 0.95;
+  font-size: clamp(1.85rem, 2.9vw, 2.8rem);
+  line-height: 0.94;
+  max-width: 14ch;
 }
 
 .exhibit-lead__meta {
@@ -1624,8 +1634,8 @@ body.archive-page .archive-hero__copy h1 {
 .exhibit-lead__description {
   margin: 0;
   color: var(--muted);
-  line-height: 1.78;
-  font-size: 1.03rem;
+  line-height: 1.68;
+  font-size: 1rem;
 }
 
 .file-button {
