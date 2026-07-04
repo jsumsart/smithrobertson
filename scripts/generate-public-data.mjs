@@ -3,6 +3,7 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+import os from "node:os";
 
 import { buildPublishedRecordsPayload, normalizeImageFile, parseCsvRecords } from "../csv-data.js";
 
@@ -16,7 +17,36 @@ const inputPath = path.join(rootDir, "data", "records.csv");
 const outputPath = path.join(rootDir, "data", "public-records.json");
 const publicImagesDir = path.join(rootDir, "public-images");
 const thumbnailsDir = path.join(rootDir, "public-thumbs");
-const thumbnailMaxSize = 900;
+const thumbnailScriptPath = path.join(rootDir, "scripts", "build-thumbnail.py");
+
+async function findPythonWithPillow() {
+  const candidates = [
+    process.env.COLLECTIONS_PYTHON,
+    process.env.PYTHON,
+    "python3",
+    path.join(
+      os.homedir(),
+      ".cache",
+      "codex-runtimes",
+      "codex-primary-runtime",
+      "dependencies",
+      "python",
+      "bin",
+      "python3"
+    )
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    try {
+      await execFileAsync(candidate, ["-c", "from PIL import Image"]);
+      return candidate;
+    } catch {
+      continue;
+    }
+  }
+
+  throw new Error("Could not find a Python interpreter with Pillow installed for thumbnail generation.");
+}
 
 async function fileExists(filePath) {
   try {
@@ -27,7 +57,7 @@ async function fileExists(filePath) {
   }
 }
 
-async function generateThumbnail(imageFile) {
+async function generateThumbnail(imageFile, pythonPath) {
   const normalized = normalizeImageFile(imageFile);
   if (!normalized) {
     return false;
@@ -38,15 +68,10 @@ async function generateThumbnail(imageFile) {
     return false;
   }
 
-  const outputPathForImage = path.join(thumbnailsDir, normalized);
+  const outputRelativePath = normalized.replace(/\.[^./]+$/, ".jpg");
+  const outputPathForImage = path.join(thumbnailsDir, outputRelativePath);
   await fs.mkdir(path.dirname(outputPathForImage), { recursive: true });
-  await execFileAsync("sips", [
-    "--resampleHeightWidthMax",
-    String(thumbnailMaxSize),
-    sourcePath,
-    "--out",
-    outputPathForImage
-  ]);
+  await execFileAsync(pythonPath, [thumbnailScriptPath, sourcePath, outputPathForImage]);
   return true;
 }
 
@@ -54,6 +79,7 @@ async function pruneStaleThumbnails(validImageFiles) {
   const validThumbnailRelativePaths = new Set(
     [...validImageFiles]
       .map((imageFile) => normalizeImageFile(imageFile))
+      .map((imageFile) => imageFile.replace(/\.[^./]+$/, ".jpg"))
       .filter(Boolean)
   );
 
@@ -92,11 +118,12 @@ async function main() {
   const records = parseCsvRecords(csvText);
   const uniqueImageFiles = [...new Set(records.map((record) => normalizeImageFile(record.image_file)).filter(Boolean))];
   let generatedThumbnails = 0;
+  const pythonPath = await findPythonWithPillow();
 
   await pruneStaleThumbnails(uniqueImageFiles);
 
   for (const imageFile of uniqueImageFiles) {
-    if (await generateThumbnail(imageFile)) {
+    if (await generateThumbnail(imageFile, pythonPath)) {
       generatedThumbnails += 1;
     }
   }

@@ -92,7 +92,16 @@ export function normalizeImageFile(value) {
 
 export function buildThumbnailImageFile(imageFile) {
   const normalized = normalizeImageFile(imageFile);
-  return normalized ? `thumbs/${normalized}` : "";
+  if (!normalized) {
+    return "";
+  }
+
+  const extension = /(\.[^./]+)$/.exec(normalized);
+  if (!extension) {
+    return `thumbs/${normalized}.jpg`;
+  }
+
+  return `thumbs/${normalized.slice(0, -extension[1].length)}.jpg`;
 }
 
 export function buildImageSrc(imageFile) {
