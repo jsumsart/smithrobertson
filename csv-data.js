@@ -1,6 +1,7 @@
 import { defaultSiteSettings } from "./platform-config.js";
 
 export const dataSourceConfig = {
+  publishedJsonUrl: "",
   publishedCsvUrl: "",
   googleSheetUrl: "",
   googleFormUrl: "",
@@ -15,7 +16,7 @@ export const dataSourceConfig = {
   publicFontTheme: defaultSiteSettings.public_font_theme,
   featuredAccessions: [],
   slideshowAccessions: [],
-  ...(window.COLLECTIONS_DATA_SOURCE || {})
+  ...((typeof window !== "undefined" && window.COLLECTIONS_DATA_SOURCE) || {})
 };
 
 export function buildConfiguredSiteSettings() {
@@ -270,7 +271,7 @@ export function dedupeRecordsByAccession(records) {
 }
 
 export async function fetchPublishedCsvRecords(url) {
-  const response = await fetch(url, { cache: "no-store" });
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Could not load the published CSV source (${response.status}).`);
   }
@@ -280,11 +281,40 @@ export async function fetchPublishedCsvRecords(url) {
 }
 
 export async function fetchCsvRecords(url) {
-  const response = await fetch(url, { cache: "no-store" });
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Could not load the CSV source (${response.status}).`);
   }
 
   const csvText = await response.text();
   return dedupeRecordsByAccession(parseCsvRecords(csvText));
+}
+
+export function buildPublishedRecordsPayload(records) {
+  const publicRecords = dedupeRecordsByAccession(records).filter((record) => record.is_public);
+
+  return {
+    generated_at: new Date().toISOString(),
+    total_public_records: publicRecords.length,
+    records: publicRecords
+  };
+}
+
+export async function fetchPublishedRecords({ jsonUrl = "", csvUrl = "" } = {}) {
+  if (jsonUrl) {
+    const response = await fetch(jsonUrl);
+    if (response.ok) {
+      const payload = await response.json();
+      if (Array.isArray(payload?.records)) {
+        return dedupeRecordsByAccession(payload.records).filter((record) => record.is_public);
+      }
+      throw new Error("Published JSON is missing a records array.");
+    }
+  }
+
+  if (csvUrl) {
+    return fetchPublishedCsvRecords(csvUrl);
+  }
+
+  throw new Error("Add a published JSON or CSV URL in data-source-config.js to load the public site.");
 }

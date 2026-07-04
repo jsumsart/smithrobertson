@@ -7,7 +7,7 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedCsvRecords } from "./csv-data.js";
+import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 
@@ -246,7 +246,10 @@ async function loadCsvDataset() {
     return state.allRecords;
   }
 
-  state.allRecords = await fetchPublishedCsvRecords(dataSourceConfig.publishedCsvUrl);
+  state.allRecords = await fetchPublishedRecords({
+    jsonUrl: dataSourceConfig.publishedJsonUrl,
+    csvUrl: dataSourceConfig.publishedCsvUrl
+  });
   return state.allRecords;
 }
 
@@ -484,8 +487,8 @@ async function loadCurrentUser() {
 }
 
 async function loadCatalog() {
-  if (!dataSourceConfig.publishedCsvUrl) {
-    setStatus("Add a published CSV URL in data-source-config.js to load the public site.", true);
+  if (!dataSourceConfig.publishedJsonUrl && !dataSourceConfig.publishedCsvUrl) {
+    setStatus("Add a published JSON or CSV URL in data-source-config.js to load the public site.", true);
     return;
   }
 

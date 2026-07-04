@@ -1,4 +1,5 @@
 window.COLLECTIONS_DATA_SOURCE = {
+  publishedJsonUrl: "./data/public-records.json",
   publishedCsvUrl: "./data/records.csv",
   googleSheetUrl: "https://docs.google.com/spreadsheets/d/1lHPsW9y7rBI0Aqe4_kuOWBcQvQBi4osSQLjVw4Vz2JY/edit?usp=sharing",
   googleFormUrl: "",

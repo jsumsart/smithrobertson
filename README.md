@@ -12,6 +12,7 @@ This repository now publishes a static public collections site from GitHub Pages
 ## Source of truth
 
 - [data/records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv): the published collection data used by the site
+- [data/public-records.json](/Users/Birittany/Documents/SmithRobertson/data/public-records.json): build-generated public data used for faster page loads
 - [data-source-config.js](/Users/Birittany/Documents/SmithRobertson/data-source-config.js): branding, curated accessions, and the CSV path
 - [data/google-sheets-template.csv](/Users/Birittany/Documents/SmithRobertson/data/google-sheets-template.csv): starter sheet template
 
@@ -22,7 +23,8 @@ There is no active web login and no live backend editor right now.
 1. Edit collection data in the working spreadsheet.
 2. Export a clean CSV.
 3. Replace [data/records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv).
-4. Commit and push to publish updates through GitHub Pages.
+4. Run `node ./scripts/generate-public-data.mjs`.
+5. Commit and push to publish updates through GitHub Pages.
 
 ## Images
 
@@ -41,6 +43,12 @@ The public site only shows images for records that are both:
 
 - marked `is_public = true`
 - supplied with a valid `image_file`
+
+## Build step
+
+- The browser now prefers [data/public-records.json](/Users/Birittany/Documents/SmithRobertson/data/public-records.json) for faster loads.
+- Regenerate that file any time [data/records.csv](/Users/Birittany/Documents/SmithRobertson/data/records.csv) changes by running `node ./scripts/generate-public-data.mjs`.
+- If the JSON file is missing, the public site falls back to loading the CSV directly.
 
 ## Notes
 
