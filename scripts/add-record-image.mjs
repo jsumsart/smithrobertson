@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
-const recordsDir = path.join(rootDir, "public-images", "records");
+const recordsDir = path.join(rootDir, "public-images");
 
 function buildSequentialName(index, extension) {
   return `coll${String(index).padStart(3, "0")}${extension.toLowerCase()}`;
@@ -40,7 +40,7 @@ async function main() {
   await fs.copyFile(sourcePath, destinationPath);
 
   console.log(`Copied image to: ${destinationPath}`);
-  console.log(`CSV image_file value: records/${fileName}`);
+  console.log(`CSV image_file value: ${fileName}`);
   console.log("Next step: paste that image_file value into data/records.csv for the matching row.");
 }
 

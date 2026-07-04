@@ -122,13 +122,13 @@ async function main() {
 
   let index = 1;
   for (const file of siteGalleryFiles) {
-    await copyFileIntoTree(file.absolute, buildSequencePath("site-gallery", "site-gallery", index, path.extname(file.absolute)));
+    await copyFileIntoTree(file.absolute, buildSequencePath(path.posix.join("..", "preserved-images", "site-gallery"), "site-gallery", index, path.extname(file.absolute)));
     index += 1;
   }
 
   index = 1;
   for (const file of sourceScanFiles) {
-    await copyFileIntoTree(file.absolute, buildSequencePath("source-scans", "source-scan", index, path.extname(file.absolute)));
+    await copyFileIntoTree(file.absolute, buildSequencePath(path.posix.join("..", "preserved-images", "source-scans"), "source-scan", index, path.extname(file.absolute)));
     index += 1;
   }
 

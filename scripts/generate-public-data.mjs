@@ -15,7 +15,7 @@ const rootDir = path.resolve(__dirname, "..");
 const inputPath = path.join(rootDir, "data", "records.csv");
 const outputPath = path.join(rootDir, "data", "public-records.json");
 const publicImagesDir = path.join(rootDir, "public-images");
-const thumbnailsDir = path.join(publicImagesDir, "thumbs");
+const thumbnailsDir = path.join(rootDir, "public-thumbs");
 const thumbnailMaxSize = 900;
 
 async function fileExists(filePath) {
@@ -50,11 +50,50 @@ async function generateThumbnail(imageFile) {
   return true;
 }
 
+async function pruneStaleThumbnails(validImageFiles) {
+  const validThumbnailRelativePaths = new Set(
+    [...validImageFiles]
+      .map((imageFile) => normalizeImageFile(imageFile))
+      .filter(Boolean)
+  );
+
+  async function walk(currentDir) {
+    const entries = await fs.readdir(currentDir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = path.join(currentDir, entry.name);
+
+      if (entry.isDirectory()) {
+        await walk(fullPath);
+
+        const remaining = await fs.readdir(fullPath);
+        if (!remaining.length) {
+          await fs.rmdir(fullPath);
+        }
+        continue;
+      }
+
+      const relativePath = path.relative(thumbnailsDir, fullPath);
+      if (!validThumbnailRelativePaths.has(relativePath)) {
+        await fs.unlink(fullPath);
+      }
+    }
+  }
+
+  if (!(await fileExists(thumbnailsDir))) {
+    return;
+  }
+
+  await walk(thumbnailsDir);
+}
+
 async function main() {
   const csvText = await fs.readFile(inputPath, "utf8");
   const records = parseCsvRecords(csvText);
   const uniqueImageFiles = [...new Set(records.map((record) => normalizeImageFile(record.image_file)).filter(Boolean))];
   let generatedThumbnails = 0;
+
+  await pruneStaleThumbnails(uniqueImageFiles);
 
   for (const imageFile of uniqueImageFiles) {
     if (await generateThumbnail(imageFile)) {

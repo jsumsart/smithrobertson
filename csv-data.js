@@ -83,7 +83,10 @@ export function normalizeImportedEntityIds(value) {
 }
 
 export function normalizeImageFile(value) {
-  const normalized = String(value || "").trim().replace(/^\.?\/*public-images\//i, "");
+  const normalized = String(value || "")
+    .trim()
+    .replace(/^\.?\/*public-images\//i, "")
+    .replace(/^\.?\/*public-thumbs\//i, "thumbs/");
   return normalized.replace(/^\/+/, "");
 }
 
@@ -94,7 +97,15 @@ export function buildThumbnailImageFile(imageFile) {
 
 export function buildImageSrc(imageFile) {
   const normalized = normalizeImageFile(imageFile);
-  return normalized ? `./public-images/${normalized}` : "";
+  if (!normalized) {
+    return "";
+  }
+
+  if (normalized.startsWith("thumbs/")) {
+    return `./public-thumbs/${normalized.slice("thumbs/".length)}`;
+  }
+
+  return `./public-images/${normalized}`;
 }
 
 export function normalizeImportedRecord(record) {
