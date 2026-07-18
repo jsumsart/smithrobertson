@@ -1,5 +1,5 @@
 window.COLLECTIONS_DATA_SOURCE = {
-  publishedJsonUrl: "./data/public-records.json?v=20260718a",
+  publishedJsonUrl: "./data/public-records.json?v=20260718b",
   publishedCsvUrl: "./data/records.csv",
   googleSheetUrl: "https://docs.google.com/spreadsheets/d/1lHPsW9y7rBI0Aqe4_kuOWBcQvQBi4osSQLjVw4Vz2JY/edit?usp=sharing",
   googleFormUrl: "",
@@ -15,6 +15,6 @@ window.COLLECTIONS_DATA_SOURCE = {
   publicArchiveIntro:
     "This view is for visitors, partners, and researchers. Only records marked for public display are shown here.",
   publicFontTheme: "editorial",
-  featuredAccessions: ["SRM-2026-081", "SRM-2026-099", "SRM-2026-101"],
-  slideshowAccessions: ["SRM-2026-081", "SRM-2026-099", "SRM-2026-100", "SRM-2026-101"]
+  featuredAccessions: ["SRM-2026-204", "SRM-2026-205", "SRM-2026-220"],
+  slideshowAccessions: ["SRM-2026-204", "SRM-2026-205", "SRM-2026-219", "SRM-2026-220"]
 };
