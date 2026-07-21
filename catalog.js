@@ -123,6 +123,13 @@ const collectionViews = {
     intro:
       "This public view gathers published records from the R. Jess Brown Collection, including legal papers, correspondence, photographs, awards, and printed tributes tied to his civil-rights career.",
     status: "Showing the R. Jess Brown collection public view.",
+    curatedAccessions: [
+      "SRM-2026-279",
+      "SRM-2026-260",
+      "SRM-2026-263",
+      "SRM-2026-276",
+      "SRM-2026-293"
+    ],
     matches(record) {
       return (
         matchesAnyField(record.historical_theme, ["R. Jess Brown Collection"]) ||
@@ -416,7 +423,24 @@ function getFilteredRecords() {
 }
 
 function getCollectionRecords() {
-  return state.filteredRecords.length ? state.filteredRecords : state.records;
+  const records = state.filteredRecords.length ? state.filteredRecords : state.records;
+  const curatedAccessions = collectionViews[collectionView]?.curatedAccessions || [];
+
+  if (!curatedAccessions.length) {
+    return records;
+  }
+
+  const curated = curatedAccessions
+    .map((accession) => records.find((record) => record.accession_number === accession))
+    .filter(Boolean);
+
+  if (!curated.length) {
+    return records;
+  }
+
+  const curatedKeys = new Set(curated.map((record) => String(record.accession_number || "").trim().toLowerCase()));
+  const remainder = records.filter((record) => !curatedKeys.has(String(record.accession_number || "").trim().toLowerCase()));
+  return [...curated, ...remainder];
 }
 
 function findRecordByAccession(accession) {
