@@ -116,6 +116,31 @@ const collectionViews = {
       ]);
     }
   },
+  "r-jess-brown": {
+    navLabel: "R. Jess Brown",
+    deck: "Law, advocacy, and civil-rights leadership across the life and legacy of R. Jess Brown.",
+    title: "R. Jess Brown Collection",
+    intro:
+      "This public view gathers published records from the R. Jess Brown Collection, including legal papers, correspondence, photographs, awards, and printed tributes tied to his civil-rights career.",
+    status: "Showing the R. Jess Brown collection public view.",
+    matches(record) {
+      return (
+        matchesAnyField(record.historical_theme, ["R. Jess Brown Collection"]) ||
+        matchesAnyField(record.collection_name, ["R. Jess Brown Collection"]) ||
+        matchesAnyField(record.people, ["R. Jess Brown", "Richard Jess Brown"]) ||
+        matchesKeyword(record, [
+          "R. Jess Brown",
+          "Richard Jess Brown",
+          "Magnolia Bar Association",
+          "James Meredith",
+          "Medgar Evers",
+          "Thurgood Marshall",
+          "NAACP",
+          "legal advocacy"
+        ])
+      );
+    }
+  },
   "farish-street-history": {
     navLabel: "Farish Street History",
     deck: "Business, culture, and community life connected to Farish Street.",

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R. Jess Brown Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=20260704d" />
+  </head>
+  <body class="catalog-page archive-page" data-public-page="collection" data-collection-view="r-jess-brown">
+    <div class="catalog-shell">
+      <header class="catalog-site-header">
+        <a id="catalogBrand" class="catalog-site-header__brand" href="./">Smith Robertson Collections</a>
+        <nav class="catalog-site-header__nav">
+          <a class="button button--ghost" href="./">Digital Gallery</a>
+          <a class="button button--ghost" href="./archive.html">Archive</a>
+        </nav>
+      </header>
+
+      <section class="story-nav" aria-label="Exhibits navigation">
+        <div class="story-nav__intro">
+          <p class="eyebrow">Digital Exhibits</p>
+          <h2>Move between story paths</h2>
+        </div>
+        <div class="story-nav__links">
+          <a class="story-nav__link" href="./scott-ford-houses.html">Scott Ford Houses</a>
+          <a class="story-nav__link" href="./smith-robertson-history.html">Smith Robertson History</a>
+          <a class="story-nav__link" href="./civil-rights.html">Civil Rights</a>
+          <a class="story-nav__link" href="./farish-street-history.html">Farish Street History</a>
+          <a class="story-nav__link is-active" href="./r-jess-brown-collection.html" aria-current="page">R. Jess Brown</a>
+        </div>
+      </section>
+
+      <main class="public-site">
+        <section class="archive-hero">
+          <div class="archive-hero__copy">
+            <p class="eyebrow">Collection View</p>
+            <h1 id="catalogTitle">R. Jess Brown Collection</h1>
+            <p id="catalogIntro" class="hero__lede"></p>
+          </div>
+          <div class="archive-metric">
+            <span class="metric__label">Published Records</span>
+            <strong id="catalogTotal">0 public records</strong>
+          </div>
+        </section>
+
+        <section class="public-section">
+          <div class="public-section__header">
+            <div>
+              <p class="eyebrow">Exhibit Lead</p>
+              <h2>Start with a spotlight record</h2>
+            </div>
+            <p class="help-text">A lead object opens the story, followed by a few related highlights.</p>
+          </div>
+          <div id="collectionLead"></div>
+        </section>
+
+        <section class="public-section">
+          <div class="public-section__header">
+            <div>
+              <p class="eyebrow">Highlights</p>
+              <h2>Related records</h2>
+            </div>
+          </div>
+          <div id="collectionHighlights" class="feature-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="archive-toolbar" aria-label="R. Jess Brown collection filters">
+          <label class="field">
+            <span>Search</span>
+            <input id="catalogSearch" type="search" placeholder="Search titles, people, themes, key locations, tags..." />
+          </label>
+          <label class="field">
+            <span>Theme</span>
+            <select id="catalogTheme"></select>
+          </label>
+          <label class="field">
+            <span>Record Type</span>
+            <select id="catalogType"></select>
+          </label>
+        </section>
+
+        <p id="catalogStatus" class="help-text"></p>
+        <section id="catalogList" class="archive-list" aria-live="polite"></section>
+        <div id="archivePagination" class="pagination-bar" aria-label="Archive pagination">
+          <p id="archivePaginationInfo" class="help-text">Showing 0 of 0 records</p>
+          <div class="pagination-bar__actions">
+            <button id="archivePrevPage" class="button button--ghost" type="button">Previous</button>
+            <button id="archiveNextPage" class="button button--ghost" type="button">Next</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <template id="archiveRowTemplate">
+      <article class="archive-row">
+        <div class="archive-row__media">
+          <img class="archive-row__image" alt="" hidden />
+        </div>
+        <div class="archive-row__body">
+          <div class="archive-row__top">
+            <p class="archive-row__meta"></p>
+            <div class="archive-row__badges"></div>
+          </div>
+          <h3></h3>
+          <p class="archive-row__description"></p>
+          <div class="tag-list"></div>
+        </div>
+      </article>
+    </template>
+
+    <template id="catalogCardTemplate">
+      <article class="catalog-card">
+        <img class="catalog-card__image" alt="" hidden />
+        <div class="catalog-card__body">
+          <p class="catalog-card__meta"></p>
+          <h3></h3>
+          <p class="catalog-card__description"></p>
+          <p class="catalog-card__significance"></p>
+          <div class="tag-list"></div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./data-source-config.js"></script>
+    <script type="module" src="./catalog.js?v=20260721a"></script>
+  </body>
+</html>

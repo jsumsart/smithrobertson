@@ -115,6 +115,7 @@ export const defaultTaxonomyTerms = [
   { group_slug: "historical-theme", slug: "arts-and-culture", label: "Arts And Culture", enabled: true, sort_order: 50 },
   { group_slug: "historical-theme", slug: "civic-leadership", label: "Civic Leadership", enabled: true, sort_order: 60 },
   { group_slug: "historical-theme", slug: "family-and-neighborhood-life", label: "Family And Local Life", enabled: true, sort_order: 70 },
+  { group_slug: "historical-theme", slug: "r-jess-brown-collection", label: "R. Jess Brown Collection", enabled: true, sort_order: 80 },
   { group_slug: "neighborhood", slug: "farish-street", label: "Farish Street", enabled: true, sort_order: 10 },
   { group_slug: "neighborhood", slug: "downtown-jackson", label: "Downtown Jackson", enabled: true, sort_order: 20 },
   { group_slug: "neighborhood", slug: "smith-robertson-campus", label: "Smith Robertson Campus", enabled: true, sort_order: 30 },
@@ -139,7 +140,8 @@ export const defaultTaxonomyTerms = [
   { group_slug: "suggested-tag", slug: "church-life", label: "church life", enabled: true, sort_order: 50 },
   { group_slug: "suggested-tag", slug: "business-history", label: "business history", enabled: true, sort_order: 60 },
   { group_slug: "suggested-tag", slug: "oral-history", label: "oral history", enabled: true, sort_order: 70 },
-  { group_slug: "suggested-tag", slug: "textiles", label: "textiles", enabled: true, sort_order: 80 }
+  { group_slug: "suggested-tag", slug: "textiles", label: "textiles", enabled: true, sort_order: 80 },
+  { group_slug: "suggested-tag", slug: "r-jess-brown", label: "R. Jess Brown", enabled: true, sort_order: 90 }
 ];
 
 export function slugifyRecordType(label) {
