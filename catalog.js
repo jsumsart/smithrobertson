@@ -57,6 +57,13 @@ const collectionViews = {
     intro:
       "This focused public view gathers published records tied to the Scott Ford Houses and the residents whose lives help tell that story.",
     status: "Showing the Scott Ford Houses public view.",
+    curatedAccessions: [
+      "SRM-2026-132",
+      "SRM-2026-123",
+      "SRM-2026-199",
+      "SRM-2026-200",
+      "SRM-2026-201"
+    ],
     matches(record) {
       return (
         matchesAnyField(record.neighborhood, ["Scott Ford Houses"]) ||
@@ -72,6 +79,13 @@ const collectionViews = {
     intro:
       "This view highlights published records about the school's history, its leadership, and the people who shaped the Smith Robertson story.",
     status: "Showing the Smith Robertson history public view.",
+    curatedAccessions: [
+      "SRM-2026-030",
+      "SRM-2026-031",
+      "SRM-2026-081",
+      "SRM-2026-205",
+      "SRM-P-1955-012"
+    ],
     matches(record) {
       return (
         matchesAnyField(record.neighborhood, ["Smith Robertson Campus"]) ||
@@ -98,6 +112,13 @@ const collectionViews = {
     intro:
       "This public view gathers published records connected to local and regional civil rights history, activism, and organizing.",
     status: "Showing the civil rights public view.",
+    curatedAccessions: [
+      "SRM-2026-128",
+      "SRM-2026-219",
+      "SRM-2026-076",
+      "SRM-2026-050",
+      "SRM-2026-051"
+    ],
     matches(record) {
       if (
         matchesAnyField(record.historical_theme, ["Civil Rights", "Civil Rights and Citizenship"]) ||
@@ -155,6 +176,13 @@ const collectionViews = {
     intro:
       "This public view gathers published records tied to Farish Street, its businesses, institutions, and community memory.",
     status: "Showing the Farish Street history public view.",
+    curatedAccessions: [
+      "SRM-2026-163",
+      "SRM-2026-116",
+      "SRM-2026-203",
+      "SRM-2026-220",
+      "SRM-2026-028"
+    ],
     matches(record) {
       return (
         matchesAnyField(record.neighborhood, ["Farish Street"]) ||
