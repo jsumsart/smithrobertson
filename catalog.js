@@ -7,7 +7,7 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260704d";
+import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260722a";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 const collectionView = document.body.dataset.collectionView || "";
@@ -49,6 +49,22 @@ function matchesAnyField(value, expectedValues) {
   return expectedValues.some((expectedValue) => normalizedValue.includes(normalizeText(expectedValue)));
 }
 
+function matchesTheme(record, values) {
+  return matchesAnyField(record.historical_theme, values);
+}
+
+function matchesCollection(record, values) {
+  return matchesAnyField(record.collection_name, values);
+}
+
+function matchesNeighborhood(record, values) {
+  return matchesAnyField(record.neighborhood, values);
+}
+
+function matchesPeople(record, values) {
+  return matchesAnyField(record.people, values);
+}
+
 const collectionViews = {
   "scott-ford": {
     navLabel: "Scott Ford Houses",
@@ -66,9 +82,17 @@ const collectionViews = {
     ],
     matches(record) {
       return (
-        matchesAnyField(record.neighborhood, ["Scott Ford Houses"]) ||
-        matchesAnyField(record.people, ["Mary Scott", "Virginia Scott"]) ||
-        matchesKeyword(record, ["Scott Ford Houses", "Mary Scott", "Virginia Scott"])
+        matchesNeighborhood(record, ["Scott Ford Houses"]) ||
+        matchesPeople(record, ["Mary Scott", "Virginia Scott"]) ||
+        matchesKeyword(record, [
+          "Scott Ford Houses",
+          "Mary Scott",
+          "Virginia Scott",
+          "midwife",
+          "birth certificate",
+          "obstetrical",
+          "T. J. Handy"
+        ])
       );
     }
   },
@@ -88,9 +112,9 @@ const collectionViews = {
     ],
     matches(record) {
       return (
-        matchesAnyField(record.neighborhood, ["Smith Robertson Campus"]) ||
-        matchesAnyField(record.collection_name, ["School History Collection", "Smith Robertson"]) ||
-        matchesAnyField(record.people, ["A. N. Jackson", "James Gooden", "Luther Marshall", "Charles S. Wilson", "Lv Randolph"]) ||
+        matchesNeighborhood(record, ["Smith Robertson Campus"]) ||
+        matchesCollection(record, ["School History Collection", "Smith Robertson"]) ||
+        matchesPeople(record, ["A. N. Jackson", "James Gooden", "Luther Marshall", "Charles S. Wilson", "Lv Randolph"]) ||
         matchesKeyword(record, [
           "Smith Robertson",
           "Smith Robertson Campus",
@@ -120,10 +144,7 @@ const collectionViews = {
       "SRM-2026-051"
     ],
     matches(record) {
-      if (
-        matchesAnyField(record.historical_theme, ["Civil Rights", "Civil Rights and Citizenship"]) ||
-        matchesAnyField(record.collection_name, ["Civil Rights Collection"])
-      ) {
+      if (matchesTheme(record, ["Civil Rights", "Civil Rights and Citizenship"]) || matchesCollection(record, ["Civil Rights Collection"])) {
         return true;
       }
       return matchesKeyword(record, [
@@ -153,9 +174,9 @@ const collectionViews = {
     ],
     matches(record) {
       return (
-        matchesAnyField(record.historical_theme, ["R. Jess Brown Collection"]) ||
-        matchesAnyField(record.collection_name, ["R. Jess Brown Collection"]) ||
-        matchesAnyField(record.people, ["R. Jess Brown", "Richard Jess Brown"]) ||
+        matchesTheme(record, ["R. Jess Brown Collection"]) ||
+        matchesCollection(record, ["R. Jess Brown Collection"]) ||
+        matchesPeople(record, ["R. Jess Brown", "Richard Jess Brown"]) ||
         matchesKeyword(record, [
           "R. Jess Brown",
           "Richard Jess Brown",
@@ -185,14 +206,85 @@ const collectionViews = {
     ],
     matches(record) {
       return (
-        matchesAnyField(record.neighborhood, ["Farish Street"]) ||
-        matchesAnyField(record.historical_theme, ["Farish Street Business District"]) ||
-        matchesAnyField(record.collection_name, ["Farish Street Business District"]) ||
+        matchesNeighborhood(record, ["Farish Street"]) ||
+        matchesTheme(record, ["Farish Street Business District"]) ||
+        matchesCollection(record, ["Farish Street Business District"]) ||
         matchesKeyword(record, [
           "Farish Street",
           "Alamo Theatre",
           "Mount Helm",
           "Farish Street Historic District"
+        ])
+      );
+    }
+  },
+  "black-health-and-medicine": {
+    navLabel: "Black Health and Medicine",
+    deck: "Doctors, midwives, caregiving, and public health records across Mississippi Black life.",
+    title: "Black Health and Medicine Records",
+    intro:
+      "This exhibit gathers published records about Black physicians, midwives, health workers, and medical care across community life in Mississippi.",
+    status: "Showing the Black Health and Medicine public view.",
+    curatedAccessions: [
+      "SRM-2026-315",
+      "SRM-2026-314",
+      "SRM-2026-316",
+      "SRM-2026-329",
+      "SRM-2026-336"
+    ],
+    matches(record) {
+      return (
+        matchesTheme(record, ["Black Health and Medicine"]) ||
+        matchesKeyword(record, [
+          "doctor",
+          "physician",
+          "medical",
+          "midwife",
+          "birth certificate",
+          "obstetrical",
+          "Board of Health",
+          "health worker",
+          "Robert Smith, M.D.",
+          "T. L. Zuber",
+          "Dr. Carmichael",
+          "Richard H. Beadle Collection of Black Doctors in Mississippi"
+        ])
+      );
+    }
+  },
+  "arts-and-culture": {
+    navLabel: "Arts and Culture",
+    deck: "Art, performance, material culture, and visual memory across the collection.",
+    title: "Arts and Culture Records",
+    intro:
+      "This exhibit gathers published records tied to visual art, performance, pageantry, objects, and creative expression across Mississippi Black cultural life.",
+    status: "Showing the Arts and Culture public view.",
+    curatedAccessions: [
+      "SRM-2026-082",
+      "SRM-2026-093",
+      "SRM-2026-095",
+      "SRM-2026-097",
+      "SRM-2026-098"
+    ],
+    matches(record) {
+      return (
+        matchesTheme(record, ["Arts And Culture"]) ||
+        matchesCollection(record, ["Art Collection"]) ||
+        matchesKeyword(record, [
+          "art",
+          "artist",
+          "portrait",
+          "pageant",
+          "theatre",
+          "theater",
+          "painting",
+          "print",
+          "quilt",
+          "sculpture",
+          "mask",
+          "Kuba",
+          "gourd vessel",
+          "performance"
         ])
       );
     }
