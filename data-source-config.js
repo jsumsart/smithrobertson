@@ -1,5 +1,5 @@
 window.COLLECTIONS_DATA_SOURCE = {
-  publishedJsonUrl: "./data/public-records.json?v=20260722a",
+  publishedJsonUrl: "./data/public-records.json?v=20260722b",
   publishedCsvUrl: "./data/records.csv",
   googleSheetUrl: "https://docs.google.com/spreadsheets/d/1lHPsW9y7rBI0Aqe4_kuOWBcQvQBi4osSQLjVw4Vz2JY/edit?usp=sharing",
   googleFormUrl: "",
@@ -8,7 +8,7 @@ window.COLLECTIONS_DATA_SOURCE = {
   managerHeadline: "A CSV-first collections workspace for Jackson history.",
   managerIntro:
     "Use Google Sheets, Forms, and CSV imports to manage records without relying on a hosted database.",
-  publicGalleryTitle: "Enter the living memory of Mississippi through Smith Robertson.",
+  publicGalleryTitle: "Enter the living memory of Mississippi through the Smith Robertson Museum and Cultural Center.",
   publicGalleryIntro:
     "Move between seven curated exhibition paths, then drop into the public archive for deeper research across school history, neighborhood memory, civil rights struggle, medicine, art, and Farish Street culture.",
   publicArchiveTitle: "Browse published Smith Robertson records.",

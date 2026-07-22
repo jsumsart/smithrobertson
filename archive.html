@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260722a" />
+    <link rel="stylesheet" href="./styles.css?v=20260722b" />
   </head>
   <body class="catalog-page archive-page" data-public-page="archive">
     <div class="catalog-shell">
@@ -21,22 +21,6 @@
           <a class="button button--primary" href="./archive.html" aria-current="page">Archive</a>
         </nav>
       </header>
-
-      <section class="story-nav" aria-label="Exhibits navigation">
-        <div class="story-nav__intro">
-          <p class="eyebrow">Digital Exhibits</p>
-          <h2>Browse by exhibit</h2>
-        </div>
-        <div class="story-nav__links">
-          <a class="story-nav__link" href="./scott-ford-houses.html">Scott Ford Houses</a>
-          <a class="story-nav__link" href="./smith-robertson-history.html">Smith Robertson History</a>
-          <a class="story-nav__link" href="./civil-rights.html">Civil Rights</a>
-          <a class="story-nav__link" href="./farish-street-history.html">Farish Street History</a>
-          <a class="story-nav__link" href="./r-jess-brown-collection.html">R. Jess Brown</a>
-          <a class="story-nav__link" href="./black-health-and-medicine.html">Black Health and Medicine</a>
-          <a class="story-nav__link" href="./arts-and-culture.html">Arts and Culture</a>
-        </div>
-      </section>
 
       <main class="public-site">
         <section class="archive-hero">
@@ -53,49 +37,42 @@
           </div>
         </section>
 
-        <section class="public-section public-section--story-rail" aria-label="Collection view shortcuts">
+        <section class="public-section public-section--story-rail archive-story-strip" aria-label="Collection view shortcuts">
           <div class="public-section__header">
             <div>
               <p class="eyebrow">Curated Paths</p>
-              <h2>Prefer to browse by story?</h2>
+              <h2>Jump to an exhibit</h2>
             </div>
-            <p class="help-text">Use the archive for research, or jump into one of the museum-style exhibits.</p>
+            <p class="help-text">Use the archive for open-ended research, or step into a curated exhibit when you want a more guided reading of the collection.</p>
           </div>
-          <div class="exhibit-nav-grid">
-            <a class="exhibit-nav-card exhibit-nav-card--sand" href="./scott-ford-houses.html">
-              <p class="eyebrow">Neighborhood Memory</p>
-              <h3>Scott Ford Houses</h3>
-              <p>Portraits, kinship, and resident memory connected to the Scott Ford Houses.</p>
+          <div class="archive-story-strip__grid">
+            <a class="archive-story-chip" href="./scott-ford-houses.html">
+              <span class="archive-story-chip__eyebrow">Neighborhood Memory</span>
+              <strong>Scott Ford Houses</strong>
             </a>
-            <a class="exhibit-nav-card exhibit-nav-card--brick" href="./smith-robertson-history.html">
-              <p class="eyebrow">School Legacy</p>
-              <h3>Smith Robertson History</h3>
-              <p>Leadership, campus life, and educational history across the school's story.</p>
+            <a class="archive-story-chip" href="./smith-robertson-history.html">
+              <span class="archive-story-chip__eyebrow">School Legacy</span>
+              <strong>Smith Robertson History</strong>
             </a>
-            <a class="exhibit-nav-card exhibit-nav-card--ink" href="./civil-rights.html">
-              <p class="eyebrow">Movement History</p>
-              <h3>Civil Rights</h3>
-              <p>Organizing, protest, and public memory tied to regional civil rights history.</p>
+            <a class="archive-story-chip" href="./civil-rights.html">
+              <span class="archive-story-chip__eyebrow">Movement History</span>
+              <strong>Civil Rights</strong>
             </a>
-            <a class="exhibit-nav-card exhibit-nav-card--gold" href="./farish-street-history.html">
-              <p class="eyebrow">Street Culture</p>
-              <h3>Farish Street History</h3>
-              <p>Business, faith, entertainment, and neighborhood life along Farish Street.</p>
+            <a class="archive-story-chip" href="./farish-street-history.html">
+              <span class="archive-story-chip__eyebrow">Street Culture</span>
+              <strong>Farish Street History</strong>
             </a>
-            <a class="exhibit-nav-card exhibit-nav-card--brick" href="./r-jess-brown-collection.html">
-              <p class="eyebrow">Legal Legacy</p>
-              <h3>R. Jess Brown</h3>
-              <p>Law practice, movement correspondence, awards, and legal advocacy tied to R. Jess Brown.</p>
+            <a class="archive-story-chip" href="./r-jess-brown-collection.html">
+              <span class="archive-story-chip__eyebrow">Legal Legacy</span>
+              <strong>R. Jess Brown</strong>
             </a>
-            <a class="exhibit-nav-card exhibit-nav-card--sage" href="./black-health-and-medicine.html">
-              <p class="eyebrow">Care Histories</p>
-              <h3>Black Health and Medicine</h3>
-              <p>Doctors, midwives, caregiving tools, and medical memory across Black Mississippi life.</p>
+            <a class="archive-story-chip" href="./black-health-and-medicine.html">
+              <span class="archive-story-chip__eyebrow">Care Histories</span>
+              <strong>Black Health and Medicine</strong>
             </a>
-            <a class="exhibit-nav-card exhibit-nav-card--slate" href="./arts-and-culture.html">
-              <p class="eyebrow">Creative Life</p>
-              <h3>Arts and Culture</h3>
-              <p>Art, pageantry, portraiture, and material culture that give the archive a creative register.</p>
+            <a class="archive-story-chip" href="./arts-and-culture.html">
+              <span class="archive-story-chip__eyebrow">Creative Life</span>
+              <strong>Arts and Culture</strong>
             </a>
           </div>
         </section>
@@ -145,6 +122,6 @@
     </template>
 
     <script src="./data-source-config.js"></script>
-    <script type="module" src="./catalog.js?v=20260722a"></script>
+    <script type="module" src="./catalog.js?v=20260722b"></script>
   </body>
 </html>

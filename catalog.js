@@ -7,7 +7,7 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260722a";
+import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260722b";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 const collectionView = document.body.dataset.collectionView || "";
@@ -107,17 +107,35 @@ const collectionViews = {
       "SRM-2026-030",
       "SRM-2026-031",
       "SRM-2026-081",
-      "SRM-2026-205",
+      "SRM-2026-077",
       "SRM-P-1955-012"
     ],
     matches(record) {
+      if (
+        matchesKeyword(record, [
+          "Maroon and White",
+          "Piney Woods",
+          "Jerry and Sue Whitt",
+          "A Neighborhood Discovery",
+          "Farish Street Historic District",
+          "Black and Tan Republican Party",
+          "Field to Factory",
+          "Smith Robertson Museum",
+          "architectural rendering"
+        ])
+      ) {
+        return false;
+      }
+
       return (
         matchesNeighborhood(record, ["Smith Robertson Campus"]) ||
-        matchesCollection(record, ["School History Collection", "Smith Robertson"]) ||
         matchesPeople(record, ["A. N. Jackson", "James Gooden", "Luther Marshall", "Charles S. Wilson", "Lv Randolph"]) ||
         matchesKeyword(record, [
           "Smith Robertson",
           "Smith Robertson Campus",
+          "Smith Robertson School",
+          "Robertson School",
+          "Smith Robinson School",
           "principal",
           "A.N. Jackson",
           "A. N. Jackson",
@@ -181,11 +199,9 @@ const collectionViews = {
           "R. Jess Brown",
           "Richard Jess Brown",
           "Magnolia Bar Association",
-          "James Meredith",
-          "Medgar Evers",
-          "Thurgood Marshall",
-          "NAACP",
-          "legal advocacy"
+          "Brown Alexander Sanders",
+          "law office of R. Jess Brown",
+          "Attorney R. Jess Brown"
         ])
       );
     }
