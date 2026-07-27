@@ -913,8 +913,7 @@ async function fetchArchiveRecordsFromCsv() {
         .join(" ")
         .toLowerCase()
         .includes(query);
-    })
-    );
+    });
 
   const sorted = sortArchiveRecords(filtered, filters.sort);
 
