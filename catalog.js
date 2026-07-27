@@ -588,7 +588,7 @@ function renderRecordTypeFilter() {
   allOption.textContent = "All types";
   elements.type.appendChild(allOption);
 
-  for (const type of sortRecordTypes(state.recordTypes).filter((item) => item.enabled && availableTypes.has(type.label))) {
+  for (const type of sortRecordTypes(state.recordTypes).filter((item) => item.enabled && availableTypes.has(item.label))) {
     const option = document.createElement("option");
     option.value = type.label;
     option.textContent = type.label;
