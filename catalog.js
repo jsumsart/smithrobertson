@@ -67,14 +67,14 @@ function matchesPeople(record, values) {
 
 const collectionViews = {
   "scott-ford": {
-    navLabel: "Scott Ford Houses",
+    navLabel: "Scott Ford Houses, Midwifery and Motherhood",
     pathLabel: "Place Path",
-    pathMeta: "A neighborhood-based exhibit connecting home life, kinship, childbirth records, and midwife history.",
-    deck: "Home, kinship, midwife records, and neighborhood memory tied to the Scott Ford Houses.",
-    title: "Scott Ford Houses Records",
+    pathMeta: "A neighborhood-based exhibit connecting Scott Ford family life, childbirth records, midwifery, and motherhood.",
+    deck: "Home life, childbirth records, midwife history, and motherhood tied to the Scott Ford Houses.",
+    title: "Scott Ford Houses, Midwifery and Motherhood",
     intro:
-      "This focused public view gathers published records tied to the Scott Ford Houses, including family history, childbirth documentation, and midwife-related materials connected to the residents whose lives help tell that story.",
-    status: "Showing the Scott Ford Houses public view.",
+      "This focused public view gathers published records tied to the Scott Ford Houses, including family history, childbirth documentation, midwife-related materials, and broader records about motherhood and maternal care that deepen the story.",
+    status: "Showing the Scott Ford Houses, Midwifery and Motherhood public view.",
     curatedAccessions: [
       "SRM-2026-132",
       "SRM-2026-123",
@@ -84,6 +84,7 @@ const collectionViews = {
     ],
     matches(record) {
       return (
+        matchesTheme(record, ["Midwives and Motherhood"]) ||
         matchesNeighborhood(record, ["Scott Ford Houses"]) ||
         matchesPeople(record, ["Mary Scott", "Virginia Scott"]) ||
         matchesKeyword(record, [
@@ -91,6 +92,8 @@ const collectionViews = {
           "Mary Scott",
           "Virginia Scott",
           "midwife",
+          "motherhood",
+          "maternal",
           "birth certificate",
           "obstetrical",
           "T. J. Handy"
