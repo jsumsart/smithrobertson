@@ -68,10 +68,10 @@ function matchesPeople(record, values) {
 const collectionViews = {
   "scott-ford": {
     navLabel: "Scott Ford Houses",
-    deck: "Home, kinship, and neighborhood memory tied to the Scott Ford Houses.",
+    deck: "Home, kinship, midwife records, and neighborhood memory tied to the Scott Ford Houses.",
     title: "Scott Ford Houses Records",
     intro:
-      "This focused public view gathers published records tied to the Scott Ford Houses and the residents whose lives help tell that story.",
+      "This focused public view gathers published records tied to the Scott Ford Houses, including family history, childbirth documentation, and midwife-related materials connected to the residents whose lives help tell that story.",
     status: "Showing the Scott Ford Houses public view.",
     curatedAccessions: [
       "SRM-2026-132",
@@ -192,7 +192,6 @@ const collectionViews = {
     ],
     matches(record) {
       return (
-        matchesTheme(record, ["R. Jess Brown Collection"]) ||
         matchesCollection(record, ["R. Jess Brown Collection"]) ||
         matchesPeople(record, ["R. Jess Brown", "Richard Jess Brown"]) ||
         matchesKeyword(record, [
@@ -223,7 +222,6 @@ const collectionViews = {
     matches(record) {
       return (
         matchesNeighborhood(record, ["Farish Street"]) ||
-        matchesTheme(record, ["Farish Street Business District"]) ||
         matchesCollection(record, ["Farish Street Business District"]) ||
         matchesKeyword(record, [
           "Farish Street",
@@ -236,10 +234,10 @@ const collectionViews = {
   },
   "black-health-and-medicine": {
     navLabel: "Black Health and Medicine",
-    deck: "Doctors, midwives, caregiving, and public health records across Mississippi Black life.",
+    deck: "Doctors, midwives, motherhood, caregiving, and public health records across Mississippi Black life.",
     title: "Black Health and Medicine Records",
     intro:
-      "This exhibit gathers published records about Black physicians, midwives, health workers, and medical care across community life in Mississippi.",
+      "This exhibit gathers published records about Black physicians, midwives, maternal care, birth records, health workers, and medical care across community life in Mississippi.",
     status: "Showing the Black Health and Medicine public view.",
     curatedAccessions: [
       "SRM-2026-315",
@@ -250,7 +248,7 @@ const collectionViews = {
     ],
     matches(record) {
       return (
-        matchesTheme(record, ["Black Health and Medicine"]) ||
+        matchesTheme(record, ["Black Health and Medicine", "Midwives and Motherhood"]) ||
         matchesKeyword(record, [
           "doctor",
           "physician",
@@ -400,6 +398,13 @@ function normalizeTaxonomyTerm(term) {
     return {
       ...term,
       label: "Family And Local Life"
+    };
+  }
+
+  if (term.group_slug === "historical-theme" && term.slug === "civil-rights") {
+    return {
+      ...term,
+      label: "Civil Rights and Citizenship"
     };
   }
 

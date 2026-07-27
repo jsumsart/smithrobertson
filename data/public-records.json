@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-07-27T02:35:34.855Z",
+  "generated_at": "2026-07-27T02:49:15.729Z",
   "total_public_records": 448,
   "records": [
     {
-      "id": "ab1ebf29-e8f0-4f02-aeb2-d9baa0a69e67",
+      "id": "fcb72c62-833e-4d82-b0a8-82e3092419d9",
       "accession_number": "SRM-2026-020",
       "title": "Mississippi Board of Barber Examiners Certificate for Clarence Gray",
       "record_type": "Artifact",
@@ -42,7 +42,7 @@
       "image_thumb_file": "thumbs/coll001.jpg"
     },
     {
-      "id": "9e9bf4dc-3064-4ac2-9fc5-a5d382205a1d",
+      "id": "fd5f411f-cce9-4238-9623-882d83cc61d9",
       "accession_number": "SRM-2026-021",
       "title": "Barber tools group including brush, sharpening stones, and razor accessories",
       "record_type": "Artifact",
@@ -81,7 +81,7 @@
       "image_thumb_file": "thumbs/coll002.jpg"
     },
     {
-      "id": "4ab73233-5cfe-4c3a-a3b9-3131bd27e3a6",
+      "id": "30a3a851-927d-47b7-a871-265aa6f05c29",
       "accession_number": "SRM-2026-022",
       "title": "Wester Bros. Hi-Car-Bin Steel barber implement case or razor box",
       "record_type": "Artifact",
@@ -119,7 +119,7 @@
       "image_thumb_file": "thumbs/coll003.jpg"
     },
     {
-      "id": "a77531d6-ec32-4840-9fb4-55d22a9d37d7",
+      "id": "311fbaba-389c-476f-a2e1-3e79df8886da",
       "accession_number": "SRM-2026-023",
       "title": "Barber tools group including hand clippers and brush",
       "record_type": "Artifact",
@@ -157,7 +157,7 @@
       "image_thumb_file": "thumbs/coll004.jpg"
     },
     {
-      "id": "07d242af-5cb0-45af-9207-c027bf2141d7",
+      "id": "6bb19eed-4d5a-46f1-b202-314949344976",
       "accession_number": "SRM-2026-024",
       "title": "Maroon and White yearbooks, 1952 and 1954",
       "record_type": "Archive",
@@ -195,7 +195,7 @@
       "image_thumb_file": "thumbs/coll005.jpg"
     },
     {
-      "id": "1411ded8-c4e4-47b4-929b-d84889314a1b",
+      "id": "115bcf14-ebb6-42d1-bb54-7d5a177a26a3",
       "accession_number": "SRM-2026-025",
       "title": "Black-and-white photograph of gathering along riverbank",
       "record_type": "Photograph",
@@ -203,7 +203,7 @@
       "collection_entity_id": null,
       "collection_name": "Photograph Collection",
       "location": "",
-      "historical_theme": "Community Life and Leisure",
+      "historical_theme": "Family And Local Life",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -232,7 +232,7 @@
       "image_thumb_file": "thumbs/coll006.jpg"
     },
     {
-      "id": "424e02f9-bd71-4e89-a4b0-f81afb64adb2",
+      "id": "87c24a61-fd20-4acd-ab14-a6a785a718a2",
       "accession_number": "SRM-2026-026",
       "title": "Black-and-white photograph of agricultural field work",
       "record_type": "Photograph",
@@ -269,7 +269,7 @@
       "image_thumb_file": "thumbs/coll007.jpg"
     },
     {
-      "id": "fdcb6b2e-9212-493f-9ef8-67d13d986b22",
+      "id": "e1162895-9d92-480c-920e-b8d26f561041",
       "accession_number": "SRM-2026-027",
       "title": "Black-and-white photograph of agricultural processing scene",
       "record_type": "Photograph",
@@ -307,7 +307,7 @@
       "image_thumb_file": "thumbs/coll008.jpg"
     },
     {
-      "id": "de34f798-f4ed-464c-9d7d-253592232c48",
+      "id": "25b3280c-37a1-4d57-93e1-4dec49593478",
       "accession_number": "SRM-2026-028",
       "title": "Membership Directory of Historic Mount Helm Baptist Church 135th Anniversary Program",
       "record_type": "Archive",
@@ -345,7 +345,7 @@
       "image_thumb_file": "thumbs/coll009.jpg"
     },
     {
-      "id": "9750eef4-53df-4f2f-99d3-d500eb48f7ed",
+      "id": "06a989e8-70dc-4106-b42a-5d887fe4bd91",
       "accession_number": "SRM-2026-030",
       "title": "A Collection of Memories: Smith Robertson School, 1894–1970",
       "record_type": "Archive",
@@ -384,7 +384,7 @@
       "image_thumb_file": "thumbs/coll010.jpg"
     },
     {
-      "id": "bfe18f8f-a12c-4aa7-aba1-46243e46ebba",
+      "id": "18ac86bb-df68-4d32-9c40-51cf60ea55de",
       "accession_number": "SRM-2026-031",
       "title": "Portrait photograph of Smith Robertson",
       "record_type": "Photograph",
@@ -421,7 +421,7 @@
       "image_thumb_file": "thumbs/coll011.jpg"
     },
     {
-      "id": "f0e5e6e0-736a-4f9f-bd03-f35f50855618",
+      "id": "6b489d70-4f27-4148-99fe-bfd2ffc3a098",
       "accession_number": "SRM-2026-032",
       "title": "Fragmentary clipping about Wilson Brown and the Medal of Honor",
       "record_type": "Archive",
@@ -429,7 +429,7 @@
       "collection_entity_id": null,
       "collection_name": "Military and Civic History Collection",
       "location": "",
-      "historical_theme": "Military Service and Recognition",
+      "historical_theme": "Military Service",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -460,7 +460,7 @@
       "image_thumb_file": "thumbs/coll012.jpg"
     },
     {
-      "id": "85fc9fe6-1a7c-4adf-a8d1-5d378112a0be",
+      "id": "d2668fcc-9eed-4b39-9b76-44e388c2590e",
       "accession_number": "SRM-2026-033",
       "title": "Photograph of elderly woman standing outdoors",
       "record_type": "Photograph",
@@ -468,7 +468,7 @@
       "collection_entity_id": null,
       "collection_name": "Photograph Collection",
       "location": "",
-      "historical_theme": "Family and Community Life",
+      "historical_theme": "Portraiture and Community Memory",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -498,7 +498,7 @@
       "image_thumb_file": "thumbs/coll013.jpg"
     },
     {
-      "id": "be89a50b-5046-4736-943d-569b85c921f9",
+      "id": "ea7a8bbc-4453-465e-b8e6-cd124d351aa5",
       "accession_number": "SRM-2026-034",
       "title": "Printed portrait of John R. Lynch",
       "record_type": "Archive",
@@ -535,7 +535,7 @@
       "image_thumb_file": "thumbs/coll014.jpg"
     },
     {
-      "id": "ae0356aa-aadd-4276-9b1a-9f6264f28f93",
+      "id": "37af1aa1-4857-49f0-8f21-6f6b906cc2ce",
       "accession_number": "SRM-2026-035",
       "title": "Printed portrait of Hiram Revels",
       "record_type": "Archive",
@@ -572,7 +572,7 @@
       "image_thumb_file": "thumbs/coll015.jpg"
     },
     {
-      "id": "17aad8bc-75b7-41cc-9dd9-3ba6972afd55",
+      "id": "c5ed8eab-2127-4a7e-92df-b2c1cc380592",
       "accession_number": "SRM-2026-036",
       "title": "Framed display of note labeled 'The State of England' one dollar",
       "record_type": "Artifact",
@@ -609,7 +609,7 @@
       "image_thumb_file": "thumbs/coll016.jpg"
     },
     {
-      "id": "aa2c495f-adca-49b9-b05f-3486544053a2",
+      "id": "2b4e161f-b915-4a60-90b8-6547ead8618f",
       "accession_number": "SRM-2026-046",
       "title": "Memphis Brewers Company Lewis Banquet for the Mississippi Negro Country Agents",
       "record_type": "Photograph",
@@ -648,7 +648,7 @@
       "image_thumb_file": "thumbs/coll017.jpg"
     },
     {
-      "id": "bfaf8f0d-bd3d-4fba-ac17-7da118c64c5a",
+      "id": "a6b21e79-4cc7-45a6-94b4-a65efc2010a7",
       "accession_number": "SRM-2026-047",
       "title": "Annual meeting group photograph of the Mississippi Negro Brewers Association",
       "record_type": "Photograph",
@@ -685,7 +685,7 @@
       "image_thumb_file": "thumbs/coll018.jpg"
     },
     {
-      "id": "32ab932e-143d-426c-be36-ae92e18bcd72",
+      "id": "a9eeae95-2252-40ab-9b34-c8cad27a10bd",
       "accession_number": "SRM-2026-048",
       "title": "Civil rights demonstration photograph with linked arms",
       "record_type": "Photograph",
@@ -723,7 +723,7 @@
       "image_thumb_file": "thumbs/coll019.jpg"
     },
     {
-      "id": "a5d1a2c3-9deb-4860-a0d5-60f98ce661db",
+      "id": "23d49069-a912-45db-a08e-ca63b59b8af0",
       "accession_number": "SRM-2026-049",
       "title": "Alcorn Agricultural and Mechanical College Eighty-Ninth Annual Commencement program",
       "record_type": "Archive",
@@ -762,7 +762,7 @@
       "image_thumb_file": "thumbs/coll020.jpg"
     },
     {
-      "id": "fb1b49cc-d434-4030-8978-34d24fc9f5e9",
+      "id": "11d06d89-f719-432f-8a15-e11ce67107ab",
       "accession_number": "SRM-2026-050",
       "title": "Student Nonviolent Coordinating Committee 1967 calendar",
       "record_type": "Archive",
@@ -800,7 +800,7 @@
       "image_thumb_file": "thumbs/coll021.jpg"
     },
     {
-      "id": "c30f6b1d-8913-458d-8c34-b696b17c1bd6",
+      "id": "c2ec6e1b-034e-4ebd-aaaf-1f9f2c5f4054",
       "accession_number": "SRM-2026-051",
       "title": "Poor People's Campaign 1968 Southern Caravan to Washington broadside",
       "record_type": "Archive",
@@ -839,7 +839,7 @@
       "image_thumb_file": "thumbs/coll022.jpg"
     },
     {
-      "id": "a8f8a2d1-0bc1-48da-947a-0aed7fac4b43",
+      "id": "bbfc01b4-367e-422a-82a1-98e68359eb09",
       "accession_number": "SRM-2026-052",
       "title": "SCLC flyer inviting participation in the Poor People's Campaign",
       "record_type": "Archive",
@@ -878,7 +878,7 @@
       "image_thumb_file": "thumbs/coll023.jpg"
     },
     {
-      "id": "b48dc8d8-7451-43eb-a39e-ae16178e8789",
+      "id": "f737959a-98b3-42f3-9b05-a30a175b1436",
       "accession_number": "SRM-2026-053",
       "title": "Free Mississippi in '64 campaign sticker or handbill",
       "record_type": "Archive",
@@ -916,7 +916,7 @@
       "image_thumb_file": "thumbs/coll024.jpg"
     },
     {
-      "id": "4602b2e6-4543-4b9e-a351-6147564783c9",
+      "id": "dd5790fc-bbde-42e9-a64d-5a7fbdb43046",
       "accession_number": "SRM-2026-054",
       "title": "Democratic National Convention reserved section ticket, August 24, 1964",
       "record_type": "Archive",
@@ -954,7 +954,7 @@
       "image_thumb_file": "thumbs/coll025.jpg"
     },
     {
-      "id": "296c3c04-ca59-4ef9-9920-421e9167ca37",
+      "id": "054d74cc-e070-4087-9ebf-7923ca7fbb43",
       "accession_number": "SRM-2026-055",
       "title": "The Link holdings (1996-1997, 2005-2006, 2008)",
       "record_type": "Newspaper / Periodical",
@@ -991,7 +991,7 @@
       "image_thumb_file": "thumbs/coll026.jpg"
     },
     {
-      "id": "166f720d-bdd1-46d2-ba91-5703db219ca9",
+      "id": "9b074320-435c-4653-9132-5c9792e985b9",
       "accession_number": "SRM-2026-056",
       "title": "The Jackson Advocate holdings (March-December 2006)",
       "record_type": "Newspaper / Periodical",
@@ -1028,7 +1028,7 @@
       "image_thumb_file": "thumbs/coll027.jpg"
     },
     {
-      "id": "d89f08f9-cdea-4d45-a56b-92b278a35f6c",
+      "id": "ca199da8-8cbb-49c1-aad4-c036f906078f",
       "accession_number": "SRM-2026-057",
       "title": "The Jackson Advocate holdings (January-December 2007)",
       "record_type": "Newspaper / Periodical",
@@ -1065,7 +1065,7 @@
       "image_thumb_file": "thumbs/coll028.jpg"
     },
     {
-      "id": "b3ce990a-0bf1-44a5-9894-3a226397f9f6",
+      "id": "3e3b4504-db29-4e93-890a-acb2ea59d0b4",
       "accession_number": "SRM-2026-058",
       "title": "The Jackson Advocate holdings (January-December 2010)",
       "record_type": "Newspaper / Periodical",
@@ -1102,7 +1102,7 @@
       "image_thumb_file": "thumbs/coll029.jpg"
     },
     {
-      "id": "84ba1410-2444-4f05-b830-80b7579d1ce7",
+      "id": "79bb116e-7f59-4dbe-bbc5-7b076fd19361",
       "accession_number": "SRM-2026-059",
       "title": "The Jackson Advocate holdings (January-December 2009)",
       "record_type": "Newspaper / Periodical",
@@ -1139,7 +1139,7 @@
       "image_thumb_file": "thumbs/coll030.jpg"
     },
     {
-      "id": "2c79e276-3483-45f3-a06c-63282c700c7d",
+      "id": "a4197844-62dd-4cff-86cc-baf2449e663e",
       "accession_number": "SRM-2026-060",
       "title": "The Jackson Advocate holdings (August-October 2011)",
       "record_type": "Newspaper / Periodical",
@@ -1176,7 +1176,7 @@
       "image_thumb_file": "thumbs/coll031.jpg"
     },
     {
-      "id": "949a0e2b-ad26-4402-975d-986193a39b98",
+      "id": "6e9b180c-f7f8-441e-9a4c-e79a8fca29a6",
       "accession_number": "SRM-2026-061",
       "title": "The Jackson Advocate holdings (May-October 2012)",
       "record_type": "Newspaper / Periodical",
@@ -1213,7 +1213,7 @@
       "image_thumb_file": "thumbs/coll032.jpg"
     },
     {
-      "id": "5568ca41-deb7-4055-960e-cd2a31c6a8b0",
+      "id": "eb05545c-59a3-41e9-89fd-96833bf560cd",
       "accession_number": "SRM-2026-062",
       "title": "Jackson Free Press holdings (2010 and September 2011 selections)",
       "record_type": "Newspaper / Periodical",
@@ -1250,7 +1250,7 @@
       "image_thumb_file": "thumbs/coll033.jpg"
     },
     {
-      "id": "94e24566-36ab-4f7c-a51f-137c010c6c94",
+      "id": "5aba62fc-b64e-41b2-895e-1acc443835cd",
       "accession_number": "SRM-2026-063",
       "title": "Jackson Free Press holdings (January-December 2009)",
       "record_type": "Newspaper / Periodical",
@@ -1287,7 +1287,7 @@
       "image_thumb_file": "thumbs/coll034.jpg"
     },
     {
-      "id": "9c534de7-7eee-4fcf-bd0d-d2fa2fe22be5",
+      "id": "1f39080b-3a4c-48ec-8f65-dfb2a8102003",
       "accession_number": "SRM-2026-064",
       "title": "Jackson Free Press holdings (January-December 2013)",
       "record_type": "Newspaper / Periodical",
@@ -1324,7 +1324,7 @@
       "image_thumb_file": "thumbs/coll035.jpg"
     },
     {
-      "id": "48a59398-6add-4d9f-ae07-7e7507bb21cf",
+      "id": "9e4d25ec-5ec3-4e64-a6a8-07122700cb46",
       "accession_number": "SRM-2026-065",
       "title": "The Jackson Advocate holdings (January-December 2012, incomplete)",
       "record_type": "Newspaper / Periodical",
@@ -1362,7 +1362,7 @@
       "image_thumb_file": "thumbs/coll036.jpg"
     },
     {
-      "id": "22f22aec-497b-4ae4-bae9-f1f57f28fc49",
+      "id": "a7df558e-1fdc-4f26-b5be-e3411f705620",
       "accession_number": "SRM-2026-066",
       "title": "The Jackson Advocate holdings (January-December 2011, incomplete)",
       "record_type": "Newspaper / Periodical",
@@ -1400,7 +1400,7 @@
       "image_thumb_file": "thumbs/coll037.jpg"
     },
     {
-      "id": "565c6cee-0856-4060-a4f5-db6a1a0f398c",
+      "id": "cf89d283-863b-4bcd-a158-b3c0d29e7944",
       "accession_number": "SRM-2026-067",
       "title": "The Jackson Advocate holdings (January-December 2008)",
       "record_type": "Newspaper / Periodical",
@@ -1437,7 +1437,7 @@
       "image_thumb_file": "thumbs/coll038.jpg"
     },
     {
-      "id": "dc7ab2e9-2e75-4c42-ac73-e057457f2052",
+      "id": "6ed12078-42be-4c33-b40e-0a22a2e492dd",
       "accession_number": "SRM-2026-068",
       "title": "Mixed periodicals folder (Close Up, Focus, National Alliance, Burning Spear, Planet, Northeast Ledger, South Reporter)",
       "record_type": "Newspaper / Periodical",
@@ -1474,7 +1474,7 @@
       "image_thumb_file": "thumbs/coll039.jpg"
     },
     {
-      "id": "b8d573ec-411e-4c42-9b48-9526479ebb97",
+      "id": "15e14281-56b8-43ed-bcee-5d807182b8f2",
       "accession_number": "SRM-2026-069",
       "title": "The Clarion-Ledger election-related issues (1989-2011 selections)",
       "record_type": "Newspaper / Periodical",
@@ -1512,7 +1512,7 @@
       "image_thumb_file": "thumbs/coll040.jpg"
     },
     {
-      "id": "99daeb42-0049-4e76-9ab2-b48f2b3ce186",
+      "id": "4490fa72-4a90-4146-a167-bbd0f7a023cb",
       "accession_number": "SRM-2026-070",
       "title": "Jackson Free Press holdings (January 4-October 18, 2006)",
       "record_type": "Newspaper / Periodical",
@@ -1549,7 +1549,7 @@
       "image_thumb_file": "thumbs/coll041.jpg"
     },
     {
-      "id": "618b6716-7474-454c-9869-aae754638e0d",
+      "id": "6a5a876c-bc1a-4d27-9596-a9bc59692914",
       "accession_number": "SRM-2026-071",
       "title": "Jackson Free Press holdings (May-December 2008 selections)",
       "record_type": "Newspaper / Periodical",
@@ -1586,7 +1586,7 @@
       "image_thumb_file": "thumbs/coll042.jpg"
     },
     {
-      "id": "7004f89c-20dc-42b7-a9a6-e684a16ef7d3",
+      "id": "dbf1eba4-89d7-43e4-a456-e6ca335eabb1",
       "accession_number": "SRM-2026-072",
       "title": "Jackson Free Press holdings (2003, 2005, 2007 selections)",
       "record_type": "Newspaper / Periodical",
@@ -1623,7 +1623,7 @@
       "image_thumb_file": "thumbs/coll043.jpg"
     },
     {
-      "id": "ee45a3ab-fea0-4d4a-96aa-9995eda87162",
+      "id": "14994531-4377-42a2-9e7c-e0839ed64526",
       "accession_number": "SRM-2026-073",
       "title": "Jackson Free Press holdings (January-December 2014)",
       "record_type": "Newspaper / Periodical",
@@ -1660,7 +1660,7 @@
       "image_thumb_file": "thumbs/coll044.jpg"
     },
     {
-      "id": "b0173402-9b53-4945-a27e-380f418d5c11",
+      "id": "cee11255-6ec3-4be2-9af0-0c8cfe96b709",
       "accession_number": "SRM-2026-074",
       "title": "Mixed periodicals folder (Jackson Free Press, Miss Link, Close Up)",
       "record_type": "Newspaper / Periodical",
@@ -1697,7 +1697,7 @@
       "image_thumb_file": "thumbs/coll045.jpg"
     },
     {
-      "id": "64149b2b-a74a-46fe-8a26-30302a7cdc4a",
+      "id": "866b4b09-4750-4120-8834-7b6eea152700",
       "accession_number": "SRM-2026-075",
       "title": "Carved wooden slotted geometric panel",
       "record_type": "Artifact",
@@ -1733,7 +1733,7 @@
       "image_thumb_file": "thumbs/coll046.jpg"
     },
     {
-      "id": "8a7a6361-2f20-4ad5-82f4-022335826631",
+      "id": "79ff968c-5358-4606-bdbf-6add614ef3f4",
       "accession_number": "SRM-2026-076",
       "title": "Portrait photograph of Medgar Evers with unidentified man",
       "record_type": "Photograph",
@@ -1771,7 +1771,7 @@
       "image_thumb_file": "thumbs/coll047.jpg"
     },
     {
-      "id": "4a2fc2d6-3d85-429d-9b9c-deb2025bd8e7",
+      "id": "b15316eb-3603-4cff-93f4-e44eccccd9e3",
       "accession_number": "SRM-2026-077",
       "title": "Smith Robertson class portrait with young children posed outdoors",
       "record_type": "Photograph",
@@ -1808,7 +1808,7 @@
       "image_thumb_file": "thumbs/coll048.jpg"
     },
     {
-      "id": "33b48ea6-1a56-4b6a-8600-c2d8082e1112",
+      "id": "517bd25e-f9e0-427d-b204-9a11c9a15717",
       "accession_number": "SRM-2026-078",
       "title": "Smith Robertson class portrait with teacher",
       "record_type": "Photograph",
@@ -1845,7 +1845,7 @@
       "image_thumb_file": "thumbs/coll049.jpg"
     },
     {
-      "id": "7860218f-cfff-4281-9224-f203218fd49c",
+      "id": "b6fb6644-0bf0-4d9d-b069-9d39b8a1503c",
       "accession_number": "SRM-2026-079",
       "title": "Piney Woods pennant ('21)",
       "record_type": "Artifact",
@@ -1882,7 +1882,7 @@
       "image_thumb_file": "thumbs/coll050.jpg"
     },
     {
-      "id": "abd1d3ba-14f6-4677-aeda-9df0ddba565a",
+      "id": "d5c37758-afff-44e6-bc33-3d057217e6d5",
       "accession_number": "SRM-2026-080",
       "title": "Inventory of Jerry and Sue Whitt donation",
       "record_type": "Archive",
@@ -1919,7 +1919,7 @@
       "image_thumb_file": "thumbs/coll051.jpg"
     },
     {
-      "id": "d3ba0ce6-2850-4c4c-ac1b-6650b259c4fa",
+      "id": "ac1a426e-a0df-41b0-a783-37f0e2a664ee",
       "accession_number": "SRM-2026-081",
       "title": "Mounted Smith Robertson commencement program and tuition receipt",
       "record_type": "Archive",
@@ -1956,7 +1956,7 @@
       "image_thumb_file": "thumbs/coll052.jpg"
     },
     {
-      "id": "8aba8712-91b9-42dc-8050-6e09f35fe4f0",
+      "id": "77040844-9104-4fd7-9635-b3fafed434f7",
       "accession_number": "SRM-2026-082",
       "title": "Carved wooden face mask",
       "record_type": "Artifact",
@@ -1993,7 +1993,7 @@
       "image_thumb_file": "thumbs/coll053.jpg"
     },
     {
-      "id": "4152d211-1624-4258-9a89-b3d22ff414e4",
+      "id": "485d4a5d-9eca-4deb-adf6-e1e002e55ff8",
       "accession_number": "SRM-2026-083",
       "title": "Rules and Regulations for the Certification of the Administrative and Instructional Personnel (inscribed copy)",
       "record_type": "Archive",
@@ -2030,7 +2030,7 @@
       "image_thumb_file": "thumbs/coll054.jpg"
     },
     {
-      "id": "67fed9fb-aa80-4786-a71e-a0f678ea7dd4",
+      "id": "4979e851-4621-422e-8759-7e9e8d7e61ae",
       "accession_number": "SRM-2026-084",
       "title": "Tomorrow Was Yesterday",
       "record_type": "Archive",
@@ -2067,7 +2067,7 @@
       "image_thumb_file": "thumbs/coll055.jpg"
     },
     {
-      "id": "952463a4-ed2b-4fc1-8834-2ce6011fb7d6",
+      "id": "b4427319-0361-45f5-8653-544455add6a6",
       "accession_number": "SRM-2026-085",
       "title": "On-the-Job Education in Rural Communities (inscribed title-page copy)",
       "record_type": "Archive",
@@ -2104,7 +2104,7 @@
       "image_thumb_file": "thumbs/coll056.jpg"
     },
     {
-      "id": "102dc239-4642-4e14-81f6-4772c1ad722d",
+      "id": "dcbad9de-89f7-4450-94f6-4a577a0896b4",
       "accession_number": "SRM-2026-086",
       "title": "On-the-Job Education in Rural Communities (cover copy)",
       "record_type": "Archive",
@@ -2141,7 +2141,7 @@
       "image_thumb_file": "thumbs/coll057.jpg"
     },
     {
-      "id": "61917f26-b533-4dd4-b20c-da7d33945b2d",
+      "id": "4f842080-c2fc-4f5c-80e7-759d09b9dd83",
       "accession_number": "SRM-2026-087",
       "title": "Closing Day Treasury",
       "record_type": "Archive",
@@ -2178,7 +2178,7 @@
       "image_thumb_file": "thumbs/coll058.jpg"
     },
     {
-      "id": "6a194fb6-b6ee-4b82-9c4b-6a8890ddaa8b",
+      "id": "8f7d5194-3308-45e8-b45e-3ab685b716a1",
       "accession_number": "SRM-2026-088",
       "title": "Recitation Time",
       "record_type": "Archive",
@@ -2215,7 +2215,7 @@
       "image_thumb_file": "thumbs/coll059.jpg"
     },
     {
-      "id": "4eceeaf5-ef8c-4731-b30b-5114450eefc3",
+      "id": "6ed07998-3666-45c2-beb0-8b7b452cbef8",
       "accession_number": "SRM-2026-089",
       "title": "School Laws of the State of Mississippi",
       "record_type": "Archive",
@@ -2252,7 +2252,7 @@
       "image_thumb_file": "thumbs/coll060.jpg"
     },
     {
-      "id": "fed29963-c56e-4ed0-b78b-e25c65a85c30",
+      "id": "e7ce92f1-ba2e-48ef-b949-e2fe0019c310",
       "accession_number": "SRM-2026-090",
       "title": "Fortieth Annual Convention of the Fifth Educational District of Mississippi Teachers Association",
       "record_type": "Archive",
@@ -2289,7 +2289,7 @@
       "image_thumb_file": "thumbs/coll061.jpg"
     },
     {
-      "id": "6bb257aa-e34c-4339-825b-16303c6d8dec",
+      "id": "5f17400f-1d1b-48d5-b520-93e27c9d6b70",
       "accession_number": "SRM-2026-091",
       "title": "Rules and Regulations for the Certification of the Administrative and Instructional Personnel (plain copy)",
       "record_type": "Archive",
@@ -2326,7 +2326,7 @@
       "image_thumb_file": "thumbs/coll062.jpg"
     },
     {
-      "id": "6872de4b-6d01-4061-b35b-396e686e6b3e",
+      "id": "c835e436-5d38-4ecf-b2aa-4cdeb6b03f07",
       "accession_number": "SRM-2026-092",
       "title": "The County Superintendent of Schools in the United States",
       "record_type": "Archive",
@@ -2363,7 +2363,7 @@
       "image_thumb_file": "thumbs/coll063.jpg"
     },
     {
-      "id": "ee414eda-e737-4030-8493-03c753ef4e00",
+      "id": "a197a153-47f5-4689-8254-73692a032ead",
       "accession_number": "SRM-2026-093",
       "title": "Souvenir Program of Miss Tan America Morton Pageant",
       "record_type": "Archive",
@@ -2400,7 +2400,7 @@
       "image_thumb_file": "thumbs/coll064.jpg"
     },
     {
-      "id": "9618fca4-7fcf-4e8b-8a79-c7e228c04b93",
+      "id": "ba28d929-c742-4714-bcab-0057d4301ea1",
       "accession_number": "SRM-2026-094",
       "title": "The Southern Register (Fall 1985)",
       "record_type": "Archive",
@@ -2437,7 +2437,7 @@
       "image_thumb_file": "thumbs/coll065.jpg"
     },
     {
-      "id": "9ab4847e-7e6b-483d-83f2-d9e94650c73b",
+      "id": "447ee9c2-e203-409a-95a1-d9a9b372638b",
       "accession_number": "SRM-2026-095",
       "title": "From Nancy Cabot's Scrapbook quilt clipping",
       "record_type": "Archive",
@@ -2474,7 +2474,7 @@
       "image_thumb_file": "thumbs/coll066.jpg"
     },
     {
-      "id": "14d283f5-cc8e-4879-b8ab-1d176b583d49",
+      "id": "0148bf34-7a76-414e-b698-a772c471a601",
       "accession_number": "SRM-2026-096",
       "title": "Bound scrapbook or notebook with inserted typed historical document",
       "record_type": "Archive",
@@ -2511,7 +2511,7 @@
       "image_thumb_file": "thumbs/coll067.jpg"
     },
     {
-      "id": "13959d5c-886f-4d05-8f50-5896bf929bd8",
+      "id": "0b5782a9-8958-457c-a132-a568ea27702b",
       "accession_number": "SRM-2026-097",
       "title": "Beaded gourd vessel with white and red netting",
       "record_type": "Artifact",
@@ -2548,7 +2548,7 @@
       "image_thumb_file": "thumbs/coll068.jpg"
     },
     {
-      "id": "f7172cf6-76c6-4766-8e02-e1d578836287",
+      "id": "e1a2136a-e552-4ca4-818a-7089f52470ac",
       "accession_number": "SRM-2026-098",
       "title": "Beaded gourd vessel marked Kuba",
       "record_type": "Artifact",
@@ -2585,7 +2585,7 @@
       "image_thumb_file": "thumbs/coll069.jpg"
     },
     {
-      "id": "f355b892-165f-42d6-8026-17725f31c648",
+      "id": "a20fded8-c9d8-4bc1-9dc6-b601b4a1db47",
       "accession_number": "SRM-2026-099",
       "title": "A Neighborhood Discovery exhibition brochure",
       "record_type": "Archive",
@@ -2622,7 +2622,7 @@
       "image_thumb_file": "thumbs/coll070.jpg"
     },
     {
-      "id": "3f434671-8495-4ac8-ac08-77c39eefcfd3",
+      "id": "64fe6ad2-e34c-40e5-aa28-4b4532a8a17f",
       "accession_number": "SRM-2026-100",
       "title": "Black Fashion Museum exhibition brochure",
       "record_type": "Archive",
@@ -2659,7 +2659,7 @@
       "image_thumb_file": "thumbs/coll071.jpg"
     },
     {
-      "id": "7b19c7c1-1e7a-430f-b794-6878255c03a3",
+      "id": "92f057d9-413b-4825-88a6-13a0c446b1a4",
       "accession_number": "SRM-2026-101",
       "title": "Farish Street Historic District brochure",
       "record_type": "Archive",
@@ -2667,7 +2667,7 @@
       "collection_entity_id": null,
       "collection_name": "Programs And Ephemera",
       "location": "Archives Storage",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Arts And Culture",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "1980s",
@@ -2696,7 +2696,7 @@
       "image_thumb_file": "thumbs/coll072.jpg"
     },
     {
-      "id": "b51f92bc-8376-4579-a1d4-84188751e6da",
+      "id": "ce611251-402f-4adb-9cce-e68a6a83af30",
       "accession_number": "SRM-2026-102",
       "title": "Opera/South program packet",
       "record_type": "Archive",
@@ -2733,7 +2733,7 @@
       "image_thumb_file": "thumbs/coll073.jpg"
     },
     {
-      "id": "4b6396c3-86d0-422b-939d-a63adec7771f",
+      "id": "013a78fc-458e-4803-94cc-2cddbb0ea073",
       "accession_number": "SRM-2026-103",
       "title": "SRA Reading Laboratory IIa student record book",
       "record_type": "Archive",
@@ -2770,7 +2770,7 @@
       "image_thumb_file": "thumbs/coll074.jpg"
     },
     {
-      "id": "41ec2786-fcf7-4b8a-87b3-2c7fbcd98bad",
+      "id": "ea159eca-423c-48ec-9e72-12699a10fde8",
       "accession_number": "SRM-2026-104",
       "title": "SRA Reading Laboratory IIc student record book",
       "record_type": "Archive",
@@ -2807,7 +2807,7 @@
       "image_thumb_file": "thumbs/coll075.jpg"
     },
     {
-      "id": "ab5bcb00-4290-4e18-9619-02300c35ea18",
+      "id": "9d42e9d6-c77b-4be6-ba14-80e93e79f578",
       "accession_number": "SRM-2026-105",
       "title": "Jackson Public Schools admission application assigned to Robertson School, September 4, 1957",
       "record_type": "Archive",
@@ -2845,7 +2845,7 @@
       "image_thumb_file": "thumbs/coll076.jpg"
     },
     {
-      "id": "5bee0e74-95b3-42e1-8844-356e8d456f13",
+      "id": "514a2557-ec6d-4070-a74d-d699568a51f8",
       "accession_number": "SRM-2026-106",
       "title": "Jackson Public Schools admission application for Betti Ann Larry",
       "record_type": "Archive",
@@ -2883,7 +2883,7 @@
       "image_thumb_file": "thumbs/coll077.jpg"
     },
     {
-      "id": "1e2e69cb-a488-4586-82f5-8b5fe705fb13",
+      "id": "baba616c-3dda-4ae1-b5b2-fa8b5827fa63",
       "accession_number": "SRM-2026-107",
       "title": "Jackson Public Schools admission application for Andra Jerome Robinson",
       "record_type": "Archive",
@@ -2921,7 +2921,7 @@
       "image_thumb_file": "thumbs/coll078.jpg"
     },
     {
-      "id": "7c4d0edf-c044-498b-af42-2f6f99618a4a",
+      "id": "08112db3-9254-4b59-9af3-b939d5728627",
       "accession_number": "SRM-2026-108",
       "title": "Jackson Public Schools admission application for Richard Oddie",
       "record_type": "Archive",
@@ -2959,7 +2959,7 @@
       "image_thumb_file": "thumbs/coll079.jpg"
     },
     {
-      "id": "4a21ef5a-b366-4048-bdb5-7d3ab90d7e5a",
+      "id": "d43cb484-ee4d-4745-b04d-566d7e2ebcb1",
       "accession_number": "SRM-2026-109",
       "title": "Jackson Public Schools admission application for Diane Lee Robinson",
       "record_type": "Archive",
@@ -2997,7 +2997,7 @@
       "image_thumb_file": "thumbs/coll080.jpg"
     },
     {
-      "id": "a5dfd65b-3e66-49b9-b4bc-da1ea1a40269",
+      "id": "8d5ac0b7-c63d-4631-b23c-ad4e710ac017",
       "accession_number": "SRM-2026-110",
       "title": "Jackson Public Schools admission application for James J. C. Horne",
       "record_type": "Archive",
@@ -3034,7 +3034,7 @@
       "image_thumb_file": "thumbs/coll081.jpg"
     },
     {
-      "id": "71f8ae85-ab01-4fbf-9fe9-b76fb0fdc6cd",
+      "id": "564fa5bf-a7dd-40e9-8674-ec91e3b0f48f",
       "accession_number": "SRM-2026-111",
       "title": "Jackson Public Schools admission application for Lillie Mae White",
       "record_type": "Archive",
@@ -3072,7 +3072,7 @@
       "image_thumb_file": "thumbs/coll082.jpg"
     },
     {
-      "id": "27fb71ab-087b-43e0-99e3-a74bdf3ad47b",
+      "id": "6ce8ffef-5cf1-44d3-a87b-e11ea98add84",
       "accession_number": "SRM-2026-112",
       "title": "Jackson Public Schools admission application for Carol Lula Jones",
       "record_type": "Archive",
@@ -3109,7 +3109,7 @@
       "image_thumb_file": "thumbs/coll083.jpg"
     },
     {
-      "id": "e9655fc4-0819-4660-be58-f56b54693ba6",
+      "id": "31465c3b-4c29-4663-93eb-809eee455f7e",
       "accession_number": "SRM-2026-113",
       "title": "Jackson Public Schools admission application for Sarah Jennie Lindsey",
       "record_type": "Archive",
@@ -3147,7 +3147,7 @@
       "image_thumb_file": "thumbs/coll084.jpg"
     },
     {
-      "id": "1dbea676-a685-42c0-ae46-923e9621d765",
+      "id": "18698559-10ed-44fa-b785-7b5c58bfd689",
       "accession_number": "SRM-2026-114",
       "title": "Leather portfolio embossed for Dr. Margaret Walker Alexander",
       "record_type": "Artifact",
@@ -3185,7 +3185,7 @@
       "image_thumb_file": "thumbs/coll090.jpg"
     },
     {
-      "id": "cb4f13bf-4c1f-41ae-ad1e-f333cdb73902",
+      "id": "74dbadcb-b871-4566-8352-9ed86060e1b9",
       "accession_number": "SRM-2026-115",
       "title": "Grouped artifacts including camera, soap box, and two small irons",
       "record_type": "Artifact",
@@ -3193,7 +3193,7 @@
       "collection_entity_id": null,
       "collection_name": "Material Culture Collection",
       "location": "Artifact Storage",
-      "historical_theme": "Family and Community Life",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "Geographies To Be Confirmed",
       "time_period": "20th century",
@@ -3217,7 +3217,7 @@
       "image_thumb_file": "thumbs/coll091.jpg"
     },
     {
-      "id": "b85c968a-03a2-4146-a4d9-3d991ceffce5",
+      "id": "6d98ca9a-7e3e-44f0-8453-5e43cf9282e4",
       "accession_number": "SRM-2026-116",
       "title": "Alamo Theatre September 1976 promotional calendar",
       "record_type": "Archive",
@@ -3225,7 +3225,7 @@
       "collection_entity_id": null,
       "collection_name": "Farish Street Business District Collection",
       "location": "Archives Storage",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Arts And Culture",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "1970s",
@@ -3249,7 +3249,7 @@
       "image_thumb_file": "thumbs/coll092.jpg"
     },
     {
-      "id": "7474a3f7-13a0-4f24-8b04-d7984f22529b",
+      "id": "a133b8ee-a95c-476c-a2bd-6348442b5b44",
       "accession_number": "SRM-2026-117",
       "title": "Painting of seated woman holding child with teddy bear",
       "record_type": "Artifact",
@@ -3257,7 +3257,7 @@
       "collection_entity_id": null,
       "collection_name": "Art Collection",
       "location": "Object Storage",
-      "historical_theme": "Family and Community Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Geographies To Be Confirmed",
       "time_period": "20th century",
@@ -3286,7 +3286,7 @@
       "image_thumb_file": "thumbs/coll093.jpg"
     },
     {
-      "id": "fda8ebea-70d6-493a-b9dd-e0f253df55b2",
+      "id": "2aa0f0c7-c083-4770-8093-6984bd9b8aa6",
       "accession_number": "SRM-2026-118",
       "title": "Portrait of elderly woman holding infant",
       "record_type": "Photograph",
@@ -3294,7 +3294,7 @@
       "collection_entity_id": null,
       "collection_name": "Photograph Collection",
       "location": "Photo Storage",
-      "historical_theme": "Family and Community Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Geographies To Be Confirmed",
       "time_period": "20th century",
@@ -3320,7 +3320,7 @@
       "image_thumb_file": "thumbs/coll094.jpg"
     },
     {
-      "id": "94e21329-3869-4324-aa59-9a4d38523f7b",
+      "id": "fa650d6d-1c08-460b-ac38-f9667e5c9c02",
       "accession_number": "SRM-2026-119",
       "title": "Interior photograph of women working in laundry room",
       "record_type": "Photograph",
@@ -3357,7 +3357,7 @@
       "image_thumb_file": "thumbs/coll095.jpg"
     },
     {
-      "id": "09cfdf49-0f10-4f52-bff1-9a0abcdd31c2",
+      "id": "5fd0a56e-0f35-4df4-805d-c8d92f291346",
       "accession_number": "SRM-2026-120",
       "title": "Photograph of child receiving oral examination",
       "record_type": "Photograph",
@@ -3391,7 +3391,7 @@
       "image_thumb_file": "thumbs/coll096.jpg"
     },
     {
-      "id": "6542729e-33f3-4b18-adb3-7ef56bb1a2ab",
+      "id": "13df1329-9222-4b54-9ad8-fd932a41198d",
       "accession_number": "SRM-2026-121",
       "title": "Photograph of house exterior",
       "record_type": "Photograph",
@@ -3427,7 +3427,7 @@
       "image_thumb_file": "thumbs/coll097.jpg"
     },
     {
-      "id": "ad30448c-8844-4996-98e9-58eb858ed071",
+      "id": "6e83e7c5-a547-4570-87de-c3f44ede978f",
       "accession_number": "SRM-2026-122",
       "title": "Framed abstract print with bird and reclining figure motifs",
       "record_type": "Artifact",
@@ -3464,7 +3464,7 @@
       "image_thumb_file": "thumbs/coll098.jpg"
     },
     {
-      "id": "9cfa1d12-6583-403b-9536-efb7dbe80cb8",
+      "id": "c2f78389-00df-4c10-ae44-9520bd126043",
       "accession_number": "SRM-2026-123",
       "title": "Portrait clipping of Virginia Scott (Scott Ford Houses)",
       "record_type": "Archive",
@@ -3502,7 +3502,7 @@
       "image_thumb_file": "thumbs/coll099.jpg"
     },
     {
-      "id": "43cc849a-db19-4c5c-9cd8-add5c46ca9d0",
+      "id": "1f281605-d9be-45ae-9ee2-a2ae7ca7a716",
       "accession_number": "SRM-2026-124",
       "title": "Post Office Department appointment certificate for Thomas Keys",
       "record_type": "Archive",
@@ -3539,7 +3539,7 @@
       "image_thumb_file": "thumbs/coll100.jpg"
     },
     {
-      "id": "a401c60d-57d9-42c8-9c75-7b70f83a9e97",
+      "id": "d9f56bb6-ad4b-406b-a06e-73fcfbc9bc0e",
       "accession_number": "SRM-2026-125",
       "title": "\"Delta Fishing\" woodcut print",
       "record_type": "Artifact",
@@ -3576,7 +3576,7 @@
       "image_thumb_file": "thumbs/coll101.jpg"
     },
     {
-      "id": "67cdb0e5-8042-4ebd-b0df-ee6d0a707b6e",
+      "id": "549edf7a-5567-4fd2-ade0-526773981a11",
       "accession_number": "SRM-2026-126",
       "title": "Untitled expressionist portrait print in green and red tones",
       "record_type": "Artifact",
@@ -3613,7 +3613,7 @@
       "image_thumb_file": "thumbs/coll102.jpg"
     },
     {
-      "id": "83fd6d63-1d66-4259-b548-a7663139f5c1",
+      "id": "d65f0f82-2f38-4f49-86f4-7e47554c1cce",
       "accession_number": "SRM-2026-127",
       "title": "Cotton branch photograph",
       "record_type": "Photograph",
@@ -3650,7 +3650,7 @@
       "image_thumb_file": "thumbs/coll103.jpg"
     },
     {
-      "id": "8c9ad994-71bb-4b7e-b505-b28c6eacb139",
+      "id": "e91179b6-4683-4ba4-a4b5-eb837c9ce656",
       "accession_number": "SRM-2026-128",
       "title": "Photograph of Fannie Lou Hamer speaking at microphones",
       "record_type": "Photograph",
@@ -3688,7 +3688,7 @@
       "image_thumb_file": "thumbs/coll104.jpg"
     },
     {
-      "id": "c694c808-4666-4978-a6c3-101122584411",
+      "id": "cc256888-7583-4d4d-a899-b148b63d7738",
       "accession_number": "SRM-2026-129",
       "title": "Framed drawing of seated figure",
       "record_type": "Artifact",
@@ -3724,7 +3724,7 @@
       "image_thumb_file": "thumbs/coll105.jpg"
     },
     {
-      "id": "104dc795-c1d4-4acc-90c3-cadb2760ea26",
+      "id": "e7c72612-c52b-4662-9c14-35cab0b1ea3f",
       "accession_number": "SRM-2026-130",
       "title": "Sony Walkman cassette player",
       "record_type": "Artifact",
@@ -3761,7 +3761,7 @@
       "image_thumb_file": "thumbs/coll106.jpg"
     },
     {
-      "id": "8be65c9f-a59d-4de1-9dd7-a6014cf9a5d4",
+      "id": "f59b067d-30f9-46ad-a156-59a050c9677e",
       "accession_number": "SRM-2026-131",
       "title": "Portrait photograph of O.B. Cobbins",
       "record_type": "Photograph",
@@ -3798,7 +3798,7 @@
       "image_thumb_file": "thumbs/coll107.jpg"
     },
     {
-      "id": "8812feb6-ccfa-4e43-a652-b78dd4a71463",
+      "id": "56a5d2cd-2d41-4f45-8927-ff28d8c83976",
       "accession_number": "SRM-2026-132",
       "title": "Portrait photograph of Mary Scott (Scott Ford Houses)",
       "record_type": "Photograph",
@@ -3835,7 +3835,7 @@
       "image_thumb_file": "thumbs/coll108.jpg"
     },
     {
-      "id": "8f3894ec-b717-4357-800a-2313514692f7",
+      "id": "1e105d0f-06f1-4b1a-beb3-341fdc2eeeea",
       "accession_number": "SRM-2026-133",
       "title": "Freestanding photographic lamp or studio light",
       "record_type": "Artifact",
@@ -3872,7 +3872,7 @@
       "image_thumb_file": "thumbs/coll109.jpg"
     },
     {
-      "id": "45447ddf-b934-4877-b76b-58f2c135cfc0",
+      "id": "1da735ad-6097-44df-a049-52c95a96932c",
       "accession_number": "SRM-2026-134",
       "title": "Collapsible tripod or equipment stand parts",
       "record_type": "Artifact",
@@ -3909,7 +3909,7 @@
       "image_thumb_file": "thumbs/coll110.jpg"
     },
     {
-      "id": "02425d79-54c3-42e9-a3c6-171896b618c0",
+      "id": "733ec6d5-68e2-4bb1-8cb5-41eb4234002c",
       "accession_number": "SRM-2026-135",
       "title": "Kodak Carousel slide projector with trays",
       "record_type": "Artifact",
@@ -3946,7 +3946,7 @@
       "image_thumb_file": "thumbs/coll111.jpg"
     },
     {
-      "id": "62402329-4805-4929-bfce-cd6ca34df6fc",
+      "id": "6a8832a8-6d6c-4a1d-90d9-69046e8a601d",
       "accession_number": "SRM-2026-136",
       "title": "White enamel wash basin",
       "record_type": "Artifact",
@@ -3982,7 +3982,7 @@
       "image_thumb_file": "thumbs/coll112.jpg"
     },
     {
-      "id": "6b2ae43c-2c10-48f7-839a-365f6b0a6a82",
+      "id": "c1653f2f-7427-4e40-9c6b-b5f946033177",
       "accession_number": "SRM-2026-137",
       "title": "Circular slide carousel tray",
       "record_type": "Artifact",
@@ -4019,7 +4019,7 @@
       "image_thumb_file": "thumbs/coll113.jpg"
     },
     {
-      "id": "a0711377-661b-4498-8b78-623ab84b3f13",
+      "id": "a6c24deb-4818-41fe-aceb-23e1e4b78026",
       "accession_number": "SRM-2026-138",
       "title": "Metal motion-picture film reel",
       "record_type": "Artifact",
@@ -4056,7 +4056,7 @@
       "image_thumb_file": "thumbs/coll114.jpg"
     },
     {
-      "id": "121e1cd7-caec-48cb-90f2-334098bb7900",
+      "id": "e1ca2209-6921-4f42-9d7c-91a2db0231ec",
       "accession_number": "SRM-2026-139",
       "title": "Bell & Howell movie camera",
       "record_type": "Artifact",
@@ -4093,7 +4093,7 @@
       "image_thumb_file": "thumbs/coll115.jpg"
     },
     {
-      "id": "c93aa920-cbe5-4457-aa33-382d43da1fcb",
+      "id": "a3a4ecf9-02f9-4923-9a49-662ff7f2cc1b",
       "accession_number": "SRM-2026-140",
       "title": "Portable audiovisual player or projector unit",
       "record_type": "Artifact",
@@ -4130,7 +4130,7 @@
       "image_thumb_file": "thumbs/coll116.jpg"
     },
     {
-      "id": "e8ffc906-6aaa-4c77-9086-847948f25e0e",
+      "id": "8b4bda55-66a2-40cb-96be-37a2307ad3c4",
       "accession_number": "SRM-2026-141",
       "title": "Large metal motion-picture reel",
       "record_type": "Artifact",
@@ -4167,7 +4167,7 @@
       "image_thumb_file": "thumbs/coll117.jpg"
     },
     {
-      "id": "edbd6827-6505-4293-900d-fe189544191e",
+      "id": "0a0ea793-f48f-404c-8a22-1321a0cc16e7",
       "accession_number": "SRM-2026-142",
       "title": "Assorted cassette tapes and recording media",
       "record_type": "Artifact",
@@ -4204,7 +4204,7 @@
       "image_thumb_file": "thumbs/coll118.jpg"
     },
     {
-      "id": "7aa239f2-7366-4ee3-9ce5-b9e599ccb815",
+      "id": "0a8638bf-201c-48ad-99c8-80f63af01e8a",
       "accession_number": "SRM-2026-143",
       "title": "Richard Beadle camera equipment with leather pouch",
       "record_type": "Artifact",
@@ -4241,7 +4241,7 @@
       "image_thumb_file": "thumbs/coll119.jpg"
     },
     {
-      "id": "e083a94f-6165-4b59-89b1-505c7ccae414",
+      "id": "50dfe352-32a4-49c8-8043-2bdf497b8004",
       "accession_number": "SRM-2026-144",
       "title": "Packets of photographic film",
       "record_type": "Artifact",
@@ -4278,7 +4278,7 @@
       "image_thumb_file": "thumbs/coll120.jpg"
     },
     {
-      "id": "9b1cd3d5-36cc-4928-82fb-96e56a9fb9d7",
+      "id": "b56d6889-94cf-4643-82d8-7c91d8655988",
       "accession_number": "SRM-2026-145",
       "title": "Kodak box camera with film cartridge",
       "record_type": "Artifact",
@@ -4315,7 +4315,7 @@
       "image_thumb_file": "thumbs/coll121.jpg"
     },
     {
-      "id": "51b2d50c-3fcb-4868-8cf7-28c50f98feca",
+      "id": "f613d5e5-b5ff-4b17-99d5-be8d5eb09a87",
       "accession_number": "SRM-2026-146",
       "title": "Alamo Theatre ephemera and movie memorabilia assortment",
       "record_type": "Artifact",
@@ -4323,7 +4323,7 @@
       "collection_entity_id": null,
       "collection_name": "SRM Collection",
       "location": "Object Storage",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Arts And Culture",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "1970s",
@@ -4353,7 +4353,7 @@
       "image_thumb_file": "thumbs/coll122.jpg"
     },
     {
-      "id": "f6762235-44da-4fa2-b96b-a57c130d3dcb",
+      "id": "9f65e0ec-57b1-4a0a-b699-8460fbca4176",
       "accession_number": "SRM-2026-147",
       "title": "Light-colored felt hat",
       "record_type": "Artifact",
@@ -4389,7 +4389,7 @@
       "image_thumb_file": "thumbs/coll123.jpg"
     },
     {
-      "id": "4b56d897-288e-4560-b993-f5833e5173aa",
+      "id": "a02d57f6-2d0c-44f1-871c-c67150eb46ee",
       "accession_number": "SRM-2026-148",
       "title": "Personal effects group with hat, handbag, and printed materials",
       "record_type": "Artifact",
@@ -4426,7 +4426,7 @@
       "image_thumb_file": "thumbs/coll124.jpg"
     },
     {
-      "id": "13b12541-f3e0-4f25-8283-038323f1eb17",
+      "id": "666fa603-0ebd-421f-a9fb-814bd7716549",
       "accession_number": "SRM-2026-149",
       "title": "Photography slides and slide mounts",
       "record_type": "Artifact",
@@ -4463,7 +4463,7 @@
       "image_thumb_file": "thumbs/coll125.jpg"
     },
     {
-      "id": "51905fef-a540-4739-ae23-112fe13c1116",
+      "id": "6fbe7e07-69d7-4f8a-b803-934bbe786106",
       "accession_number": "SRM-2026-150",
       "title": "Vintage camera with flash attachment and cable release",
       "record_type": "Artifact",
@@ -4500,7 +4500,7 @@
       "image_thumb_file": "thumbs/coll126.jpg"
     },
     {
-      "id": "8f919153-8167-4fa5-b0f8-b12c6aa1c23d",
+      "id": "02676b10-af89-4a57-a36c-6072d86693c9",
       "accession_number": "SRM-2026-151",
       "title": "Photographic accessory set with slide viewers",
       "record_type": "Artifact",
@@ -4537,7 +4537,7 @@
       "image_thumb_file": "thumbs/coll127.jpg"
     },
     {
-      "id": "ad93a4ec-d67f-4904-bca7-ae6ff71d1ff8",
+      "id": "3a0ae72a-a62b-4b3c-beba-311265303faa",
       "accession_number": "SRM-2026-152",
       "title": "Eyeglasses in case",
       "record_type": "Artifact",
@@ -4573,7 +4573,7 @@
       "image_thumb_file": "thumbs/coll128.jpg"
     },
     {
-      "id": "b67f3d62-3d97-4626-b089-c0ff20c6388f",
+      "id": "03ed9f9c-6ba2-43a4-bb2c-b29889521d02",
       "accession_number": "SRM-2026-153",
       "title": "Camera equipment group with twin-lens camera and accessories",
       "record_type": "Artifact",
@@ -4610,7 +4610,7 @@
       "image_thumb_file": "thumbs/coll129.jpg"
     },
     {
-      "id": "33b77dc0-1b9c-4af5-94b7-55b6a8dbb6ea",
+      "id": "e9293b37-3a96-4cf0-b09f-5af3de657b55",
       "accession_number": "SRM-2026-154",
       "title": "Leather camera or equipment case",
       "record_type": "Artifact",
@@ -4647,7 +4647,7 @@
       "image_thumb_file": "thumbs/coll130.jpg"
     },
     {
-      "id": "f48228ad-2d4f-4f4c-afa8-e889dcc7dfac",
+      "id": "7bb86066-3de9-46d6-9e3f-29481e722705",
       "accession_number": "SRM-2026-155",
       "title": "Pair of photographic reflector lamps",
       "record_type": "Artifact",
@@ -4684,7 +4684,7 @@
       "image_thumb_file": "thumbs/coll131.jpg"
     },
     {
-      "id": "8baca29d-9a3c-4748-ba7c-8fb8611d1dd7",
+      "id": "95f51b61-9de7-47c9-9619-c1e3d9c16c9e",
       "accession_number": "SRM-2026-156",
       "title": "Ricohflex twin-lens reflex camera",
       "record_type": "Artifact",
@@ -4721,7 +4721,7 @@
       "image_thumb_file": "thumbs/coll132.jpg"
     },
     {
-      "id": "192870af-ca9a-4c5d-a1f6-10e21775b427",
+      "id": "709fc2bb-a191-45be-b975-3673a5beca83",
       "accession_number": "SRM-2026-157",
       "title": "Assorted photographic flash reflectors",
       "record_type": "Artifact",
@@ -4758,7 +4758,7 @@
       "image_thumb_file": "thumbs/coll133.jpg"
     },
     {
-      "id": "e4d92eb9-a6ab-4b2a-b366-4531739be9d1",
+      "id": "c5a6651e-d072-4155-a2d6-3aa46cd6e32a",
       "accession_number": "SRM-2026-158",
       "title": "Framed photograph of doctor examining child with mother present",
       "record_type": "Artifact",
@@ -4766,7 +4766,7 @@
       "collection_entity_id": null,
       "collection_name": "SRM Collection",
       "location": "Object Storage",
-      "historical_theme": "Family and Community Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "20th century",
@@ -4796,7 +4796,7 @@
       "image_thumb_file": "thumbs/coll134.jpg"
     },
     {
-      "id": "5682527d-0295-4f3c-9b4a-90bf491233ac",
+      "id": "d714035e-4a20-41bc-83dc-f0bfb115207d",
       "accession_number": "SRM-2026-159",
       "title": "Framed photograph of man playing bowed string instrument",
       "record_type": "Artifact",
@@ -4833,7 +4833,7 @@
       "image_thumb_file": "thumbs/coll135.jpg"
     },
     {
-      "id": "30324fd7-6a81-4bc0-9a44-ef79cb1ce82d",
+      "id": "45e5dd07-445d-4aaa-8bd4-cc197ecb4ecb",
       "accession_number": "SRM-2026-161",
       "title": "Bronze-toned sculpture of multigenerational family group",
       "record_type": "Artifact",
@@ -4841,7 +4841,7 @@
       "collection_entity_id": null,
       "collection_name": "SRM Collection",
       "location": "Object Storage",
-      "historical_theme": "Family and Community Life",
+      "historical_theme": "Family And Local Life",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "20th century",
@@ -4870,7 +4870,7 @@
       "image_thumb_file": "thumbs/coll136.jpg"
     },
     {
-      "id": "18bcea24-d742-4487-8080-cb60921f9674",
+      "id": "19c4cc41-d5bf-48f8-9ef3-ed76a658f0d4",
       "accession_number": "SRM-2026-162",
       "title": "Dr. C.L. Barnes Dentist sign",
       "record_type": "Artifact",
@@ -4907,7 +4907,7 @@
       "image_thumb_file": "thumbs/coll137.jpg"
     },
     {
-      "id": "5461f4d5-7f47-41e8-bd01-8ce5550946e6",
+      "id": "47949f00-39d9-4488-8e3f-cfa3d9be34de",
       "accession_number": "SRM-2026-163",
       "title": "Framed photograph of Otis Grocery Store on Farish Street",
       "record_type": "Artifact",
@@ -4915,7 +4915,7 @@
       "collection_entity_id": null,
       "collection_name": "SRM Collection",
       "location": "Object Storage",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "20th century",
@@ -4945,7 +4945,7 @@
       "image_thumb_file": "thumbs/coll138.jpg"
     },
     {
-      "id": "2f35ebe0-f6d0-4146-9721-208835ab04d6",
+      "id": "4d85d5ed-8d29-49d1-8e7c-f286fb817a23",
       "accession_number": "SRM-2026-164",
       "title": "Sony Walkman cassette player",
       "record_type": "Artifact",
@@ -4982,7 +4982,7 @@
       "image_thumb_file": "thumbs/coll139.jpg"
     },
     {
-      "id": "3cf83c9e-2353-4341-b9cd-3c376ce37419",
+      "id": "92f4fc38-49b7-47b5-8017-dca83739f0c9",
       "accession_number": "SRM-2026-165",
       "title": "Small camera and accessory group",
       "record_type": "Artifact",
@@ -5019,7 +5019,7 @@
       "image_thumb_file": "thumbs/coll140.jpg"
     },
     {
-      "id": "341044d2-35ca-495e-9cf0-46389060ec8a",
+      "id": "010d8705-f400-4118-8030-f3fffe3e1776",
       "accession_number": "SRM-2026-168",
       "title": "Snowball fight in Jackson",
       "record_type": "Artifact",
@@ -5027,7 +5027,7 @@
       "collection_entity_id": null,
       "collection_name": "SRM Collection",
       "location": "Object Storage",
-      "historical_theme": "Community Life and Leisure",
+      "historical_theme": "Family And Local Life",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "20th century",
@@ -5057,7 +5057,7 @@
       "image_thumb_file": "thumbs/coll141.jpg"
     },
     {
-      "id": "622d9af1-7561-4c84-86ff-a93eff01c7e6",
+      "id": "451d57da-467e-43d5-a4bc-0d97df3a4447",
       "accession_number": "SRM-2026-169",
       "title": "Pair of worn sandals or flip-flops",
       "record_type": "Artifact",
@@ -5093,7 +5093,7 @@
       "image_thumb_file": "thumbs/coll142.jpg"
     },
     {
-      "id": "0eb66a2d-3487-4bf1-911d-48673a432b9a",
+      "id": "10adb60c-7d80-43ff-a3c5-aba1b60c5ea4",
       "accession_number": "SRM-2026-170",
       "title": "School group portrait on brick steps",
       "record_type": "Artifact",
@@ -5130,7 +5130,7 @@
       "image_thumb_file": "thumbs/coll143.jpg"
     },
     {
-      "id": "e7c8edc4-daad-4180-9a83-033f203b04ac",
+      "id": "f6fab621-1ba6-4f73-92da-dbb9805b937d",
       "accession_number": "SRM-2026-171",
       "title": "4-H Club meeting at Piney Woods School, August 5-10, 1929",
       "record_type": "Artifact",
@@ -5168,7 +5168,7 @@
       "image_thumb_file": "thumbs/coll144.jpg"
     },
     {
-      "id": "a6b7b311-0f3c-478c-92b8-15897c42b95c",
+      "id": "e0a85dd2-762d-495b-91eb-6a58d0a59036",
       "accession_number": "SRM-2026-172",
       "title": "Civil Rights Acts and Voting Rights Act committee print, November 1975",
       "record_type": "Artifact",
@@ -5206,7 +5206,7 @@
       "image_thumb_file": "thumbs/coll145.jpg"
     },
     {
-      "id": "9b7b5b90-bcf2-4556-8f1f-11b23935d9cb",
+      "id": "b1740a68-f687-4c79-9216-ed23a7ad0f93",
       "accession_number": "SRM-2026-182",
       "title": "Portrait photograph of James Meredith",
       "record_type": "Photograph",
@@ -5243,7 +5243,7 @@
       "image_thumb_file": "thumbs/coll146.jpg"
     },
     {
-      "id": "c6b60043-7146-4254-875a-bf09ad631aa0",
+      "id": "47e70889-1ddd-4987-a680-e321a3d5cc0f",
       "accession_number": "SRM-2026-183",
       "title": "Portrait photograph of James Meredith's wife",
       "record_type": "Photograph",
@@ -5280,7 +5280,7 @@
       "image_thumb_file": "thumbs/coll147.jpg"
     },
     {
-      "id": "e9c58045-b3d4-47bc-bf8b-6212fe08dd32",
+      "id": "4b3c1036-a5c1-4864-bd95-ac0af20e02a2",
       "accession_number": "SRM-2026-184",
       "title": "Untitled design batch image 3 (provisional)",
       "record_type": "Artifact",
@@ -5288,7 +5288,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -5316,7 +5316,7 @@
       "image_thumb_file": "thumbs/coll148.jpg"
     },
     {
-      "id": "09c73531-f114-4d3e-8016-80cdf2ea25b3",
+      "id": "a54117be-ad35-4c09-8ffc-ccb4943c1129",
       "accession_number": "SRM-2026-185",
       "title": "Man and two children on Farish Street",
       "record_type": "Photograph",
@@ -5324,7 +5324,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Family And Local Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "early 20th century",
@@ -5354,7 +5354,7 @@
       "image_thumb_file": "thumbs/coll149.jpg"
     },
     {
-      "id": "c1aa9a50-100d-432d-a800-a2d18c5063d5",
+      "id": "2a1e484e-83cb-4925-8c1f-4ec48fd5afa7",
       "accession_number": "SRM-2026-186",
       "title": "Untitled design batch image 5 (provisional)",
       "record_type": "Artifact",
@@ -5362,7 +5362,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -5390,7 +5390,7 @@
       "image_thumb_file": "thumbs/coll150.jpg"
     },
     {
-      "id": "66040ea6-1559-4f2f-bf1b-8ffa99427921",
+      "id": "d05d044c-0b2c-49a6-ae36-1da328584e0b",
       "accession_number": "SRM-2026-187",
       "title": "Untitled design batch image 6 (provisional)",
       "record_type": "Artifact",
@@ -5398,7 +5398,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -5426,7 +5426,7 @@
       "image_thumb_file": "thumbs/coll151.jpg"
     },
     {
-      "id": "282d9d38-8c0d-4df0-a838-1f336f4292a5",
+      "id": "01fba46b-e70d-49e8-a6bb-62e6b8c8c8f5",
       "accession_number": "SRM-2026-188",
       "title": "Untitled design batch image 7 (provisional)",
       "record_type": "Artifact",
@@ -5434,7 +5434,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -5462,7 +5462,7 @@
       "image_thumb_file": "thumbs/coll152.jpg"
     },
     {
-      "id": "5541476b-23a3-4c37-9414-652f6a2e3dd8",
+      "id": "4d220fd8-fe47-4309-a1b4-7049df312d73",
       "accession_number": "SRM-2026-189",
       "title": "Portrait of a man by Charles King",
       "record_type": "Artwork",
@@ -5498,7 +5498,7 @@
       "image_thumb_file": "thumbs/coll153.jpg"
     },
     {
-      "id": "359ca1b3-19b3-4212-97c3-db9e36251420",
+      "id": "2264f0a3-6224-4ef2-a2b0-4f0eade8c1f4",
       "accession_number": "SRM-2026-190",
       "title": "Untitled design batch image 9 (provisional)",
       "record_type": "Artifact",
@@ -5506,7 +5506,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -5534,7 +5534,7 @@
       "image_thumb_file": "thumbs/coll154.jpg"
     },
     {
-      "id": "5f07a10d-428a-4981-ba4a-02d2012236f5",
+      "id": "28372f21-2584-4043-9b54-a54d818883cc",
       "accession_number": "SRM-2026-191",
       "title": "Harlem Street Scene",
       "record_type": "Print",
@@ -5572,7 +5572,7 @@
       "image_thumb_file": "thumbs/coll155.jpg"
     },
     {
-      "id": "f0ad8e32-b47d-4d06-9ddd-2d39f9567708",
+      "id": "bc9a6458-8b1b-4722-b214-d9ecf43f22b7",
       "accession_number": "SRM-2026-192",
       "title": "Drawing of Black legislators",
       "record_type": "Drawing",
@@ -5609,7 +5609,7 @@
       "image_thumb_file": "thumbs/coll156.jpg"
     },
     {
-      "id": "4135d7e1-c925-425a-b832-f30c22ec9e7b",
+      "id": "3da2094c-5414-433b-8d58-ad98e5e1c0c4",
       "accession_number": "SRM-2026-193",
       "title": "Painting of James Meredith and aspects of his life",
       "record_type": "Artwork",
@@ -5646,7 +5646,7 @@
       "image_thumb_file": "thumbs/coll157.jpg"
     },
     {
-      "id": "a0ee4710-1c93-41ef-905e-aec1d3d8be71",
+      "id": "4ba6f958-5167-4d17-b0d3-691e85459026",
       "accession_number": "SRM-2026-194",
       "title": "Typewriter",
       "record_type": "Artifact",
@@ -5682,7 +5682,7 @@
       "image_thumb_file": "thumbs/coll158.jpg"
     },
     {
-      "id": "74f1e3c4-9e84-4215-ac9c-ed379601bc41",
+      "id": "150a4466-423d-40a2-8af1-4f6810001b8b",
       "accession_number": "SRM-2026-195",
       "title": "Civil rights demonstration photograph",
       "record_type": "Photograph",
@@ -5719,7 +5719,7 @@
       "image_thumb_file": "thumbs/coll159.jpg"
     },
     {
-      "id": "d900f36d-0f4a-4ee8-801f-0240645dfe2d",
+      "id": "51ae2fc2-bcbf-4694-9b17-a4d2fe0e8253",
       "accession_number": "SRM-2026-196",
       "title": "Laura J. Flowers (Former Slave)",
       "record_type": "Photograph",
@@ -5757,7 +5757,7 @@
       "image_thumb_file": "thumbs/coll160.jpg"
     },
     {
-      "id": "ae4bd608-9b1a-44e0-a197-b6a06a3e2054",
+      "id": "313e100f-c2fc-475d-8660-ac0736a2d374",
       "accession_number": "SRM-2026-197",
       "title": "Woven basket or container",
       "record_type": "Artifact",
@@ -5793,7 +5793,7 @@
       "image_thumb_file": "thumbs/coll161.jpg"
     },
     {
-      "id": "885a4b52-8142-4a06-bd5c-8818b86c478f",
+      "id": "f31b9016-c1ce-4b4b-bd45-0c9ccf9c87c8",
       "accession_number": "SRM-2026-198",
       "title": "Baby carriage or stroller",
       "record_type": "Artifact",
@@ -5801,7 +5801,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -5830,7 +5830,7 @@
       "image_thumb_file": "thumbs/coll162.jpg"
     },
     {
-      "id": "641611ca-8ecb-4c78-8cad-1374ac7cba0f",
+      "id": "f53127cf-f26d-4c6f-a303-35c0dbaddb98",
       "accession_number": "SRM-2026-199",
       "title": "Midwife obstetrical scissors or angled birth tool",
       "record_type": "Artifact",
@@ -5838,7 +5838,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Scott Ford Houses",
       "time_period": "20th century",
@@ -5868,7 +5868,7 @@
       "image_thumb_file": "thumbs/coll163.jpg"
     },
     {
-      "id": "6d533912-b828-417c-b923-8e08309e5397",
+      "id": "76acda2a-bca9-446e-9d94-fa2f700fe410",
       "accession_number": "SRM-2026-200",
       "title": "Mississippi State Board of Health midwife permit for T. J. Handy",
       "record_type": "Archive",
@@ -5876,7 +5876,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Scott Ford Houses",
       "time_period": "1970s",
@@ -5906,7 +5906,7 @@
       "image_thumb_file": "thumbs/coll164.jpg"
     },
     {
-      "id": "09bf27e4-b261-4177-afe3-e97109199cdd",
+      "id": "08ceb1b9-4d08-4a51-85ea-425e27535f9c",
       "accession_number": "SRM-2026-201",
       "title": "Mississippi birth certificate for Laverne Brown",
       "record_type": "Archive",
@@ -5914,7 +5914,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Scott Ford Houses",
       "time_period": "1920s",
@@ -5944,7 +5944,7 @@
       "image_thumb_file": "thumbs/coll165.jpg"
     },
     {
-      "id": "742cbf66-a7fa-4b14-9745-138fda1bafdd",
+      "id": "cfd63b93-8fa2-4991-8520-2d7562b9b2b3",
       "accession_number": "SRM-2026-202",
       "title": "Standard certificate of birth for Bobbie May Jefferson",
       "record_type": "Archive",
@@ -5952,7 +5952,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Scott Ford Houses",
       "time_period": "1930s",
@@ -5982,7 +5982,7 @@
       "image_thumb_file": "thumbs/coll166.jpg"
     },
     {
-      "id": "a97e9030-8245-47f7-b45f-07edc2f323ba",
+      "id": "33a3c1c2-a2a1-48ae-9534-5413627f5670",
       "accession_number": "SRM-2026-203",
       "title": "Otis Grocery Store on Farish Street",
       "record_type": "Photograph",
@@ -5990,7 +5990,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "20th century",
@@ -6019,7 +6019,7 @@
       "image_thumb_file": "thumbs/coll167.jpg"
     },
     {
-      "id": "862b7be3-5f37-4ed4-b7ec-230b4dcc2954",
+      "id": "70a921fc-20d4-41bb-85f1-96e5dc5f275b",
       "accession_number": "SRM-2026-204",
       "title": "Historic information about the Scott Ford family",
       "record_type": "Archive",
@@ -6056,7 +6056,7 @@
       "image_thumb_file": "thumbs/coll168.jpg"
     },
     {
-      "id": "2846a278-b443-47f4-a781-11d5a4b4f661",
+      "id": "3c1b1e2d-5553-4e38-a808-0534d1a719e5",
       "accession_number": "SRM-2026-205",
       "title": "Architect’s rendering of the Smith Robertson Museum",
       "record_type": "Archive",
@@ -6092,7 +6092,7 @@
       "image_thumb_file": "thumbs/coll169.jpg"
     },
     {
-      "id": "8382bc9e-d654-47c0-9d05-dfa891033a11",
+      "id": "7e4370c1-402a-4454-8492-3b64b9ca78e1",
       "accession_number": "SRM-2026-206",
       "title": "Peaches Restaurant in Jackson",
       "record_type": "Photograph",
@@ -6129,7 +6129,7 @@
       "image_thumb_file": "thumbs/coll170.jpg"
     },
     {
-      "id": "78db09f0-bff0-47f9-8710-2cd3e28c2902",
+      "id": "2e052f33-2022-41bd-8aa7-56e0ab61fe6f",
       "accession_number": "SRM-2026-207",
       "title": "Farish Street scene",
       "record_type": "Photograph",
@@ -6137,7 +6137,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "early 20th century",
@@ -6166,7 +6166,7 @@
       "image_thumb_file": "thumbs/coll171.jpg"
     },
     {
-      "id": "3399b84b-d687-45aa-972b-7906702f61a7",
+      "id": "7d985e5e-01d3-449c-965d-dd7816728ca3",
       "accession_number": "SRM-2026-208",
       "title": "Farish Street storefront scene",
       "record_type": "Photograph",
@@ -6174,7 +6174,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "early 20th century",
@@ -6203,7 +6203,7 @@
       "image_thumb_file": "thumbs/coll172.jpg"
     },
     {
-      "id": "71d581df-5718-4dc5-8987-54570f3f9fe5",
+      "id": "ad3af647-14a6-4166-8ea3-27a66b1e2ff7",
       "accession_number": "SRM-2026-209",
       "title": "Farish Street group photograph",
       "record_type": "Photograph",
@@ -6211,7 +6211,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Family And Local Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "early 20th century",
@@ -6240,7 +6240,7 @@
       "image_thumb_file": "thumbs/coll173.jpg"
     },
     {
-      "id": "147df77f-25b1-4e70-b440-a197dade7f37",
+      "id": "84d68f45-bcd7-49cf-8e23-67b106edbda8",
       "accession_number": "SRM-2026-210",
       "title": "Farish Street business interior scene",
       "record_type": "Photograph",
@@ -6248,7 +6248,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "early 20th century",
@@ -6277,7 +6277,7 @@
       "image_thumb_file": "thumbs/coll174.jpg"
     },
     {
-      "id": "9e9d36da-939d-475b-87a7-d9f284e22a6a",
+      "id": "e10810ce-465e-4913-83dc-e2cf78c9cd8f",
       "accession_number": "SRM-2026-211",
       "title": "Farish Street traffic scene",
       "record_type": "Photograph",
@@ -6285,7 +6285,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "early 20th century",
@@ -6314,7 +6314,7 @@
       "image_thumb_file": "thumbs/coll175.jpg"
     },
     {
-      "id": "df3f2190-21ce-4ea5-8058-671d4548ee61",
+      "id": "ef7a1512-645a-4222-9835-879c5df850f4",
       "accession_number": "SRM-2026-212",
       "title": "Portrait of John H. Powell",
       "record_type": "Photograph",
@@ -6350,7 +6350,7 @@
       "image_thumb_file": "thumbs/coll176.jpg"
     },
     {
-      "id": "f8979f49-a853-43ee-bac7-80d4f62e3127",
+      "id": "22750ca5-fb49-4755-996f-c17ce16e28b8",
       "accession_number": "SRM-2026-213",
       "title": "Untitled design batch image 32 (provisional)",
       "record_type": "Artifact",
@@ -6358,7 +6358,7 @@
       "collection_entity_id": null,
       "collection_name": "Original SRM Intake Review",
       "location": "Needs Review",
-      "historical_theme": "",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "",
       "time_period": "",
@@ -6386,7 +6386,7 @@
       "image_thumb_file": "thumbs/coll177.jpg"
     },
     {
-      "id": "f4502d6f-ea6c-4b47-b7e6-feb8c475e977",
+      "id": "6e48ac34-1ced-40a2-aad2-9cda09162823",
       "accession_number": "SRM-2026-214",
       "title": "Certificate of Meritorious Achievement in Journalism for Percy Greene",
       "record_type": "Archive",
@@ -6423,7 +6423,7 @@
       "image_thumb_file": "thumbs/coll178.jpg"
     },
     {
-      "id": "e48ce93c-365a-4642-9d35-2838404d2fac",
+      "id": "8e633b06-d96e-4102-a6db-61d6fd25c6e4",
       "accession_number": "SRM-2026-215",
       "title": "Funeral service program for Percy Greene",
       "record_type": "Archive",
@@ -6460,7 +6460,7 @@
       "image_thumb_file": "thumbs/coll179.jpg"
     },
     {
-      "id": "1688e0c3-bd41-4227-ba02-a37f88234e83",
+      "id": "074075de-421a-4ac3-934f-ab351d700c44",
       "accession_number": "SRM-2026-216",
       "title": "Laura J. Flowers",
       "record_type": "Photograph",
@@ -6498,7 +6498,7 @@
       "image_thumb_file": "thumbs/coll180.jpg"
     },
     {
-      "id": "a878e71a-733e-4d4f-82b4-dce0ac88b935",
+      "id": "30c9ca8b-1a3b-4b21-90e1-1e048cf05976",
       "accession_number": "SRM-2026-217",
       "title": "Portrait of Rev. Richard C. Anderson",
       "record_type": "Photograph",
@@ -6536,7 +6536,7 @@
       "image_thumb_file": "thumbs/coll181.jpg"
     },
     {
-      "id": "4caaac39-6cb1-4628-9604-fa0720a9d14e",
+      "id": "9698b1fd-8d7b-4db3-b220-934716ff7891",
       "accession_number": "SRM-2026-218",
       "title": "Mississippi Legislative Black Caucus Political Education Fund program",
       "record_type": "Archive",
@@ -6574,7 +6574,7 @@
       "image_thumb_file": "thumbs/coll182.jpg"
     },
     {
-      "id": "6a64f863-d13f-4947-9ea6-3ea41dad79d6",
+      "id": "fbc06d99-4192-44e3-8c09-4a35d78f5fe4",
       "accession_number": "SRM-2026-219",
       "title": "Photograph of James Meredith in a crowd",
       "record_type": "Photograph",
@@ -6611,7 +6611,7 @@
       "image_thumb_file": "thumbs/coll183.jpg"
     },
     {
-      "id": "3f00b0fa-0b9a-4daf-8353-4f990bf147ca",
+      "id": "81839502-7366-4eed-a60b-0b4f75d5a75c",
       "accession_number": "SRM-2026-220",
       "title": "Black and Tan Republican Party Headquarters on Farish Street",
       "record_type": "Photograph",
@@ -6619,7 +6619,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "circa 1890s",
@@ -6649,7 +6649,7 @@
       "image_thumb_file": "thumbs/coll184.jpg"
     },
     {
-      "id": "e873f47b-e2f6-405b-b7f1-c96ddbf78d58",
+      "id": "b682c295-b89f-40bf-813f-3f181fedd0e9",
       "accession_number": "SRM-2026-221",
       "title": "Occupational tintype resembling Dr. Sarah Loguen Fraser",
       "record_type": "Photograph",
@@ -6657,7 +6657,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "United States",
       "time_period": "late 19th century",
@@ -6688,7 +6688,7 @@
       "image_thumb_file": "thumbs/coll185.jpg"
     },
     {
-      "id": "97dbc3d7-641b-4094-b8d2-7ffa2e8f1ab7",
+      "id": "2525b0e4-9363-4ee2-9201-2fef418ade2c",
       "accession_number": "SRM-2026-222",
       "title": "Sharecropper scene in Ruleville, Mississippi",
       "record_type": "Photograph",
@@ -6726,7 +6726,7 @@
       "image_thumb_file": "thumbs/coll186.jpg"
     },
     {
-      "id": "b5a11a4a-9b38-46a2-9472-8239eaade4ad",
+      "id": "910fdac0-1362-4068-9895-aa6fe8b9e750",
       "accession_number": "SRM-2026-223",
       "title": "Portrait of Richard Henry Beadle",
       "record_type": "Photograph",
@@ -6763,7 +6763,7 @@
       "image_thumb_file": "thumbs/coll187.jpg"
     },
     {
-      "id": "80506bc9-ae6f-4549-b2b7-1e959c8504da",
+      "id": "0ac19e12-9f74-41e8-877c-fee0a5842c52",
       "accession_number": "SRM-2026-224",
       "title": "Seventh Grade Class at Smith Robertson Elementary School",
       "record_type": "Photograph",
@@ -6800,7 +6800,7 @@
       "image_thumb_file": "thumbs/coll188.jpg"
     },
     {
-      "id": "61c9ac27-a2d8-44fa-890f-7190dd3e2c9b",
+      "id": "c5fe8874-13af-453a-af78-3191ee296f88",
       "accession_number": "SRM-2026-225",
       "title": "Chester Jones of the Big Four Cab on Farish Street",
       "record_type": "Photograph",
@@ -6808,7 +6808,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "20th century",
@@ -6838,7 +6838,7 @@
       "image_thumb_file": "thumbs/coll189.jpg"
     },
     {
-      "id": "a6f1a4bd-c0cb-4b18-90fe-a00d91e85924",
+      "id": "413a6ddb-d9cc-43c5-8aec-e14eca512911",
       "accession_number": "SRM-2026-226",
       "title": "Flooding at the Alamo Theatre on Farish Street",
       "record_type": "Photograph",
@@ -6846,7 +6846,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Arts And Culture",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "20th century",
@@ -6876,7 +6876,7 @@
       "image_thumb_file": "thumbs/coll190.jpg"
     },
     {
-      "id": "3f30be14-8fc1-466e-b14b-bd0d077d1e9c",
+      "id": "1be82b56-6ad2-4451-ba36-7d0549a1a835",
       "accession_number": "SRM-2026-227",
       "title": "Portrait of the Beadle sisters Anita Leona Scott and Johnie Mae Middleton",
       "record_type": "Photograph",
@@ -6914,7 +6914,7 @@
       "image_thumb_file": "thumbs/coll191.jpg"
     },
     {
-      "id": "8c3be2df-48fd-4324-ac5e-004a391cb10f",
+      "id": "e369ce52-4f46-4dba-a9a9-089f92dcfbd4",
       "accession_number": "SRM-2026-228",
       "title": "Pearlie Grove Missionary Baptist Church on Gallatin Street",
       "record_type": "Photograph",
@@ -6951,7 +6951,7 @@
       "image_thumb_file": "thumbs/coll192.jpg"
     },
     {
-      "id": "adfa3c9b-7f31-44ac-b9fd-78f99e597ef4",
+      "id": "9e7da332-2fcd-4e4b-9361-de0bb0172a88",
       "accession_number": "SRM-2026-229",
       "title": "Eroded cotton farm near Jackson, Mississippi",
       "record_type": "Photograph",
@@ -6989,7 +6989,7 @@
       "image_thumb_file": "thumbs/coll193.jpg"
     },
     {
-      "id": "179ea83f-69ec-46c9-89e1-fc5e0d974db7",
+      "id": "74707ba1-8971-409e-8ff8-8652eca14134",
       "accession_number": "SRM-2026-230",
       "title": "Sharecropper cabin with cotton and corn near Jackson, Mississippi",
       "record_type": "Photograph",
@@ -7027,7 +7027,7 @@
       "image_thumb_file": "thumbs/coll194.jpg"
     },
     {
-      "id": "c1041c73-9930-4be1-82fb-a9fec27e79b0",
+      "id": "f6429ab4-4ecd-43dd-90f9-6aac1f024112",
       "accession_number": "SRM-2026-231",
       "title": "Sharecropper cabin and wife south of Jackson, Mississippi",
       "record_type": "Photograph",
@@ -7065,7 +7065,7 @@
       "image_thumb_file": "thumbs/coll195.jpg"
     },
     {
-      "id": "4b68e300-fc46-4c0a-8f83-c2555da9dc0c",
+      "id": "b8ceaa94-c648-4ce9-a0eb-d4b46b169c89",
       "accession_number": "SRM-2026-232",
       "title": "Farish Street church school children marching in parade",
       "record_type": "Photograph",
@@ -7073,7 +7073,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Farish Street Business District",
+      "historical_theme": "Faith And Community Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street",
       "time_period": "20th century",
@@ -7103,7 +7103,7 @@
       "image_thumb_file": "thumbs/coll196.jpg"
     },
     {
-      "id": "4616e778-17ae-4d7b-b5d9-f94c003bf278",
+      "id": "5cab29d8-ddb8-4501-b51e-f76de26e8246",
       "accession_number": "SRM-2026-233",
       "title": "Midwife Frances Jones-Coleman with client in Houston",
       "record_type": "Photograph",
@@ -7111,7 +7111,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Houston, Texas",
       "time_period": "2020s",
@@ -7141,7 +7141,7 @@
       "image_thumb_file": "thumbs/coll197.jpg"
     },
     {
-      "id": "d04b8e4d-3882-4e7f-989b-3e3264b17a4d",
+      "id": "f9ce0ca7-82bc-4c6a-83b1-d3658f3c9a85",
       "accession_number": "SRM-2026-234",
       "title": "Jackson College Health Center staff aiding patients",
       "record_type": "Photograph",
@@ -7179,7 +7179,7 @@
       "image_thumb_file": "thumbs/coll198.jpg"
     },
     {
-      "id": "f539f44d-8abc-44c4-a14d-101dd4bd6e13",
+      "id": "ec214b2a-ebd7-4653-a06f-28f36d860646",
       "accession_number": "SRM-2026-235",
       "title": "Jackson College exhibit display room (provisional)",
       "record_type": "Photograph",
@@ -7217,7 +7217,7 @@
       "image_thumb_file": "thumbs/coll199.jpg"
     },
     {
-      "id": "fce773b0-2375-40f1-aa1b-9b25606f9d14",
+      "id": "60adc4c8-0c19-4edb-bdc8-a1bfaeed66fe",
       "accession_number": "SRM-2026-236",
       "title": "African American midwife walking to visit a client near Siloam, Georgia",
       "record_type": "Photograph",
@@ -7225,7 +7225,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Siloam, Greene County, Georgia",
       "time_period": "1940s",
@@ -7255,7 +7255,7 @@
       "image_thumb_file": "thumbs/coll200.jpg"
     },
     {
-      "id": "48cf4467-84a7-47ad-bf1a-6893364d833c",
+      "id": "86109755-565b-42d2-866a-3a16a60a64a4",
       "accession_number": "SRM-2026-237",
       "title": "Patrons dancing at a juke joint near Clarksdale, Mississippi",
       "record_type": "Photograph",
@@ -7293,7 +7293,7 @@
       "image_thumb_file": "thumbs/coll201.jpg"
     },
     {
-      "id": "f8ddd03e-08a2-4a1e-95fa-1f3bf70551a2",
+      "id": "e3552b25-06ec-45f9-b037-40426a0871c5",
       "accession_number": "SRM-2026-238",
       "title": "Marchers arrive at the Mississippi State House during the Meredith March",
       "record_type": "Photograph",
@@ -7331,7 +7331,7 @@
       "image_thumb_file": "thumbs/coll202.jpg"
     },
     {
-      "id": "5cb80ce9-930b-4e0f-85ec-97ff63f04a24",
+      "id": "787dd135-5f55-4e14-a68f-c5905abacaa9",
       "accession_number": "SRM-2026-239",
       "title": "Aunt Sally, midwife of Gee’s Bend",
       "record_type": "Photograph",
@@ -7339,7 +7339,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Gee’s Bend, Alabama",
       "time_period": "1930s",
@@ -7369,7 +7369,7 @@
       "image_thumb_file": "thumbs/coll203.jpg"
     },
     {
-      "id": "50a7e42b-1932-482f-a3f9-093b6c6bb72f",
+      "id": "827801c2-6c21-4c7b-a16f-af00db06ad66",
       "accession_number": "SRM-2026-240",
       "title": "Aunt Sally, midwife of Gee’s Bend (alternate asset)",
       "record_type": "Photograph",
@@ -7377,7 +7377,7 @@
       "collection_entity_id": null,
       "collection_name": "Smith Robertson Photograph Collection",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Gee’s Bend, Alabama",
       "time_period": "1930s",
@@ -7407,7 +7407,7 @@
       "image_thumb_file": "thumbs/coll204.jpg"
     },
     {
-      "id": "116e6740-feb5-45a6-b943-6eb95f17e7d6",
+      "id": "0f374ae0-3474-4f63-8491-156c4d609374",
       "accession_number": "SRM-2026-241",
       "title": "Jitterbugging outside Clarksdale, Mississippi",
       "record_type": "Photograph",
@@ -7445,7 +7445,7 @@
       "image_thumb_file": "thumbs/coll205.jpg"
     },
     {
-      "id": "f9456f94-2467-49ed-8e0c-9869cd37f332",
+      "id": "5baf3069-54bb-4adc-909c-0be9060470b4",
       "accession_number": "SRM-2026-242",
       "title": "The Legal Link tribute issue for R. Jess Brown",
       "record_type": "Archive",
@@ -7453,7 +7453,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1990s",
@@ -7486,7 +7486,7 @@
       "image_thumb_file": "thumbs/coll206.jpg"
     },
     {
-      "id": "9eec8ff1-9d6d-4d35-a4ae-c1657811694a",
+      "id": "799c6db1-dd61-4278-a3b3-09076d6e2949",
       "accession_number": "SRM-2026-243",
       "title": "Underwood manual typewriter from R. Jess Brown's law office",
       "record_type": "Artifact",
@@ -7494,7 +7494,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "20th century",
@@ -7526,7 +7526,7 @@
       "image_thumb_file": "thumbs/coll207.jpg"
     },
     {
-      "id": "7f0c7d9f-b03c-4f3d-b1f9-b5982ee0ca52",
+      "id": "11d5cbd3-3d8f-4e20-835b-1591f9c9deaf",
       "accession_number": "SRM-2026-244",
       "title": "Mississippi Free Press on James Meredith ruling naming R. Jess Brown",
       "record_type": "Newspaper / Periodical",
@@ -7534,7 +7534,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1960s",
@@ -7567,7 +7567,7 @@
       "image_thumb_file": "thumbs/coll208.jpg"
     },
     {
-      "id": "90948dd7-79cc-4721-9e4c-483bb24c6870",
+      "id": "c1ce9e65-0525-4204-b09a-66a10077bce2",
       "accession_number": "SRM-2026-245",
       "title": "Mounted clippings on James Meredith's University of Mississippi case",
       "record_type": "Archive",
@@ -7575,7 +7575,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1960s",
@@ -7608,7 +7608,7 @@
       "image_thumb_file": "thumbs/coll209.jpg"
     },
     {
-      "id": "3701f240-a4e5-469c-9bb4-39f435f555b0",
+      "id": "a34c7f1e-5992-40b2-ab56-fdf3b86df10b",
       "accession_number": "SRM-2026-246",
       "title": "Civil-rights-era legal clippings on Tougaloo students and Tom Armstrong case",
       "record_type": "Archive",
@@ -7616,7 +7616,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1960s",
@@ -7649,7 +7649,7 @@
       "image_thumb_file": "thumbs/coll210.jpg"
     },
     {
-      "id": "3b248fd3-ba1f-4347-990d-b6b2253d2366",
+      "id": "089b5fb3-c549-4c35-9a69-0b3732768c66",
       "accession_number": "SRM-2026-247",
       "title": "Photograph of Thurgood Marshall at 1988 birthday celebration",
       "record_type": "Photograph",
@@ -7657,7 +7657,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Photo Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Washington, D.C.",
       "time_period": "1980s",
@@ -7690,7 +7690,7 @@
       "image_thumb_file": "thumbs/coll211.jpg"
     },
     {
-      "id": "dfa912a0-7542-4ea6-bcc8-92d85ff6bc15",
+      "id": "1e718e29-1faf-4039-92a2-eafea2fdb29a",
       "accession_number": "SRM-2026-248",
       "title": "NAACP 25th Anniversary Banquet program for Medgar W. Evers legacy event",
       "record_type": "Archive",
@@ -7698,7 +7698,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1980s",
@@ -7731,7 +7731,7 @@
       "image_thumb_file": "thumbs/coll212.jpg"
     },
     {
-      "id": "aa977096-dac7-4aeb-a143-9f28625bb1b2",
+      "id": "86774f79-d33e-4c69-9453-ab5eb9a12f83",
       "accession_number": "SRM-2026-249",
       "title": "Letter thanking R. Jess Brown for Medgar Evers Homecoming panel participation",
       "record_type": "Archive",
@@ -7739,7 +7739,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1980s",
@@ -7772,7 +7772,7 @@
       "image_thumb_file": "thumbs/coll213.jpg"
     },
     {
-      "id": "b43146ab-8000-4c05-83f2-09104a175721",
+      "id": "6bfc7c1f-a989-40a6-a9f2-9bdea32b5872",
       "accession_number": "SRM-2026-250",
       "title": "Typed speech “Medgar Evers: What Manner of Man” by R. Jess Brown",
       "record_type": "Archive",
@@ -7780,7 +7780,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Fayette, Mississippi",
       "time_period": "1980s",
@@ -7813,7 +7813,7 @@
       "image_thumb_file": "thumbs/coll214.jpg"
     },
     {
-      "id": "0cc82098-7a2d-41f4-a7f6-e56b645585ba",
+      "id": "addcedbc-8769-4ef9-8f4f-999fd7271661",
       "accession_number": "SRM-2026-251",
       "title": "Interior page from 26th Memorial Program for Medgar Wiley Evers",
       "record_type": "Archive",
@@ -7821,7 +7821,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1980s",
@@ -7854,7 +7854,7 @@
       "image_thumb_file": "thumbs/coll215.jpg"
     },
     {
-      "id": "8deb25db-b651-405a-a019-9d312a1b897a",
+      "id": "1f9a5e09-bf1c-43e1-ac35-07f49b3fc7e1",
       "accession_number": "SRM-2026-252",
       "title": "Reprinted Aaron Henry memorial eulogy for Medgar Wiley Evers",
       "record_type": "Archive",
@@ -7862,7 +7862,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1960s",
@@ -7895,7 +7895,7 @@
       "image_thumb_file": "thumbs/coll216.jpg"
     },
     {
-      "id": "390cfda6-b24f-4c37-a61d-fa11091a7da5",
+      "id": "f8d69de9-7281-48e7-944f-4a219008a2ec",
       "accession_number": "SRM-2026-253",
       "title": "Cover of the 26th Memorial Program for Medgar Wiley Evers",
       "record_type": "Archive",
@@ -7903,7 +7903,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1980s",
@@ -7935,7 +7935,7 @@
       "image_thumb_file": "thumbs/coll217.jpg"
     },
     {
-      "id": "8a0fd27e-7892-47d1-8bc9-e1e502a39ac6",
+      "id": "7bac81ab-59d6-424a-9a30-8921e18ce8cb",
       "accession_number": "SRM-2026-254",
       "title": "Remembering Medgar Evers . . . for a New Generation booklet",
       "record_type": "Archive",
@@ -7943,7 +7943,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "20th century",
@@ -7975,7 +7975,7 @@
       "image_thumb_file": "thumbs/coll218.jpg"
     },
     {
-      "id": "ba21024b-84c7-4ac7-b997-f51c78d2e703",
+      "id": "7f6a99c1-5b75-4d70-a568-bcddcdb90a37",
       "accession_number": "SRM-2026-255",
       "title": "American Bar Association membership letter to R. Jess Brown",
       "record_type": "Archive",
@@ -7983,7 +7983,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "United States",
       "time_period": "20th century",
@@ -8015,7 +8015,7 @@
       "image_thumb_file": "thumbs/coll219.jpg"
     },
     {
-      "id": "c743be84-41ac-4e4e-88b1-a5e212ff9c18",
+      "id": "54b21cc3-70b6-417a-b185-afd5fdae256c",
       "accession_number": "SRM-2026-256",
       "title": "Certificate of Recognition awarded to Attorney R. Jess Brown",
       "record_type": "Artifact",
@@ -8023,7 +8023,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1970s",
@@ -8055,7 +8055,7 @@
       "image_thumb_file": "thumbs/coll220.jpg"
     },
     {
-      "id": "2d6d604f-e069-472f-9a54-b383ba9502bb",
+      "id": "3cdd14b7-f00a-440b-81a9-4cec3f16e27b",
       "accession_number": "SRM-2026-257",
       "title": "Aaron E. Henry letter naming Brown an “NAACP Long Distance Runner”",
       "record_type": "Archive",
@@ -8063,7 +8063,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1980s",
@@ -8096,7 +8096,7 @@
       "image_thumb_file": "thumbs/coll221.jpg"
     },
     {
-      "id": "55a38fa9-57f4-4506-9395-46d82b324684",
+      "id": "fa9a603b-3ef0-4fe9-b608-3b7eb7339a7b",
       "accession_number": "SRM-2026-258",
       "title": "NAACP Long Distance Runner certificate presented to R. Jess Brown",
       "record_type": "Artifact",
@@ -8104,7 +8104,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1980s",
@@ -8136,7 +8136,7 @@
       "image_thumb_file": "thumbs/coll222.jpg"
     },
     {
-      "id": "14a0e059-b28e-46bc-8b84-8a691ebac334",
+      "id": "77fe0b04-0741-4812-b4e9-d9cf9b115b95",
       "accession_number": "SRM-2026-259",
       "title": "National Bar Association letter on posthumous Wiley A. Branton award",
       "record_type": "Archive",
@@ -8144,7 +8144,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "United States",
       "time_period": "1990s",
@@ -8177,7 +8177,7 @@
       "image_thumb_file": "thumbs/coll223.jpg"
     },
     {
-      "id": "22084b1a-04dd-405a-aae4-395687993d67",
+      "id": "e6baa210-0a66-4e3b-a17f-9232c25bba59",
       "accession_number": "SRM-2026-260",
       "title": "Biographical profile of R. Jess Brown, Esquire (1912-1989)",
       "record_type": "Archive",
@@ -8185,7 +8185,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1990s",
@@ -8217,7 +8217,7 @@
       "image_thumb_file": "thumbs/coll224.jpg"
     },
     {
-      "id": "141365c3-bbe8-44da-8597-e5d835683cca",
+      "id": "04da5234-bb64-403e-b103-54ca9bad037f",
       "accession_number": "SRM-2026-261",
       "title": "Jackson Advocate letter about award nomination in law",
       "record_type": "Archive",
@@ -8225,7 +8225,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1980s",
@@ -8257,7 +8257,7 @@
       "image_thumb_file": "thumbs/coll225.jpg"
     },
     {
-      "id": "06ad09fe-6983-4ab3-9221-302a9a48ddda",
+      "id": "d6dd59b9-1f5c-419e-939d-8e6365f6c171",
       "accession_number": "SRM-2026-262",
       "title": "Signed page listing Brown's five major accomplishments",
       "record_type": "Archive",
@@ -8265,7 +8265,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1980s",
@@ -8298,7 +8298,7 @@
       "image_thumb_file": "thumbs/coll226.jpg"
     },
     {
-      "id": "dd0f689b-2b19-407e-9882-0382fbd71898",
+      "id": "f775e1e5-f774-4f8b-9575-752144631e46",
       "accession_number": "SRM-2026-263",
       "title": "Handwritten biography form completed by R. Jess Brown",
       "record_type": "Archive",
@@ -8306,7 +8306,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "1980s",
@@ -8338,7 +8338,7 @@
       "image_thumb_file": "thumbs/coll227.jpg"
     },
     {
-      "id": "2f705090-ded8-420b-a19d-bd8f5c4981b1",
+      "id": "851af566-1fd2-4c8a-9fb2-2cd5590c9890",
       "accession_number": "SRM-2026-264",
       "title": "NAACP nomination letter from Dr. Gilbert R. Mason for William Robert Ming Award",
       "record_type": "Archive",
@@ -8346,7 +8346,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Biloxi, Mississippi",
       "time_period": "1980s",
@@ -8379,7 +8379,7 @@
       "image_thumb_file": "thumbs/coll228.jpg"
     },
     {
-      "id": "268ccc51-d5fb-49c4-9b61-418e001889fc",
+      "id": "a731fa42-402e-4b66-a621-cd33d0494046",
       "accession_number": "SRM-2026-265",
       "title": "Voice-O-Graph recording labeled with R. Jess Brown's name and state criminal case",
       "record_type": "Artifact",
@@ -8387,7 +8387,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "20th century",
@@ -8420,7 +8420,7 @@
       "image_thumb_file": "thumbs/coll229.jpg"
     },
     {
-      "id": "ef1f3601-0996-4e6a-a88f-5b77234f4ded",
+      "id": "10fe4731-5f00-420e-978c-3ab2f8790cc7",
       "accession_number": "SRM-2026-266",
       "title": "Petition for writ of certiorari in Otis Patrick v. State of Mississippi",
       "record_type": "Archive",
@@ -8428,7 +8428,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "United States",
       "time_period": "1970s",
@@ -8461,7 +8461,7 @@
       "image_thumb_file": "thumbs/coll230.jpg"
     },
     {
-      "id": "b19b73e2-6cb8-4a35-9bae-e17c11359898",
+      "id": "e80b697d-7dc5-49c9-8d74-3c8de9aa074a",
       "accession_number": "SRM-2026-267",
       "title": "Fifth Circuit brief in consolidated Mississippi school-desegregation cases",
       "record_type": "Archive",
@@ -8469,7 +8469,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1960s-1970s",
@@ -8502,7 +8502,7 @@
       "image_thumb_file": "thumbs/coll231.jpg"
     },
     {
-      "id": "e1bd599b-a621-4e96-81a1-08452c75dd38",
+      "id": "20c8c9fc-fcea-446d-9066-d547e9b34b1e",
       "accession_number": "SRM-2026-268",
       "title": "Fifth Circuit brief in In the Matter of R. Jess Brown",
       "record_type": "Archive",
@@ -8510,7 +8510,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "20th century",
@@ -8543,7 +8543,7 @@
       "image_thumb_file": "thumbs/coll232.jpg"
     },
     {
-      "id": "38e8a663-b0f6-4285-9b3b-f95f8a2e9f85",
+      "id": "cd38bab7-179b-4589-b775-90fe26e6e382",
       "accession_number": "SRM-2026-269",
       "title": "Project Mississippi cover and page featuring R. Jess Brown",
       "record_type": "Archive",
@@ -8551,7 +8551,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civil Rights and Citizenship",
       "place_entity_id": null,
       "neighborhood": "Detroit, Michigan; Mississippi",
       "time_period": "1960s",
@@ -8583,7 +8583,7 @@
       "image_thumb_file": "thumbs/coll233.jpg"
     },
     {
-      "id": "71b0e9c0-c3ea-4ebc-abfe-1b0725435225",
+      "id": "9960c233-2af1-47e1-bddc-d2e4e7a4b1a2",
       "accession_number": "SRM-2026-270",
       "title": "Magnolia Bar Association history cover page with founder portraits",
       "record_type": "Archive",
@@ -8591,7 +8591,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "20th century",
@@ -8623,7 +8623,7 @@
       "image_thumb_file": "thumbs/coll234.jpg"
     },
     {
-      "id": "d687d399-0e6b-4019-ae35-94c0a7fb31bf",
+      "id": "92c7bf42-abc1-4a3f-9725-fc375f629a06",
       "accession_number": "SRM-2026-271",
       "title": "Tribute page to Magnolia Bar Association founding figures",
       "record_type": "Archive",
@@ -8631,7 +8631,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "20th century",
@@ -8663,7 +8663,7 @@
       "image_thumb_file": "thumbs/coll235.jpg"
     },
     {
-      "id": "25cf487d-5f90-4b93-8c84-2dcf83695bb0",
+      "id": "c2b914de-e00d-4924-8f75-027cc2e643b5",
       "accession_number": "SRM-2026-272",
       "title": "“History of the Magnolia Bar Association” article by R. Jess Brown",
       "record_type": "Archive",
@@ -8671,7 +8671,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1990s",
@@ -8703,7 +8703,7 @@
       "image_thumb_file": "thumbs/coll236.jpg"
     },
     {
-      "id": "5df6d1ae-185d-4664-ae71-8d563c051ae8",
+      "id": "bd8ce214-d9e4-417f-91b1-fa141c68c5c9",
       "accession_number": "SRM-2026-273",
       "title": "Business card for Brown, Alexander & Sanders law firm",
       "record_type": "Archive",
@@ -8711,7 +8711,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "20th century",
@@ -8743,7 +8743,7 @@
       "image_thumb_file": "thumbs/coll237.jpg"
     },
     {
-      "id": "c3b0928f-4edd-4271-9f76-d14b7880d944",
+      "id": "d43379f0-d23b-4e2d-b2a2-d61a7ae36abb",
       "accession_number": "SRM-2026-274",
       "title": "“R. Jess Brown: An Excerpt from Mississippi History” article",
       "record_type": "Archive",
@@ -8751,7 +8751,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "20th century",
@@ -8783,7 +8783,7 @@
       "image_thumb_file": "thumbs/coll238.jpg"
     },
     {
-      "id": "1c42421b-6130-4643-9744-7be15ac97102",
+      "id": "a28ac263-55f0-4b42-8922-8c18e38277e7",
       "accession_number": "SRM-2026-275",
       "title": "Minimum office fees schedule from the law office of R. Jess Brown",
       "record_type": "Archive",
@@ -8791,7 +8791,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "20th century",
@@ -8823,7 +8823,7 @@
       "image_thumb_file": "thumbs/coll239.jpg"
     },
     {
-      "id": "4857cc63-342e-44f5-9e28-f5b9a4b607bd",
+      "id": "d3d3ab90-0348-4a2d-a443-10eb8d47c8af",
       "accession_number": "SRM-2026-276",
       "title": "City of Jackson privilege license for R. Jess Brown law practice",
       "record_type": "Artifact",
@@ -8831,7 +8831,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Black Business and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Farish Street, Jackson, Mississippi",
       "time_period": "1960s",
@@ -8864,7 +8864,7 @@
       "image_thumb_file": "thumbs/coll240.jpg"
     },
     {
-      "id": "5786027d-20a1-442b-af66-ffd1e72627e8",
+      "id": "349154d1-d107-427a-b055-39fd97e291d6",
       "accession_number": "SRM-2026-277",
       "title": "National Bar Association life-membership certificate for R. Jess Brown",
       "record_type": "Artifact",
@@ -8872,7 +8872,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "United States",
       "time_period": "1960s",
@@ -8904,7 +8904,7 @@
       "image_thumb_file": "thumbs/coll241.jpg"
     },
     {
-      "id": "f16af0aa-e8f0-486b-aee9-bae5ce088f50",
+      "id": "4c6bc7a5-c73c-474f-ae63-738101f5c380",
       "accession_number": "SRM-2026-278",
       "title": "Halftone portrait of a younger R. Jess Brown",
       "record_type": "Photograph",
@@ -8912,7 +8912,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Photo Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Portraiture and Community Memory",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "20th century",
@@ -8944,7 +8944,7 @@
       "image_thumb_file": "thumbs/coll242.jpg"
     },
     {
-      "id": "01db936b-2d14-4a7f-a45c-d021979c21ce",
+      "id": "41b0b424-bf42-470a-a55e-6c45fb0bdbfe",
       "accession_number": "SRM-2026-279",
       "title": "Sepia profile photograph of an older R. Jess Brown",
       "record_type": "Photograph",
@@ -8952,7 +8952,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Photo Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Portraiture and Community Memory",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "20th century",
@@ -8984,7 +8984,7 @@
       "image_thumb_file": "thumbs/coll243.jpg"
     },
     {
-      "id": "a34a5725-e307-48d6-b1c2-da222e0041c8",
+      "id": "d2b2b240-3086-4412-8936-4410e5179aa2",
       "accession_number": "SRM-2026-280",
       "title": "Ellis J. May III letter recalling conversation with R. Jess Brown",
       "record_type": "Archive",
@@ -8992,7 +8992,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Washington, D.C.",
       "time_period": "1980s",
@@ -9024,7 +9024,7 @@
       "image_thumb_file": "thumbs/coll244.jpg"
     },
     {
-      "id": "85a66234-789f-4ad4-826a-f11738bca8cd",
+      "id": "5e43a013-ef97-46cf-81ae-90a5c768f2b8",
       "accession_number": "SRM-2026-281",
       "title": "Pryor Owens letter praising Brown's civil-rights record",
       "record_type": "Archive",
@@ -9032,7 +9032,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Washington, D.C.",
       "time_period": "1980s",
@@ -9065,7 +9065,7 @@
       "image_thumb_file": "thumbs/coll245.jpg"
     },
     {
-      "id": "b3818c91-17cb-4aa0-9b83-9c59edeefa25",
+      "id": "124cc430-f31e-43ff-87a9-721af57005d7",
       "accession_number": "SRM-2026-282",
       "title": "Congressional Black Caucus Foundation dinner invitation and guest card",
       "record_type": "Archive",
@@ -9073,7 +9073,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Washington, D.C.",
       "time_period": "1980s",
@@ -9106,7 +9106,7 @@
       "image_thumb_file": "thumbs/coll246.jpg"
     },
     {
-      "id": "02b720df-f60f-4506-abd7-9d8805bcd22f",
+      "id": "19f1399d-89ac-4db9-96d6-7574f248e732",
       "accession_number": "SRM-2026-283",
       "title": "Annotated press-release draft on Brown's attendance at Thurgood Marshall dinner",
       "record_type": "Archive",
@@ -9114,7 +9114,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Washington, D.C.",
       "time_period": "1980s",
@@ -9146,7 +9146,7 @@
       "image_thumb_file": "thumbs/coll247.jpg"
     },
     {
-      "id": "fc97b509-5022-45a9-8a0d-b0421812cd4f",
+      "id": "1eb749e9-9dca-4741-b565-3e21da62e621",
       "accession_number": "SRM-2026-284",
       "title": "Olivetti electric printing calculator from Brown's office",
       "record_type": "Artifact",
@@ -9154,7 +9154,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Material Culture and Interpretation",
       "place_entity_id": null,
       "neighborhood": "Jackson, Mississippi",
       "time_period": "20th century",
@@ -9187,7 +9187,7 @@
       "image_thumb_file": "thumbs/coll248.jpg"
     },
     {
-      "id": "bd38d9cb-f4ac-43d2-b7ae-5a39ed73d970",
+      "id": "09b610e2-f907-4a47-a5e1-7ad40cd9b416",
       "accession_number": "SRM-2026-285",
       "title": "LaSalle Extension University letter congratulating Richard Jess Brown",
       "record_type": "Archive",
@@ -9195,7 +9195,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "African American Education",
       "place_entity_id": null,
       "neighborhood": "Chicago, Illinois",
       "time_period": "1940s",
@@ -9227,7 +9227,7 @@
       "image_thumb_file": "thumbs/coll249.jpg"
     },
     {
-      "id": "481650dd-6a53-48e3-86be-0d56c1e76a8f",
+      "id": "99ccee78-78b9-4d92-89aa-a1bf536fe6a6",
       "accession_number": "SRM-2026-286",
       "title": "LaSalle Extension University law-paper grading letter",
       "record_type": "Archive",
@@ -9235,7 +9235,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "African American Education",
       "place_entity_id": null,
       "neighborhood": "Chicago, Illinois",
       "time_period": "1940s",
@@ -9267,7 +9267,7 @@
       "image_thumb_file": "thumbs/coll250.jpg"
     },
     {
-      "id": "d4e9c165-58ba-49cb-81e9-c4f31bae6378",
+      "id": "1475d7e3-dc04-48bb-9d85-20354d6e3d3b",
       "accession_number": "SRM-2026-287",
       "title": "LaSalle Extension University final examination in Personal Property and Bailments",
       "record_type": "Archive",
@@ -9275,7 +9275,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "African American Education",
       "place_entity_id": null,
       "neighborhood": "Prairie View, Texas",
       "time_period": "1940s",
@@ -9308,7 +9308,7 @@
       "image_thumb_file": "thumbs/coll251.jpg"
     },
     {
-      "id": "8f85b0a6-8b30-449f-ac1d-a5114c4b84c0",
+      "id": "4260d2cf-9f31-4c72-9e7a-344593978910",
       "accession_number": "SRM-2026-288",
       "title": "Continuation page from Brown's Personal Property and Bailments examination",
       "record_type": "Archive",
@@ -9316,7 +9316,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "African American Education",
       "place_entity_id": null,
       "neighborhood": "Prairie View, Texas",
       "time_period": "1940s",
@@ -9348,7 +9348,7 @@
       "image_thumb_file": "thumbs/coll252.jpg"
     },
     {
-      "id": "48b31d39-1c95-4bbd-95ba-5108d928ce73",
+      "id": "0f679dac-6e9f-484a-aaa9-e25328ab0c3e",
       "accession_number": "SRM-2026-289",
       "title": "Corrected recitation answers for Beginning the Study of Law",
       "record_type": "Archive",
@@ -9356,7 +9356,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Archives Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "African American Education",
       "place_entity_id": null,
       "neighborhood": "Prairie View, Texas",
       "time_period": "1940s",
@@ -9389,7 +9389,7 @@
       "image_thumb_file": "thumbs/coll253.jpg"
     },
     {
-      "id": "84a3c13d-e1bf-4a3b-bb33-5e9d3baeb130",
+      "id": "f1cdfaa2-89de-47b8-b43e-a5c05d0e9ed4",
       "accession_number": "SRM-2026-290",
       "title": "LaSalle Extension University Bachelor of Laws diploma for Richard Jess Brown",
       "record_type": "Artifact",
@@ -9397,7 +9397,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "African American Education",
       "place_entity_id": null,
       "neighborhood": "Chicago, Illinois",
       "time_period": "1940s",
@@ -9429,7 +9429,7 @@
       "image_thumb_file": "thumbs/coll254.jpg"
     },
     {
-      "id": "f8d7b3aa-bbd8-486d-9dc7-c7a86b6e4e35",
+      "id": "bfdb9a82-9b54-402a-8db4-76be78bd2be6",
       "accession_number": "SRM-2026-291",
       "title": "Mississippi Executive Department commission appointing R. Jess Brown a colonel",
       "record_type": "Artifact",
@@ -9437,7 +9437,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Civic Leadership",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1970s",
@@ -9469,7 +9469,7 @@
       "image_thumb_file": "thumbs/coll255.jpg"
     },
     {
-      "id": "b80732f4-b42b-4fda-b248-c1cae27bc9b6",
+      "id": "16543725-11d5-44c2-b83b-9c2eb9d78b1e",
       "accession_number": "SRM-2026-292",
       "title": "Mississippi Board of Bar Admissions certificate for R. Jess Brown",
       "record_type": "Artifact",
@@ -9477,7 +9477,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Mississippi",
       "time_period": "1950s",
@@ -9509,7 +9509,7 @@
       "image_thumb_file": "thumbs/coll256.jpg"
     },
     {
-      "id": "8b94f1f3-0aca-4fe1-86a6-0677fd349334",
+      "id": "844cf891-6cbd-4dfe-9ec2-64b8a1a758ac",
       "accession_number": "SRM-2026-293",
       "title": "Supreme Court of the United States admission certificate for R. Jess Brown",
       "record_type": "Artifact",
@@ -9517,7 +9517,7 @@
       "collection_entity_id": null,
       "collection_name": "R. Jess Brown Collection",
       "location": "Object Storage",
-      "historical_theme": "R. Jess Brown Collection",
+      "historical_theme": "Community and Professional Life",
       "place_entity_id": null,
       "neighborhood": "Washington, D.C.",
       "time_period": "1950s",
@@ -9549,7 +9549,7 @@
       "image_thumb_file": "thumbs/coll257.jpg"
     },
     {
-      "id": "20553711-c279-4f83-85c9-421f1fe9e795",
+      "id": "d25f2f2e-3c61-4f41-a13a-862cda12fd8a",
       "accession_number": "SRM-2026-294",
       "title": "Mr. Willie Wynn studio portrait",
       "record_type": "Photograph",
@@ -9587,7 +9587,7 @@
       "image_thumb_file": "thumbs/coll258.jpg"
     },
     {
-      "id": "91be3619-0b24-461d-b637-9af1e95a558b",
+      "id": "a09d0d3a-a002-4995-b10b-3fc3b8c6cfe0",
       "accession_number": "SRM-2026-295",
       "title": "Formal group portrait on institutional steps",
       "record_type": "Photograph",
@@ -9624,7 +9624,7 @@
       "image_thumb_file": "thumbs/coll259.jpg"
     },
     {
-      "id": "9f07e0f0-76ca-4212-acd0-b76e5e046d11",
+      "id": "0e386ef7-eb06-4e0d-b997-f64039bddae4",
       "accession_number": "SRM-2026-296",
       "title": "Washboard in galvanized wash tub",
       "record_type": "Photograph",
@@ -9661,7 +9661,7 @@
       "image_thumb_file": "thumbs/coll260.jpg"
     },
     {
-      "id": "ad1657f5-0d77-474c-aee3-4135d171beaa",
+      "id": "e2ec012e-660b-4abd-82cf-b279a7cb183e",
       "accession_number": "SRM-2026-297",
       "title": "Outhouse at Jennings Place in Port Gibson",
       "record_type": "Photograph",
@@ -9699,7 +9699,7 @@
       "image_thumb_file": "thumbs/coll261.jpg"
     },
     {
-      "id": "1b0663d8-9009-4d25-bfde-cabf4f12a78b",
+      "id": "42f122f9-acf4-47cb-a032-190377eba1f5",
       "accession_number": "SRM-2026-298",
       "title": "Historic Pictorial Group of the Members of the Legislature, State of Mississippi, 1878-1879",
       "record_type": "Archive",
@@ -9737,7 +9737,7 @@
       "image_thumb_file": "thumbs/coll262.jpg"
     },
     {
-      "id": "83646714-e385-48c1-987f-b99d6c589897",
+      "id": "8bfb3546-4455-4470-90fe-d42cfe0635de",
       "accession_number": "SRM-2026-299",
       "title": "Metropolitan Class Record No. 425",
       "record_type": "Archive",
@@ -9775,7 +9775,7 @@
       "image_thumb_file": "thumbs/coll263.jpg"
     },
     {
-      "id": "8788377f-df27-4abb-8fe9-521221d20e6b",
+      "id": "2827c994-f58b-4cc1-bfcd-2dbe1fe7a7a0",
       "accession_number": "SRM-2026-300",
       "title": "The New Chardenal annotated volume",
       "record_type": "Artifact",
@@ -9812,7 +9812,7 @@
       "image_thumb_file": "thumbs/coll264.jpg"
     },
     {
-      "id": "15bc5f82-bc89-4840-9052-36cbe6769e16",
+      "id": "2ccf3d22-5afd-4782-b392-8ff2bdfec781",
       "accession_number": "SRM-2026-301",
       "title": "Principles and Technique of Teaching",
       "record_type": "Artifact",
@@ -9849,7 +9849,7 @@
       "image_thumb_file": "thumbs/coll265.jpg"
     },
     {
-      "id": "bd21885a-82bc-4373-8e82-55c60ba1e9c4",
+      "id": "1520aa6a-031b-4f5a-9f22-da48fa317b6a",
       "accession_number": "SRM-2026-302",
       "title": "Key to High School Algebra volume",
       "record_type": "Artifact",
@@ -9886,7 +9886,7 @@
       "image_thumb_file": "thumbs/coll266.jpg"
     },
     {
-      "id": "5c159e69-50fc-40df-b1ce-e0f08862f1d4",
+      "id": "d27b0447-557b-47e2-840c-b925419f89d5",
       "accession_number": "SRM-2026-303",
       "title": "Seated older man indoors",
       "record_type": "Photograph",
@@ -9923,7 +9923,7 @@
       "image_thumb_file": "thumbs/coll267.jpg"
     },
     {
-      "id": "51a098fa-fd7e-4d95-9175-ae614e3236ec",
+      "id": "9a343031-1167-433d-b487-3d753aa1d6a2",
       "accession_number": "SRM-2026-304",
       "title": "Older man seated with cane",
       "record_type": "Photograph",
@@ -9960,7 +9960,7 @@
       "image_thumb_file": "thumbs/coll268.jpg"
     },
     {
-      "id": "521790b3-0c7d-4b21-a694-c19e2e9d2d3c",
+      "id": "3c69b70a-1a50-4080-b81f-9aef1c691572",
       "accession_number": "SRM-2026-305",
       "title": "Advanced French Prose Composition",
       "record_type": "Artifact",
@@ -9997,7 +9997,7 @@
       "image_thumb_file": "thumbs/coll269.jpg"
     },
     {
-      "id": "627db3e2-e249-429c-abb0-eb50d857bfdd",
+      "id": "9d6f8991-1392-44dd-b345-7d342678cda0",
       "accession_number": "SRM-2026-306",
       "title": "Architectural cast-metal bookends",
       "record_type": "Artifact",
@@ -10034,7 +10034,7 @@
       "image_thumb_file": "thumbs/coll270.jpg"
     },
     {
-      "id": "9f895495-cae7-4485-96b7-a26147cabf95",
+      "id": "4f26a4f9-7813-4103-a124-40fa84f39063",
       "accession_number": "SRM-2026-307",
       "title": "Desk pen stand with upright pen",
       "record_type": "Artifact",
@@ -10071,7 +10071,7 @@
       "image_thumb_file": "thumbs/coll271.jpg"
     },
     {
-      "id": "1d155ac1-c6c8-470d-95c2-c7b186822fcd",
+      "id": "2f3de695-e805-425f-80cc-cd9565a94c87",
       "accession_number": "SRM-2026-308",
       "title": "Alcorn A and M College Certificate of Merit",
       "record_type": "Archive",
@@ -10108,7 +10108,7 @@
       "image_thumb_file": "thumbs/coll272.jpg"
     },
     {
-      "id": "22aa64ac-a27e-4164-8e52-65de8f767a36",
+      "id": "a400547b-c3e7-4c1e-9cbd-39dbeca71c95",
       "accession_number": "SRM-2026-309",
       "title": "The Alcornite yearbook cover, 1948",
       "record_type": "Archive",
@@ -10145,7 +10145,7 @@
       "image_thumb_file": "thumbs/coll273.jpg"
     },
     {
-      "id": "b42c3232-15e1-4076-8db9-e89b4fae4549",
+      "id": "743fe60f-3e5a-4824-8a87-9ea445de1e08",
       "accession_number": "SRM-2026-310",
       "title": "The Alcornite yearbook cover, 1929",
       "record_type": "Archive",
@@ -10182,7 +10182,7 @@
       "image_thumb_file": "thumbs/coll274.jpg"
     },
     {
-      "id": "ecc62cbf-e002-4332-bfe7-7e10067deaf6",
+      "id": "f8a22d21-652d-46ca-856f-04287b0319bf",
       "accession_number": "SRM-2026-311",
       "title": "Forum 1927 cover",
       "record_type": "Archive",
@@ -10218,7 +10218,7 @@
       "image_thumb_file": "thumbs/coll275.jpg"
     },
     {
-      "id": "bcd34b0b-331d-48ac-ac17-74d9f749b3df",
+      "id": "44d65787-12c3-4a13-8447-b42abbc7c978",
       "accession_number": "SRM-2026-312",
       "title": "The New Broadman Hymnal",
       "record_type": "Artifact",
@@ -10254,7 +10254,7 @@
       "image_thumb_file": "thumbs/coll276.jpg"
     },
     {
-      "id": "04a8fa46-8619-478d-8fef-6137c183bed7",
+      "id": "287f575b-940e-4810-aa8f-0d225056a0d1",
       "accession_number": "SRM-2026-313",
       "title": "Modern Business Course and Service volume",
       "record_type": "Artifact",
@@ -10290,7 +10290,7 @@
       "image_thumb_file": "thumbs/coll277.jpg"
     },
     {
-      "id": "830db392-4285-4e88-8e4c-ba1de6979688",
+      "id": "97546c74-bbd9-4fd2-af3f-e8d6c8c1b548",
       "accession_number": "SRM-2026-314",
       "title": "A Tribute to Robert Smith, M.D.",
       "record_type": "Archive",
@@ -10327,7 +10327,7 @@
       "image_thumb_file": "thumbs/coll278.jpg"
     },
     {
-      "id": "f46e3b80-9de0-4c18-99be-f39a92a33dfa",
+      "id": "2360adec-9f51-44e0-9ecc-781d16750f4b",
       "accession_number": "SRM-2026-315",
       "title": "T. L. Zuber, A.B., M.D. portrait",
       "record_type": "Photograph",
@@ -10364,7 +10364,7 @@
       "image_thumb_file": "thumbs/coll279.jpg"
     },
     {
-      "id": "4dba6e9f-6580-4106-97c5-85de86068793",
+      "id": "dbeeab54-01f4-4a61-96be-881e69585281",
       "accession_number": "SRM-2026-316",
       "title": "Dr. Carmichael of Canton portrait",
       "record_type": "Photograph",
@@ -10401,7 +10401,7 @@
       "image_thumb_file": "thumbs/coll280.jpg"
     },
     {
-      "id": "c834aa9d-fb19-4fe6-8211-868969b37d43",
+      "id": "329e3c48-ab0a-436b-8646-630869b3cdf4",
       "accession_number": "SRM-2026-317",
       "title": "Urban commercial corridor streetscape",
       "record_type": "Photograph",
@@ -10439,7 +10439,7 @@
       "image_thumb_file": "thumbs/coll281.jpg"
     },
     {
-      "id": "47dd8b05-5443-45ae-98da-6031cf10681f",
+      "id": "ca6b2362-f733-4689-b678-0380b03cb76f",
       "accession_number": "SRM-2026-318",
       "title": "House Concurrent Resolution No. 93 for Reverend Robert L. T. Smith, Sr.",
       "record_type": "Archive",
@@ -10476,7 +10476,7 @@
       "image_thumb_file": "thumbs/coll282.jpg"
     },
     {
-      "id": "ae3b37d8-d7fc-4b9f-b7f7-e90a4a0c37cd",
+      "id": "88e1f997-b2b5-4659-a875-95c6eabf6c8b",
       "accession_number": "SRM-2026-319",
       "title": "Pentecostal Temple at 960 Kane Street",
       "record_type": "Photograph",
@@ -10514,7 +10514,7 @@
       "image_thumb_file": "thumbs/coll283.jpg"
     },
     {
-      "id": "6271e208-1b53-4f32-88e9-f0ecfc106ab2",
+      "id": "66edf32a-ad3c-4ce0-ae18-e890405cdc26",
       "accession_number": "SRM-2026-320",
       "title": "Historical marker for photographer Richard Beadle",
       "record_type": "Photograph",
@@ -10552,7 +10552,7 @@
       "image_thumb_file": "thumbs/coll284.jpg"
     },
     {
-      "id": "92e464bb-f9b9-4d0f-8372-91aa21022617",
+      "id": "bd432258-0230-478d-8fc4-3f618ba792e3",
       "accession_number": "SRM-2026-321",
       "title": "Two-story wood-frame residence with stacked porches",
       "record_type": "Photograph",
@@ -10589,7 +10589,7 @@
       "image_thumb_file": "thumbs/coll285.jpg"
     },
     {
-      "id": "272494b1-6300-4d48-b734-d47cebd55d20",
+      "id": "cdf4a108-c858-425c-9ae4-acd45df9bf77",
       "accession_number": "SRM-2026-322",
       "title": "Nineteenth-century group portrait of seven men",
       "record_type": "Photograph",
@@ -10626,7 +10626,7 @@
       "image_thumb_file": "thumbs/coll286.jpg"
     },
     {
-      "id": "4be3a139-02de-4399-ba2e-4f7e68e62f5f",
+      "id": "48ff8883-f3f4-49da-9e9c-1638044d3f8e",
       "accession_number": "SRM-2026-323",
       "title": "Kwame Ture campus lecture flyer and biographical sheet",
       "record_type": "Archive",
@@ -10664,7 +10664,7 @@
       "image_thumb_file": "thumbs/coll287.jpg"
     },
     {
-      "id": "b2c0d1bb-5cb9-42b6-a6b7-3f7ef29dddc6",
+      "id": "a87c6a8d-c8ee-45b7-9472-431eef07f1e5",
       "accession_number": "SRM-2026-324",
       "title": "Office or public building desk scene",
       "record_type": "Photograph",
@@ -10701,7 +10701,7 @@
       "image_thumb_file": "thumbs/coll288.jpg"
     },
     {
-      "id": "5da7d6ae-7e8e-4c20-9d83-4b9d55f7fe0c",
+      "id": "b08c7caa-693f-4624-a691-ebed7d3ce745",
       "accession_number": "SRM-2026-325",
       "title": "Studio portrait of unidentified infant",
       "record_type": "Photograph",
@@ -10709,7 +10709,7 @@
       "collection_entity_id": null,
       "collection_name": "Dr. Townsend Collection",
       "location": "Needs Review",
-      "historical_theme": "Portraiture and Community Memory",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Geographies To Be Confirmed",
       "time_period": "20th century",
@@ -10738,7 +10738,7 @@
       "image_thumb_file": "thumbs/coll289.jpg"
     },
     {
-      "id": "ac5acd43-f2db-49bb-a77f-49b88100e935",
+      "id": "5db5576a-34fc-4ab4-bcb9-1fdeb969f910",
       "accession_number": "SRM-2026-326",
       "title": "Portrait of three unidentified young people",
       "record_type": "Photograph",
@@ -10775,7 +10775,7 @@
       "image_thumb_file": "thumbs/coll290.jpg"
     },
     {
-      "id": "6b68567f-67dc-4b78-8f3a-41faa8397405",
+      "id": "158fb7ca-6fad-4f37-976a-3f88198c1259",
       "accession_number": "SRM-2026-327",
       "title": "Aaron E. Henry biographical portrait and caption",
       "record_type": "Archive",
@@ -10813,7 +10813,7 @@
       "image_thumb_file": "thumbs/coll291.jpg"
     },
     {
-      "id": "4272990d-efe5-460f-9f83-2ba04ad6897d",
+      "id": "015feef6-6257-47af-a9cb-ccdbbc7d80f2",
       "accession_number": "SRM-2026-328",
       "title": "Full-length portrait of unidentified woman with handbag",
       "record_type": "Photograph",
@@ -10851,7 +10851,7 @@
       "image_thumb_file": "thumbs/coll292.jpg"
     },
     {
-      "id": "441eb4e9-2648-4be7-84f7-a5ab8a04ce1f",
+      "id": "e4d6e9f1-ced1-4d7d-8932-be49d20aa8bd",
       "accession_number": "SRM-2026-329",
       "title": "Health worker examining seated man",
       "record_type": "Photograph",
@@ -10888,7 +10888,7 @@
       "image_thumb_file": "thumbs/coll293.jpg"
     },
     {
-      "id": "ee5d3104-1af7-4f4e-b8c6-c3d39a42f31b",
+      "id": "eba6f1af-06e5-4bcf-b188-9306ddd70de9",
       "accession_number": "SRM-2026-330",
       "title": "Auditorium audience photograph",
       "record_type": "Photograph",
@@ -10925,7 +10925,7 @@
       "image_thumb_file": "thumbs/coll294.jpg"
     },
     {
-      "id": "c90382c6-33b1-4a69-a7a2-2d424b29bedf",
+      "id": "89eca948-5902-45d6-a85d-25f34aa5122f",
       "accession_number": "SRM-2026-331",
       "title": "Brinkley faculty, 1952-1953",
       "record_type": "Photograph",
@@ -10963,7 +10963,7 @@
       "image_thumb_file": "thumbs/coll295.jpg"
     },
     {
-      "id": "1d38df2f-5d16-4ab7-8db7-cf0f401b18ec",
+      "id": "9a891267-63f9-4f6c-9c43-166f51660bc4",
       "accession_number": "SRM-2026-332",
       "title": "Flucker: The Buffalo Soldier on the American Frontier cover",
       "record_type": "Archive",
@@ -11000,7 +11000,7 @@
       "image_thumb_file": "thumbs/coll296.jpg"
     },
     {
-      "id": "1e5b13db-dcbc-4a94-a15a-fac3f67cc337",
+      "id": "0e431832-c8ec-49c1-8777-460fb01d7794",
       "accession_number": "SRM-2026-333",
       "title": "Panoramic view of W. H. Lanier High School",
       "record_type": "Photograph",
@@ -11037,7 +11037,7 @@
       "image_thumb_file": "thumbs/coll297.jpg"
     },
     {
-      "id": "bfb0fafa-ffbb-4f8c-a953-78a2a0dfed0b",
+      "id": "d49bc5c6-a642-4a08-84b7-460b2fe15750",
       "accession_number": "SRM-2026-334",
       "title": "Close-up portrait of young man with lowered head",
       "record_type": "Photograph",
@@ -11074,7 +11074,7 @@
       "image_thumb_file": "thumbs/coll298.jpg"
     },
     {
-      "id": "54f30703-5c2c-4126-bc57-0ecae79516f1",
+      "id": "fba4e123-f508-4899-af57-4c837a8ccca8",
       "accession_number": "SRM-2026-335",
       "title": "Man speaking to boys indoors",
       "record_type": "Photograph",
@@ -11112,7 +11112,7 @@
       "image_thumb_file": "thumbs/coll299.jpg"
     },
     {
-      "id": "7c5f7438-23e0-40ee-97ad-d54e93106d3f",
+      "id": "084ffba2-3236-43e7-98c6-b08ea238e124",
       "accession_number": "SRM-2026-336",
       "title": "Barbara Beadle Barber introduction to the Richard H. Beadle Collection of Black Doctors in Mississippi",
       "record_type": "Archive",
@@ -11150,7 +11150,7 @@
       "image_thumb_file": "thumbs/coll300.jpg"
     },
     {
-      "id": "2e8b60e5-4a34-42a6-9a1c-e24e122625c8",
+      "id": "0cc1c613-5344-4015-aabf-c4f3ac6b40ed",
       "accession_number": "SRM-2026-337",
       "title": "Bust-length portrait of unidentified woman with high bun",
       "record_type": "Photograph",
@@ -11187,7 +11187,7 @@
       "image_thumb_file": "thumbs/coll301.jpg"
     },
     {
-      "id": "74b02d7e-e7a8-411e-93a2-7a4b4d8eab68",
+      "id": "efa5bcf6-ed34-4942-838c-58cd4eb5766c",
       "accession_number": "SRM-2026-338",
       "title": "Row of small wood-frame houses streetscape",
       "record_type": "Photograph",
@@ -11225,7 +11225,7 @@
       "image_thumb_file": "thumbs/coll302.jpg"
     },
     {
-      "id": "6becb9ce-357f-43b3-b898-a6ef7a4d2b07",
+      "id": "2e27f920-5d74-4100-bb43-21fd243ae3a5",
       "accession_number": "SRM-2026-339",
       "title": "Woman sorting garments in distribution room",
       "record_type": "Photograph",
@@ -11262,7 +11262,7 @@
       "image_thumb_file": "thumbs/coll303.jpg"
     },
     {
-      "id": "afc0fbfc-7b56-4474-b4cc-e518cfb08431",
+      "id": "6deb505a-5dd3-4911-a95d-1b3632c0857b",
       "accession_number": "SRM-2026-340",
       "title": "Office interview or administrative meeting",
       "record_type": "Photograph",
@@ -11299,7 +11299,7 @@
       "image_thumb_file": "thumbs/coll304.jpg"
     },
     {
-      "id": "4738a788-3d11-4551-af58-e24ea7324bd0",
+      "id": "a91772bc-9417-4bde-bebe-e14f16effe63",
       "accession_number": "SRM-2026-341",
       "title": "Two women working together at a table",
       "record_type": "Photograph",
@@ -11337,7 +11337,7 @@
       "image_thumb_file": "thumbs/coll305.jpg"
     },
     {
-      "id": "06a29c7d-dd35-4226-a202-8df72c371f5f",
+      "id": "39a7b728-8535-41af-8b75-3c5009c6f01e",
       "accession_number": "SRM-2026-342",
       "title": "Man speaking at microphone behind podium",
       "record_type": "Photograph",
@@ -11374,7 +11374,7 @@
       "image_thumb_file": "thumbs/coll306.jpg"
     },
     {
-      "id": "0a3eff45-fd1b-4a6d-864f-0db61e7eda92",
+      "id": "1f39b6bd-117f-4917-8169-93cf582fb351",
       "accession_number": "SRM-2026-343",
       "title": "Barbecue at Ms. Mitchell's in 1958",
       "record_type": "Photograph",
@@ -11412,7 +11412,7 @@
       "image_thumb_file": "thumbs/coll307.jpg"
     },
     {
-      "id": "33d004d1-e396-4b9f-96d4-b1680fc3875a",
+      "id": "3d6f6618-2bcd-4a2f-a6ba-2af87cbdda83",
       "accession_number": "SRM-2026-344",
       "title": "Committee or club meeting around table",
       "record_type": "Photograph",
@@ -11450,7 +11450,7 @@
       "image_thumb_file": "thumbs/coll308.jpg"
     },
     {
-      "id": "8471857d-fef2-48c3-8121-1dfaa136c257",
+      "id": "6687afa9-5753-45a9-a958-df8d2bce8ff4",
       "accession_number": "SRM-2026-345",
       "title": "Front view of two-story institutional building",
       "record_type": "Photograph",
@@ -11487,7 +11487,7 @@
       "image_thumb_file": "thumbs/coll309.jpg"
     },
     {
-      "id": "80d33b85-c917-4f65-bfd3-a19449edc07d",
+      "id": "ace1def6-11ae-41b6-a1e6-a5fcabbae590",
       "accession_number": "SRM-2026-346",
       "title": "Group photograph in front of building and construction site",
       "record_type": "Photograph",
@@ -11524,7 +11524,7 @@
       "image_thumb_file": "thumbs/coll310.jpg"
     },
     {
-      "id": "7a22d009-0e3d-4a27-b1e3-8bcd0211d95c",
+      "id": "7d49730e-de07-4faa-bbbf-efaafabbc846",
       "accession_number": "SRM-2026-347",
       "title": "Freedom Came to Mississippi title page",
       "record_type": "Archive",
@@ -11560,7 +11560,7 @@
       "image_thumb_file": "thumbs/coll311.jpg"
     },
     {
-      "id": "cc846823-0282-4a00-a188-085088e2eecc",
+      "id": "4d3f10dd-3cce-411e-894c-57d3529725e4",
       "accession_number": "SRM-2026-348",
       "title": "Ida B. Wells marker dedication program cover",
       "record_type": "Archive",
@@ -11597,7 +11597,7 @@
       "image_thumb_file": "thumbs/coll312.jpg"
     },
     {
-      "id": "1b8b0be5-e7e8-4c7d-8fb3-08c3b1edc441",
+      "id": "514109fe-173b-4714-b44e-098266c8ead9",
       "accession_number": "SRM-2026-349",
       "title": "Mississippi Legislative Black Caucus Political Education Fund banquet program",
       "record_type": "Archive",
@@ -11634,7 +11634,7 @@
       "image_thumb_file": "thumbs/coll313.jpg"
     },
     {
-      "id": "c0bcbe61-36f9-4d39-bce7-0f839b61725e",
+      "id": "571beab1-65f8-45bd-953a-199abe502a04",
       "accession_number": "SRM-2026-350",
       "title": "Head-and-shoulders portrait of unidentified young woman",
       "record_type": "Photograph",
@@ -11670,7 +11670,7 @@
       "image_thumb_file": "thumbs/coll314.jpg"
     },
     {
-      "id": "ca04e1bf-7dd4-4a8f-933b-8c8a4b9e2950",
+      "id": "10b88d2a-c5ba-4d21-afcf-4a6ee8e1444c",
       "accession_number": "SRM-2026-351",
       "title": "Studio portrait of unidentified woman wearing glasses",
       "record_type": "Photograph",
@@ -11707,7 +11707,7 @@
       "image_thumb_file": "thumbs/coll315.jpg"
     },
     {
-      "id": "3af821b8-9e59-46d9-a18d-13eccf3316a4",
+      "id": "24c5dadd-5bb0-4d16-82c5-1786eea64163",
       "accession_number": "SRM-2026-352",
       "title": "Historic Pictorial Group of the Members of the Legislature, alternate documentation image",
       "record_type": "Photograph",
@@ -11744,7 +11744,7 @@
       "image_thumb_file": "thumbs/coll316.jpg"
     },
     {
-      "id": "d1a4a026-3431-46e2-90fe-dd186ab388a0",
+      "id": "97ef3989-16d5-4c95-b89d-18c05a79f718",
       "accession_number": "SRM-2026-353",
       "title": "1926-1927 seniors group portrait",
       "record_type": "Photograph",
@@ -11781,7 +11781,7 @@
       "image_thumb_file": "thumbs/coll317.jpg"
     },
     {
-      "id": "5c8793a5-32b5-428a-81d9-61f460bad774",
+      "id": "16f9ac34-2f78-41a0-9bea-cefa45f82d55",
       "accession_number": "SRM-2026-354",
       "title": "Mississippi-shaped board and Jackson Club history",
       "record_type": "Archive",
@@ -11818,7 +11818,7 @@
       "image_thumb_file": "thumbs/coll318.jpg"
     },
     {
-      "id": "7f2a6cdd-312b-46b7-b2cf-cfc8c35f286f",
+      "id": "67b6f525-9346-497c-b930-3bdfdeb2b615",
       "accession_number": "SRM-2026-355",
       "title": "Jackson Club group portrait with membership roster",
       "record_type": "Photograph",
@@ -11856,7 +11856,7 @@
       "image_thumb_file": "thumbs/coll319.jpg"
     },
     {
-      "id": "b4349220-6600-4843-a8dc-bae53fa51c0c",
+      "id": "2c6e5be8-0c4c-4852-a4c4-e54a1472da5d",
       "accession_number": "SRM-2026-356",
       "title": "Children eating in school cafeteria",
       "record_type": "Photograph",
@@ -11893,7 +11893,7 @@
       "image_thumb_file": "thumbs/coll320.jpg"
     },
     {
-      "id": "d6418dfd-ef43-47ae-9192-553db2120981",
+      "id": "989bd8b8-b144-4d63-a8c5-25f168a0ac96",
       "accession_number": "SRM-2026-357",
       "title": "Three boys at school cafeteria table",
       "record_type": "Photograph",
@@ -11930,7 +11930,7 @@
       "image_thumb_file": "thumbs/coll321.jpg"
     },
     {
-      "id": "6c13e18a-1c35-4eb9-8321-bf49e2bd7aa4",
+      "id": "9385d82f-bf23-448f-93bf-13e4f056afed",
       "accession_number": "SRM-2026-358",
       "title": "Recorder lesson at Mt. Moriah Elementary School",
       "record_type": "Photograph",
@@ -11967,7 +11967,7 @@
       "image_thumb_file": "thumbs/coll322.jpg"
     },
     {
-      "id": "f15fe0a8-30bc-41c4-a64f-0b377f4a4ed2",
+      "id": "5e985835-d7a1-4e9d-9b23-e1d88c20f9b8",
       "accession_number": "SRM-2026-359",
       "title": "Business and Professional Women's Club member examining garments",
       "record_type": "Photograph",
@@ -12004,7 +12004,7 @@
       "image_thumb_file": "thumbs/coll323.jpg"
     },
     {
-      "id": "53967fe0-94c3-4ba5-aae9-129800351f81",
+      "id": "fada9e8b-628e-4813-a3de-b3c9684ce2b5",
       "accession_number": "SRM-2026-360",
       "title": "Girl Scouts Troop 181 arts-and-crafts display",
       "record_type": "Photograph",
@@ -12041,7 +12041,7 @@
       "image_thumb_file": "thumbs/coll324.jpg"
     },
     {
-      "id": "49b591e2-2f23-43a5-8403-7146f8d4b083",
+      "id": "75e9a839-2493-433a-87c3-c40d8c2ce361",
       "accession_number": "SRM-P--1990-013",
       "title": "Mounted reproductions of Smith Robertson School exterior views",
       "record_type": "Photograph",
@@ -12078,7 +12078,7 @@
       "image_thumb_file": "thumbs/coll088.jpg"
     },
     {
-      "id": "0dd11183-144a-47e5-b079-8013a8b226da",
+      "id": "21206b2e-6379-40a2-b2fe-e300ca5ef7ad",
       "accession_number": "SRM-P-1955-012",
       "title": "Portrait photograph of A.N. Jackson, principal",
       "record_type": "Artifact",
@@ -12115,7 +12115,7 @@
       "image_thumb_file": "thumbs/coll085.jpg"
     },
     {
-      "id": "cddab1c0-face-420a-ac72-61f6db4fedf5",
+      "id": "3bc8eb4d-84b2-4890-8b95-69dce103caca",
       "accession_number": "SRM-P-1960-020",
       "title": "Smith Robinson School Sunday Evening Meeting",
       "record_type": "Photograph",
@@ -12149,7 +12149,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "b29f1df3-d628-42ee-ae4c-df3f207d50b6",
+      "id": "188a585b-5ab1-4af4-a5cf-aeaf957fe874",
       "accession_number": "SRM-P-1971- 015",
       "title": "Portrait photograph of L.V. Randolph, principal",
       "record_type": "Photograph",
@@ -12186,7 +12186,7 @@
       "image_thumb_file": "thumbs/coll086.jpg"
     },
     {
-      "id": "154c6c19-f45f-4d18-bd27-d9a0adf81cd2",
+      "id": "152f75d2-f0e9-4377-b5b9-e956588d14ff",
       "accession_number": "SRM-P-2026-004",
       "title": "Photo Prof. Luther Marshall",
       "record_type": "Photograph",
@@ -12220,7 +12220,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "4771e58b-7600-4acf-a845-5e9cbe3788ba",
+      "id": "c946e867-6f12-4a96-993a-93b9d045db2a",
       "accession_number": "SRM-P-2026-010",
       "title": "Photo of Charles S. Wilson, SR Principal",
       "record_type": "Artifact",
@@ -12254,7 +12254,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "69900a41-5162-49be-a876-a75661aca86b",
+      "id": "0ccab7b8-61a3-42fe-9b1f-178bebde68a9",
       "accession_number": "SRM-P-2026-011",
       "title": "Portrait photograph of Principal James Gooden",
       "record_type": "Photograph",
@@ -12291,7 +12291,7 @@
       "image_thumb_file": "thumbs/coll087.jpg"
     },
     {
-      "id": "d4f4b0dd-2b43-41ef-ae8a-f953712d6be5",
+      "id": "0c3ebed0-dbec-4fff-9cdf-0c05fba54f5c",
       "accession_number": "SRM-P-c.1950- 018",
       "title": "Portrait photograph of Richard Wright",
       "record_type": "Photograph",
@@ -12329,7 +12329,7 @@
       "image_thumb_file": "thumbs/coll089.jpg"
     },
     {
-      "id": "8b1bd0d9-032f-4535-9301-77b71c576895",
+      "id": "bc953b34-1847-458d-a55a-ee211d5fef57",
       "accession_number": "SRM-P-c.1970- 017",
       "title": "Smith Robertson Under Construction",
       "record_type": "Photograph",
@@ -12363,7 +12363,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "0f447268-b624-4a97-9dfb-c6b1365f6931",
+      "id": "6b73f758-fa3c-4971-ae02-5484b1bacad6",
       "accession_number": "SRM-R--1973-003",
       "title": "Ebony Magazine 1973 Feb-Aug",
       "record_type": "Artifact",
@@ -12397,7 +12397,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "ee7286b0-43aa-4582-b116-ae31426966f5",
+      "id": "8c014d9c-731f-465b-88f4-e54d6ac356b5",
       "accession_number": "SRM-R--1976-005",
       "title": "Jackson Advocate 1976-2005",
       "record_type": "Artifact",
@@ -12431,7 +12431,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "408f6059-87e3-473c-9368-695003e72083",
+      "id": "aa82e207-64ff-480c-bb57-ed7dd6fd2411",
       "accession_number": "SRM-R--2008-002",
       "title": "Jackson Advocate 2008",
       "record_type": "Artifact",
@@ -12465,7 +12465,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "d93d3e7f-33fb-4234-a2a5-f3f50180e76c",
+      "id": "7e9eaaee-a2c2-4d3e-a8ab-038e75869488",
       "accession_number": "SRM-R--2013-001",
       "title": "Jackson Advocate 2013",
       "record_type": "Newspaper / Periodical",
@@ -12499,7 +12499,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "ed1aab61-4ffb-4e08-84d6-8b1e295c6f57",
+      "id": "0da9d897-fd17-4976-bdae-d6c23e088d0a",
       "accession_number": "SRM-R--2026-006",
       "title": "Field to Factory Slides and Videos",
       "record_type": "Artifact",
@@ -12533,7 +12533,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "27ac6c24-dcce-4f51-b5bd-6f928875364e",
+      "id": "f4b8f927-c6c6-409e-ab50-e7bd5ca7aaf3",
       "accession_number": "SRM-R--2026-008",
       "title": "MS link 1994-1995",
       "record_type": "Artifact",
@@ -12567,7 +12567,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "4750e791-2483-4205-ab99-cdc805dbde80",
+      "id": "f9b4367b-7ca1-42d5-8765-3b8d9528296a",
       "accession_number": "SRM-R--2026-009",
       "title": "Field to Factory Art Box",
       "record_type": "Exhibit",
@@ -12601,7 +12601,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "2aca3f4c-7420-40aa-b4dc-f1e03535a82b",
+      "id": "b5079930-839a-4d3a-aa24-534353b4f078",
       "accession_number": "SRM-R--c.1900-019",
       "title": "Photo of Smith Robertson",
       "record_type": "Artifact",
@@ -12635,7 +12635,7 @@
       "image_thumb_file": ""
     },
     {
-      "id": "b0cc0d83-4c16-4d3f-943c-138e2ee82979",
+      "id": "4f602486-ba8f-45ab-a850-c1158369d6e9",
       "accession_number": "SRM-2026-361",
       "title": "Portrait of an unidentified infant, undated",
       "record_type": "Photograph",
@@ -12643,7 +12643,7 @@
       "collection_entity_id": null,
       "collection_name": "Stumps Collection",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Geographies To Be Confirmed",
       "time_period": "20th century",
@@ -12674,7 +12674,7 @@
       "image_thumb_file": "thumbs/coll325.jpg"
     },
     {
-      "id": "2e8dc394-31e0-4ab1-9f34-495386e6e2dd",
+      "id": "177149ff-9d05-4a08-9ae3-d797cf509de4",
       "accession_number": "SRM-2026-362",
       "title": "Portrait of three unidentified children, undated",
       "record_type": "Photograph",
@@ -12713,7 +12713,7 @@
       "image_thumb_file": "thumbs/coll326.jpg"
     },
     {
-      "id": "4c48a649-b7be-4562-b0e7-8135aa61a854",
+      "id": "e1a9f782-720a-49a8-be44-a24f29a90c57",
       "accession_number": "SRM-2026-363",
       "title": "Portrait of an unidentified couple, undated",
       "record_type": "Photograph",
@@ -12752,7 +12752,7 @@
       "image_thumb_file": "thumbs/coll327.jpg"
     },
     {
-      "id": "d5cb9f2b-a8a9-423b-867c-6de6f85d5812",
+      "id": "81aff0f5-7585-4d0f-a56a-b023e205be08",
       "accession_number": "SRM-2026-364",
       "title": "Carved portrait bust of an unidentified woman, undated",
       "record_type": "Photograph",
@@ -12791,7 +12791,7 @@
       "image_thumb_file": "thumbs/coll328.jpg"
     },
     {
-      "id": "704bd5a8-a963-4157-b032-b0ca9b487524",
+      "id": "34a2aeaa-4b7a-44fa-a424-112fdbf6b6b4",
       "accession_number": "SRM-2026-365",
       "title": "Carved portrait bust of an unidentified man, undated",
       "record_type": "Photograph",
@@ -12830,7 +12830,7 @@
       "image_thumb_file": "thumbs/coll329.jpg"
     },
     {
-      "id": "3a6a9a74-0fde-4ac6-8af0-35ed135130a8",
+      "id": "818fe6ba-059f-4461-ab98-b3aad25561a6",
       "accession_number": "SRM-2026-366",
       "title": "Voter-registration list by ward, 1965",
       "record_type": "Archive",
@@ -12864,7 +12864,7 @@
       "image_thumb_file": "thumbs/coll330.jpg"
     },
     {
-      "id": "e32a5d54-2cca-4233-b65b-ed5ebe61d072",
+      "id": "09c6102e-a1a2-4283-ae52-16aa38e82b3d",
       "accession_number": "SRM-2026-367",
       "title": "The Inauguration of the President, Alcorn Agricultural and Mechanical College, March 6, 1971",
       "record_type": "Archive",
@@ -12898,7 +12898,7 @@
       "image_thumb_file": "thumbs/coll331.jpg"
     },
     {
-      "id": "d2cee952-47ed-4728-bd95-9bfd41813f94",
+      "id": "eea5d2c9-95b4-40ef-856f-ea7650c2ac23",
       "accession_number": "SRM-2026-368",
       "title": "The Eagle yearbook, 2008",
       "record_type": "Archive",
@@ -12932,7 +12932,7 @@
       "image_thumb_file": "thumbs/coll332.jpg"
     },
     {
-      "id": "ddbf5dbc-4a44-4501-901f-d363653a2274",
+      "id": "7fa52dbb-6f5b-47ac-8022-aeb25721b276",
       "accession_number": "SRM-2026-369",
       "title": "The 1981 Delvian: A Valley Experience",
       "record_type": "Archive",
@@ -12966,7 +12966,7 @@
       "image_thumb_file": "thumbs/coll333.jpg"
     },
     {
-      "id": "a0956363-d2d1-47fc-8bb1-b58153a5e7a4",
+      "id": "3ed56f9e-0df7-43a4-a371-b410ffa70c98",
       "accession_number": "SRM-2026-370",
       "title": "Smith Robertson Folklife Festival program, May 3–5, 1985",
       "record_type": "Archive",
@@ -13000,7 +13000,7 @@
       "image_thumb_file": "thumbs/coll334.jpg"
     },
     {
-      "id": "aaeb990d-02a2-4c9d-a263-a6f622adfab8",
+      "id": "4b7df85d-c531-410e-bcc9-924fee2d0991",
       "accession_number": "SRM-2026-371",
       "title": "Smith Robertson Museum and Cultural Center brochure, undated",
       "record_type": "Archive",
@@ -13034,7 +13034,7 @@
       "image_thumb_file": "thumbs/coll335.jpg"
     },
     {
-      "id": "908a40dc-ff71-48d8-9404-5d8bdf797d7f",
+      "id": "5db6af6a-c7a2-40f3-8306-1398d665a671",
       "accession_number": "SRM-2026-372",
       "title": "Afro Scholar Newsletter featuring Richard Wright, undated",
       "record_type": "Archive",
@@ -13068,7 +13068,7 @@
       "image_thumb_file": "thumbs/coll336.jpg"
     },
     {
-      "id": "b7a519ef-645d-4cad-a0fd-2ced3af26c4b",
+      "id": "ff4e2fbf-814a-4240-96ec-08d7499800f0",
       "accession_number": "SRM-2026-373",
       "title": "A Neighborhood Discovery exhibition program, 1983",
       "record_type": "Archive",
@@ -13102,7 +13102,7 @@
       "image_thumb_file": "thumbs/coll337.jpg"
     },
     {
-      "id": "8377af11-1eb6-4f78-a43f-d2ae01cfc960",
+      "id": "838c6473-da7f-4e43-bb99-d2c70a58b61d",
       "accession_number": "SRM-2026-374",
       "title": "Farish Street Historic District brochure, undated",
       "record_type": "Archive",
@@ -13136,7 +13136,7 @@
       "image_thumb_file": "thumbs/coll338.jpg"
     },
     {
-      "id": "25002b6f-c8e5-4c68-8e87-bc55d0b614b3",
+      "id": "d647edcb-44ba-4210-ad70-4ad09735ca05",
       "accession_number": "SRM-2026-375",
       "title": "Argonne Forest Pressing Club advertising fan, ca. 1920",
       "record_type": "Artifact",
@@ -13170,7 +13170,7 @@
       "image_thumb_file": "thumbs/coll339.jpg"
     },
     {
-      "id": "5f7a7498-11c6-4b0c-840d-951794a5543e",
+      "id": "cf559672-58f2-477e-b1ed-63ab0f14faf2",
       "accession_number": "SRM-2026-376",
       "title": "Advertising fan with portrait of an unidentified boy, undated",
       "record_type": "Photograph",
@@ -13209,7 +13209,7 @@
       "image_thumb_file": "thumbs/coll340.jpg"
     },
     {
-      "id": "40a3e840-f4f6-4817-bbf2-0f084e37a459",
+      "id": "cd07e116-6cde-4c26-ba43-16f696c5cd70",
       "accession_number": "SRM-2026-377",
       "title": "Portrait of an unidentified woman, undated",
       "record_type": "Photograph",
@@ -13248,7 +13248,7 @@
       "image_thumb_file": "thumbs/coll341.jpg"
     },
     {
-      "id": "c7e64169-ef97-4675-b0e3-f4b83112c93a",
+      "id": "6f4b5580-5f80-4cb7-b8f5-a48c2ff272d2",
       "accession_number": "SRM-2026-378",
       "title": "Presentation on a porch, undated",
       "record_type": "Photograph",
@@ -13286,7 +13286,7 @@
       "image_thumb_file": "thumbs/coll342.jpg"
     },
     {
-      "id": "89f45a2c-f7e5-4247-b96a-44053452eeac",
+      "id": "6202e677-55ca-42ca-9163-3182958c5735",
       "accession_number": "SRM-2026-379",
       "title": "Edward Nelson Taylor, undated",
       "record_type": "Photograph",
@@ -13325,7 +13325,7 @@
       "image_thumb_file": "thumbs/coll343.jpg"
     },
     {
-      "id": "0d02683f-7249-498c-b736-c656b630e8a1",
+      "id": "903d8aa3-0400-4c8c-902f-a0a49b24fc74",
       "accession_number": "SRM-2026-380",
       "title": "Portrait of an unidentified young man, undated",
       "record_type": "Photograph",
@@ -13364,7 +13364,7 @@
       "image_thumb_file": "thumbs/coll344.jpg"
     },
     {
-      "id": "29c4c2ac-f157-439e-b858-96c8e07fe640",
+      "id": "29e359e5-a541-43ba-aa65-a8940d4a47a1",
       "accession_number": "SRM-2026-381",
       "title": "Two unidentified children indoors, undated",
       "record_type": "Photograph",
@@ -13402,7 +13402,7 @@
       "image_thumb_file": "thumbs/coll345.jpg"
     },
     {
-      "id": "700fb214-91f5-4b31-8c0d-a343983cb795",
+      "id": "f288b215-0629-4d9f-95bc-e1185cc0d432",
       "accession_number": "SRM-2026-382",
       "title": "Tougaloo News memorial issue for Isaiah Sumner Sanders, February 1981",
       "record_type": "Archive",
@@ -13436,7 +13436,7 @@
       "image_thumb_file": "thumbs/coll346.jpg"
     },
     {
-      "id": "354bb581-f4e6-4d44-9b4c-54dc0581870a",
+      "id": "3cbe8865-62d7-4965-8e1a-21e39d5e4763",
       "accession_number": "SRM-2026-383",
       "title": "Portrait labeled “Ida B. Wells,” undated",
       "record_type": "Photograph",
@@ -13472,7 +13472,7 @@
       "image_thumb_file": "thumbs/coll347.jpg"
     },
     {
-      "id": "8cbc0d64-5f08-4c02-a27c-5a5931edc1aa",
+      "id": "6f23f159-802a-4763-b4d8-362fb742ed1c",
       "accession_number": "SRM-2026-384",
       "title": "Soulbook 7, undated",
       "record_type": "Archive",
@@ -13506,7 +13506,7 @@
       "image_thumb_file": "thumbs/coll348.jpg"
     },
     {
-      "id": "971be9b1-2e9c-4c0d-88c2-eaa19a56becd",
+      "id": "cb3e82eb-62df-4227-b309-a4bc6bf49202",
       "accession_number": "SRM-2026-385",
       "title": "Collins Funeral Home advertising plaque, undated",
       "record_type": "Photograph",
@@ -13545,7 +13545,7 @@
       "image_thumb_file": "thumbs/coll349.jpg"
     },
     {
-      "id": "eab7c2cb-f0f8-4b6f-9c92-bc27833dddf6",
+      "id": "26345e1b-fe79-452a-8d17-0896ee5367c4",
       "accession_number": "SRM-2026-386",
       "title": "Mississippi Passenger Road and Bridge Privilege Tax receipt, 1947",
       "record_type": "Artifact",
@@ -13583,7 +13583,7 @@
       "image_thumb_file": "thumbs/coll350.jpg"
     },
     {
-      "id": "5574f509-2bf0-4423-bbd8-a9acae8d7097",
+      "id": "23a25894-4950-4b77-8e84-5967f7efd8f5",
       "accession_number": "SRM-2026-387",
       "title": "Industrial-course certificate awarded to R. L. Burton, May 20, 1916",
       "record_type": "Archive",
@@ -13617,7 +13617,7 @@
       "image_thumb_file": "thumbs/coll351.jpg"
     },
     {
-      "id": "9d03e953-9033-420e-9e91-044772c6874a",
+      "id": "360f92cd-4cfc-44a8-a07c-cf5daf1ec5b1",
       "accession_number": "SRM-2026-388",
       "title": "Richard Beadle historical marker, undated",
       "record_type": "Photograph",
@@ -13656,7 +13656,7 @@
       "image_thumb_file": "thumbs/coll352.jpg"
     },
     {
-      "id": "445c006e-e6d4-4086-8888-c19d40c3f435",
+      "id": "654ed9af-5f60-4d77-bc05-45849a4456a4",
       "accession_number": "SRM-2026-389",
       "title": "Smith Robertson Neighborhood Folklife Festival program, May 4, 1984",
       "record_type": "Archive",
@@ -13690,7 +13690,7 @@
       "image_thumb_file": "thumbs/coll353.jpg"
     },
     {
-      "id": "c73ed89f-c8f4-4bff-9382-c4f0add5c10e",
+      "id": "68cee333-3af6-4751-a870-d980e23b3745",
       "accession_number": "SRM-2026-390",
       "title": "Smith Robertson Neighborhood Folklife Festival program pages, 1984",
       "record_type": "Archive",
@@ -13724,7 +13724,7 @@
       "image_thumb_file": "thumbs/coll354.jpg"
     },
     {
-      "id": "d73859d9-1e56-4141-b58b-3ead72dcdb8c",
+      "id": "54242f31-00cd-4e36-95a1-e1f59b485a8f",
       "accession_number": "SRM-2026-391",
       "title": "Commission on Religion and Race Reports, spring 1965",
       "record_type": "Archive",
@@ -13758,7 +13758,7 @@
       "image_thumb_file": "thumbs/coll355.jpg"
     },
     {
-      "id": "81b3e451-3094-4bea-b625-8de50243af26",
+      "id": "cf8c94bf-7e20-410f-98a8-ce834c3e7617",
       "accession_number": "SRM-2026-392",
       "title": "SCLC Citizenship Workbook, undated",
       "record_type": "Archive",
@@ -13792,7 +13792,7 @@
       "image_thumb_file": "thumbs/coll356.jpg"
     },
     {
-      "id": "2ef4eea3-3c11-4dca-a1fa-7d1fff7c84de",
+      "id": "74c537b4-cb5e-44e8-a381-48beffc17d17",
       "accession_number": "SRM-2026-393",
       "title": "Wake Up America!, February 1964",
       "record_type": "Archive",
@@ -13826,7 +13826,7 @@
       "image_thumb_file": "thumbs/coll357.jpg"
     },
     {
-      "id": "51c06595-6f69-43ee-90aa-dc4820f416b2",
+      "id": "5850c566-f27d-4d05-a799-12e93eda5ede",
       "accession_number": "SRM-2026-394",
       "title": "Southern Changes, March–April 1980",
       "record_type": "Archive",
@@ -13860,7 +13860,7 @@
       "image_thumb_file": "thumbs/coll358.jpg"
     },
     {
-      "id": "4fdb9961-c097-441d-8c5b-94490088f4e2",
+      "id": "a0b3f025-f63b-42cd-ab69-dae6a9f9ee46",
       "accession_number": "SRM-2026-395",
       "title": "Eighth Annual Medgar Evers Mississippi Homecoming program, June 1, 1980",
       "record_type": "Archive",
@@ -13894,7 +13894,7 @@
       "image_thumb_file": "thumbs/coll359.jpg"
     },
     {
-      "id": "dd4f4733-1b25-43a2-bc42-dc3799671ea8",
+      "id": "3c72ad87-c164-4eb1-b0b5-945c1ad7132e",
       "accession_number": "SRM-2026-396",
       "title": "Unidentified image",
       "record_type": "Photograph",
@@ -13931,7 +13931,7 @@
       "image_thumb_file": "thumbs/coll360.jpg"
     },
     {
-      "id": "71de3ebf-0e3c-41e8-8517-ef75c6c5a5d6",
+      "id": "fb99a6cb-4f27-4723-b8de-7017a9d7b4d1",
       "accession_number": "SRM-2026-397",
       "title": "Group portrait with handwritten identifications, undated",
       "record_type": "Photograph",
@@ -13970,7 +13970,7 @@
       "image_thumb_file": "thumbs/coll361.jpg"
     },
     {
-      "id": "e7d4df28-86b5-4265-acf4-6823dea687c2",
+      "id": "99d54bde-2b6a-47d6-8070-3b5721fa3201",
       "accession_number": "SRM-2026-398",
       "title": "E. C. Foster City Council campaign leaflet, undated",
       "record_type": "Archive",
@@ -14004,7 +14004,7 @@
       "image_thumb_file": "thumbs/coll362.jpg"
     },
     {
-      "id": "c8553288-caa4-41cd-87f8-830a83262357",
+      "id": "25bcf2ce-0b0d-428b-ad00-fdb6118090af",
       "accession_number": "SRM-2026-399",
       "title": "Henry Kirksey mayoral campaign leaflet, undated",
       "record_type": "Archive",
@@ -14040,7 +14040,7 @@
       "image_thumb_file": "thumbs/coll363.jpg"
     },
     {
-      "id": "2c5310ce-beb0-4804-88ff-0e4481bd6c18",
+      "id": "21956563-d9fc-4ca3-aeaf-c6cd31b3f713",
       "accession_number": "SRM-2026-400",
       "title": "The National Directory of Black State Legislators, 1981",
       "record_type": "Archive",
@@ -14074,7 +14074,7 @@
       "image_thumb_file": "thumbs/coll364.jpg"
     },
     {
-      "id": "93cd3e23-7c42-4d9b-9f8c-e007bc4caf23",
+      "id": "a33b3ee3-5d8a-45b5-8cab-81d9f7944527",
       "accession_number": "SRM-2026-401",
       "title": "The UAW Looks at Civil Rights report, October 1959",
       "record_type": "Archive",
@@ -14108,7 +14108,7 @@
       "image_thumb_file": "thumbs/coll365.jpg"
     },
     {
-      "id": "a082006f-7538-4f8b-90e7-6888f80361cc",
+      "id": "90e560c1-f9b7-4e17-93cc-293ba48cd45b",
       "accession_number": "SRM-2026-402",
       "title": "Equal Rights Congress program and documents, July 1977",
       "record_type": "Archive",
@@ -14142,7 +14142,7 @@
       "image_thumb_file": "thumbs/coll366.jpg"
     },
     {
-      "id": "526476ca-4470-4a9f-90a3-0abf792c769f",
+      "id": "4ffb1127-b16d-4abf-91c5-e7257371837b",
       "accession_number": "SRM-2026-403",
       "title": "South Today, January–February 1972",
       "record_type": "Archive",
@@ -14176,7 +14176,7 @@
       "image_thumb_file": "thumbs/coll367.jpg"
     },
     {
-      "id": "0872a5c0-0595-48ef-8718-bcb43a851ffe",
+      "id": "a4077147-4342-4a22-ae5b-2e38091dc10c",
       "accession_number": "SRM-2026-404",
       "title": "South Today, November 1973",
       "record_type": "Archive",
@@ -14210,7 +14210,7 @@
       "image_thumb_file": "thumbs/coll368.jpg"
     },
     {
-      "id": "a7ec45e5-b291-4a4d-b570-38952ff554da",
+      "id": "0cf90980-7b12-4ee9-b359-3b5d79f34c69",
       "accession_number": "SRM-2026-405",
       "title": "The Civil Rights Fight: A Look at the Legislative Record, undated",
       "record_type": "Archive",
@@ -14244,7 +14244,7 @@
       "image_thumb_file": "thumbs/coll369.jpg"
     },
     {
-      "id": "ec056da8-3269-4f6e-9f44-f27c5bbc7d8a",
+      "id": "ce0d17ae-b385-4e16-8991-3873f4928ed8",
       "accession_number": "SRM-2026-406",
       "title": "New South, April 1964",
       "record_type": "Archive",
@@ -14278,7 +14278,7 @@
       "image_thumb_file": "thumbs/coll370.jpg"
     },
     {
-      "id": "7b1ea713-1b0e-41b6-97e4-da8671477e97",
+      "id": "7b5378fd-60db-43f1-9be4-e13c47b66941",
       "accession_number": "SRM-2026-407",
       "title": "The Little Black Book, 1977–1978",
       "record_type": "Archive",
@@ -14314,7 +14314,7 @@
       "image_thumb_file": "thumbs/coll371.jpg"
     },
     {
-      "id": "6e6d54c7-48c2-4a97-91f1-47c3602eb110",
+      "id": "dea58d9b-5e5d-445e-a5bd-d76063aa4094",
       "accession_number": "SRM-2026-408",
       "title": "Mississippi: Subversion of the Right to Vote, undated",
       "record_type": "Archive",
@@ -14348,7 +14348,7 @@
       "image_thumb_file": "thumbs/coll372.jpg"
     },
     {
-      "id": "43f62d88-63c2-42cb-8ad9-051c9d47dd26",
+      "id": "9dce2134-cc05-40e2-993f-c7083c153a1a",
       "accession_number": "SRM-2026-409",
       "title": "Mississippi voting-rights booklet interior, undated",
       "record_type": "Archive",
@@ -14382,7 +14382,7 @@
       "image_thumb_file": "thumbs/coll373.jpg"
     },
     {
-      "id": "6ad22740-b8f4-4429-9cbb-5c540c7280f4",
+      "id": "a6fc97f5-a6bc-4adc-b27b-508aeeabd070",
       "accession_number": "SRM-2026-410",
       "title": "Woman entering the Leflore County Courthouse, undated",
       "record_type": "Photograph",
@@ -14420,7 +14420,7 @@
       "image_thumb_file": "thumbs/coll374.jpg"
     },
     {
-      "id": "a8e95962-dcd0-4d39-b4c7-52975a7a23c1",
+      "id": "b673c9da-3cbc-4f4e-9016-1f4a5f8ec8f1",
       "accession_number": "SRM-2026-411",
       "title": "Registrar’s office, Forrest County Courthouse, Hattiesburg, undated",
       "record_type": "Photograph",
@@ -14460,7 +14460,7 @@
       "image_thumb_file": "thumbs/coll375.jpg"
     },
     {
-      "id": "def6b3d9-c608-4136-9536-884d47e904b6",
+      "id": "0ccc0ba8-858c-4c44-8ed6-f02a092f5c21",
       "accession_number": "SRM-2026-412",
       "title": "How Is Your Mental Health?, August 14, 1943",
       "record_type": "Archive",
@@ -14494,7 +14494,7 @@
       "image_thumb_file": "thumbs/coll376.jpg"
     },
     {
-      "id": "06e3757d-9780-42de-a6d7-92c9129cdd7c",
+      "id": "506e31c6-a284-4c89-82b3-e3e31f9da723",
       "accession_number": "SRM-2026-413",
       "title": "Street Talk, February 1979",
       "record_type": "Archive",
@@ -14528,7 +14528,7 @@
       "image_thumb_file": "thumbs/coll377.jpg"
     },
     {
-      "id": "d9fd298d-6376-4e71-bd1b-891ed27c3e98",
+      "id": "799ee7ce-1338-45e2-99ba-2ef16f61637e",
       "accession_number": "SRM-2026-414",
       "title": "Street Talk, May 1979",
       "record_type": "Photograph",
@@ -14566,7 +14566,7 @@
       "image_thumb_file": "thumbs/coll378.jpg"
     },
     {
-      "id": "5239b236-e90c-431f-aeab-ecb7e2c1b22e",
+      "id": "6b904798-c5f2-4060-9f9e-da61b63c6f8f",
       "accession_number": "SRM-2026-415",
       "title": "The South of the Near Future, May 1980",
       "record_type": "Archive",
@@ -14600,7 +14600,7 @@
       "image_thumb_file": "thumbs/coll379.jpg"
     },
     {
-      "id": "dec0ffba-5a01-48a3-b3d6-f684267b006c",
+      "id": "72c43241-0499-434e-831d-75c0beee7143",
       "accession_number": "SRM-2026-416",
       "title": "Outlook featuring Ruby Shearry, March 1976",
       "record_type": "Archive",
@@ -14634,7 +14634,7 @@
       "image_thumb_file": "thumbs/coll380.jpg"
     },
     {
-      "id": "2967e5fb-4fb2-4fdd-afac-941697ffb322",
+      "id": "5805cda0-820c-4eba-9ccf-187e91e4bc66",
       "accession_number": "SRM-2026-417",
       "title": "Outlook: Neta Baker's $70,000 Home Burned to the Ground - Arson, February 1976",
       "record_type": "Archive",
@@ -14668,7 +14668,7 @@
       "image_thumb_file": "thumbs/coll381.jpg"
     },
     {
-      "id": "dc6f478f-7c48-42ac-ab30-17934c6fca18",
+      "id": "444e7cba-2442-469f-9508-0b7cf3a00140",
       "accession_number": "SRM-2026-418",
       "title": "Outlook: Million Dollar Monkey on My Back!!!, October 1976",
       "record_type": "Archive",
@@ -14676,7 +14676,7 @@
       "collection_entity_id": null,
       "collection_name": "Stumps Collection",
       "location": "Needs Review",
-      "historical_theme": "Health And Medicine",
+      "historical_theme": "Black Health and Medicine",
       "place_entity_id": null,
       "neighborhood": "Jackson",
       "time_period": "1970s",
@@ -14702,7 +14702,7 @@
       "image_thumb_file": "thumbs/coll382.jpg"
     },
     {
-      "id": "8671b748-1a0e-4fe4-8665-4d2f31297928",
+      "id": "4253c7ed-f833-45ca-9360-91b3fbca5d1c",
       "accession_number": "SRM-2026-419",
       "title": "Outlook featuring Roxie Patterson Meredith Weatherly, November 1976",
       "record_type": "Archive",
@@ -14736,7 +14736,7 @@
       "image_thumb_file": "thumbs/coll383.jpg"
     },
     {
-      "id": "e092441c-a1a2-4b5b-84bc-5fafb532a33a",
+      "id": "65338676-d478-40c7-85bd-e7c2af0996bd",
       "accession_number": "SRM-2026-420",
       "title": "Outlook Magazine: Blacks Lose Land / 40 Acres and a Mule / Black Farmers in Trouble, December 1978",
       "record_type": "Archive",
@@ -14744,7 +14744,7 @@
       "collection_entity_id": null,
       "collection_name": "Stumps Collection",
       "location": "Needs Review",
-      "historical_theme": "Agriculture And Land",
+      "historical_theme": "Agriculture and Labor",
       "place_entity_id": null,
       "neighborhood": "Statewide Mississippi",
       "time_period": "1970s",
@@ -14770,7 +14770,7 @@
       "image_thumb_file": "thumbs/coll384.jpg"
     },
     {
-      "id": "9286d5a6-d50e-4386-a4f3-0e5bf53506d9",
+      "id": "c27c1f14-b109-4432-9ae3-3cba472a286b",
       "accession_number": "SRM-2026-421",
       "title": "Excel, 1982–1983",
       "record_type": "Archive",
@@ -14804,7 +14804,7 @@
       "image_thumb_file": "thumbs/coll385.jpg"
     },
     {
-      "id": "baff22e1-6c70-4f84-be25-4b85974674ef",
+      "id": "0754ef22-fc02-4005-ae6c-186f47756a4f",
       "accession_number": "SRM-2026-422",
       "title": "Rough Riding Down South, 1968",
       "record_type": "Archive",
@@ -14838,7 +14838,7 @@
       "image_thumb_file": "thumbs/coll386.jpg"
     },
     {
-      "id": "fad07cc6-4ae2-4802-866c-b6b4267a961f",
+      "id": "5e757424-ccd7-4593-852b-608b84701ee4",
       "accession_number": "SRM-2026-423",
       "title": "Annual Athletic and Literary Tournament souvenir program, March 10, 1939",
       "record_type": "Archive",
@@ -14872,7 +14872,7 @@
       "image_thumb_file": "thumbs/coll387.jpg"
     },
     {
-      "id": "21137222-e0ac-4d4b-8950-a7ac533655e1",
+      "id": "43a551a7-d62e-4e17-8548-bbd5103a7eff",
       "accession_number": "SRM-2026-424",
       "title": "Unidentified musician performing, undated",
       "record_type": "Photograph",
@@ -14910,7 +14910,7 @@
       "image_thumb_file": "thumbs/coll388.jpg"
     },
     {
-      "id": "c6479acd-ba47-4cac-b3ab-6128151cdb28",
+      "id": "60955e99-c02e-4559-822b-ac814bb8fdb8",
       "accession_number": "SRM-2026-425",
       "title": "Tougaloo College presentation folder, undated",
       "record_type": "Archive",
@@ -14944,7 +14944,7 @@
       "image_thumb_file": "thumbs/coll389.jpg"
     },
     {
-      "id": "9e2595b4-d8d8-4174-8f0a-6819f45b2a19",
+      "id": "16cfcc7d-dc7a-4d77-997a-8b2c463ee852",
       "accession_number": "SRM-2026-426",
       "title": "Black Perspectives on the Bicentennial: The Struggle for Equality of Educational Opportunity, undated",
       "record_type": "Archive",
@@ -14978,7 +14978,7 @@
       "image_thumb_file": "thumbs/coll390.jpg"
     },
     {
-      "id": "92ea1be6-133a-43b4-92f8-25789a1a4ef7",
+      "id": "09ee5aae-d8b6-49a3-a3fd-e3f234a68181",
       "accession_number": "SRM-2026-427",
       "title": "Hi-Ho composition book with classroom fundraising note, undated",
       "record_type": "Artifact",
@@ -15016,7 +15016,7 @@
       "image_thumb_file": "thumbs/coll391.jpg"
     },
     {
-      "id": "385d1f0d-af85-4461-8149-ffeed9389fff",
+      "id": "0d91abd1-cdff-4eea-9970-84d8696a0ce3",
       "accession_number": "SRM-2026-428",
       "title": "Focus, May 1980",
       "record_type": "Archive",
@@ -15050,7 +15050,7 @@
       "image_thumb_file": "thumbs/coll392.jpg"
     },
     {
-      "id": "cac37071-cc60-4ca6-9510-45236cf5e506",
+      "id": "c2a44850-8f47-4e6a-bb47-fd780b08a7b4",
       "accession_number": "SRM-2026-429",
       "title": "Afro-American Songs and Dances research cards, undated",
       "record_type": "Artifact",
@@ -15088,7 +15088,7 @@
       "image_thumb_file": "thumbs/coll393.jpg"
     },
     {
-      "id": "d4329cc0-22ab-452e-9b72-1f1f8273db75",
+      "id": "173675fb-f319-4f7a-ac00-9cb8efa1784a",
       "accession_number": "SRM-2026-430",
       "title": "Interior of an unidentified general store, undated",
       "record_type": "Photograph",
@@ -15126,7 +15126,7 @@
       "image_thumb_file": "thumbs/coll394.jpg"
     },
     {
-      "id": "d53e2757-3f07-4c1b-a412-21e8fa063a68",
+      "id": "bbc9d4d0-7393-4edc-8659-17b61d62799b",
       "accession_number": "SRM-2026-431",
       "title": "Those Who Stayed Home During the Great Migration symposium program, September 14-15, 1989",
       "record_type": "Archive",
@@ -15160,7 +15160,7 @@
       "image_thumb_file": "thumbs/coll395.jpg"
     },
     {
-      "id": "21174e0f-54b0-42fb-bc89-dd3e94a73887",
+      "id": "743e648c-e92a-4ff8-9599-14ece8a629c3",
       "accession_number": "SRM-2026-432",
       "title": "St. Joseph’s Book of Facts, undated",
       "record_type": "Archive",
@@ -15194,7 +15194,7 @@
       "image_thumb_file": "thumbs/coll396.jpg"
     },
     {
-      "id": "19339f5b-36a2-4477-af7a-ed7b1a8ec6b5",
+      "id": "05046c30-8e68-4ee7-96ce-a7117bab54eb",
       "accession_number": "SRM-2026-433",
       "title": "Service, September 1943",
       "record_type": "Archive",
@@ -15228,7 +15228,7 @@
       "image_thumb_file": "thumbs/coll397.jpg"
     },
     {
-      "id": "f6611868-30fc-40ee-8ac9-52b0b3988322",
+      "id": "c1c4bac4-87da-440b-be62-ddfaad68a552",
       "accession_number": "SRM-2026-434",
       "title": "Arithmetic for Soldiers, 1942",
       "record_type": "Archive",
@@ -15262,7 +15262,7 @@
       "image_thumb_file": "thumbs/coll398.jpg"
     },
     {
-      "id": "01d524ac-2ea3-4225-8799-ca79694db71f",
+      "id": "1e175325-5f2b-4804-b4b5-157272600ba5",
       "accession_number": "SRM-2026-435",
       "title": "Letter from Research Hospital to Sadie Poole, October 15, 1938",
       "record_type": "Archive",
@@ -15270,7 +15270,7 @@
       "collection_entity_id": null,
       "collection_name": "Stumps Collection",
       "location": "Needs Review",
-      "historical_theme": "Health And Medicine",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Little Rock",
       "time_period": "1930s",
@@ -15296,7 +15296,7 @@
       "image_thumb_file": "thumbs/coll399.jpg"
     },
     {
-      "id": "5c8fa548-3a23-47d9-ab88-495ff50084cf",
+      "id": "bd38da88-8552-4423-8d7c-f9bf8a58adb4",
       "accession_number": "SRM-2026-436",
       "title": "Alcorn Agricultural and Mechanical College examination books, 1937 and 1940",
       "record_type": "Archive",
@@ -15330,7 +15330,7 @@
       "image_thumb_file": "thumbs/coll400.jpg"
     },
     {
-      "id": "63bd4587-db5f-44f5-b24b-a0d0011451cf",
+      "id": "9d5b3691-b134-4b4d-a7ae-3fb7ac8a34cb",
       "accession_number": "SRM-2026-437",
       "title": "Application for a teaching position, April 17, 1941",
       "record_type": "Archive",
@@ -15364,7 +15364,7 @@
       "image_thumb_file": "thumbs/coll401.jpg"
     },
     {
-      "id": "a92a256b-2dd7-46c8-95d2-e9ef5fc56bd3",
+      "id": "35f0eeda-a8f8-472c-946a-d4d2acd06d23",
       "accession_number": "SRM-2026-438",
       "title": "First-grade class at the zoo, 1961",
       "record_type": "Photograph",
@@ -15402,7 +15402,7 @@
       "image_thumb_file": "thumbs/coll402.jpg"
     },
     {
-      "id": "fd93e168-7ea2-47a8-85f4-ecc54fa88fc6",
+      "id": "bf2a5561-fca9-4c46-9d3f-000c86d33055",
       "accession_number": "SRM-2026-439",
       "title": "A Tribute To Mrs. Theressa Ruth Garrett Almore, 1907-1991",
       "record_type": "Archive",
@@ -15436,7 +15436,7 @@
       "image_thumb_file": "thumbs/coll403.jpg"
     },
     {
-      "id": "394da77b-df07-4070-bad0-74663abd07b6",
+      "id": "b40a661f-3211-4076-8fa4-7f7ba0682722",
       "accession_number": "SRM-2026-440",
       "title": "Rust College Alumni Newsletter, February 1981",
       "record_type": "Archive",
@@ -15470,7 +15470,7 @@
       "image_thumb_file": "thumbs/coll404.jpg"
     },
     {
-      "id": "98d1d02a-6f03-43cb-abaf-142ef0b24f55",
+      "id": "1bad9ff8-002a-4d12-835c-126b6136c857",
       "accession_number": "SRM-2026-441",
       "title": "Rust College Campus News Briefs, March 23, 1981",
       "record_type": "Archive",
@@ -15504,7 +15504,7 @@
       "image_thumb_file": "thumbs/coll405.jpg"
     },
     {
-      "id": "c1dd30cf-4ad3-45e3-9d66-30bd2d690cef",
+      "id": "eb61f5c6-5503-4744-b60d-4d28d4f920d6",
       "accession_number": "SRM-2026-442",
       "title": "Reaction Magazine contents and staff pages, 1976",
       "record_type": "Archive",
@@ -15538,7 +15538,7 @@
       "image_thumb_file": "thumbs/coll406.jpg"
     },
     {
-      "id": "fd403c4d-873b-4ff3-a3bf-0071b7259fe3",
+      "id": "411b5d80-59ac-4542-a377-3e97713feeb9",
       "accession_number": "SRM-2026-443",
       "title": "Campus Communicator, undated",
       "record_type": "Photograph",
@@ -15577,7 +15577,7 @@
       "image_thumb_file": "thumbs/coll407.jpg"
     },
     {
-      "id": "6ffd7978-24e9-4c70-8525-424f4a872e8f",
+      "id": "7f64786f-2aa6-4b39-81d1-5399629331b4",
       "accession_number": "SRM-2026-444",
       "title": "SNCC list copy with annotations, 2003 copy of earlier material",
       "record_type": "Archive",
@@ -15613,7 +15613,7 @@
       "image_thumb_file": "thumbs/coll408.jpg"
     },
     {
-      "id": "5dc3ed28-8216-4453-bdc1-f7eb6d52bf5d",
+      "id": "c4ce42a9-1d56-4a7a-9379-c2dac5b09997",
       "accession_number": "SRM-2026-445",
       "title": "Reaction Magazine contents and staff pages, alternate view, 1976",
       "record_type": "Archive",
@@ -15647,7 +15647,7 @@
       "image_thumb_file": "thumbs/coll409.jpg"
     },
     {
-      "id": "f7adff3d-1fa6-4488-85c2-33948589a0a1",
+      "id": "bfc9e314-bbfd-4837-b041-b9879f52d92c",
       "accession_number": "SRM-2026-446",
       "title": "Head Start Newsletter: Potpourri, December 1977",
       "record_type": "Archive",
@@ -15681,7 +15681,7 @@
       "image_thumb_file": "thumbs/coll410.jpg"
     },
     {
-      "id": "3f9973e5-c52a-4387-8fec-e18d1a631cea",
+      "id": "34fecc52-a36f-44d4-8e2d-bfb79f9a07ec",
       "accession_number": "SRM-2026-447",
       "title": "The Reconciler, April 1978",
       "record_type": "Archive",
@@ -15715,7 +15715,7 @@
       "image_thumb_file": "thumbs/coll411.jpg"
     },
     {
-      "id": "45b5a753-3d64-44b4-a6df-0ce6c4cb98e7",
+      "id": "bd2bcc3f-c2ad-41a6-b9e1-7d157cec9081",
       "accession_number": "SRM-2026-448",
       "title": "The Monitor, September 1982",
       "record_type": "Archive",
@@ -15749,7 +15749,7 @@
       "image_thumb_file": "thumbs/coll412.jpg"
     },
     {
-      "id": "098cfeef-d97c-4d7a-8fd3-67029bff4961",
+      "id": "be34cf49-6596-4771-997a-39ad012c8e04",
       "accession_number": "SRM-2026-449",
       "title": "The Rust College Sentinel, March 1981",
       "record_type": "Archive",
@@ -15783,7 +15783,7 @@
       "image_thumb_file": "thumbs/coll413.jpg"
     },
     {
-      "id": "62ffd0a6-5055-4891-879b-bcf1dcd12f09",
+      "id": "a4fcb912-1254-4000-8d6c-b20ac31ccb75",
       "accession_number": "SRM-2026-450",
       "title": "Kommuni-K-Kwarterly, 1978",
       "record_type": "Archive",
@@ -15819,7 +15819,7 @@
       "image_thumb_file": "thumbs/coll414.jpg"
     },
     {
-      "id": "5f64eaaf-f5fc-4238-a858-5af0ad688112",
+      "id": "cc7afd42-2a3a-47bb-965d-1c35f37bbf12",
       "accession_number": "SRM-2026-451",
       "title": "Soul Force, February 1984",
       "record_type": "Archive",
@@ -15853,7 +15853,7 @@
       "image_thumb_file": "thumbs/coll415.jpg"
     },
     {
-      "id": "65852f6e-98b8-4744-acc9-8819d51194fd",
+      "id": "6afda5f0-67f4-48ea-a896-e6c54f9fce63",
       "accession_number": "SRM-2026-452",
       "title": "Southern Black Cultural Newsletter, May 1981",
       "record_type": "Archive",
@@ -15887,7 +15887,7 @@
       "image_thumb_file": "thumbs/coll416.jpg"
     },
     {
-      "id": "198bdeb2-8475-4ddc-b51c-b483517a9743",
+      "id": "155b4103-34e4-47d6-855b-c1a34930f8ee",
       "accession_number": "SRM-2026-453",
       "title": "Smith Robertson class collage, 1925",
       "record_type": "Photograph",
@@ -15927,7 +15927,7 @@
       "image_thumb_file": "thumbs/coll417.jpg"
     },
     {
-      "id": "4ef0e421-734d-4429-a839-e6c8f8e96d2c",
+      "id": "14290b3c-1fbb-4b85-89c7-7404ce7ac71a",
       "accession_number": "SRM-2026-454",
       "title": "Portrait of an unidentified woman, undated",
       "record_type": "Photograph",
@@ -15966,7 +15966,7 @@
       "image_thumb_file": "thumbs/coll418.jpg"
     },
     {
-      "id": "fff5a432-fe69-420c-a2ab-c6670ea583ef",
+      "id": "36c28fb7-af68-4a67-8055-3abcb8fa3649",
       "accession_number": "SRM-2026-455",
       "title": "Portrait of an unidentified man with seasonal inscription, undated",
       "record_type": "Photograph",
@@ -16005,7 +16005,7 @@
       "image_thumb_file": "thumbs/coll419.jpg"
     },
     {
-      "id": "72bd4084-7f0e-49de-88a8-70b6eb76ab1d",
+      "id": "b49b86cc-78c6-408a-b7da-10299d6991a7",
       "accession_number": "SRM-2026-456",
       "title": "Unidentified man with bicycle, undated",
       "record_type": "Photograph",
@@ -16043,7 +16043,7 @@
       "image_thumb_file": "thumbs/coll420.jpg"
     },
     {
-      "id": "5c63cfb0-fb50-4c45-819d-93edde69f187",
+      "id": "55225253-0441-406e-a7a1-5545f4dba5b9",
       "accession_number": "SRM-2026-457",
       "title": "Childhood portrait labeled “Ms. Bessie Shader,” ca. 1912",
       "record_type": "Photograph",
@@ -16078,7 +16078,7 @@
       "image_thumb_file": "thumbs/coll421.jpg"
     },
     {
-      "id": "d869f703-d878-491a-a4ac-62db19c88b39",
+      "id": "a8b8c316-dcb9-4305-bad9-41dbfead5536",
       "accession_number": "SRM-2026-458",
       "title": "Portrait labeled “Ms. Bessie Shader,” ca. 1918",
       "record_type": "Photograph",
@@ -16112,7 +16112,7 @@
       "image_thumb_file": "thumbs/coll422.jpg"
     },
     {
-      "id": "da6caa9a-564a-4d19-bbbb-ed9889094b9f",
+      "id": "341afad3-c22c-4393-b9dc-4a12e0b608aa",
       "accession_number": "SRM-2026-459",
       "title": "Older woman holding an infant, January 1979",
       "record_type": "Photograph",
@@ -16120,7 +16120,7 @@
       "collection_entity_id": null,
       "collection_name": "Stumps Collection",
       "location": "Needs Review",
-      "historical_theme": "Family And Local Life",
+      "historical_theme": "Midwives and Motherhood",
       "place_entity_id": null,
       "neighborhood": "Geographies To Be Confirmed",
       "time_period": "1970s",
@@ -16150,7 +16150,7 @@
       "image_thumb_file": "thumbs/coll423.jpg"
     },
     {
-      "id": "dad2285d-7fdd-41df-9539-317bc7850a18",
+      "id": "e1aac0ee-9672-464f-a651-8e64c6229b8d",
       "accession_number": "SRM-2026-460",
       "title": "Smith Robertson School register of former teachers, 1935–1937",
       "record_type": "Archive",
@@ -16184,7 +16184,7 @@
       "image_thumb_file": "thumbs/coll424.jpg"
     },
     {
-      "id": "41252d4d-8fe0-4f0b-bf73-2c91ce038399",
+      "id": "82ae64fc-bfe7-4497-8139-f2f90d629176",
       "accession_number": "SRM-2026-461",
       "title": "Reconstruction in Mississippi, 1867–1875",
       "record_type": "Archive",
@@ -16218,7 +16218,7 @@
       "image_thumb_file": "thumbs/coll425.jpg"
     },
     {
-      "id": "e80321bd-c931-46d6-8569-8facf434a174",
+      "id": "fc260ddd-2d25-44e0-8ce1-5c9246ef811c",
       "accession_number": "SRM-2026-462",
       "title": "Renaming of the Dr. A. H. McCoy Federal Building, June 7, 1985",
       "record_type": "Archive",
@@ -16254,7 +16254,7 @@
       "image_thumb_file": "thumbs/coll426.jpg"
     },
     {
-      "id": "41d09165-3729-4349-87e7-1483d8931036",
+      "id": "2cb76435-27fb-4f8a-aeb8-d6b842c777dd",
       "accession_number": "SRM-2026-463",
       "title": "Commentary on Richard Wright’s Uncle Tom’s Children, undated",
       "record_type": "Archive",
@@ -16290,7 +16290,7 @@
       "image_thumb_file": "thumbs/coll427.jpg"
     },
     {
-      "id": "01b84934-efa0-4305-a59a-94a5926e1357",
+      "id": "26584f2f-a53b-411e-9640-a0122155eb1c",
       "accession_number": "SRM-2026-464",
       "title": "United Methodist church on Farish Street, undated",
       "record_type": "Photograph",
@@ -16325,7 +16325,7 @@
       "image_thumb_file": "thumbs/coll428.jpg"
     },
     {
-      "id": "cec3849e-0c1c-4c06-81eb-a6d492af5660",
+      "id": "69b8f53f-98f7-4a93-b101-cb40ca095cfc",
       "accession_number": "SRM-2026-465",
       "title": "Portrait of an unidentified woman, undated",
       "record_type": "Photograph",
@@ -16364,7 +16364,7 @@
       "image_thumb_file": "thumbs/coll429.jpg"
     },
     {
-      "id": "9dfa9666-a987-47f7-a2e3-7f591c60bdce",
+      "id": "38f1a976-ecad-4300-8872-3f4865298bfb",
       "accession_number": "SRM-2026-466",
       "title": "Ollie Collins, club historian, undated",
       "record_type": "Photograph",
@@ -16403,7 +16403,7 @@
       "image_thumb_file": "thumbs/coll430.jpg"
     },
     {
-      "id": "9265bf3c-1cba-4279-b731-b6b78b478d9d",
+      "id": "6a6de293-edf8-4075-8d2c-5265c588003d",
       "accession_number": "SRM-2026-467",
       "title": "Dorothy Moore, undated",
       "record_type": "Photograph",
@@ -16443,7 +16443,7 @@
       "image_thumb_file": "thumbs/coll431.jpg"
     },
     {
-      "id": "ff343c3f-9705-49ae-a98c-eba2f056678a",
+      "id": "ff636ad3-28a4-4759-b136-e0b5146e41aa",
       "accession_number": "SRM-2026-468",
       "title": "Dorothy Moore, undated",
       "record_type": "Photograph",
@@ -16483,7 +16483,7 @@
       "image_thumb_file": "thumbs/coll432.jpg"
     },
     {
-      "id": "6252b41d-9daf-4f80-9d95-0af966d4c59c",
+      "id": "3708e26b-a769-4b7d-9f86-4e39cb263d34",
       "accession_number": "SRM-2026-469",
       "title": "Mississippi legislators at a gala following their swearing-in, January 8, 1980",
       "record_type": "Photograph",
@@ -16522,7 +16522,7 @@
       "image_thumb_file": "thumbs/coll433.jpg"
     },
     {
-      "id": "43e10a8b-8d94-433b-a3e3-ddb82500057c",
+      "id": "99fe8454-566e-4475-b1a4-7547b91a8818",
       "accession_number": "SRM-2026-470",
       "title": "Percy Greene, undated",
       "record_type": "Photograph",
@@ -16562,7 +16562,7 @@
       "image_thumb_file": "thumbs/coll434.jpg"
     },
     {
-      "id": "88dac0d5-ebc0-4f87-95c9-402dc13482c4",
+      "id": "46c8f886-6a16-4f69-8e20-de9346a02364",
       "accession_number": "SRM-2026-471",
       "title": "James C. Gilliam Jr., 1950",
       "record_type": "Photograph",
@@ -16596,7 +16596,7 @@
       "image_thumb_file": "thumbs/coll435.jpg"
     },
     {
-      "id": "9c8043a1-97f6-4995-91b6-2b1839b7190f",
+      "id": "e5fda07a-c676-4795-a2aa-e51acc75fd36",
       "accession_number": "SRM-2026-472",
       "title": "Mrs. Rosie Holden of Jackson, undated",
       "record_type": "Photograph",
