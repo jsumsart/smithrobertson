@@ -7,7 +7,7 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260722b";
+import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260727b";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 const collectionView = document.body.dataset.collectionView || "";
