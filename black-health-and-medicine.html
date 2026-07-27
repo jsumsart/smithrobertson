@@ -41,9 +41,10 @@
       <main class="public-site">
         <section class="archive-hero">
           <div class="archive-hero__copy">
-            <p class="eyebrow">Collection View</p>
+            <p id="catalogEyebrow" class="eyebrow">Exhibit Path</p>
             <h1 id="catalogTitle">Black Health and Medicine Records</h1>
             <p id="catalogIntro" class="hero__lede"></p>
+            <p id="catalogPathMeta" class="help-text archive-hero__path" hidden></p>
           </div>
           <div class="archive-metric">
             <span class="metric__label">Published Records</span>
@@ -73,7 +74,7 @@
         </section>
 
         <section class="archive-toolbar" aria-label="Black Health and Medicine filters">
-          <label class="field">
+          <label class="field field--wide">
             <span>Search</span>
             <input id="catalogSearch" type="search" placeholder="Search titles, people, themes, key locations, tags..." />
           </label>
@@ -82,10 +83,26 @@
             <select id="catalogTheme"></select>
           </label>
           <label class="field">
+            <span>Collection</span>
+            <select id="catalogCollection"></select>
+          </label>
+          <label class="field">
+            <span>Geography</span>
+            <select id="catalogGeography"></select>
+          </label>
+          <label class="field">
             <span>Record Type</span>
             <select id="catalogType"></select>
           </label>
+          <label class="field">
+            <span>Sort</span>
+            <select id="catalogSort"></select>
+          </label>
         </section>
+        <div class="archive-toolbar__footer">
+          <div id="archiveActiveFilters" class="tag-list" aria-live="polite"></div>
+          <button id="archiveClearFilters" class="button button--ghost" type="button">Clear all filters</button>
+        </div>
 
         <p id="catalogStatus" class="help-text"></p>
         <section id="catalogList" class="archive-list" aria-live="polite"></section>
@@ -130,6 +147,6 @@
     </template>
 
     <script src="./data-source-config.js"></script>
-    <script type="module" src="./catalog.js?v=20260722b"></script>
+    <script type="module" src="./catalog.js?v=20260727a"></script>
   </body>
 </html>

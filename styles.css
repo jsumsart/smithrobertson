@@ -1517,9 +1517,23 @@ body.archive-page .archive-hero__copy h1 {
 
 .archive-toolbar {
   display: grid;
-  grid-template-columns: minmax(260px, 1.2fr) repeat(2, minmax(180px, 220px));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 0.8rem;
   padding: 1rem;
+}
+
+.archive-toolbar__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.archive-hero__path {
+  margin-top: 0.5rem;
+  max-width: 54ch;
 }
 
 .public-section--story-rail {

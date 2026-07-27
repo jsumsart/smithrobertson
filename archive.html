@@ -25,7 +25,7 @@
       <main class="public-site">
         <section class="archive-hero">
           <div class="archive-hero__copy">
-            <p class="eyebrow">Public Archive</p>
+            <p id="catalogEyebrow" class="eyebrow">Public Archive</p>
             <h1 id="catalogTitle">Browse published Smith Robertson records.</h1>
             <p id="catalogIntro" class="hero__lede">
               This view is for visitors, partners, and researchers. Only records marked for public display are shown here.
@@ -47,38 +47,38 @@
           </div>
           <div class="archive-story-strip__grid">
             <a class="archive-story-chip" href="./scott-ford-houses.html">
-              <span class="archive-story-chip__eyebrow">Neighborhood Memory</span>
+              <span class="archive-story-chip__eyebrow">Place Path</span>
               <strong>Scott Ford Houses</strong>
             </a>
             <a class="archive-story-chip" href="./smith-robertson-history.html">
-              <span class="archive-story-chip__eyebrow">School Legacy</span>
+              <span class="archive-story-chip__eyebrow">Place Path</span>
               <strong>Smith Robertson History</strong>
             </a>
             <a class="archive-story-chip" href="./civil-rights.html">
-              <span class="archive-story-chip__eyebrow">Movement History</span>
+              <span class="archive-story-chip__eyebrow">Theme Path</span>
               <strong>Civil Rights</strong>
             </a>
             <a class="archive-story-chip" href="./farish-street-history.html">
-              <span class="archive-story-chip__eyebrow">Street Culture</span>
+              <span class="archive-story-chip__eyebrow">Place Path</span>
               <strong>Farish Street History</strong>
             </a>
             <a class="archive-story-chip" href="./r-jess-brown-collection.html">
-              <span class="archive-story-chip__eyebrow">Legal Legacy</span>
+              <span class="archive-story-chip__eyebrow">Person + Collection Path</span>
               <strong>R. Jess Brown</strong>
             </a>
             <a class="archive-story-chip" href="./black-health-and-medicine.html">
-              <span class="archive-story-chip__eyebrow">Care Histories</span>
+              <span class="archive-story-chip__eyebrow">Theme Path</span>
               <strong>Black Health and Medicine</strong>
             </a>
             <a class="archive-story-chip" href="./arts-and-culture.html">
-              <span class="archive-story-chip__eyebrow">Creative Life</span>
+              <span class="archive-story-chip__eyebrow">Theme Path</span>
               <strong>Arts and Culture</strong>
             </a>
           </div>
         </section>
 
         <section class="archive-toolbar" aria-label="Public archive filters">
-          <label class="field">
+          <label class="field field--wide">
             <span>Search</span>
             <input id="catalogSearch" type="search" placeholder="Search titles, themes, key locations, tags..." />
           </label>
@@ -87,10 +87,26 @@
             <select id="catalogTheme"></select>
           </label>
           <label class="field">
+            <span>Collection</span>
+            <select id="catalogCollection"></select>
+          </label>
+          <label class="field">
+            <span>Geography</span>
+            <select id="catalogGeography"></select>
+          </label>
+          <label class="field">
             <span>Record Type</span>
             <select id="catalogType"></select>
           </label>
+          <label class="field">
+            <span>Sort</span>
+            <select id="catalogSort"></select>
+          </label>
         </section>
+        <div class="archive-toolbar__footer">
+          <div id="archiveActiveFilters" class="tag-list" aria-live="polite"></div>
+          <button id="archiveClearFilters" class="button button--ghost" type="button">Clear all filters</button>
+        </div>
 
         <p id="catalogStatus" class="help-text"></p>
         <section id="catalogList" class="archive-list" aria-live="polite"></section>
@@ -122,6 +138,6 @@
     </template>
 
     <script src="./data-source-config.js"></script>
-    <script type="module" src="./catalog.js?v=20260722b"></script>
+    <script type="module" src="./catalog.js?v=20260727a"></script>
   </body>
 </html>
