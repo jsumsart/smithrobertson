@@ -69,7 +69,7 @@ const collectionViews = {
   "scott-ford": {
     navLabel: "Midwifery and Motherhood",
     pathLabel: "Health, Family, and Community Care",
-    pathMeta: "A focused path within the broader care story, connecting Scott Ford family life, childbirth records, midwifery, and motherhood.",
+    pathMeta: "Connects Scott Ford family life, childbirth records, midwifery, and motherhood.",
     deck: "Home life, childbirth records, midwife history, and motherhood tied to the Scott Ford Houses.",
     title: "Scott Ford Houses, Midwifery and Motherhood",
     intro:
@@ -104,7 +104,7 @@ const collectionViews = {
   "smith-robertson-history": {
     navLabel: "Smith Robertson History",
     pathLabel: "Education and Public Memory",
-    pathMeta: "A named path within the broader education and memory story, centered on the campus, its leadership, and how the school has been remembered.",
+    pathMeta: "Centers the campus, its leadership, and the ways the school has been remembered.",
     deck: "School history, leadership, and public memory across the Smith Robertson story.",
     title: "Education and Public Memory",
     intro:
@@ -134,7 +134,26 @@ const collectionViews = {
         return false;
       }
 
+      const isSmithRobertsonEducationRecord =
+        matchesTheme(record, ["African American Education"]) &&
+        (matchesNeighborhood(record, ["Farish Street", "Smith Robertson Campus"]) ||
+          matchesKeyword(record, [
+            "Smith Robertson",
+            "Robertson School",
+            "Vertilla Anderson",
+            "Vertilla F. Anderson",
+            "Vertilla Friar Anderson",
+            "Betty Mencuree",
+            "Jimmye J. Bailey",
+            "Jimmie Dale Law",
+            "Clara Caston",
+            "Christa Hudson",
+            "Florence Aaron",
+            "May Day"
+          ]));
+
       return (
+        isSmithRobertsonEducationRecord ||
         matchesNeighborhood(record, ["Smith Robertson Campus"]) ||
         matchesPeople(record, ["A. N. Jackson", "James Gooden", "Luther Marshall", "Charles S. Wilson", "Lv Randolph"]) ||
         matchesKeyword(record, [
@@ -157,7 +176,7 @@ const collectionViews = {
   "civil-rights": {
     navLabel: "Law, Justice, and Civil Rights",
     pathLabel: "Law, Justice, and Civil Rights",
-    pathMeta: "A broader justice-focused exhibit that includes protest, citizenship, legal struggle, and the civil-rights movement, with R. Jess Brown visible as a named path within it.",
+    pathMeta: "Includes protest, citizenship, legal struggle, and the civil-rights movement, with R. Jess Brown visible as a named legal path within it.",
     deck: "Organizing, protest, legal struggle, and public memory linked to civil rights history.",
     title: "Law, Justice, and Civil Rights",
     intro:
@@ -176,19 +195,27 @@ const collectionViews = {
       }
       return matchesKeyword(record, [
         "civil rights",
+        "Jackson Movement",
+        "Montgomery Bus Boycott",
         "Medgar Evers",
         "Fannie Lou Hamer",
         "SNCC",
         "SCLC",
         "Poor People's Campaign",
-        "freedom movement"
+        "freedom movement",
+        "National Lawyers Guild",
+        "legal assistance",
+        "constitution of 1890",
+        "NAACP",
+        "Claiborne Hardware",
+        "human rights"
       ]);
     }
   },
   "r-jess-brown": {
     navLabel: "R. Jess Brown",
     pathLabel: "Law, Justice, and Civil Rights",
-    pathMeta: "A named path within the larger justice exhibit, centered on one life, one archive, and a wider civil-rights legal network.",
+    pathMeta: "Centers one life, one archive, and a wider civil-rights legal network.",
     deck: "Law, advocacy, and civil-rights leadership across the life and legacy of R. Jess Brown.",
     title: "R. Jess Brown Collection",
     intro:
@@ -219,7 +246,7 @@ const collectionViews = {
   "farish-street-history": {
     navLabel: "Farish Street History",
     pathLabel: "Neighborhood, Commerce, and Culture",
-    pathMeta: "A named path within the broader neighborhood and commerce story, tying business, faith, performance, and community life to one historic corridor.",
+    pathMeta: "Ties business, faith, performance, and community life to one historic corridor.",
     deck: "Business, neighborhood culture, and community life connected to Farish Street.",
     title: "Neighborhood, Commerce, and Culture",
     intro:
@@ -248,7 +275,7 @@ const collectionViews = {
   "black-health-and-medicine": {
     navLabel: "Health, Family, and Community Care",
     pathLabel: "Health, Family, and Community Care",
-    pathMeta: "A larger care-focused exhibit connecting doctors, midwives, motherhood, caregiving, household health, and medical access, with Midwifery and Motherhood as a named path inside it.",
+    pathMeta: "Connects doctors, midwives, motherhood, caregiving, household health, and medical access, with Midwifery and Motherhood as a named path inside it.",
     deck: "Doctors, midwives, motherhood, caregiving, and public health records across Mississippi Black life.",
     title: "Health, Family, and Community Care",
     intro:
@@ -268,11 +295,16 @@ const collectionViews = {
           "doctor",
           "physician",
           "medical",
+          "dentistry",
+          "hygiene",
           "midwife",
           "birth certificate",
           "obstetrical",
           "Board of Health",
           "health worker",
+          "Leroy Weathersby",
+          "S. A. Miller",
+          "L. F. Miller",
           "Robert Smith, M.D.",
           "T. L. Zuber",
           "Dr. Carmichael",
@@ -284,7 +316,7 @@ const collectionViews = {
   "arts-and-culture": {
     navLabel: "Arts, Culture, and Public Expression",
     pathLabel: "Arts, Culture, and Public Expression",
-    pathMeta: "A broader expressive-culture exhibit tracing visual culture, performance, portraiture, and creative public life.",
+    pathMeta: "Traces visual culture, performance, portraiture, and creative public life.",
     deck: "Art, performance, material culture, and visual memory across the collection.",
     title: "Arts, Culture, and Public Expression",
     intro:
@@ -525,12 +557,13 @@ function applyRecordImage(image, record, altText, { eager = false } = {}) {
 
 function applyCatalogSettings() {
   const activeCollectionView = getActiveCollectionView();
+  const collectionHeading = activeCollectionView?.navLabel || activeCollectionView?.title || "";
   if (elements.brand) {
     elements.brand.textContent = state.siteSettings.brand_name;
   }
   if (elements.heroEyebrow) {
     if (pageMode === "collection" && activeCollectionView?.pathLabel) {
-      elements.heroEyebrow.textContent = activeCollectionView.pathLabel;
+      elements.heroEyebrow.textContent = "Umbrella Theme";
     } else if (pageMode === "archive") {
       elements.heroEyebrow.textContent = "Public Archive";
     } else {
@@ -544,20 +577,29 @@ function applyCatalogSettings() {
     elements.galleryIntro.textContent = state.siteSettings.public_gallery_intro;
   }
   if (elements.archiveTitle) {
-    elements.archiveTitle.textContent = activeCollectionView?.title || state.siteSettings.public_catalog_title;
+    elements.archiveTitle.textContent = pageMode === "collection" ? collectionHeading : activeCollectionView?.title || state.siteSettings.public_catalog_title;
   }
   if (elements.archiveIntro) {
     elements.archiveIntro.textContent = activeCollectionView?.intro || state.siteSettings.public_catalog_intro;
   }
   if (elements.pathMeta) {
-    elements.pathMeta.textContent = pageMode === "collection" ? activeCollectionView?.pathMeta || "" : "";
+    if (pageMode === "collection" && activeCollectionView) {
+      const umbrella = activeCollectionView.pathLabel || "";
+      const detail = activeCollectionView.pathMeta || "";
+      elements.pathMeta.textContent =
+        umbrella && umbrella !== collectionHeading
+          ? `Within ${umbrella}. ${detail}`.trim()
+          : detail;
+    } else {
+      elements.pathMeta.textContent = "";
+    }
     elements.pathMeta.hidden = !elements.pathMeta.textContent;
   }
   document.title =
     pageMode === "gallery"
       ? `${state.siteSettings.brand_name} Digital Gallery`
       : pageMode === "collection" && activeCollectionView
-        ? `${activeCollectionView.title} | ${state.siteSettings.brand_name}`
+        ? `${collectionHeading} | ${state.siteSettings.brand_name}`
         : `${state.siteSettings.brand_name} Archive`;
   applyPublicSiteTheme(state.siteSettings);
 }
