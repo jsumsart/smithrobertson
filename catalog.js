@@ -67,20 +67,20 @@ function matchesPeople(record, values) {
 
 const collectionViews = {
   "scott-ford": {
-    navLabel: "Scott Ford Houses, Midwifery and Motherhood",
-    pathLabel: "Place Path",
-    pathMeta: "A neighborhood-based exhibit connecting Scott Ford family life, childbirth records, midwifery, and motherhood.",
+    navLabel: "Midwifery and Motherhood",
+    pathLabel: "Health, Family, and Community Care",
+    pathMeta: "A focused path within the broader care story, connecting Scott Ford family life, childbirth records, midwifery, and motherhood.",
     deck: "Home life, childbirth records, midwife history, and motherhood tied to the Scott Ford Houses.",
     title: "Scott Ford Houses, Midwifery and Motherhood",
     intro:
       "This focused public view gathers published records tied to the Scott Ford Houses, including family history, childbirth documentation, midwife-related materials, and broader records about motherhood and maternal care that deepen the story.",
     status: "Showing the Scott Ford Houses, Midwifery and Motherhood public view.",
     curatedAccessions: [
-      "SRM-2026-132",
-      "SRM-2026-123",
-      "SRM-2026-199",
       "SRM-2026-200",
-      "SRM-2026-201"
+      "SRM-2026-199",
+      "SRM-2026-201",
+      "SRM-2026-132",
+      "SRM-2026-239"
     ],
     matches(record) {
       return (
@@ -103,16 +103,16 @@ const collectionViews = {
   },
   "smith-robertson-history": {
     navLabel: "Smith Robertson History",
-    pathLabel: "Place Path",
-    pathMeta: "A campus-based exhibit focused on school leadership, student life, and institutional memory.",
-    deck: "School history, leadership, and memory across the Smith Robertson story.",
-    title: "Smith Robertson History Records",
+    pathLabel: "Education and Public Memory",
+    pathMeta: "A named path within the broader education and memory story, centered on the campus, its leadership, and how the school has been remembered.",
+    deck: "School history, leadership, and public memory across the Smith Robertson story.",
+    title: "Education and Public Memory",
     intro:
-      "This view highlights published records about the school's history, its leadership, and the people who shaped the Smith Robertson story.",
-    status: "Showing the Smith Robertson history public view.",
+      "This view highlights published records about the school's history, its leadership, and the people who shaped the Smith Robertson story, while also framing that material within a wider public-memory history.",
+    status: "Showing the Education and Public Memory public view.",
     curatedAccessions: [
       "SRM-2026-030",
-      "SRM-2026-031",
+      "SRM-2026-370",
       "SRM-2026-081",
       "SRM-2026-077",
       "SRM-P-1955-012"
@@ -155,20 +155,20 @@ const collectionViews = {
     }
   },
   "civil-rights": {
-    navLabel: "Civil Rights",
-    pathLabel: "Theme Path",
-    pathMeta: "A subject-based exhibit organized around protest, citizenship, organizing, and civil-rights memory.",
-    deck: "Organizing, protest, and public memory linked to civil rights history.",
-    title: "Civil Rights Related Records",
+    navLabel: "Law, Justice, and Civil Rights",
+    pathLabel: "Law, Justice, and Civil Rights",
+    pathMeta: "A broader justice-focused exhibit that includes protest, citizenship, legal struggle, and the civil-rights movement, with R. Jess Brown visible as a named path within it.",
+    deck: "Organizing, protest, legal struggle, and public memory linked to civil rights history.",
+    title: "Law, Justice, and Civil Rights",
     intro:
-      "This public view gathers published records connected to local and regional civil rights history, activism, and organizing.",
-    status: "Showing the civil rights public view.",
+      "This public view gathers published records connected to local and regional civil rights history, activism, organizing, legal struggle, and citizenship.",
+    status: "Showing the Law, Justice, and Civil Rights public view.",
     curatedAccessions: [
       "SRM-2026-128",
-      "SRM-2026-219",
-      "SRM-2026-076",
+      "SRM-2026-293",
       "SRM-2026-050",
-      "SRM-2026-051"
+      "SRM-2026-051",
+      "SRM-2026-219"
     ],
     matches(record) {
       if (matchesTheme(record, ["Civil Rights", "Civil Rights and Citizenship"]) || matchesCollection(record, ["Civil Rights Collection"])) {
@@ -187,19 +187,19 @@ const collectionViews = {
   },
   "r-jess-brown": {
     navLabel: "R. Jess Brown",
-    pathLabel: "Person and Collection Path",
-    pathMeta: "A collection-based exhibit centered on one life, one archive, and a wider civil-rights legal network.",
+    pathLabel: "Law, Justice, and Civil Rights",
+    pathMeta: "A named path within the larger justice exhibit, centered on one life, one archive, and a wider civil-rights legal network.",
     deck: "Law, advocacy, and civil-rights leadership across the life and legacy of R. Jess Brown.",
     title: "R. Jess Brown Collection",
     intro:
       "This public view gathers published records from the R. Jess Brown Collection, including legal papers, correspondence, photographs, awards, and printed tributes tied to his civil-rights career.",
     status: "Showing the R. Jess Brown collection public view.",
     curatedAccessions: [
+      "SRM-2026-293",
       "SRM-2026-279",
       "SRM-2026-260",
       "SRM-2026-263",
-      "SRM-2026-276",
-      "SRM-2026-293"
+      "SRM-2026-276"
     ],
     matches(record) {
       return (
@@ -218,19 +218,19 @@ const collectionViews = {
   },
   "farish-street-history": {
     navLabel: "Farish Street History",
-    pathLabel: "Place Path",
-    pathMeta: "A street-based exhibit tying business, faith, performance, and community life to one historic corridor.",
-    deck: "Business, culture, and community life connected to Farish Street.",
-    title: "Farish Street History Records",
+    pathLabel: "Neighborhood, Commerce, and Culture",
+    pathMeta: "A named path within the broader neighborhood and commerce story, tying business, faith, performance, and community life to one historic corridor.",
+    deck: "Business, neighborhood culture, and community life connected to Farish Street.",
+    title: "Neighborhood, Commerce, and Culture",
     intro:
-      "This public view gathers published records tied to Farish Street, its businesses, institutions, and community memory.",
-    status: "Showing the Farish Street history public view.",
+      "This public view gathers published records tied to Farish Street, its businesses, institutions, performance spaces, and community memory.",
+    status: "Showing the Neighborhood, Commerce, and Culture public view.",
     curatedAccessions: [
       "SRM-2026-163",
       "SRM-2026-116",
-      "SRM-2026-203",
-      "SRM-2026-220",
-      "SRM-2026-028"
+      "SRM-2026-028",
+      "SRM-2026-208",
+      "SRM-2026-220"
     ],
     matches(record) {
       return (
@@ -246,20 +246,20 @@ const collectionViews = {
     }
   },
   "black-health-and-medicine": {
-    navLabel: "Black Health and Medicine",
-    pathLabel: "Theme Path",
-    pathMeta: "A subject-based exhibit connecting doctors, midwives, motherhood, caregiving, and medical access.",
+    navLabel: "Health, Family, and Community Care",
+    pathLabel: "Health, Family, and Community Care",
+    pathMeta: "A larger care-focused exhibit connecting doctors, midwives, motherhood, caregiving, household health, and medical access, with Midwifery and Motherhood as a named path inside it.",
     deck: "Doctors, midwives, motherhood, caregiving, and public health records across Mississippi Black life.",
-    title: "Black Health and Medicine Records",
+    title: "Health, Family, and Community Care",
     intro:
       "This exhibit gathers published records about Black physicians, midwives, maternal care, birth records, health workers, and medical care across community life in Mississippi.",
-    status: "Showing the Black Health and Medicine public view.",
+    status: "Showing the Health, Family, and Community Care public view.",
     curatedAccessions: [
       "SRM-2026-315",
       "SRM-2026-314",
       "SRM-2026-316",
       "SRM-2026-329",
-      "SRM-2026-336"
+      "SRM-2026-158"
     ],
     matches(record) {
       return (
@@ -282,20 +282,20 @@ const collectionViews = {
     }
   },
   "arts-and-culture": {
-    navLabel: "Arts and Culture",
-    pathLabel: "Theme Path",
-    pathMeta: "A subject-based exhibit tracing visual culture, performance, portraiture, and creative expression.",
+    navLabel: "Arts, Culture, and Public Expression",
+    pathLabel: "Arts, Culture, and Public Expression",
+    pathMeta: "A broader expressive-culture exhibit tracing visual culture, performance, portraiture, and creative public life.",
     deck: "Art, performance, material culture, and visual memory across the collection.",
-    title: "Arts and Culture Records",
+    title: "Arts, Culture, and Public Expression",
     intro:
       "This exhibit gathers published records tied to visual art, performance, pageantry, objects, and creative expression across Mississippi Black cultural life.",
-    status: "Showing the Arts and Culture public view.",
+    status: "Showing the Arts, Culture, and Public Expression public view.",
     curatedAccessions: [
-      "SRM-2026-082",
       "SRM-2026-093",
-      "SRM-2026-095",
+      "SRM-2026-082",
       "SRM-2026-097",
-      "SRM-2026-098"
+      "SRM-2026-098",
+      "SRM-2026-117"
     ],
     matches(record) {
       return (
