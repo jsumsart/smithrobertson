@@ -19,10 +19,11 @@ window.COLLECTIONS_DATA_SOURCE = {
     "SRM-2026-123",
     "SRM-2026-205",
     "SRM-2026-219",
+    "SRM-2026-200",
+    "SRM-2026-163",
     "SRM-2026-220",
     "SRM-2026-279",
-    "SRM-2026-315",
-    "SRM-2026-082"
+    "SRM-2026-315"
   ],
   slideshowAccessions: [
     "SRM-2026-123",

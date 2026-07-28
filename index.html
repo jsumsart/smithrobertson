@@ -28,7 +28,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260728d" />
+    <link rel="stylesheet" href="./styles.css?v=20260728f" />
   </head>
   <body class="catalog-page" data-public-page="gallery">
     <div class="catalog-shell">
@@ -43,11 +43,10 @@
       <section class="story-nav" aria-label="Exhibits navigation">
         <div class="story-nav__intro">
           <p class="eyebrow">Museum Pathways</p>
-          <h2>Explore the major exhibits</h2>
-          <p class="help-text">Collection spotlights appear within the related exhibit sections below.</p>
+          <h2>Explore the major themes</h2>
+          <p class="help-text">Collection spotlights and focused clusters appear within the broader interpretive themes below.</p>
         </div>
         <div class="story-nav__links">
-          <a class="story-nav__link" href="./scott-ford-houses.html">Midwifery and Motherhood</a>
           <a class="story-nav__link" href="./smith-robertson-history.html">Smith Robertson History</a>
           <a class="story-nav__link" href="./civil-rights.html">Law, Justice, and Civil Rights</a>
           <a class="story-nav__link" href="./farish-street-history.html">Farish Street History</a>
@@ -86,19 +85,14 @@
         </section>
 
         <section class="public-section">
-          <div class="public-section__header">
+          <div class="public-section__header public-section__header--split">
             <div>
               <p class="eyebrow">Focused Views</p>
-              <h2>Exhibition paths into Mississippi history</h2>
+              <h2>Exhibitions across Mississippi history</h2>
             </div>
-            <p class="help-text">These public-facing pathways combine interpretive storytelling with direct links into the underlying research archive.</p>
+            <p class="help-text">These interpretive themes guide public visitors through the collection, while related spotlights below open into more focused archival clusters.</p>
           </div>
           <div class="exhibit-nav-grid">
-            <a class="exhibit-nav-card exhibit-nav-card--sand" href="./scott-ford-houses.html">
-              <p class="eyebrow">Interpretive Exhibit</p>
-              <h3>Midwifery and Motherhood</h3>
-              <p>Neighborhood memory, childbirth records, family portraits, midwife history, and maternal care tied to Scott Ford residents and kin networks.</p>
-            </a>
             <a class="exhibit-nav-card exhibit-nav-card--brick" href="./smith-robertson-history.html">
               <p class="eyebrow">Interpretive Exhibit</p>
               <h3>Smith Robertson History</h3>
@@ -117,7 +111,7 @@
             <a class="exhibit-nav-card exhibit-nav-card--sage" href="./black-health-and-medicine.html">
               <p class="eyebrow">Interpretive Exhibit</p>
               <h3>Health, Family, and Community Care</h3>
-              <p>Doctors, midwives, caregiving tools, health documents, and public health memory from across the collection.</p>
+              <p>Doctors, midwives, caregiving tools, childbirth history, family care, and public health memory from across the collection.</p>
             </a>
             <a class="exhibit-nav-card exhibit-nav-card--slate" href="./arts-and-culture.html">
               <p class="eyebrow">Interpretive Exhibit</p>
@@ -125,11 +119,25 @@
               <p>Objects, studio portraiture, pageantry, and visual culture that carry Black creative expression into the gallery.</p>
             </a>
           </div>
-          <a class="exhibit-spotlight-banner" href="./r-jess-brown-collection.html">
-            <span class="eyebrow">Related Collection Spotlight</span>
-            <strong>R. Jess Brown Collection</strong>
-            <span>Explore legal papers, honors, portraits, and tributes that deepen the civil-rights and legal story through one focused archive.</span>
-          </a>
+          <div class="public-section__header public-section__header--subtle">
+            <div>
+              <p class="eyebrow">Related Collections</p>
+              <h2>Focused collection spotlights</h2>
+            </div>
+            <p class="help-text">These concentrated groupings remain fully visible on the public site while staying connected to the broader themes above.</p>
+          </div>
+          <div class="exhibit-spotlight-grid">
+            <a class="exhibit-spotlight-banner" href="./r-jess-brown-collection.html">
+              <span class="eyebrow">Related Collection Spotlight</span>
+              <strong>R. Jess Brown Collection</strong>
+              <span>Explore legal papers, honors, portraits, and tributes that deepen the civil-rights and legal story through one focused archive.</span>
+            </a>
+            <a class="exhibit-spotlight-banner" href="./scott-ford-houses.html">
+              <span class="eyebrow">Related Collection Spotlight</span>
+              <strong>Scott Ford Houses Collection</strong>
+              <span>Explore childbirth records, domestic memory, family photographs, and midwife history tied specifically to the Scott Ford Houses.</span>
+            </a>
+          </div>
         </section>
 
         <section class="public-section">
@@ -154,8 +162,11 @@
           <nav class="site-footer__nav" aria-label="Footer navigation">
             <a href="./">Gallery</a>
             <a href="./archive.html">Archive</a>
+            <a href="./smith-robertson-history.html">Smith Robertson History</a>
             <a href="./civil-rights.html">Law, Justice, and Civil Rights</a>
-            <a href="./r-jess-brown-collection.html">R. Jess Brown Collection</a>
+            <a href="./farish-street-history.html">Farish Street History</a>
+            <a href="./black-health-and-medicine.html">Health, Family, and Community Care</a>
+            <a href="./arts-and-culture.html">Arts, Culture, and Public Expression</a>
           </nav>
         </footer>
       </main>
@@ -186,6 +197,6 @@
     </template>
 
     <script src="./data-source-config.js"></script>
-    <script type="module" src="./catalog.js?v=20260728b"></script>
+    <script type="module" src="./catalog.js?v=20260728c"></script>
   </body>
 </html>

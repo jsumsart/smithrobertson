@@ -381,6 +381,13 @@ const collectionViews = {
     status: "Showing the Health, Family, and Community Care public view.",
     leadAccession: "SRM-2026-315",
     highlightAccessions: ["SRM-2026-314", "SRM-2026-316", "SRM-2026-329", "SRM-2026-158"],
+    relatedSpotlight: {
+      href: "./scott-ford-houses.html",
+      eyebrow: "Related collection",
+      title: "Scott Ford Houses Collection",
+      description:
+        "Explore childbirth records, family photographs, and midwife history tied specifically to the Scott Ford Houses."
+    },
     curatedAccessions: [
       "SRM-2026-315",
       "SRM-2026-314",
@@ -1497,7 +1504,7 @@ async function renderFeaturedRecords() {
     return;
   }
 
-  const featured = getCuratedRecords(state.siteSettings.public_featured_accessions, 3);
+  const featured = getCuratedRecords(state.siteSettings.public_featured_accessions, 5);
   elements.featuredList.replaceChildren();
 
   if (!featured.length) {
