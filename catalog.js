@@ -481,6 +481,7 @@ const elements = {
   authAction: document.querySelector("#catalogAuthAction"),
   heroEyebrow: document.querySelector("#catalogEyebrow"),
   pathMeta: document.querySelector("#catalogPathMeta"),
+  heroMetric: document.querySelector(".archive-metric"),
   galleryTitle: document.querySelector("#catalogGalleryTitle"),
   galleryIntro: document.querySelector("#catalogGalleryIntro"),
   archiveTitle: document.querySelector("#catalogTitle"),
@@ -877,6 +878,11 @@ function applyCatalogSettings() {
   }
   if (elements.archiveIntro) {
     elements.archiveIntro.textContent = activeCollectionView?.intro || state.siteSettings.public_catalog_intro;
+  }
+  if (elements.heroMetric) {
+    elements.heroMetric.classList.remove("archive-hero__aside");
+    const spotlight = elements.heroMetric.querySelector(".relationship-card");
+    spotlight?.remove();
   }
   if (elements.pathMeta) {
     if (pageMode === "collection" && activeCollectionView) {
@@ -1567,19 +1573,20 @@ async function renderCollectionExhibit() {
       body.append(eyebrow, title, meta, description, tags);
       article.append(media, body);
       elements.collectionLead.appendChild(article);
-
-      if (activeCollectionView?.relatedSpotlight) {
-        const relation = document.createElement("a");
-        relation.className = "relationship-card";
-        relation.href = activeCollectionView.relatedSpotlight.href;
-        relation.innerHTML = `
-          <p class="eyebrow">${activeCollectionView.relatedSpotlight.eyebrow}</p>
-          <h3>${activeCollectionView.relatedSpotlight.title}</h3>
-          <p>${activeCollectionView.relatedSpotlight.description}</p>
-        `;
-        elements.collectionLead.appendChild(relation);
-      }
     }
+  }
+
+  if (elements.heroMetric && activeCollectionView?.relatedSpotlight) {
+    elements.heroMetric.classList.add("archive-hero__aside");
+    const relation = document.createElement("a");
+    relation.className = "relationship-card relationship-card--hero";
+    relation.href = activeCollectionView.relatedSpotlight.href;
+    relation.innerHTML = `
+      <p class="eyebrow">${activeCollectionView.relatedSpotlight.eyebrow}</p>
+      <h3>${activeCollectionView.relatedSpotlight.title}</h3>
+      <p>${activeCollectionView.relatedSpotlight.description}</p>
+    `;
+    elements.heroMetric.appendChild(relation);
   }
 
   if (elements.collectionHighlights) {
