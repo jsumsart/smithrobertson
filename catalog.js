@@ -535,6 +535,35 @@ function buildCollectionBadgeText(record) {
   return getMeaningfulValue(record.collection_name) || "Public collection record";
 }
 
+function recordHasImage(record) {
+  return Boolean(getMeaningfulValue(record.image_file) || getMeaningfulValue(record.image_thumb_file));
+}
+
+function compareImagePriority(left, right) {
+  const leftHasImage = recordHasImage(left);
+  const rightHasImage = recordHasImage(right);
+  if (leftHasImage === rightHasImage) {
+    return 0;
+  }
+  return leftHasImage ? -1 : 1;
+}
+
+function buildRecordContextText(record) {
+  const statements = [
+    getMeaningfulValue(record.collection_name)
+      ? `Part of the ${getMeaningfulValue(record.collection_name)} collection.`
+      : "",
+    getMeaningfulValue(record.historical_theme) ? `Filed under ${getMeaningfulValue(record.historical_theme)}.` : "",
+    getMeaningfulValue(record.neighborhood) ? `Associated with ${getMeaningfulValue(record.neighborhood)}.` : "",
+    getMeaningfulValue(record.people) ? `Connected people: ${getMeaningfulValue(record.people)}.` : "",
+    getMeaningfulValue(record.organizations)
+      ? `Connected organizations: ${getMeaningfulValue(record.organizations)}.`
+      : ""
+  ].filter(Boolean);
+
+  return statements.join(" ") || "This public record is part of the museum's digital collections and remains available for ongoing research and interpretation.";
+}
+
 function buildBrandMarkup() {
   return `
     <span class="catalog-brand-lockup">
@@ -1145,16 +1174,18 @@ function getRecordDateSortValue(record) {
 
 function sortArchiveRecords(records, sortValue) {
   const sorted = [...records];
+  const sortWithImagePriority = (comparator) =>
+    sorted.sort((left, right) => compareImagePriority(left, right) || comparator(left, right));
 
   switch (sortValue) {
     case "title":
-      return sorted.sort((left, right) =>
+      return sortWithImagePriority((left, right) =>
         String(left.title || "").localeCompare(String(right.title || ""), undefined, {
           sensitivity: "base"
         })
       );
     case "date-asc":
-      return sorted.sort((left, right) => {
+      return sortWithImagePriority((left, right) => {
         const leftValue = getRecordDateSortValue(left);
         const rightValue = getRecordDateSortValue(right);
         if (leftValue == null && rightValue == null) {
@@ -1169,7 +1200,7 @@ function sortArchiveRecords(records, sortValue) {
         return leftValue - rightValue || compareAccessions(left, right);
       });
     case "date-desc":
-      return sorted.sort((left, right) => {
+      return sortWithImagePriority((left, right) => {
         const leftValue = getRecordDateSortValue(left);
         const rightValue = getRecordDateSortValue(right);
         if (leftValue == null && rightValue == null) {
@@ -1184,10 +1215,10 @@ function sortArchiveRecords(records, sortValue) {
         return rightValue - leftValue || compareAccessions(right, left);
       });
     case "accession":
-      return sorted.sort(compareAccessions);
+      return sortWithImagePriority(compareAccessions);
     case "recent":
     default:
-      return sorted.sort((left, right) => compareAccessions(right, left));
+      return sortWithImagePriority((left, right) => compareAccessions(right, left));
   }
 }
 
@@ -1788,12 +1819,15 @@ async function renderRecordDetailPage() {
   }
 
   const fragment = elements.detailTemplate.content.cloneNode(true);
+  const hero = fragment.querySelector(".record-detail__hero");
+  const media = fragment.querySelector(".record-detail__media");
   const image = fragment.querySelector(".record-detail__image");
   const title = fragment.querySelector(".record-detail__title");
   const meta = fragment.querySelector(".record-detail__meta");
   const summary = fragment.querySelector(".record-detail__summary");
   const significance = fragment.querySelector(".record-detail__significance");
   const metadata = fragment.querySelector(".record-detail__metadata");
+  const context = fragment.querySelector(".record-detail__context");
   const tags = fragment.querySelector(".record-detail__tags");
   const citation = fragment.querySelector(".record-detail__citation");
 
@@ -1802,10 +1836,15 @@ async function renderRecordDetailPage() {
   summary.textContent = record.description || "Description not yet available.";
   significance.textContent = record.significance || "Historical significance not yet available.";
   metadata.replaceChildren(renderRecordMetadataList(record));
+  context.textContent = buildRecordContextText(record);
   tags.replaceChildren(createTagElements(record.tags));
   citation.textContent = buildCitationText(record);
 
   applyRecordImage(image, record, `${record.title} image`, { eager: true });
+  if (image.hidden) {
+    media.hidden = true;
+    hero.classList.add("record-detail__hero--text-only");
+  }
   elements.detailShell.appendChild(fragment);
 
   if (elements.archiveTitle) {

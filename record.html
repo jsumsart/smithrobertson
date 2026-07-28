@@ -79,25 +79,48 @@
     <template id="recordDetailTemplate">
       <article class="record-detail">
         <section class="record-detail__hero">
-          <img class="record-detail__image" alt="" hidden />
+          <div class="record-detail__media">
+            <img class="record-detail__image" alt="" hidden />
+          </div>
           <div class="record-detail__body">
             <p class="eyebrow">Public collection record</p>
             <h2 class="record-detail__title"></h2>
             <p class="record-detail__meta"></p>
-            <p class="record-detail__summary"></p>
-            <p class="record-detail__significance"></p>
+            <div class="record-detail__actions">
+              <a class="button button--primary" href="./archive.html">Browse archive</a>
+              <a class="button button--ghost" href="./">Return to gallery</a>
+            </div>
+            <div class="record-detail__narrative">
+              <div class="record-detail__narrative-block">
+                <h3>Description</h3>
+                <p class="record-detail__summary"></p>
+              </div>
+              <div class="record-detail__narrative-block">
+                <h3>Historical significance</h3>
+                <p class="record-detail__significance"></p>
+              </div>
+            </div>
           </div>
         </section>
 
         <section class="record-detail__panels">
-          <div class="record-detail__panel">
+          <div class="record-detail__panel record-detail__panel--metadata">
             <h2>Object metadata</h2>
             <dl class="record-detail__metadata"></dl>
           </div>
-          <div class="record-detail__panel">
-            <h2>Tags and citation</h2>
-            <div class="record-detail__tags tag-list"></div>
-            <p class="record-detail__citation"></p>
+          <div class="record-detail__panel record-detail__panel--context">
+            <div class="record-detail__section">
+              <h2>Collection context</h2>
+              <p class="record-detail__context"></p>
+            </div>
+            <div class="record-detail__section">
+              <h2>Keywords</h2>
+              <div class="record-detail__tags tag-list"></div>
+            </div>
+            <div class="record-detail__section">
+              <h2>Citation</h2>
+              <p class="record-detail__citation"></p>
+            </div>
           </div>
         </section>
       </article>
