@@ -1298,6 +1298,7 @@ h2 {
   gap: 1.8rem;
   padding: 2rem;
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   align-items: stretch;
 }
@@ -1310,6 +1311,7 @@ h2 {
     radial-gradient(circle at 12% 18%, rgba(154, 116, 55, 0.08), rgba(154, 116, 55, 0) 28%),
     linear-gradient(135deg, rgba(248, 241, 232, 0.84), rgba(255, 255, 255, 0) 42%);
   pointer-events: none;
+  z-index: 0;
 }
 
 .public-hero__copy,
@@ -1317,6 +1319,8 @@ h2 {
   display: grid;
   gap: 0.8rem;
   align-content: start;
+  position: relative;
+  z-index: 1;
 }
 
 .public-hero__copy h1,
