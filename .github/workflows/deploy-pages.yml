@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir -p _site
           cp ./*.html ./*.js ./*.css _site/
-          cp -R data public-images public-thumbs docs _site/
+          cp -R assets data public-images public-thumbs docs _site/
           touch _site/.nojekyll
 
       - name: Upload static site artifact
