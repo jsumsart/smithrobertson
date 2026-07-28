@@ -1552,6 +1552,39 @@ h2 {
   line-height: 1.55;
 }
 
+.exhibit-spotlight-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 1rem 1.35rem;
+  align-items: start;
+  margin-top: 0.2rem;
+  padding: 1.15rem 1.3rem;
+  text-decoration: none;
+  color: var(--ink);
+  border-top: 1px solid rgba(154, 116, 55, 0.28);
+  border-bottom: 1px solid rgba(154, 116, 55, 0.16);
+  background: linear-gradient(90deg, rgba(243, 232, 214, 0.72), rgba(255, 255, 255, 0));
+}
+
+.exhibit-spotlight-banner .eyebrow {
+  margin: 0;
+}
+
+.exhibit-spotlight-banner strong {
+  display: block;
+  font-family: var(--catalog-display-font, "Fraunces", serif);
+  font-size: clamp(1.22rem, 1.5vw, 1.45rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.exhibit-spotlight-banner span:last-child {
+  max-width: 56ch;
+  color: var(--muted);
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
 .archive-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1865,6 +1898,12 @@ body.archive-page .archive-hero__copy h1 {
 .site-footer__copy small {
   color: var(--muted);
   line-height: 1.6;
+}
+
+.site-footer__credit {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
 .site-footer__nav {
