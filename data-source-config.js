@@ -10,10 +10,10 @@ window.COLLECTIONS_DATA_SOURCE = {
     "Use Google Sheets, Forms, and CSV imports to manage records without relying on a hosted database.",
   publicGalleryTitle: "Smith Robertson Museum + Cultural Center Digital Collections",
   publicGalleryIntro:
-    "Explore guided exhibits and collection spotlights, then move into the public archive for deeper research across school history, neighborhood memory, civil rights, medicine, art, and Farish Street culture.",
-  publicArchiveTitle: "Public archive and research portal",
+    "Explore exhibitions and featured collections, then move into the archive for deeper research across school history, neighborhood memory, civil rights, medicine, art, and Farish Street culture.",
+  publicArchiveTitle: "Archive",
   publicArchiveIntro:
-    "Browse the public archive as a researcher-facing portal for object discovery, contextual reading, and citation-ready record pages.",
+    "Browse the archive for object discovery, contextual reading, and record pages prepared for citation and closer study.",
   publicFontTheme: "editorial",
   featuredAccessions: [
     "SRM-2026-123",

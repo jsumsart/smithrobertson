@@ -152,12 +152,12 @@ const collectionViews = {
     navLabel: "Midwifery and Motherhood",
     pathLabel: "Interpretive Exhibit",
     pathMeta: "Connects Scott Ford family life, childbirth records, midwifery, and motherhood through a broader history of care, kinship, and neighborhood memory.",
-    relationshipLabel: "Related care history",
+    relationshipLabel: "A story of care, kinship, and neighborhood life",
     deck: "Home life, childbirth records, midwife history, and motherhood tied to the Scott Ford Houses.",
     title: "Midwifery and Motherhood",
     intro:
       "This exhibit follows childbirth records, family photographs, domestic space, and neighborhood memory to interpret Black maternal care and midwifery through the Scott Ford Houses and related records.",
-    status: "Showing the Scott Ford Houses, Midwifery and Motherhood public view.",
+    status: "Now viewing Midwifery and Motherhood.",
     leadAccession: "SRM-2026-200",
     highlightAccessions: ["SRM-2026-199", "SRM-2026-201", "SRM-2026-132", "SRM-2026-239"],
     curatedAccessions: [
@@ -190,12 +190,12 @@ const collectionViews = {
     navLabel: "Education and Public Memory",
     pathLabel: "Interpretive Exhibit",
     pathMeta: "Centers Black education, school leadership, student life, and the ways educational memory has been carried through photographs, ceremonies, and commemoration.",
-    relationshipLabel: "Education exhibit",
+    relationshipLabel: "A story of Black education and remembrance",
     deck: "Black education, school leadership, and public memory across the Smith Robertson story and related records.",
     title: "Education and Public Memory",
     intro:
       "This exhibit interprets Black education through teachers, students, school leadership, graduation rituals, campus life, and the later public memory of Smith Robertson and related educational records.",
-    status: "Showing the Education and Public Memory public view.",
+    status: "Now viewing Education and Public Memory.",
     leadAccession: "SRM-2026-030",
     highlightAccessions: ["SRM-2026-370", "SRM-2026-081", "SRM-2026-077", "SRM-P-1955-012"],
     curatedAccessions: [
@@ -264,12 +264,12 @@ const collectionViews = {
     navLabel: "Law, Justice, and Civil Rights",
     pathLabel: "Interpretive Exhibit",
     pathMeta: "Brings together protest, citizenship, legal struggle, public speech, and community memory across Mississippi civil-rights history.",
-    relationshipLabel: "Broad legal and civil-rights exhibit",
+    relationshipLabel: "A story of law, citizenship, and civil rights",
     deck: "Organizing, protest, legal struggle, and public memory linked to civil rights history.",
     title: "Law, Justice, and Civil Rights",
     intro:
       "This exhibit gathers public records related to civil-rights organizing, legal advocacy, public memory, and the long struggle over citizenship and justice in Mississippi.",
-    status: "Showing the Law, Justice, and Civil Rights public view.",
+    status: "Now viewing Law, Justice, and Civil Rights.",
     leadAccession: "SRM-2026-128",
     highlightAccessions: ["SRM-2026-050", "SRM-2026-051", "SRM-2026-219", "SRM-2026-293"],
     relatedSpotlight: {
@@ -313,12 +313,12 @@ const collectionViews = {
     navLabel: "R. Jess Brown Collection",
     pathLabel: "Collection Spotlight",
     pathMeta: "Focuses on one legal archive while connecting it to the broader history of law, justice, and civil-rights advocacy in Mississippi.",
-    relationshipLabel: "Featured within the legal history of the site",
+    relationshipLabel: "A focused legal archive",
     deck: "Law, advocacy, and civil-rights leadership across the life and legacy of R. Jess Brown.",
     title: "R. Jess Brown Collection",
     intro:
-      "This collection spotlight gathers legal papers, photographs, honors, and tributes that document the life and work of attorney R. Jess Brown while connecting his archive to a wider civil-rights legal history.",
-    status: "Showing the R. Jess Brown collection public view.",
+      "This featured collection gathers legal papers, photographs, honors, and tributes that document the life and work of attorney R. Jess Brown while connecting his archive to a wider civil-rights legal history.",
+    status: "Now viewing the R. Jess Brown Collection.",
     leadAccession: "SRM-2026-293",
     highlightAccessions: ["SRM-2026-279", "SRM-2026-260", "SRM-2026-263", "SRM-2026-276"],
     relatedSpotlight: {
@@ -354,12 +354,12 @@ const collectionViews = {
     navLabel: "Farish Street History",
     pathLabel: "Interpretive Exhibit",
     pathMeta: "Ties business, faith, performance, and community life to one historic corridor in Jackson.",
-    relationshipLabel: "Neighborhood exhibit",
+    relationshipLabel: "A story of neighborhood life and commerce",
     deck: "Business, neighborhood culture, and community life connected to Farish Street.",
     title: "Farish Street History",
     intro:
       "This exhibit interprets Farish Street as a corridor of commerce, performance, worship, and neighborhood memory through public records tied to its institutions and built environment.",
-    status: "Showing the Neighborhood, Commerce, and Culture public view.",
+    status: "Now viewing Farish Street History.",
     leadAccession: "SRM-2026-163",
     highlightAccessions: ["SRM-2026-116", "SRM-2026-028", "SRM-2026-208", "SRM-2026-220"],
     curatedAccessions: [
@@ -386,12 +386,12 @@ const collectionViews = {
     navLabel: "Health, Family, and Community Care",
     pathLabel: "Interpretive Exhibit",
     pathMeta: "Connects doctors, midwives, motherhood, caregiving, household health, and medical access across Black life in Mississippi.",
-    relationshipLabel: "Broad care and medicine exhibit",
+    relationshipLabel: "A story of medicine, caregiving, and family life",
     deck: "Doctors, midwives, motherhood, caregiving, and public health records across Mississippi Black life.",
     title: "Health, Family, and Community Care",
     intro:
       "This exhibit gathers records related to physicians, midwives, maternal care, public health, and everyday caregiving across Black community life in Mississippi.",
-    status: "Showing the Health, Family, and Community Care public view.",
+    status: "Now viewing Health, Family, and Community Care.",
     leadAccession: "SRM-2026-315",
     highlightAccessions: ["SRM-2026-314", "SRM-2026-316", "SRM-2026-329", "SRM-2026-158"],
     relatedSpotlight: {
@@ -437,12 +437,12 @@ const collectionViews = {
     navLabel: "Arts, Culture, and Public Expression",
     pathLabel: "Interpretive Exhibit",
     pathMeta: "Traces visual culture, performance, pageantry, material culture, and creative public life across the collection.",
-    relationshipLabel: "Arts and culture exhibit",
+    relationshipLabel: "A story of art, performance, and public expression",
     deck: "Art, performance, pageantry, and material culture across the collection.",
     title: "Arts, Culture, and Public Expression",
     intro:
       "This exhibit gathers visual art, performance materials, pageantry, and cultural objects that carry Black creative expression into the public gallery.",
-    status: "Showing the Arts, Culture, and Public Expression public view.",
+    status: "Now viewing Arts, Culture, and Public Expression.",
     leadAccession: "SRM-2026-093",
     highlightAccessions: ["SRM-2026-082", "SRM-2026-097", "SRM-2026-098", "SRM-2026-117"],
     curatedAccessions: [
@@ -576,7 +576,7 @@ function buildMuseumPageTitle(value) {
 }
 
 function buildCollectionBadgeText(record) {
-  return getMeaningfulValue(record.collection_name) || "Public collection record";
+  return getMeaningfulValue(record.collection_name) || "Museum collection";
 }
 
 function recordHasImage(record) {
@@ -597,7 +597,7 @@ function buildRecordContextText(record) {
     getMeaningfulValue(record.collection_name)
       ? `Part of the ${getMeaningfulValue(record.collection_name)} collection.`
       : "",
-    getMeaningfulValue(record.historical_theme) ? `Filed under ${getMeaningfulValue(record.historical_theme)}.` : "",
+    getMeaningfulValue(record.historical_theme) ? `Associated theme: ${getMeaningfulValue(record.historical_theme)}.` : "",
     getMeaningfulValue(record.neighborhood) ? `Associated with ${getMeaningfulValue(record.neighborhood)}.` : "",
     getMeaningfulValue(record.people) ? `Connected people: ${getMeaningfulValue(record.people)}.` : "",
     getMeaningfulValue(record.organizations)
@@ -605,7 +605,7 @@ function buildRecordContextText(record) {
       : ""
   ].filter(Boolean);
 
-  return statements.join(" ") || "This public record is part of the museum's digital collections and remains available for ongoing research and interpretation.";
+  return statements.join(" ") || "This record is part of the museum's digital collections and remains available for ongoing research and interpretation.";
 }
 
 function buildBrandMarkup() {
@@ -905,7 +905,7 @@ function applyCatalogSettings() {
     } else if (pageMode === "record") {
       elements.heroEyebrow.textContent = "Collection record";
     } else if (pageMode === "archive") {
-      elements.heroEyebrow.textContent = "Public Archive";
+      elements.heroEyebrow.textContent = "Archive";
     } else {
       elements.heroEyebrow.textContent = "Digital Gallery";
     }
@@ -944,7 +944,7 @@ function applyCatalogSettings() {
         ? collectionHeading
         : pageMode === "record"
           ? "Collection Record"
-          : "Public Archive";
+          : "Archive";
   document.title = buildMuseumPageTitle(pageTitle);
   applyPublicSiteTheme(state.siteSettings);
   ensureHeadAssetLinks();
@@ -1903,7 +1903,7 @@ async function renderRecordDetailPage() {
   }
   if (elements.archiveIntro) {
     elements.archiveIntro.textContent =
-      "Use this page as the authoritative public record view for citation, close reading, and metadata review.";
+      "This page brings together images, description, and citation information for a single record.";
   }
   if (elements.pathMeta) {
     elements.pathMeta.textContent = buildCollectionBadgeText(record);
@@ -1918,7 +1918,7 @@ async function renderRecordDetailPage() {
   setHeadMeta({ name: "twitter:title", content: document.title });
   setHeadMeta({ name: "twitter:description", content: record.description || record.significance || record.title });
   setHeadMeta({ name: "twitter:image", content: resolvePrimaryImageUrl(record) || logoAssetPath });
-  setStatus(`Showing record ${record.accession_number}.`);
+    setStatus(`Viewing record ${record.accession_number}.`);
 }
 
 async function loadCurrentUser() {
@@ -1965,7 +1965,7 @@ async function loadCatalog() {
     renderActiveFilterSummary();
     updateArchivePaginationUI();
     await loadCurrentUser();
-    setStatus("Showing the searchable public archive.");
+    setStatus("Viewing the archive.");
     return;
   }
 
@@ -1985,13 +1985,13 @@ async function loadCatalog() {
     renderActiveFilterSummary();
     updateArchivePaginationUI();
     await loadCurrentUser();
-    setStatus(collectionViews[collectionView]?.status || "Showing a collection-focused public view.");
+    setStatus(collectionViews[collectionView]?.status || "Viewing this collection.");
     return;
   }
 
   await fetchGalleryRecordsFromCsv();
   await Promise.all([renderFeaturedRecords(), renderSlideshow(), loadCurrentUser()]);
-  setStatus("Showing the curated digital gallery.");
+  setStatus("Viewing the digital gallery.");
 }
 
 async function refreshArchivePage({ resetPage = false } = {}) {
