@@ -12,6 +12,7 @@ import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPubl
 const pageMode = document.body.dataset.publicPage || "gallery";
 const collectionView = document.body.dataset.collectionView || "";
 const logoAssetPath = "./assets/smith-robertson-logo.png";
+const PUBLIC_RIGHTS_STATUS = "Rights reserved, contact Smith Robertson";
 
 function normalizeText(value) {
   return String(value || "")
@@ -31,6 +32,13 @@ function getMeaningfulValue(value) {
   }
 
   return stringValue;
+}
+
+function normalizePublicRecord(record) {
+  return {
+    ...record,
+    rights_status: PUBLIC_RIGHTS_STATUS
+  };
 }
 
 function buildSearchHaystack(record) {
@@ -173,14 +181,14 @@ const collectionViews = {
     }
   },
   "smith-robertson-history": {
-    navLabel: "Smith Robertson History",
+    navLabel: "Education and Public Memory",
     pathLabel: "Interpretive Exhibit",
-    pathMeta: "Centers the campus, its leadership, and the ways the school has been remembered through photographs, school life, and community commemoration.",
+    pathMeta: "Centers Black education, school leadership, student life, and the ways educational memory has been carried through photographs, ceremonies, and commemoration.",
     relationshipLabel: "Education exhibit",
-    deck: "School history, leadership, and public memory across the Smith Robertson story.",
-    title: "Smith Robertson History",
+    deck: "Black education, school leadership, and public memory across the Smith Robertson story and related records.",
+    title: "Education and Public Memory",
     intro:
-      "This exhibit introduces the history of Smith Robertson through teachers, students, school rituals, leadership, and the later public memory of the campus and museum site.",
+      "This exhibit interprets Black education through teachers, students, school leadership, graduation rituals, campus life, and the later public memory of Smith Robertson and related educational records.",
     status: "Showing the Education and Public Memory public view.",
     leadAccession: "SRM-2026-030",
     highlightAccessions: ["SRM-2026-370", "SRM-2026-081", "SRM-2026-077", "SRM-P-1955-012"],
@@ -208,26 +216,25 @@ const collectionViews = {
         return false;
       }
 
-      const isSmithRobertsonEducationRecord =
-        matchesTheme(record, ["African American Education"]) &&
-        (matchesNeighborhood(record, ["Farish Street", "Smith Robertson Campus"]) ||
-          matchesKeyword(record, [
-            "Smith Robertson",
-            "Robertson School",
-            "Vertilla Anderson",
-            "Vertilla F. Anderson",
-            "Vertilla Friar Anderson",
-            "Betty Mencuree",
-            "Jimmye J. Bailey",
-            "Jimmie Dale Law",
-            "Clara Caston",
-            "Christa Hudson",
-            "Florence Aaron",
-            "May Day"
-          ]));
+      const isEducationRecord =
+        matchesTheme(record, ["African American Education"]) ||
+        matchesKeyword(record, [
+          "school",
+          "education",
+          "teacher",
+          "student",
+          "principal",
+          "classroom",
+          "graduation",
+          "commencement",
+          "yearbook",
+          "campus",
+          "alumni",
+          "May Day"
+        ]);
 
       return (
-        isSmithRobertsonEducationRecord ||
+        isEducationRecord ||
         matchesNeighborhood(record, ["Smith Robertson Campus"]) ||
         matchesPeople(record, ["A. N. Jackson", "James Gooden", "Luther Marshall", "Charles S. Wilson", "Lv Randolph"]) ||
         matchesKeyword(record, [
@@ -423,12 +430,12 @@ const collectionViews = {
   "arts-and-culture": {
     navLabel: "Arts, Culture, and Public Expression",
     pathLabel: "Interpretive Exhibit",
-    pathMeta: "Traces visual culture, performance, portraiture, and creative public life across the collection.",
+    pathMeta: "Traces visual culture, performance, pageantry, material culture, and creative public life across the collection.",
     relationshipLabel: "Arts and culture exhibit",
-    deck: "Art, performance, material culture, and visual memory across the collection.",
+    deck: "Art, performance, pageantry, and material culture across the collection.",
     title: "Arts, Culture, and Public Expression",
     intro:
-      "This exhibit gathers visual art, performance materials, portraiture, and objects that carry Black creative expression into the public gallery.",
+      "This exhibit gathers visual art, performance materials, pageantry, and cultural objects that carry Black creative expression into the public gallery.",
     status: "Showing the Arts, Culture, and Public Expression public view.",
     leadAccession: "SRM-2026-093",
     highlightAccessions: ["SRM-2026-082", "SRM-2026-097", "SRM-2026-098", "SRM-2026-117"],
@@ -440,14 +447,31 @@ const collectionViews = {
       "SRM-2026-117"
     ],
     matches(record) {
+      if (
+        matchesTheme(record, ["African American Education"]) ||
+        matchesKeyword(record, [
+          "principal",
+          "teacher",
+          "student",
+          "graduation",
+          "commencement",
+          "school portrait",
+          "school photograph",
+          "class portrait",
+          "yearbook"
+        ])
+      ) {
+        return false;
+      }
+
       return (
         matchesTheme(record, ["Arts And Culture"]) ||
         matchesCollection(record, ["Art Collection"]) ||
         matchesKeyword(record, [
           "art",
           "artist",
-          "portrait",
           "pageant",
+          "pageantry",
           "theatre",
           "theater",
           "painting",
@@ -457,7 +481,13 @@ const collectionViews = {
           "mask",
           "Kuba",
           "gourd vessel",
-          "performance"
+          "performance",
+          "music",
+          "musician",
+          "dance",
+          "costume",
+          "poster",
+          "program"
         ])
       );
     }
@@ -1370,10 +1400,12 @@ async function loadCsvDataset() {
     return state.allRecords;
   }
 
-  state.allRecords = await fetchPublishedRecords({
-    jsonUrl: dataSourceConfig.publishedJsonUrl,
-    csvUrl: dataSourceConfig.publishedCsvUrl
-  });
+  state.allRecords = (
+    await fetchPublishedRecords({
+      jsonUrl: dataSourceConfig.publishedJsonUrl,
+      csvUrl: dataSourceConfig.publishedCsvUrl
+    })
+  ).map(normalizePublicRecord);
   return state.allRecords;
 }
 
@@ -1775,8 +1807,7 @@ function renderRecordMetadataList(record) {
     ["People", getMeaningfulValue(record.people)],
     ["Organizations", getMeaningfulValue(record.organizations)],
     ["Donor", getMeaningfulValue(record.donor)],
-    ["Rights status", record.rights_status],
-    ["Provenance", getMeaningfulValue(record.provenance)],
+    ["Rights status", PUBLIC_RIGHTS_STATUS],
     ["Format / material", getMeaningfulValue(record.format_material)]
   ].filter(([, value]) => String(value || "").trim());
 

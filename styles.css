@@ -1457,7 +1457,7 @@ h2 {
 
 .exhibit-nav-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 1.15rem;
   align-items: start;
 }
@@ -1471,8 +1471,8 @@ h2 {
 .exhibit-nav-card {
   display: grid;
   gap: 0.95rem;
-  grid-column: span 6;
-  min-height: 240px;
+  grid-column: span 2;
+  min-height: 228px;
   align-content: start;
   padding: 1.6rem;
   text-decoration: none;
@@ -1550,15 +1550,8 @@ h2 {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 240, 232, 0.94));
 }
 
-.exhibit-nav-card--brick,
-.exhibit-nav-card--sage {
-  grid-column: span 7;
-}
-
-.exhibit-nav-card--ink,
-.exhibit-nav-card--gold,
-.exhibit-nav-card--slate {
-  grid-column: span 5;
+.exhibit-nav-card:last-child {
+  grid-column: 3 / span 2;
 }
 
 .exhibit-nav-card--brick::before {
@@ -1668,15 +1661,20 @@ h2 {
 
 .archive-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.72fr);
   gap: 1.4rem;
   padding: 1.7rem;
+  align-items: start;
 }
 
 body.archive-page .archive-hero,
 body.archive-page .archive-toolbar,
 body.archive-page .archive-row {
   border-radius: 12px;
+}
+
+body.archive-page .archive-hero__copy {
+  max-width: 72ch;
 }
 
 body.archive-page .archive-hero__copy h1 {
@@ -1688,10 +1686,12 @@ body.archive-page .archive-hero__copy h1 {
 .archive-metric {
   align-self: start;
   min-width: 220px;
+  width: min(100%, 360px);
   padding: 1rem 1.1rem;
   border: 1px solid rgba(121, 106, 89, 0.22);
   border-radius: 12px;
   background: rgba(248, 243, 236, 0.96);
+  justify-self: end;
 }
 
 .archive-hero__aside {
@@ -1699,6 +1699,7 @@ body.archive-page .archive-hero__copy h1 {
   gap: 0.9rem;
   min-width: 320px;
   max-width: 360px;
+  justify-self: end;
 }
 
 .archive-toolbar {
@@ -1956,8 +1957,8 @@ body.archive-page .archive-hero__copy h1 {
 
 .site-footer {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) auto;
-  gap: 1rem;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: 1rem 2rem;
   align-items: start;
   margin-top: 1rem;
   padding: 1rem 0 0;
@@ -1988,10 +1989,11 @@ body.archive-page .archive-hero__copy h1 {
 }
 
 .site-footer__nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, max-content));
+  gap: 0.6rem 1rem;
+  justify-content: end;
+  align-content: start;
 }
 
 .site-footer__nav a {
@@ -2000,6 +2002,7 @@ body.archive-page .archive-hero__copy h1 {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  line-height: 1.35;
   text-transform: uppercase;
 }
 
