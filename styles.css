@@ -1448,6 +1448,13 @@ h2 {
   gap: 1rem;
 }
 
+.exhibit-nav-cluster {
+  display: grid;
+  gap: 0.75rem;
+  grid-column: span 6;
+  align-content: start;
+}
+
 .exhibit-nav-card {
   display: grid;
   gap: 0.6rem;
@@ -1466,6 +1473,10 @@ h2 {
 .exhibit-nav-card:nth-child(1),
 .exhibit-nav-card:nth-child(2) {
   grid-column: span 6;
+}
+
+.exhibit-nav-card--primary {
+  grid-column: auto;
 }
 
 .exhibit-nav-card:hover {
@@ -1502,6 +1513,42 @@ h2 {
 .exhibit-nav-card--sage,
 .exhibit-nav-card--slate {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 240, 232, 0.94));
+}
+
+.exhibit-nav-subcard {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem;
+  text-decoration: none;
+  color: var(--ink);
+  border-radius: 12px;
+  border: 1px solid rgba(117, 104, 90, 0.18);
+  background: rgba(250, 246, 240, 0.98);
+  box-shadow: 0 8px 18px rgba(38, 24, 14, 0.04);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.exhibit-nav-subcard:hover {
+  transform: translateY(-1px);
+  border-color: rgba(114, 94, 61, 0.28);
+  background: rgba(245, 236, 225, 0.98);
+}
+
+.exhibit-nav-subcard h3,
+.exhibit-nav-subcard p {
+  margin: 0;
+}
+
+.exhibit-nav-subcard h3 {
+  font-family: var(--catalog-display-font, "Fraunces", serif);
+  font-size: clamp(1.15rem, 1.45vw, 1.4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.exhibit-nav-subcard p:last-child {
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .archive-hero {
@@ -2067,6 +2114,7 @@ body.archive-page .archive-hero__copy h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .exhibit-nav-cluster,
   .exhibit-nav-card,
   .exhibit-nav-card:nth-child(1),
   .exhibit-nav-card:nth-child(2) {
@@ -2116,6 +2164,7 @@ body.archive-page .archive-hero__copy h1 {
     grid-template-columns: 1fr;
   }
 
+  .exhibit-nav-cluster,
   .exhibit-nav-card,
   .exhibit-nav-card:nth-child(1),
   .exhibit-nav-card:nth-child(2) {
