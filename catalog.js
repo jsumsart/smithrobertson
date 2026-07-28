@@ -116,8 +116,14 @@ function ensureHeadAssetLinks() {
 }
 
 function matchesKeyword(record, keywords) {
-  const haystack = buildSearchHaystack(record);
-  return keywords.some((keyword) => haystack.includes(normalizeText(keyword)));
+  const haystack = ` ${buildSearchHaystack(record)} `;
+  return keywords.some((keyword) => {
+    const normalizedKeyword = normalizeText(keyword);
+    if (!normalizedKeyword) {
+      return false;
+    }
+    return haystack.includes(` ${normalizedKeyword} `);
+  });
 }
 
 function matchesAnyField(value, expectedValues) {
