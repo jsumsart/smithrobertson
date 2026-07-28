@@ -2,8 +2,8 @@ window.COLLECTIONS_DATA_SOURCE = {
   publishedCsvUrl: "./data/records.csv",
   googleSheetUrl: "https://docs.google.com/spreadsheets/d/.../edit",
   googleFormUrl: "https://docs.google.com/forms/d/.../viewform",
-  brandName: "Smith Robertson Collections",
-  museumName: "Smith Robertson Museum And Cultural Center",
+  brandName: "Smith Robertson Museum + Cultural Center",
+  museumName: "Smith Robertson Museum + Cultural Center",
   managerHeadline: "A CSV-first collections workspace for Jackson history.",
   managerIntro:
     "Use Google Sheets, Forms, and CSV imports to manage records without relying on a hosted database.",

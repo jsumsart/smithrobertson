@@ -7,16 +7,30 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260727b";
+import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260728a";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 const collectionView = document.body.dataset.collectionView || "";
+const logoAssetPath = "./assets/smith-robertson-logo.png";
 
 function normalizeText(value) {
   return String(value || "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
+}
+
+function getMeaningfulValue(value) {
+  const stringValue = String(value || "").trim();
+  if (!stringValue) {
+    return "";
+  }
+
+  if (normalizeText(stringValue) === "none") {
+    return "";
+  }
+
+  return stringValue;
 }
 
 function buildSearchHaystack(record) {
@@ -31,12 +45,66 @@ function buildSearchHaystack(record) {
       record.object_date,
       record.people,
       record.organizations,
+      record.collection_name,
+      record.location,
       record.description,
       record.significance,
+      record.provenance,
+      record.donor,
+      record.rights_status,
+      record.format_material,
       record.curator_notes,
+      record.notes,
       ...(record.tags || [])
     ].join(" ")
   );
+}
+
+function getRecordUrl(record) {
+  const accession = String(record?.accession_number || "").trim();
+  if (!accession) {
+    return "./archive.html";
+  }
+  return `./record.html?accession=${encodeURIComponent(accession)}`;
+}
+
+function setHeadMeta({ name, property, content }) {
+  if (!content) {
+    return;
+  }
+
+  const selector = property ? `meta[property="${property}"]` : `meta[name="${name}"]`;
+  let meta = document.head.querySelector(selector);
+  if (!meta) {
+    meta = document.createElement("meta");
+    if (property) {
+      meta.setAttribute("property", property);
+    } else {
+      meta.setAttribute("name", name);
+    }
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", content);
+}
+
+function ensureHeadAssetLinks() {
+  const linkDefinitions = [
+    { rel: "icon", href: logoAssetPath, type: "image/png" },
+    { rel: "apple-touch-icon", href: logoAssetPath }
+  ];
+
+  for (const definition of linkDefinitions) {
+    let link = document.head.querySelector(`link[rel="${definition.rel}"]`);
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = definition.rel;
+      document.head.appendChild(link);
+    }
+    link.href = definition.href;
+    if (definition.type) {
+      link.type = definition.type;
+    }
+  }
 }
 
 function matchesKeyword(record, keywords) {
@@ -68,13 +136,16 @@ function matchesPeople(record, values) {
 const collectionViews = {
   "scott-ford": {
     navLabel: "Midwifery and Motherhood",
-    pathLabel: "Health, Family, and Community Care",
-    pathMeta: "Connects Scott Ford family life, childbirth records, midwifery, and motherhood.",
+    pathLabel: "Interpretive Exhibit",
+    pathMeta: "Connects Scott Ford family life, childbirth records, midwifery, and motherhood through a broader history of care, kinship, and neighborhood memory.",
+    relationshipLabel: "Related care history",
     deck: "Home life, childbirth records, midwife history, and motherhood tied to the Scott Ford Houses.",
-    title: "Scott Ford Houses, Midwifery and Motherhood",
+    title: "Midwifery and Motherhood",
     intro:
-      "This focused public view gathers published records tied to the Scott Ford Houses, including family history, childbirth documentation, midwife-related materials, and broader records about motherhood and maternal care that deepen the story.",
+      "This exhibit follows childbirth records, family photographs, domestic space, and neighborhood memory to interpret Black maternal care and midwifery through the Scott Ford Houses and related records.",
     status: "Showing the Scott Ford Houses, Midwifery and Motherhood public view.",
+    leadAccession: "SRM-2026-200",
+    highlightAccessions: ["SRM-2026-199", "SRM-2026-201", "SRM-2026-132", "SRM-2026-239"],
     curatedAccessions: [
       "SRM-2026-200",
       "SRM-2026-199",
@@ -103,13 +174,16 @@ const collectionViews = {
   },
   "smith-robertson-history": {
     navLabel: "Smith Robertson History",
-    pathLabel: "Education and Public Memory",
-    pathMeta: "Centers the campus, its leadership, and the ways the school has been remembered.",
+    pathLabel: "Interpretive Exhibit",
+    pathMeta: "Centers the campus, its leadership, and the ways the school has been remembered through photographs, school life, and community commemoration.",
+    relationshipLabel: "Education exhibit",
     deck: "School history, leadership, and public memory across the Smith Robertson story.",
-    title: "Education and Public Memory",
+    title: "Smith Robertson History",
     intro:
-      "This view highlights published records about the school's history, its leadership, and the people who shaped the Smith Robertson story, while also framing that material within a wider public-memory history.",
+      "This exhibit introduces the history of Smith Robertson through teachers, students, school rituals, leadership, and the later public memory of the campus and museum site.",
     status: "Showing the Education and Public Memory public view.",
+    leadAccession: "SRM-2026-030",
+    highlightAccessions: ["SRM-2026-370", "SRM-2026-081", "SRM-2026-077", "SRM-P-1955-012"],
     curatedAccessions: [
       "SRM-2026-030",
       "SRM-2026-370",
@@ -175,13 +249,23 @@ const collectionViews = {
   },
   "civil-rights": {
     navLabel: "Law, Justice, and Civil Rights",
-    pathLabel: "Law, Justice, and Civil Rights",
-    pathMeta: "Includes protest, citizenship, legal struggle, and the civil-rights movement, with R. Jess Brown visible as a named legal path within it.",
+    pathLabel: "Interpretive Exhibit",
+    pathMeta: "Brings together protest, citizenship, legal struggle, public speech, and community memory across Mississippi civil-rights history.",
+    relationshipLabel: "Broad legal and civil-rights exhibit",
     deck: "Organizing, protest, legal struggle, and public memory linked to civil rights history.",
     title: "Law, Justice, and Civil Rights",
     intro:
-      "This public view gathers published records connected to local and regional civil rights history, activism, organizing, legal struggle, and citizenship.",
+      "This exhibit gathers public records related to civil-rights organizing, legal advocacy, public memory, and the long struggle over citizenship and justice in Mississippi.",
     status: "Showing the Law, Justice, and Civil Rights public view.",
+    leadAccession: "SRM-2026-128",
+    highlightAccessions: ["SRM-2026-050", "SRM-2026-051", "SRM-2026-219", "SRM-2026-293"],
+    relatedSpotlight: {
+      href: "./r-jess-brown-collection.html",
+      eyebrow: "Collection spotlight",
+      title: "R. Jess Brown Collection",
+      description:
+        "Explore the legal papers, photographs, tributes, and professional records that deepen this broader story of law, justice, and civil-rights work."
+    },
     curatedAccessions: [
       "SRM-2026-128",
       "SRM-2026-293",
@@ -213,14 +297,24 @@ const collectionViews = {
     }
   },
   "r-jess-brown": {
-    navLabel: "R. Jess Brown",
-    pathLabel: "Law, Justice, and Civil Rights",
-    pathMeta: "Centers one life, one archive, and a wider civil-rights legal network.",
+    navLabel: "R. Jess Brown Collection",
+    pathLabel: "Collection Spotlight",
+    pathMeta: "Focuses on one legal archive while connecting it to the broader history of law, justice, and civil-rights advocacy in Mississippi.",
+    relationshipLabel: "Featured within the legal history of the site",
     deck: "Law, advocacy, and civil-rights leadership across the life and legacy of R. Jess Brown.",
     title: "R. Jess Brown Collection",
     intro:
-      "This public view gathers published records from the R. Jess Brown Collection, including legal papers, correspondence, photographs, awards, and printed tributes tied to his civil-rights career.",
+      "This collection spotlight gathers legal papers, photographs, honors, and tributes that document the life and work of attorney R. Jess Brown while connecting his archive to a wider civil-rights legal history.",
     status: "Showing the R. Jess Brown collection public view.",
+    leadAccession: "SRM-2026-293",
+    highlightAccessions: ["SRM-2026-279", "SRM-2026-260", "SRM-2026-263", "SRM-2026-276"],
+    relatedSpotlight: {
+      href: "./civil-rights.html",
+      eyebrow: "Related exhibit",
+      title: "Law, Justice, and Civil Rights",
+      description:
+        "Return to the broader interpretive exhibit to see how Brown’s archive connects to organizing, legal advocacy, and civil-rights public memory."
+    },
     curatedAccessions: [
       "SRM-2026-293",
       "SRM-2026-279",
@@ -245,13 +339,16 @@ const collectionViews = {
   },
   "farish-street-history": {
     navLabel: "Farish Street History",
-    pathLabel: "Neighborhood, Commerce, and Culture",
-    pathMeta: "Ties business, faith, performance, and community life to one historic corridor.",
+    pathLabel: "Interpretive Exhibit",
+    pathMeta: "Ties business, faith, performance, and community life to one historic corridor in Jackson.",
+    relationshipLabel: "Neighborhood exhibit",
     deck: "Business, neighborhood culture, and community life connected to Farish Street.",
-    title: "Neighborhood, Commerce, and Culture",
+    title: "Farish Street History",
     intro:
-      "This public view gathers published records tied to Farish Street, its businesses, institutions, performance spaces, and community memory.",
+      "This exhibit interprets Farish Street as a corridor of commerce, performance, worship, and neighborhood memory through public records tied to its institutions and built environment.",
     status: "Showing the Neighborhood, Commerce, and Culture public view.",
+    leadAccession: "SRM-2026-163",
+    highlightAccessions: ["SRM-2026-116", "SRM-2026-028", "SRM-2026-208", "SRM-2026-220"],
     curatedAccessions: [
       "SRM-2026-163",
       "SRM-2026-116",
@@ -274,13 +371,16 @@ const collectionViews = {
   },
   "black-health-and-medicine": {
     navLabel: "Health, Family, and Community Care",
-    pathLabel: "Health, Family, and Community Care",
-    pathMeta: "Connects doctors, midwives, motherhood, caregiving, household health, and medical access, with Midwifery and Motherhood as a named path inside it.",
+    pathLabel: "Interpretive Exhibit",
+    pathMeta: "Connects doctors, midwives, motherhood, caregiving, household health, and medical access across Black life in Mississippi.",
+    relationshipLabel: "Broad care and medicine exhibit",
     deck: "Doctors, midwives, motherhood, caregiving, and public health records across Mississippi Black life.",
     title: "Health, Family, and Community Care",
     intro:
-      "This exhibit gathers published records about Black physicians, midwives, maternal care, birth records, health workers, and medical care across community life in Mississippi.",
+      "This exhibit gathers records related to physicians, midwives, maternal care, public health, and everyday caregiving across Black community life in Mississippi.",
     status: "Showing the Health, Family, and Community Care public view.",
+    leadAccession: "SRM-2026-315",
+    highlightAccessions: ["SRM-2026-314", "SRM-2026-316", "SRM-2026-329", "SRM-2026-158"],
     curatedAccessions: [
       "SRM-2026-315",
       "SRM-2026-314",
@@ -315,13 +415,16 @@ const collectionViews = {
   },
   "arts-and-culture": {
     navLabel: "Arts, Culture, and Public Expression",
-    pathLabel: "Arts, Culture, and Public Expression",
-    pathMeta: "Traces visual culture, performance, portraiture, and creative public life.",
+    pathLabel: "Interpretive Exhibit",
+    pathMeta: "Traces visual culture, performance, portraiture, and creative public life across the collection.",
+    relationshipLabel: "Arts and culture exhibit",
     deck: "Art, performance, material culture, and visual memory across the collection.",
     title: "Arts, Culture, and Public Expression",
     intro:
-      "This exhibit gathers published records tied to visual art, performance, pageantry, objects, and creative expression across Mississippi Black cultural life.",
+      "This exhibit gathers visual art, performance materials, portraiture, and objects that carry Black creative expression into the public gallery.",
     status: "Showing the Arts, Culture, and Public Expression public view.",
+    leadAccession: "SRM-2026-093",
+    highlightAccessions: ["SRM-2026-082", "SRM-2026-097", "SRM-2026-098", "SRM-2026-117"],
     curatedAccessions: [
       "SRM-2026-093",
       "SRM-2026-082",
@@ -369,7 +472,8 @@ const state = {
   },
   slideshowIndex: 0,
   archivePreviewUrls: new Map(),
-  archiveSearchDebounceId: null
+  archiveSearchDebounceId: null,
+  archiveListenersAttached: false
 };
 
 const elements = {
@@ -387,6 +491,9 @@ const elements = {
   theme: document.querySelector("#catalogTheme"),
   collection: document.querySelector("#catalogCollection"),
   geography: document.querySelector("#catalogGeography"),
+  people: document.querySelector("#catalogPeople"),
+  organizations: document.querySelector("#catalogOrganizations"),
+  era: document.querySelector("#catalogEra"),
   type: document.querySelector("#catalogType"),
   sort: document.querySelector("#catalogSort"),
   activeFilters: document.querySelector("#archiveActiveFilters"),
@@ -403,7 +510,9 @@ const elements = {
   slideshowNext: document.querySelector("#slideshowNext"),
   cardTemplate: document.querySelector("#catalogCardTemplate"),
   archiveRowTemplate: document.querySelector("#archiveRowTemplate"),
-  slideshowTemplate: document.querySelector("#slideshowTemplate")
+  slideshowTemplate: document.querySelector("#slideshowTemplate"),
+  detailShell: document.querySelector("#recordDetail"),
+  detailTemplate: document.querySelector("#recordDetailTemplate")
 };
 
 function setStatus(message, isError = false) {
@@ -412,6 +521,146 @@ function setStatus(message, isError = false) {
   }
   elements.status.textContent = message;
   elements.status.classList.toggle("help-text--error", isError);
+}
+
+function formatDateLabel(record) {
+  return record.time_period || record.object_date || "Date unknown";
+}
+
+function buildMuseumPageTitle(value) {
+  return `${value} | Smith Robertson Museum + Cultural Center`;
+}
+
+function buildCollectionBadgeText(record) {
+  return getMeaningfulValue(record.collection_name) || "Public collection record";
+}
+
+function buildBrandMarkup() {
+  return `
+    <span class="catalog-brand-lockup">
+      <img class="catalog-brand-lockup__logo" src="${logoAssetPath}" alt="Smith Robertson Museum and Cultural Center logo" />
+      <span class="catalog-brand-lockup__text">
+        <span class="catalog-brand-lockup__museum">Smith Robertson Museum + Cultural Center</span>
+        <span class="catalog-brand-lockup__program">Digital Collections</span>
+      </span>
+    </span>
+  `;
+}
+
+function ensureArchiveToolbarFields() {
+  const toolbar = document.querySelector(".archive-toolbar");
+  if (!toolbar) {
+    return;
+  }
+
+  const fieldDefinitions = [
+    { id: "catalogPeople", label: "People" },
+    { id: "catalogOrganizations", label: "Organization" },
+    { id: "catalogEra", label: "Date / Era" }
+  ];
+
+  for (const definition of fieldDefinitions) {
+    if (document.getElementById(definition.id)) {
+      continue;
+    }
+
+    const label = document.createElement("label");
+    label.className = "field";
+
+    const span = document.createElement("span");
+    span.textContent = definition.label;
+
+    const select = document.createElement("select");
+    select.id = definition.id;
+
+    label.append(span, select);
+    toolbar.appendChild(label);
+  }
+
+  elements.people = document.querySelector("#catalogPeople");
+  elements.organizations = document.querySelector("#catalogOrganizations");
+  elements.era = document.querySelector("#catalogEra");
+}
+
+function attachArchiveInteractionHandlers() {
+  if (state.archiveListenersAttached) {
+    return;
+  }
+
+  elements.search?.addEventListener("input", () => {
+    debounceArchiveRefresh();
+  });
+  elements.theme?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.collection?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.geography?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.people?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.organizations?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.era?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.type?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.sort?.addEventListener("change", () => {
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.clearFilters?.addEventListener("click", () => {
+    if (elements.search) {
+      elements.search.value = "";
+    }
+    if (elements.theme) {
+      elements.theme.value = "all";
+    }
+    if (elements.collection) {
+      elements.collection.value = "all";
+    }
+    if (elements.geography) {
+      elements.geography.value = "all";
+    }
+    if (elements.people) {
+      elements.people.value = "all";
+    }
+    if (elements.organizations) {
+      elements.organizations.value = "all";
+    }
+    if (elements.era) {
+      elements.era.value = "all";
+    }
+    if (elements.type) {
+      elements.type.value = "all";
+    }
+    if (elements.sort) {
+      elements.sort.value = "recent";
+    }
+    refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
+  });
+  elements.archivePrevPage?.addEventListener("click", () => {
+    if (state.archivePagination.page <= 1) {
+      return;
+    }
+    state.archivePagination.page -= 1;
+    refreshArchivePage().catch((error) => setStatus(error.message, true));
+  });
+  elements.archiveNextPage?.addEventListener("click", () => {
+    const pageCount = Math.ceil(state.archivePagination.total / state.archivePagination.pageSize);
+    if (state.archivePagination.page >= pageCount) {
+      return;
+    }
+    state.archivePagination.page += 1;
+    refreshArchivePage().catch((error) => setStatus(error.message, true));
+  });
+
+  state.archiveListenersAttached = true;
 }
 
 function debounceArchiveRefresh(delay = 250) {
@@ -427,9 +676,24 @@ function getArchiveFilterState() {
     theme: elements.theme?.value || "all",
     collection: elements.collection?.value || "all",
     geography: elements.geography?.value || "all",
+    people: elements.people?.value || "all",
+    organizations: elements.organizations?.value || "all",
+    era: elements.era?.value || "all",
     type: elements.type?.value || "all",
     sort: elements.sort?.value || "recent"
   };
+}
+
+function getRecordDisplayContext(record) {
+  const values = [
+    record.record_type,
+    formatDateLabel(record),
+    getMeaningfulValue(record.neighborhood),
+    getMeaningfulValue(record.people),
+    getMeaningfulValue(record.organizations)
+  ].filter(Boolean);
+
+  return values.join(" • ");
 }
 
 function getActiveCollectionView() {
@@ -559,11 +823,14 @@ function applyCatalogSettings() {
   const activeCollectionView = getActiveCollectionView();
   const collectionHeading = activeCollectionView?.navLabel || activeCollectionView?.title || "";
   if (elements.brand) {
-    elements.brand.textContent = state.siteSettings.brand_name;
+    elements.brand.innerHTML = buildBrandMarkup();
+    elements.brand.setAttribute("aria-label", "Smith Robertson Museum + Cultural Center digital collections");
   }
   if (elements.heroEyebrow) {
     if (pageMode === "collection" && activeCollectionView?.pathLabel) {
-      elements.heroEyebrow.textContent = "Umbrella Theme";
+      elements.heroEyebrow.textContent = activeCollectionView.pathLabel;
+    } else if (pageMode === "record") {
+      elements.heroEyebrow.textContent = "Collection record";
     } else if (pageMode === "archive") {
       elements.heroEyebrow.textContent = "Public Archive";
     } else {
@@ -584,24 +851,59 @@ function applyCatalogSettings() {
   }
   if (elements.pathMeta) {
     if (pageMode === "collection" && activeCollectionView) {
-      const umbrella = activeCollectionView.pathLabel || "";
+      const relationship = activeCollectionView.relationshipLabel ? `${activeCollectionView.relationshipLabel}. ` : "";
       const detail = activeCollectionView.pathMeta || "";
-      elements.pathMeta.textContent =
-        umbrella && umbrella !== collectionHeading
-          ? `Within ${umbrella}. ${detail}`.trim()
-          : detail;
+      elements.pathMeta.textContent = `${relationship}${detail}`.trim();
     } else {
       elements.pathMeta.textContent = "";
     }
     elements.pathMeta.hidden = !elements.pathMeta.textContent;
   }
-  document.title =
+  const pageTitle =
     pageMode === "gallery"
-      ? `${state.siteSettings.brand_name} Digital Gallery`
+      ? "Digital Gallery"
       : pageMode === "collection" && activeCollectionView
-        ? `${collectionHeading} | ${state.siteSettings.brand_name}`
-        : `${state.siteSettings.brand_name} Archive`;
+        ? collectionHeading
+        : pageMode === "record"
+          ? "Collection Record"
+          : "Public Archive";
+  document.title = buildMuseumPageTitle(pageTitle);
   applyPublicSiteTheme(state.siteSettings);
+  ensureHeadAssetLinks();
+  setHeadMeta({
+    name: "description",
+    content:
+      pageMode === "gallery"
+        ? state.siteSettings.public_gallery_intro
+        : pageMode === "collection" && activeCollectionView
+          ? activeCollectionView.intro
+          : state.siteSettings.public_catalog_intro
+  });
+  setHeadMeta({ property: "og:site_name", content: "Smith Robertson Museum + Cultural Center" });
+  setHeadMeta({ property: "og:type", content: "website" });
+  setHeadMeta({ property: "og:title", content: document.title });
+  setHeadMeta({
+    property: "og:description",
+    content:
+      pageMode === "gallery"
+        ? state.siteSettings.public_gallery_intro
+        : pageMode === "collection" && activeCollectionView
+          ? activeCollectionView.intro
+          : state.siteSettings.public_catalog_intro
+  });
+  setHeadMeta({ property: "og:image", content: logoAssetPath });
+  setHeadMeta({ name: "twitter:card", content: "summary_large_image" });
+  setHeadMeta({ name: "twitter:title", content: document.title });
+  setHeadMeta({
+    name: "twitter:description",
+    content:
+      pageMode === "gallery"
+        ? state.siteSettings.public_gallery_intro
+        : pageMode === "collection" && activeCollectionView
+          ? activeCollectionView.intro
+          : state.siteSettings.public_catalog_intro
+  });
+  setHeadMeta({ name: "twitter:image", content: logoAssetPath });
 }
 
 function getEnabledTaxonomyTerms(groupSlug) {
@@ -611,7 +913,7 @@ function getEnabledTaxonomyTerms(groupSlug) {
 function buildSelectOptionsFromRecords(records, fieldName) {
   const values = new Set();
   for (const record of records) {
-    const value = String(record[fieldName] || "").trim();
+    const value = getMeaningfulValue(record[fieldName]);
     if (value) {
       values.add(value);
     }
@@ -688,6 +990,83 @@ function renderCollectionFilter() {
   }
 
   elements.collection.value = [...elements.collection.options].some((option) => option.value === currentValue) ? currentValue : "all";
+}
+
+function renderPeopleFilter() {
+  if (!elements.people) {
+    return;
+  }
+
+  const currentValue = elements.people.value;
+  elements.people.replaceChildren();
+
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "All people";
+  elements.people.appendChild(allOption);
+
+  for (const value of buildSelectOptionsFromRecords(getScopedArchiveSourceRecords(), "people")) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    elements.people.appendChild(option);
+  }
+
+  elements.people.value = [...elements.people.options].some((option) => option.value === currentValue) ? currentValue : "all";
+}
+
+function renderOrganizationsFilter() {
+  if (!elements.organizations) {
+    return;
+  }
+
+  const currentValue = elements.organizations.value;
+  elements.organizations.replaceChildren();
+
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "All organizations";
+  elements.organizations.appendChild(allOption);
+
+  for (const value of buildSelectOptionsFromRecords(getScopedArchiveSourceRecords(), "organizations")) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    elements.organizations.appendChild(option);
+  }
+
+  elements.organizations.value = [...elements.organizations.options].some((option) => option.value === currentValue) ? currentValue : "all";
+}
+
+function renderEraFilter() {
+  if (!elements.era) {
+    return;
+  }
+
+  const options = new Set();
+  for (const record of getScopedArchiveSourceRecords()) {
+    const label = formatDateLabel(record);
+    if (label && label !== "Date unknown") {
+      options.add(label);
+    }
+  }
+
+  const currentValue = elements.era.value;
+  elements.era.replaceChildren();
+
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "All dates / eras";
+  elements.era.appendChild(allOption);
+
+  for (const value of [...options].sort((left, right) => left.localeCompare(right, undefined, { sensitivity: "base" }))) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    elements.era.appendChild(option);
+  }
+
+  elements.era.value = [...elements.era.options].some((option) => option.value === currentValue) ? currentValue : "all";
 }
 
 function renderGeographyFilter() {
@@ -831,6 +1210,15 @@ function renderActiveFilterSummary() {
   if (filters.geography !== "all") {
     activeValues.push(`Geography: ${filters.geography}`);
   }
+  if (filters.people !== "all") {
+    activeValues.push(`People: ${filters.people}`);
+  }
+  if (filters.organizations !== "all") {
+    activeValues.push(`Organization: ${filters.organizations}`);
+  }
+  if (filters.era !== "all") {
+    activeValues.push(`Date / Era: ${filters.era}`);
+  }
   if (filters.type !== "all") {
     activeValues.push(`Type: ${filters.type}`);
   }
@@ -858,7 +1246,12 @@ function getFilteredRecords() {
 
 function getCollectionRecords() {
   const records = state.filteredRecords.length ? state.filteredRecords : state.records;
-  const curatedAccessions = collectionViews[collectionView]?.curatedAccessions || [];
+  const activeCollectionView = collectionViews[collectionView];
+  const curatedAccessions = [
+    activeCollectionView?.leadAccession,
+    ...(activeCollectionView?.highlightAccessions || []),
+    ...(activeCollectionView?.curatedAccessions || [])
+  ].filter(Boolean);
 
   if (!curatedAccessions.length) {
     return records;
@@ -900,6 +1293,34 @@ function getCuratedRecords(list, fallbackCount) {
   return curated.length ? curated : pool.slice(0, fallbackCount);
 }
 
+function getCuratedExhibitLeadRecord(records, activeCollectionView) {
+  const accession = activeCollectionView?.leadAccession;
+  if (accession) {
+    const matched = records.find((record) => record.accession_number === accession);
+    if (matched) {
+      return matched;
+    }
+  }
+  return records[0] || null;
+}
+
+function getCuratedExhibitHighlights(records, activeCollectionView, leadRecord) {
+  const highlightAccessions = activeCollectionView?.highlightAccessions || [];
+  const leadKey = String(leadRecord?.accession_number || "").trim().toLowerCase();
+  const orderedHighlights = highlightAccessions
+    .map((accession) => records.find((record) => record.accession_number === accession))
+    .filter(Boolean)
+    .filter((record) => String(record.accession_number || "").trim().toLowerCase() !== leadKey);
+
+  if (orderedHighlights.length) {
+    return orderedHighlights.slice(0, 5);
+  }
+
+  return records
+    .filter((record) => String(record.accession_number || "").trim().toLowerCase() !== leadKey)
+    .slice(0, 4);
+}
+
 async function loadCsvDataset() {
   if (state.allRecords.length) {
     return state.allRecords;
@@ -936,7 +1357,16 @@ async function fetchArchiveRecordsFromCsv() {
       if (filters.collection !== "all" && record.collection_name !== filters.collection) {
         return false;
       }
-      if (filters.geography !== "all" && record.neighborhood !== filters.geography) {
+      if (filters.geography !== "all" && getMeaningfulValue(record.neighborhood) !== filters.geography) {
+        return false;
+      }
+      if (filters.people !== "all" && getMeaningfulValue(record.people) !== filters.people) {
+        return false;
+      }
+      if (filters.organizations !== "all" && getMeaningfulValue(record.organizations) !== filters.organizations) {
+        return false;
+      }
+      if (filters.era !== "all" && formatDateLabel(record) !== filters.era) {
         return false;
       }
       if (filters.type !== "all" && record.record_type !== filters.type) {
@@ -946,18 +1376,7 @@ async function fetchArchiveRecordsFromCsv() {
         return true;
       }
 
-      return [
-        record.accession_number,
-        record.title,
-        record.collection_name,
-        record.historical_theme,
-        record.neighborhood,
-        record.description,
-        ...(record.tags || [])
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(query);
+      return buildSearchHaystack(record).includes(normalizeText(query));
     });
 
   const sorted = sortArchiveRecords(filtered, filters.sort);
@@ -1018,7 +1437,7 @@ async function populateCatalogCard(container, record) {
   }
 
   title.textContent = record.title;
-  meta.textContent = [record.record_type, record.neighborhood, record.time_period || record.object_date]
+  meta.textContent = [record.accession_number, buildCollectionBadgeText(record), formatDateLabel(record)]
     .filter(Boolean)
     .join(" • ");
   description.textContent = record.description || "No description available.";
@@ -1027,7 +1446,13 @@ async function populateCatalogCard(container, record) {
 
   applyRecordImage(image, record, `${record.title} image`);
 
-  container.appendChild(fragment);
+  const link = document.createElement("a");
+  link.className = "record-link-shell";
+  link.href = getRecordUrl(record);
+  link.setAttribute("aria-label", `Open record for ${record.title}`);
+  link.appendChild(fragment);
+
+  container.appendChild(link);
 }
 
 async function renderFeaturedRecords() {
@@ -1041,8 +1466,8 @@ async function renderFeaturedRecords() {
   if (!featured.length) {
     elements.featuredList.innerHTML = `
       <div class="empty-state">
-        <h3>No featured records yet.</h3>
-        <p>Add accession IDs in settings to curate this section.</p>
+        <h3>Featured records are being prepared.</h3>
+        <p>Please explore the exhibits or archive while this section is further curated.</p>
       </div>
     `;
     return;
@@ -1058,12 +1483,14 @@ async function renderCollectionExhibit() {
     return;
   }
 
+  const activeCollectionView = getActiveCollectionView();
   const allCollectionRecords = getCollectionRecords();
+  const leadRecord = getCuratedExhibitLeadRecord(allCollectionRecords, activeCollectionView);
 
   if (elements.collectionLead) {
     elements.collectionLead.replaceChildren();
 
-    const lead = allCollectionRecords[0];
+    const lead = leadRecord;
     if (lead) {
       const article = document.createElement("article");
       article.className = "exhibit-lead";
@@ -1083,14 +1510,18 @@ async function renderCollectionExhibit() {
 
       const eyebrow = document.createElement("p");
       eyebrow.className = "eyebrow";
-      eyebrow.textContent = collectionViews[collectionView]?.navLabel || "Digital Exhibit";
+      eyebrow.textContent = activeCollectionView?.relationshipLabel || activeCollectionView?.navLabel || "Digital Exhibit";
 
       const title = document.createElement("h2");
-      title.textContent = lead.title;
+      const titleLink = document.createElement("a");
+      titleLink.href = getRecordUrl(lead);
+      titleLink.className = "record-title-link";
+      titleLink.textContent = lead.title;
+      title.appendChild(titleLink);
 
       const meta = document.createElement("p");
       meta.className = "exhibit-lead__meta";
-      meta.textContent = [lead.record_type, lead.neighborhood, lead.time_period || lead.object_date]
+      meta.textContent = [lead.accession_number, lead.record_type, formatDateLabel(lead), lead.neighborhood]
         .filter(Boolean)
         .join(" • ");
 
@@ -1105,18 +1536,30 @@ async function renderCollectionExhibit() {
       body.append(eyebrow, title, meta, description, tags);
       article.append(media, body);
       elements.collectionLead.appendChild(article);
+
+      if (activeCollectionView?.relatedSpotlight) {
+        const relation = document.createElement("a");
+        relation.className = "relationship-card";
+        relation.href = activeCollectionView.relatedSpotlight.href;
+        relation.innerHTML = `
+          <p class="eyebrow">${activeCollectionView.relatedSpotlight.eyebrow}</p>
+          <h3>${activeCollectionView.relatedSpotlight.title}</h3>
+          <p>${activeCollectionView.relatedSpotlight.description}</p>
+        `;
+        elements.collectionLead.appendChild(relation);
+      }
     }
   }
 
   if (elements.collectionHighlights) {
     elements.collectionHighlights.replaceChildren();
 
-    const highlights = allCollectionRecords.slice(1, 5);
+    const highlights = getCuratedExhibitHighlights(allCollectionRecords, activeCollectionView, leadRecord);
     if (!highlights.length) {
       elements.collectionHighlights.innerHTML = `
         <div class="empty-state">
-          <h3>No additional highlights yet.</h3>
-          <p>Publish more records in this story view to build out the exhibit.</p>
+          <h3>No related records are visible yet.</h3>
+          <p>This exhibit spotlight will expand as more public records are described and linked.</p>
         </div>
       `;
       return;
@@ -1139,8 +1582,8 @@ async function renderSlideshow() {
   if (!curated.length) {
     elements.slideshowStage.innerHTML = `
       <div class="empty-state">
-        <h3>No slideshow items yet.</h3>
-        <p>Choose slideshow accession IDs in settings to build a more curated public front page.</p>
+        <h3>Featured objects are being prepared.</h3>
+        <p>Return soon for a more fully curated selection of public highlights.</p>
       </div>
     `;
     return;
@@ -1185,8 +1628,8 @@ async function renderArchive() {
   if (!records.length) {
     elements.list.innerHTML = `
       <div class="empty-state">
-        <h3>No public records match this view.</h3>
-        <p>Try a broader search or publish more records from the internal catalog.</p>
+        <h3>No records match the current search.</h3>
+        <p>Try broadening the filters or returning to the full archive to continue your research.</p>
       </div>
     `;
     return;
@@ -1202,16 +1645,20 @@ async function renderArchive() {
     const badges = fragment.querySelector(".archive-row__badges");
     const tags = fragment.querySelector(".tag-list");
 
-    title.textContent = record.title;
+    const titleLink = document.createElement("a");
+    titleLink.className = "record-title-link";
+    titleLink.href = getRecordUrl(record);
+    titleLink.textContent = record.title;
+    title.replaceChildren(titleLink);
     meta.textContent = [
       record.accession_number,
       record.record_type,
-      record.neighborhood,
-      record.time_period || record.object_date
+      formatDateLabel(record),
+      getMeaningfulValue(record.neighborhood)
     ]
       .filter(Boolean)
       .join(" • ");
-    description.textContent = record.description || "No description available.";
+    description.textContent = record.significance || record.description || "No description available.";
     tags.replaceChildren(createTagElements(record.tags));
 
     const themeBadge = document.createElement("span");
@@ -1219,11 +1666,18 @@ async function renderArchive() {
     themeBadge.textContent = record.historical_theme || "General";
     badges.appendChild(themeBadge);
 
-    if (record.collection_name) {
+    if (getMeaningfulValue(record.collection_name)) {
       const collectionBadge = document.createElement("span");
       collectionBadge.className = "pill";
       collectionBadge.textContent = record.collection_name;
       badges.appendChild(collectionBadge);
+    }
+
+    if (getMeaningfulValue(record.people)) {
+      const peopleBadge = document.createElement("span");
+      peopleBadge.className = "pill";
+      peopleBadge.textContent = getMeaningfulValue(record.people);
+      badges.appendChild(peopleBadge);
     }
 
     const cacheKey = record.id || record.accession_number;
@@ -1264,6 +1718,119 @@ async function renderArchive() {
   }
 }
 
+function renderRecordMetadataList(record) {
+  const fragment = document.createDocumentFragment();
+  const metadataRows = [
+    ["Accession number", record.accession_number],
+    ["Record type", record.record_type],
+    ["Date / era", formatDateLabel(record)],
+    ["Historical theme", record.historical_theme],
+    ["Collection", getMeaningfulValue(record.collection_name)],
+    ["Geography", getMeaningfulValue(record.neighborhood)],
+    ["People", getMeaningfulValue(record.people)],
+    ["Organizations", getMeaningfulValue(record.organizations)],
+    ["Donor", getMeaningfulValue(record.donor)],
+    ["Rights status", record.rights_status],
+    ["Provenance", getMeaningfulValue(record.provenance)],
+    ["Format / material", getMeaningfulValue(record.format_material)]
+  ].filter(([, value]) => String(value || "").trim());
+
+  for (const [label, value] of metadataRows) {
+    const row = document.createElement("div");
+    row.className = "record-detail__meta-row";
+
+    const term = document.createElement("dt");
+    term.textContent = label;
+
+    const description = document.createElement("dd");
+    description.textContent = value;
+
+    row.append(term, description);
+    fragment.appendChild(row);
+  }
+
+  return fragment;
+}
+
+function buildCitationText(record) {
+  const parts = [
+    record.title,
+    record.object_date || record.time_period,
+    record.accession_number,
+    "Smith Robertson Museum + Cultural Center Digital Collections"
+  ].filter(Boolean);
+
+  return parts.join(". ");
+}
+
+async function renderRecordDetailPage() {
+  if (pageMode !== "record" || !elements.detailShell || !elements.detailTemplate) {
+    return;
+  }
+
+  await loadCsvDataset();
+  const accession = new URLSearchParams(window.location.search).get("accession") || "";
+  const record = findRecordByAccession(accession);
+  elements.detailShell.replaceChildren();
+
+  if (!record) {
+    elements.detailShell.innerHTML = `
+      <div class="empty-state">
+        <h2>Record not found</h2>
+        <p>The requested accession is not available in the public site. Return to the archive to continue browsing.</p>
+      </div>
+    `;
+    if (elements.archiveTitle) {
+      elements.archiveTitle.textContent = "Collection record";
+    }
+    setStatus("The requested record could not be found.", true);
+    return;
+  }
+
+  const fragment = elements.detailTemplate.content.cloneNode(true);
+  const image = fragment.querySelector(".record-detail__image");
+  const title = fragment.querySelector(".record-detail__title");
+  const meta = fragment.querySelector(".record-detail__meta");
+  const summary = fragment.querySelector(".record-detail__summary");
+  const significance = fragment.querySelector(".record-detail__significance");
+  const metadata = fragment.querySelector(".record-detail__metadata");
+  const tags = fragment.querySelector(".record-detail__tags");
+  const citation = fragment.querySelector(".record-detail__citation");
+
+  title.textContent = record.title;
+  meta.textContent = getRecordDisplayContext(record);
+  summary.textContent = record.description || "Description not yet available.";
+  significance.textContent = record.significance || "Historical significance not yet available.";
+  metadata.replaceChildren(renderRecordMetadataList(record));
+  tags.replaceChildren(createTagElements(record.tags));
+  citation.textContent = buildCitationText(record);
+
+  applyRecordImage(image, record, `${record.title} image`, { eager: true });
+  elements.detailShell.appendChild(fragment);
+
+  if (elements.archiveTitle) {
+    elements.archiveTitle.textContent = record.title;
+  }
+  if (elements.archiveIntro) {
+    elements.archiveIntro.textContent =
+      "Use this page as the authoritative public record view for citation, close reading, and metadata review.";
+  }
+  if (elements.pathMeta) {
+    elements.pathMeta.textContent = buildCollectionBadgeText(record);
+    elements.pathMeta.hidden = false;
+  }
+
+  document.title = buildMuseumPageTitle(record.title);
+  setHeadMeta({ name: "description", content: record.description || record.significance || record.title });
+  setHeadMeta({ property: "og:title", content: document.title });
+  setHeadMeta({ property: "og:description", content: record.description || record.significance || record.title });
+  setHeadMeta({ property: "og:image", content: resolvePrimaryImageUrl(record) || logoAssetPath });
+  setHeadMeta({ name: "twitter:title", content: document.title });
+  setHeadMeta({ name: "twitter:description", content: record.description || record.significance || record.title });
+  setHeadMeta({ name: "twitter:image", content: resolvePrimaryImageUrl(record) || logoAssetPath });
+  setStatus(`Showing record ${record.accession_number}.`);
+}
+
 async function loadCurrentUser() {
   if (!elements.authAction) {
     return;
@@ -1274,7 +1841,7 @@ async function loadCurrentUser() {
 
 async function loadCatalog() {
   if (!dataSourceConfig.publishedJsonUrl && !dataSourceConfig.publishedCsvUrl) {
-    setStatus("Add a published JSON or CSV URL in data-source-config.js to load the public site.", true);
+    setStatus("The public collections source is not configured yet.", true);
     return;
   }
 
@@ -1282,8 +1849,16 @@ async function loadCatalog() {
   state.recordTypes = [...defaultRecordTypes];
   state.taxonomyGroups = [...defaultTaxonomyGroups];
   state.taxonomyTerms = [...defaultTaxonomyTerms].map(normalizeTaxonomyTerm);
+  ensureArchiveToolbarFields();
+  attachArchiveInteractionHandlers();
 
   applyCatalogSettings();
+
+  if (pageMode === "record") {
+    await renderRecordDetailPage();
+    await loadCurrentUser();
+    return;
+  }
 
   if (pageMode === "archive") {
     await loadCsvDataset();
@@ -1291,6 +1866,9 @@ async function loadCatalog() {
     renderThemeFilter();
     renderCollectionFilter();
     renderGeographyFilter();
+    renderPeopleFilter();
+    renderOrganizationsFilter();
+    renderEraFilter();
     renderSortFilter();
     await fetchArchiveRecordsFromCsv();
     await renderArchive();
@@ -1307,6 +1885,9 @@ async function loadCatalog() {
     renderThemeFilter();
     renderCollectionFilter();
     renderGeographyFilter();
+    renderPeopleFilter();
+    renderOrganizationsFilter();
+    renderEraFilter();
     renderSortFilter();
     await fetchArchiveRecordsFromCsv();
     await renderCollectionExhibit();
@@ -1346,60 +1927,6 @@ async function refreshArchivePage({ resetPage = false } = {}) {
   await renderArchive();
 }
 
-elements.search?.addEventListener("input", () => {
-  debounceArchiveRefresh();
-});
-elements.theme?.addEventListener("change", () => {
-  refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
-});
-elements.collection?.addEventListener("change", () => {
-  refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
-});
-elements.geography?.addEventListener("change", () => {
-  refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
-});
-elements.type?.addEventListener("change", () => {
-  refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
-});
-elements.sort?.addEventListener("change", () => {
-  refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
-});
-elements.clearFilters?.addEventListener("click", () => {
-  if (elements.search) {
-    elements.search.value = "";
-  }
-  if (elements.theme) {
-    elements.theme.value = "all";
-  }
-  if (elements.collection) {
-    elements.collection.value = "all";
-  }
-  if (elements.geography) {
-    elements.geography.value = "all";
-  }
-  if (elements.type) {
-    elements.type.value = "all";
-  }
-  if (elements.sort) {
-    elements.sort.value = "recent";
-  }
-  refreshArchivePage({ resetPage: true }).catch((error) => setStatus(error.message, true));
-});
-elements.archivePrevPage?.addEventListener("click", () => {
-  if (state.archivePagination.page <= 1) {
-    return;
-  }
-  state.archivePagination.page -= 1;
-  refreshArchivePage().catch((error) => setStatus(error.message, true));
-});
-elements.archiveNextPage?.addEventListener("click", () => {
-  const pageCount = Math.ceil(state.archivePagination.total / state.archivePagination.pageSize);
-  if (state.archivePagination.page >= pageCount) {
-    return;
-  }
-  state.archivePagination.page += 1;
-  refreshArchivePage().catch((error) => setStatus(error.message, true));
-});
 elements.slideshowPrev?.addEventListener("click", () => {
   const curated = getCuratedRecords(state.siteSettings.public_slideshow_accessions, 4);
   state.slideshowIndex = (state.slideshowIndex - 1 + curated.length) % curated.length;

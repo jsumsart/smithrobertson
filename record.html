@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Collection Record | Smith Robertson Museum + Cultural Center</title>
+    <meta
+      name="description"
+      content="Read a citation-ready public collection record from the Smith Robertson Museum + Cultural Center Digital Collections."
+    />
+    <meta property="og:title" content="Collection Record | Smith Robertson Museum + Cultural Center" />
+    <meta
+      property="og:description"
+      content="Read a citation-ready public collection record from the Smith Robertson Museum + Cultural Center Digital Collections."
+    />
+    <meta property="og:image" content="./assets/smith-robertson-logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Collection Record | Smith Robertson Museum + Cultural Center" />
+    <meta
+      name="twitter:description"
+      content="Read a citation-ready public collection record from the Smith Robertson Museum + Cultural Center Digital Collections."
+    />
+    <meta name="twitter:image" content="./assets/smith-robertson-logo.png" />
+    <link rel="icon" type="image/png" href="./assets/smith-robertson-logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=20260728a" />
+  </head>
+  <body class="catalog-page archive-page" data-public-page="record">
+    <div class="catalog-shell">
+      <header class="catalog-site-header">
+        <a id="catalogBrand" class="catalog-site-header__brand" href="./">Smith Robertson Museum + Cultural Center</a>
+        <nav class="catalog-site-header__nav">
+          <a class="button button--ghost" href="./">Digital Gallery</a>
+          <a class="button button--ghost" href="./archive.html">Archive</a>
+        </nav>
+      </header>
+
+      <main class="public-site">
+        <section class="archive-hero">
+          <div class="archive-hero__copy">
+            <p id="catalogEyebrow" class="eyebrow">Collection record</p>
+            <h1 id="catalogTitle">Collection Record</h1>
+            <p id="catalogIntro" class="hero__lede">
+              Use this page as the authoritative public record view for citation, close reading, and metadata review.
+            </p>
+            <p id="catalogPathMeta" class="help-text archive-hero__path" hidden></p>
+          </div>
+          <div class="archive-metric">
+            <span class="metric__label">Research tools</span>
+            <strong id="catalogTotal">Record detail</strong>
+          </div>
+        </section>
+
+        <p id="catalogStatus" class="help-text"></p>
+        <section id="recordDetail" class="record-detail" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <template id="recordDetailTemplate">
+      <article class="record-detail">
+        <section class="record-detail__hero">
+          <img class="record-detail__image" alt="" hidden />
+          <div class="record-detail__body">
+            <p class="eyebrow">Public collection record</p>
+            <h2 class="record-detail__title"></h2>
+            <p class="record-detail__meta"></p>
+            <p class="record-detail__summary"></p>
+            <p class="record-detail__significance"></p>
+          </div>
+        </section>
+
+        <section class="record-detail__panels">
+          <div class="record-detail__panel">
+            <h2>Object metadata</h2>
+            <dl class="record-detail__metadata"></dl>
+          </div>
+          <div class="record-detail__panel">
+            <h2>Tags and citation</h2>
+            <div class="record-detail__tags tag-list"></div>
+            <p class="record-detail__citation"></p>
+          </div>
+        </section>
+      </article>
+    </template>
+
+    <script src="./data-source-config.js"></script>
+    <script type="module" src="./catalog.js?v=20260728a"></script>
+  </body>
+</html>

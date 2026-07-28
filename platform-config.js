@@ -1,16 +1,16 @@
 export const defaultSiteSettings = {
   id: "default",
-  brand_name: "Smith Robertson Collections",
-  museum_name: "Smith Robertson Museum And Cultural Center",
+  brand_name: "Smith Robertson Museum + Cultural Center",
+  museum_name: "Smith Robertson Museum + Cultural Center",
   manager_headline: "A shared collections database for Jackson history.",
   manager_intro:
     "Built for a real museum workflow: staff and students can log in, catalog the same records, upload object photos, and manage collections tied to African American history, Jackson history, and Farish Street.",
-  public_catalog_title: "Browse published Smith Robertson records.",
+  public_catalog_title: "Public archive and research portal",
   public_catalog_intro:
-    "This view is for visitors, partners, and researchers. Only records marked for public display are shown here.",
-  public_gallery_title: "A living gallery of Jackson history.",
+    "Browse the public archive as a researcher-facing portal for object discovery, contextual reading, and citation-ready record pages.",
+  public_gallery_title: "Smith Robertson Museum + Cultural Center Digital Collections",
   public_gallery_intro:
-    "Use this public-facing museum site to feature objects, stories, and images before visitors dive into the full archive.",
+    "Explore guided exhibits and collection spotlights, then move into the public archive for deeper research across school history, neighborhood memory, civil rights, medicine, art, and Farish Street culture.",
   public_font_theme: "editorial",
   public_slideshow_accessions: [],
   public_featured_accessions: [],
