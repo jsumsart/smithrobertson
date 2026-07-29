@@ -241,8 +241,17 @@ const collectionViews = {
 
       return (
         isEducationRecord ||
+        matchesCollection(record, ["B. Baldwin Dansby Collection"]) ||
         matchesNeighborhood(record, ["Smith Robertson Campus"]) ||
-        matchesPeople(record, ["A. N. Jackson", "James Gooden", "Luther Marshall", "Charles S. Wilson", "Lv Randolph"]) ||
+        matchesPeople(record, [
+          "A. N. Jackson",
+          "James Gooden",
+          "Luther Marshall",
+          "Charles S. Wilson",
+          "Lv Randolph",
+          "B. Baldwin Dansby",
+          "B. B. Dansby"
+        ]) ||
         matchesKeyword(record, [
           "Smith Robertson",
           "Smith Robertson Campus",
@@ -255,7 +264,12 @@ const collectionViews = {
           "James Gooden",
           "Luther Marshall",
           "Charles S. Wilson",
-          "Lv Randolph"
+          "Lv Randolph",
+          "B. Baldwin Dansby",
+          "B. B. Dansby",
+          "Dansby Hall",
+          "Jackson College",
+          "Jackson State College"
         ])
       );
     }
