@@ -2320,6 +2320,83 @@ body.archive-page .archive-hero__copy h1 {
   }
 }
 
+@media (max-width: 960px) {
+  .catalog-shell {
+    width: min(100% - 1.25rem, 1380px);
+    padding-top: 1rem;
+  }
+
+  .catalog-site-header {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    align-items: start;
+  }
+
+  .catalog-site-header__nav {
+    justify-content: flex-start;
+  }
+
+  .public-section__header,
+  .story-nav,
+  .archive-hero,
+  .record-detail__panels {
+    grid-template-columns: 1fr;
+  }
+
+  .public-section__header .help-text {
+    justify-self: start;
+    max-width: none;
+  }
+
+  .story-nav__links,
+  .archive-story-strip__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .exhibit-nav-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .exhibit-nav-card,
+  .exhibit-nav-card--brick,
+  .exhibit-nav-card--ink,
+  .exhibit-nav-card--gold,
+  .exhibit-nav-card--sage,
+  .exhibit-nav-card--slate,
+  .exhibit-nav-card:last-child {
+    grid-column: span 1;
+  }
+
+  .archive-metric,
+  .archive-hero__aside {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    justify-self: stretch;
+  }
+
+  .archive-row {
+    grid-template-columns: 132px minmax(0, 1fr);
+  }
+
+  .record-detail__hero {
+    gap: 1.15rem;
+    padding: 1.2rem;
+  }
+
+  .record-detail__image {
+    min-height: 320px;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer__nav {
+    justify-content: flex-start;
+  }
+}
+
 @media (max-width: 720px) {
   .dashboard-header,
   .records-toolbar,
@@ -2351,6 +2428,19 @@ body.archive-page .archive-hero__copy h1 {
 
   .catalog-shell {
     width: min(100% - 1rem, 1450px);
+    padding-bottom: 2.4rem;
+  }
+
+  .public-hero,
+  .archive-hero,
+  .public-section,
+  .archive-toolbar,
+  .slideshow-panel,
+  .record-detail__hero,
+  .record-detail__panel,
+  .archive-row {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .exhibit-nav-grid {
@@ -2370,12 +2460,76 @@ body.archive-page .archive-hero__copy h1 {
     grid-template-columns: 1fr;
   }
 
+  .exhibit-nav-card {
+    min-height: 0;
+    padding: 1.15rem;
+  }
+
+  .exhibit-nav-card h3 {
+    max-width: none;
+    font-size: clamp(1.18rem, 6vw, 1.55rem);
+  }
+
+  .exhibit-nav-card p:last-child,
+  .exhibit-spotlight-banner span:last-child {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .story-nav__links,
+  .archive-story-strip__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-story-chip,
+  .exhibit-spotlight-banner,
+  .relationship-card,
+  .relationship-card--hero {
+    padding: 1rem;
+  }
+
+  .public-hero__copy h1,
+  .archive-hero__copy h1,
+  .record-detail__title {
+    max-width: none;
+  }
+
+  .public-hero__intro,
+  .archive-hero__copy,
+  .archive-helper-text,
+  .record-detail__summary,
+  .record-detail__significance,
+  .record-detail__context {
+    line-height: 1.6;
+  }
+
+  .archive-row__media {
+    min-height: 0;
+  }
+
+  .archive-row__image {
+    max-width: 220px;
+  }
+
+  .archive-row__badges {
+    justify-content: flex-start;
+  }
+
   .exhibit-lead__image {
-    min-height: 240px;
+    min-height: 220px;
   }
 
   .catalog-brand-lockup {
     align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .catalog-brand-lockup__text {
+    min-width: 0;
+  }
+
+  .catalog-brand-lockup__museum {
+    font-size: clamp(1.18rem, 6vw, 1.5rem);
   }
 
   .site-footer {
@@ -2384,11 +2538,45 @@ body.archive-page .archive-hero__copy h1 {
 
   .site-footer__nav {
     justify-content: flex-start;
+    grid-template-columns: 1fr;
   }
 
   .catalog-brand-lockup__logo {
     width: 62px;
     height: 62px;
+  }
+
+  .catalog-site-header__nav {
+    width: 100%;
+  }
+
+  .catalog-site-header__nav .button {
+    flex: 1 1 0;
+    justify-content: center;
+  }
+
+  .public-hero__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .public-hero__actions .button,
+  .record-detail__actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .record-detail__image {
+    min-height: 240px;
+  }
+
+  .record-detail__meta-row {
+    gap: 0.35rem;
+    padding: 0.75rem 0;
+  }
+
+  .record-detail__meta-row dt {
+    font-size: 0.72rem;
   }
 
   .pagination-bar__actions {
@@ -2397,5 +2585,52 @@ body.archive-page .archive-hero__copy h1 {
 
   .pagination-bar__actions .button {
     flex: 1 1 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .page-shell,
+  .catalog-shell {
+    width: min(100% - 0.75rem, 1450px);
+  }
+
+  .public-hero,
+  .archive-hero,
+  .public-section,
+  .archive-toolbar,
+  .slideshow-panel,
+  .record-detail__hero,
+  .record-detail__panel,
+  .archive-row {
+    padding: 0.9rem;
+  }
+
+  .catalog-brand-lockup {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .catalog-brand-lockup__museum {
+    line-height: 0.98;
+  }
+
+  .public-hero__copy h1,
+  .archive-hero__copy h1 {
+    font-size: clamp(2rem, 10vw, 2.7rem);
+  }
+
+  .public-section__header h2,
+  .exhibit-lead__body h2 {
+    max-width: none;
+  }
+
+  .archive-row__image {
+    max-width: none;
+  }
+
+  .exhibit-lead,
+  .archive-row,
+  .record-detail__hero {
+    gap: 0.9rem;
   }
 }
