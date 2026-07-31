@@ -15,17 +15,28 @@
   <body class="login-page">
     <main class="login-shell">
       <section class="login-card">
-        <p id="loginEyebrow" class="eyebrow">Collections Editor Status</p>
-        <h1 id="loginTitle">The old web login is offline.</h1>
+        <p id="loginEyebrow" class="eyebrow">Archive Access</p>
+        <h1 id="loginTitle">Enter the archive password.</h1>
         <p id="loginIntro" class="hero__lede">
-          The public website is live, but the in-browser editor has been retired while the collections-builder workflow is cleaned up.
+          Public visitors can explore exhibit lead records and selected highlights. Full archive browsing and the majority of record pages are available behind a password on this front-end access screen.
         </p>
+
+        <form id="archiveLoginForm" class="auth-form auth-form--standalone">
+          <label class="field">
+            <span>Password</span>
+            <input id="archivePassword" type="password" autocomplete="current-password" placeholder="Enter archive password" />
+          </label>
+          <div class="login-card__actions">
+            <button id="archiveSubmit" class="button button--primary" type="submit">Open Archive</button>
+            <button id="archiveSignOut" class="button button--ghost" type="button" hidden>Sign Out</button>
+          </div>
+        </form>
 
         <p id="loginMessage" class="help-text"></p>
 
         <div class="login-card__footer">
           <a class="button button--ghost" href="./">Back to Digital Gallery</a>
-          <a class="button button--ghost" href="./archive.html">Open Archive</a>
+          <a id="loginArchiveLink" class="button button--ghost" href="./archive.html">Go to Archive</a>
         </div>
       </section>
     </main>

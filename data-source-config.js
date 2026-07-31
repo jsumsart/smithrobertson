@@ -14,6 +14,7 @@ window.COLLECTIONS_DATA_SOURCE = {
   publicArchiveTitle: "Archive",
   publicArchiveIntro:
     "Browse the archive for object discovery, contextual reading, and record pages prepared for citation and closer study.",
+  publicArchivePassword: "SRMSF26",
   publicFontTheme: "editorial",
   featuredAccessions: [
     "SRM-2026-123",

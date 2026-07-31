@@ -7,12 +7,25 @@ import {
   sortRecordTypes,
   sortTaxonomyEntries
 } from "./platform-config.js";
-import { buildConfiguredSiteSettings, buildImageSrc, dataSourceConfig, fetchPublishedRecords } from "./csv-data.js?v=20260728a";
+import {
+  buildConfiguredSiteSettings,
+  buildImageSrc,
+  dataSourceConfig,
+  fetchCsvRecords,
+  fetchPublishedRecords
+} from "./csv-data.js?v=20260728a";
+import { buildArchiveLoginUrl, isArchiveAuthorized, isArchiveGateEnabled } from "./public-auth.js";
 
 const pageMode = document.body.dataset.publicPage || "gallery";
 const collectionView = document.body.dataset.collectionView || "";
 const logoAssetPath = "./assets/smith-robertson-logo.png";
 const PUBLIC_RIGHTS_STATUS = "Rights reserved, contact Smith Robertson";
+
+function buildAccessionKey(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase();
+}
 
 function normalizeText(value) {
   return String(value || "")
@@ -71,9 +84,14 @@ function buildSearchHaystack(record) {
 function getRecordUrl(record) {
   const accession = String(record?.accession_number || "").trim();
   if (!accession) {
-    return "./archive.html";
+    return getArchiveEntryUrl();
   }
-  return `./record.html?accession=${encodeURIComponent(accession)}`;
+
+  const recordUrl = `./record.html?accession=${encodeURIComponent(accession)}`;
+  if (!isArchiveAuthorized() && !isPublicRecord(record)) {
+    return buildArchiveLoginUrl(recordUrl);
+  }
+  return recordUrl;
 }
 
 function setHeadMeta({ name, property, content }) {
@@ -518,6 +536,7 @@ const state = {
   allRecords: [],
   filteredRecords: [],
   records: [],
+  publicAccessions: new Set(),
   siteSettings: { ...defaultSiteSettings },
   recordTypes: [...defaultRecordTypes],
   taxonomyGroups: [...defaultTaxonomyGroups],
@@ -620,6 +639,77 @@ function buildRecordContextText(record) {
   ].filter(Boolean);
 
   return statements.join(" ") || "This record is part of the museum's digital collections and remains available for ongoing research and interpretation.";
+}
+
+function buildCuratedPublicAccessions() {
+  const configured = [
+    ...(state.siteSettings.public_featured_accessions || []),
+    ...(state.siteSettings.public_slideshow_accessions || [])
+  ];
+  const exhibitSelections = Object.values(collectionViews).flatMap((view) => [
+    view.leadAccession,
+    ...(view.highlightAccessions || []),
+    ...(view.curatedAccessions || [])
+  ]);
+
+  return new Set(
+    [...configured, ...exhibitSelections]
+      .map((value) => buildAccessionKey(value))
+      .filter(Boolean)
+  );
+}
+
+function isPublicRecord(record) {
+  return state.publicAccessions.has(buildAccessionKey(record?.accession_number));
+}
+
+function getVisibleRecords(records) {
+  if (isArchiveAuthorized()) {
+    return records;
+  }
+
+  return (records || []).filter((record) => isPublicRecord(record));
+}
+
+function getArchiveEntryUrl(nextUrl = "./archive.html") {
+  if (!isArchiveGateEnabled() || isArchiveAuthorized()) {
+    return "./archive.html";
+  }
+
+  return buildArchiveLoginUrl(nextUrl);
+}
+
+function syncArchiveLinks() {
+  const archiveHref = getArchiveEntryUrl();
+  for (const link of document.querySelectorAll('a[href="./archive.html"]')) {
+    link.href = archiveHref;
+  }
+}
+
+function redirectToArchiveLogin(nextUrl) {
+  window.location.replace(buildArchiveLoginUrl(nextUrl));
+}
+
+function renderRestrictedArchiveNotice({
+  title = "Archive access is password protected.",
+  description = "Enter the archive password to browse the full record set and open additional record pages.",
+  buttonLabel = "Open Archive Login",
+  nextUrl = "./archive.html"
+} = {}) {
+  if (elements.list) {
+    elements.list.innerHTML = `
+      <div class="empty-state access-gate-card">
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <p><a class="button button--primary" href="${buildArchiveLoginUrl(nextUrl)}">${buttonLabel}</a></p>
+      </div>
+    `;
+  }
+
+  document.querySelector(".archive-toolbar")?.setAttribute("hidden", "hidden");
+  document.querySelector(".archive-toolbar__footer")?.setAttribute("hidden", "hidden");
+  document.querySelector(".archive-helper-text")?.setAttribute("hidden", "hidden");
+  document.querySelector("#archivePagination")?.setAttribute("hidden", "hidden");
 }
 
 function buildBrandMarkup() {
@@ -1420,29 +1510,33 @@ async function loadCsvDataset() {
     return state.allRecords;
   }
 
-  state.allRecords = (
-    await fetchPublishedRecords({
-      jsonUrl: dataSourceConfig.publishedJsonUrl,
-      csvUrl: dataSourceConfig.publishedCsvUrl
-    })
-  ).map(normalizePublicRecord);
+  const sourceRecords =
+    isArchiveAuthorized() && dataSourceConfig.publishedCsvUrl
+      ? await fetchCsvRecords(dataSourceConfig.publishedCsvUrl)
+      : await fetchPublishedRecords({
+          jsonUrl: dataSourceConfig.publishedJsonUrl,
+          csvUrl: dataSourceConfig.publishedCsvUrl
+        });
+
+  state.allRecords = sourceRecords.map(normalizePublicRecord);
   return state.allRecords;
 }
 
 async function fetchGalleryRecordsFromCsv() {
   const records = await loadCsvDataset();
-  state.records = dedupeRecordsByAccession(records);
+  state.records = dedupeRecordsByAccession(getVisibleRecords(records));
 }
 
 async function fetchArchiveRecordsFromCsv() {
   const filters = getArchiveFilterState();
   const allRecords = await loadCsvDataset();
+  const visibleRecords = getVisibleRecords(allRecords);
   const activeCollectionView = getActiveCollectionView();
   const query = String(filters.query || "")
     .trim()
     .toLowerCase();
 
-  const filtered = allRecords
+  const filtered = visibleRecords
     .filter((record) => {
       if (pageMode === "collection" && activeCollectionView && !activeCollectionView.matches(record)) {
         return false;
@@ -1864,10 +1958,15 @@ async function renderRecordDetailPage() {
     return;
   }
 
-  await loadCsvDataset();
   const accession = new URLSearchParams(window.location.search).get("accession") || "";
+  await loadCsvDataset();
   const record = findRecordByAccession(accession);
   elements.detailShell.replaceChildren();
+
+  if (record && !isArchiveAuthorized() && !isPublicRecord(record)) {
+    redirectToArchiveLogin(`./record.html?accession=${encodeURIComponent(accession)}`);
+    return;
+  }
 
   if (!record) {
     elements.detailShell.innerHTML = `
@@ -1895,6 +1994,7 @@ async function renderRecordDetailPage() {
   const context = fragment.querySelector(".record-detail__context");
   const tags = fragment.querySelector(".record-detail__tags");
   const citation = fragment.querySelector(".record-detail__citation");
+  const archiveButtons = fragment.querySelectorAll('a[href="./archive.html"]');
 
   title.textContent = record.title;
   meta.textContent = getRecordDisplayContext(record);
@@ -1911,6 +2011,9 @@ async function renderRecordDetailPage() {
     hero.classList.add("record-detail__hero--text-only");
   }
   elements.detailShell.appendChild(fragment);
+  for (const button of archiveButtons) {
+    button.href = getArchiveEntryUrl();
+  }
 
   if (elements.archiveTitle) {
     elements.archiveTitle.textContent = record.title;
@@ -1939,8 +2042,8 @@ async function loadCurrentUser() {
   if (!elements.authAction) {
     return;
   }
-  elements.authAction.textContent = "Collections Manager";
-  elements.authAction.href = "./login.html";
+  elements.authAction.textContent = isArchiveAuthorized() ? "Archive Unlocked" : "Archive Login";
+  elements.authAction.href = getArchiveEntryUrl();
 }
 
 async function loadCatalog() {
@@ -1950,6 +2053,7 @@ async function loadCatalog() {
   }
 
   state.siteSettings = buildConfiguredSiteSettings();
+  state.publicAccessions = buildCuratedPublicAccessions();
   state.recordTypes = [...defaultRecordTypes];
   state.taxonomyGroups = [...defaultTaxonomyGroups];
   state.taxonomyTerms = [...defaultTaxonomyTerms].map(normalizeTaxonomyTerm);
@@ -1957,6 +2061,12 @@ async function loadCatalog() {
   attachArchiveInteractionHandlers();
 
   applyCatalogSettings();
+  syncArchiveLinks();
+
+  if (pageMode === "archive" && isArchiveGateEnabled() && !isArchiveAuthorized()) {
+    redirectToArchiveLogin("./archive.html");
+    return;
+  }
 
   if (pageMode === "record") {
     await renderRecordDetailPage();
@@ -1985,21 +2095,38 @@ async function loadCatalog() {
 
   if (pageMode === "collection") {
     await loadCsvDataset();
-    renderRecordTypeFilter();
-    renderThemeFilter();
-    renderCollectionFilter();
-    renderGeographyFilter();
-    renderPeopleFilter();
-    renderOrganizationsFilter();
-    renderEraFilter();
-    renderSortFilter();
     await fetchArchiveRecordsFromCsv();
     await renderCollectionExhibit();
-    await renderArchive();
-    renderActiveFilterSummary();
-    updateArchivePaginationUI();
+
+    if (isArchiveAuthorized()) {
+      renderRecordTypeFilter();
+      renderThemeFilter();
+      renderCollectionFilter();
+      renderGeographyFilter();
+      renderPeopleFilter();
+      renderOrganizationsFilter();
+      renderEraFilter();
+      renderSortFilter();
+      await renderArchive();
+      renderActiveFilterSummary();
+      updateArchivePaginationUI();
+      await loadCurrentUser();
+      setStatus(collectionViews[collectionView]?.status || "Viewing this collection.");
+      return;
+    }
+
+    if (elements.total) {
+      elements.total.textContent = `${state.records.length} public highlight${state.records.length === 1 ? "" : "s"}`;
+    }
+    renderRestrictedArchiveNotice({
+      title: "Full collection browsing is available behind the archive password.",
+      description:
+        "This exhibit remains public through a curated lead object and selected highlights. Enter the archive password to browse the wider record group, filters, and additional images.",
+      buttonLabel: "Enter Archive Password",
+      nextUrl: `./${window.location.pathname.split("/").pop() || ""}`
+    });
     await loadCurrentUser();
-    setStatus(collectionViews[collectionView]?.status || "Viewing this collection.");
+    setStatus("Viewing the public exhibit selection.");
     return;
   }
 
