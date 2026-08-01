@@ -58,6 +58,7 @@ function buildSearchHaystack(record) {
   return normalizeText(
     [
       record.accession_number,
+      record.alternate_accession_number,
       record.title,
       record.record_type,
       record.historical_theme,
@@ -1913,6 +1914,7 @@ function renderRecordMetadataList(record) {
   const fragment = document.createDocumentFragment();
   const metadataRows = [
     ["Accession number", record.accession_number],
+    ["Alternate accession number", getMeaningfulValue(record.alternate_accession_number)],
     ["Record type", record.record_type],
     ["Date / era", formatDateLabel(record)],
     ["Historical theme", record.historical_theme],

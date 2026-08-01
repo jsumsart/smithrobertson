@@ -121,6 +121,7 @@ export function normalizeImportedRecord(record) {
   return {
     id: record.id || crypto.randomUUID(),
     accession_number: String(record.accession_number || "").trim(),
+    alternate_accession_number: String(record.alternate_accession_number || "").trim(),
     title: String(record.title || "").trim(),
     record_type: String(record.record_type || "Artifact").trim(),
     status: String(record.status || "In Storage").trim(),
@@ -248,6 +249,7 @@ export function escapeCsv(value) {
 export function serializeRecordsToCsv(records) {
   const columns = [
     "accession_number",
+    "alternate_accession_number",
     "title",
     "record_type",
     "status",
