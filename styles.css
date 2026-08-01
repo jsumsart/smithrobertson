@@ -384,6 +384,24 @@ textarea {
   justify-content: center;
 }
 
+.login-contact {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #faf6ef;
+}
+
+.login-contact p {
+  margin: 0;
+}
+
+.login-contact a {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
 .access-gate-card {
   gap: 0.9rem;
   text-align: left;
