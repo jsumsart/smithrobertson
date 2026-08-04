@@ -1,5 +1,5 @@
 :root {
-  --bg: #f2eee7;
+  --bg: #f7f3ed;
   --panel: #ffffff;
   --ink: #181311;
   --muted: #61584f;
@@ -30,12 +30,12 @@ body.catalog-page {
   --catalog-display-font: "Cormorant Garamond";
   font-family: var(--catalog-body-font, "Manrope", sans-serif);
   background:
-    linear-gradient(180deg, #f7f3ec 0%, #efe7db 44%, #e7dbc9 100%);
+    linear-gradient(180deg, #fbf8f2 0%, #f6efe4 44%, #efe4d5 100%);
 }
 
 body.archive-page {
   background:
-    linear-gradient(180deg, #f5efe6 0%, #ede3d6 46%, #e4d6c2 100%);
+    linear-gradient(180deg, #faf6ef 0%, #f4ece0 46%, #ecdfcf 100%);
 }
 
 body[data-public-theme="editorial"] .public-hero,
@@ -50,8 +50,8 @@ body[data-public-theme="editorial"] .public-hero__copy h1 {
 
 body[data-public-theme="heritage"] {
   background:
-    radial-gradient(circle at top right, rgba(234, 220, 195, 0.36), transparent 28%),
-    linear-gradient(180deg, #f4ede1 0%, #eadfcd 50%, #e0d3bf 100%);
+    radial-gradient(circle at top right, rgba(234, 220, 195, 0.22), transparent 28%),
+    linear-gradient(180deg, #faf6ef 0%, #f3ebde 50%, #eadfce 100%);
 }
 
 body[data-public-theme="heritage"] .catalog-site-header__brand,
@@ -405,7 +405,8 @@ textarea {
 .access-gate-card {
   gap: 0.9rem;
   text-align: left;
-  padding: 1.3rem;
+  max-width: 100%;
+  padding: 1.15rem 1.3rem;
   border: 1px solid rgba(184, 154, 103, 0.28);
   border-radius: 14px;
   background: linear-gradient(180deg, rgba(247, 238, 223, 0.96), rgba(255, 255, 255, 0.96));
@@ -570,6 +571,10 @@ h2 {
 
 .help-text--error {
   color: var(--danger);
+}
+
+#catalogStatus.help-text {
+  margin: 0.35rem 0 0;
 }
 
 .hero__actions,
@@ -1752,7 +1757,7 @@ body.archive-page .archive-hero__copy h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 0.8rem;
-  padding: 1.15rem;
+  padding: 1.1rem;
 }
 
 .archive-toolbar__footer {
@@ -1760,7 +1765,8 @@ body.archive-page .archive-hero__copy h1 {
   align-items: center;
   justify-content: space-between;
   gap: 0.8rem;
-  margin-top: 0.85rem;
+  margin-top: 0.4rem;
+  padding: 0 0.15rem;
   flex-wrap: wrap;
 }
 
@@ -1830,6 +1836,7 @@ body.archive-page .archive-hero__copy h1 {
 .archive-list {
   display: grid;
   gap: 0.9rem;
+  margin-top: 0.7rem;
 }
 
 .archive-row {
