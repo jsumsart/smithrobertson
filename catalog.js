@@ -208,12 +208,37 @@ const collectionViews = {
   "smith-robertson-history": {
     navLabel: "Education and Public Memory",
     pathLabel: "Interpretive Exhibit",
-    pathMeta: "Centers Black education, school leadership, student life, and the ways educational memory has been carried through photographs, ceremonies, and commemoration.",
+    pathMeta:
+      "Centers Black education, principalship, school ceremony, student life, and the ways educational memory has been carried through photographs, honors, and commemoration.",
     relationshipLabel: "A story of Black education and remembrance",
-    deck: "Black education, school leadership, and public memory across the Smith Robertson story and related records.",
+    deck: "Black education, school leadership, ceremony, and public memory across the Smith Robertson story and related records.",
     title: "Education and Public Memory",
     intro:
-      "This exhibit interprets Black education through teachers, students, school leadership, graduation rituals, campus life, and the later public memory of Smith Robertson and related educational records.",
+      "This exhibit interprets Black education through teachers, students, principals, graduation rituals, campus life, and the later public memory carried through portraits, dedications, and commemorative records.",
+    featuredSpotlights: [
+      {
+        eyebrow: "Named spotlight",
+        title: "Dansby and School Leadership",
+        description:
+          "Foregrounds principalship, school leadership, educational aspiration, ceremony, and the public memory surrounding B. Baldwin Dansby and related school figures.",
+        matches(record) {
+          return (
+            matchesCollection(record, ["B. Baldwin Dansby Collection"]) ||
+            matchesPeople(record, ["B. Baldwin Dansby", "B. B. Dansby"]) ||
+            matchesKeyword(record, [
+              "B. Baldwin Dansby",
+              "B. B. Dansby",
+              "Dansby Hall",
+              "principal",
+              "dedication plaque",
+              "appreciation certificate",
+              "student education association",
+              "Jackson College alumni"
+            ])
+          );
+        }
+      }
+    ],
     status: "Now viewing Education and Public Memory.",
     leadAccession: "SRM-2026-030",
     highlightAccessions: ["SRM-2026-370", "SRM-2026-081", "SRM-2026-077", "SRM-P-1955-012"],
@@ -386,12 +411,41 @@ const collectionViews = {
   "farish-street-history": {
     navLabel: "Farish Street History",
     pathLabel: "Interpretive Exhibit",
-    pathMeta: "Ties business, faith, performance, and community life to one historic corridor in Jackson.",
+    pathMeta:
+      "Ties storefronts, grocery stores, restaurants, beauty and barber work, church life, public gathering, and neighborhood memory to one historic corridor in Jackson.",
     relationshipLabel: "A story of neighborhood life and commerce",
-    deck: "Business, neighborhood culture, and community life connected to Farish Street.",
+    deck: "Storefront life, neighborhood commerce, church adjacency, and community gathering connected to Farish Street.",
     title: "Farish Street History",
     intro:
-      "This exhibit interprets Farish Street as a corridor of commerce, performance, worship, and neighborhood memory through public records tied to its institutions and built environment.",
+      "This exhibit interprets Farish Street as a lived corridor of grocery stores, storefronts, restaurants, church life, performance, and everyday public gathering through records tied to its institutions and built environment.",
+    featuredSpotlights: [
+      {
+        eyebrow: "Named spotlight",
+        title: "Farish Street Daily Life",
+        description:
+          "Brings together grocery stores, restaurants, storefronts, beauty and barber work, church adjacency, and the everyday social infrastructure of the district.",
+        matches(record) {
+          return (
+            matchesNeighborhood(record, ["Farish Street"]) ||
+            matchesCollection(record, ["Farish Street Business District"]) ||
+            matchesKeyword(record, [
+              "Farish Street",
+              "Otis Grocery Store",
+              "Peaches Restaurant",
+              "storefront",
+              "business interior",
+              "traffic scene",
+              "street scene",
+              "beauty-barber",
+              "Conic's Beauty-Barber Supply",
+              "Mount Helm",
+              "church school",
+              "parade"
+            ])
+          );
+        }
+      }
+    ],
     status: "Now viewing Farish Street History.",
     leadAccession: "SRM-2026-163",
     highlightAccessions: ["SRM-2026-116", "SRM-2026-028", "SRM-2026-208", "SRM-2026-220"],
@@ -410,7 +464,16 @@ const collectionViews = {
           "Farish Street",
           "Alamo Theatre",
           "Mount Helm",
-          "Farish Street Historic District"
+          "Farish Street Historic District",
+          "Otis Grocery Store",
+          "Peaches Restaurant",
+          "storefront",
+          "business interior",
+          "traffic scene",
+          "beauty-barber",
+          "Conic's Beauty-Barber Supply",
+          "church school",
+          "parade"
         ])
       );
     }
@@ -418,22 +481,64 @@ const collectionViews = {
   "black-health-and-medicine": {
     navLabel: "Health, Family, and Community Care",
     pathLabel: "Interpretive Exhibit",
-    pathMeta: "Connects doctors, midwives, motherhood, caregiving, household health, and medical access across Black life in Mississippi.",
+    pathMeta:
+      "Connects doctors, midwives, motherhood, caregiving, household health, kinship, and domestic memory across Black life in Mississippi.",
     relationshipLabel: "A story of medicine, caregiving, and family life",
-    deck: "Doctors, midwives, motherhood, caregiving, and public health records across Mississippi Black life.",
+    deck: "Doctors, midwives, motherhood, caregiving, kinship, and family memory across Mississippi Black life.",
     title: "Health, Family, and Community Care",
     intro:
-      "This exhibit gathers records related to physicians, midwives, maternal care, public health, and everyday caregiving across Black community life in Mississippi.",
+      "This exhibit gathers records related to physicians, midwives, maternal care, public health, family life, and everyday caregiving across Black community life in Mississippi.",
+    featuredSpotlights: [
+      {
+        eyebrow: "Named spotlight",
+        title: "Scott Ford, Midwifery, and Motherhood",
+        description:
+          "Uses Scott Ford family records, childbirth documents, and neighborhood memory to interpret maternal care, domestic life, and midwife history through one focused story.",
+        href: "./scott-ford-houses.html",
+        matches(record) {
+          return (
+            matchesTheme(record, ["Midwives and Motherhood"]) ||
+            matchesNeighborhood(record, ["Scott Ford Houses"]) ||
+            matchesPeople(record, ["Mary Scott", "Virginia Scott"]) ||
+            matchesKeyword(record, [
+              "Scott Ford Houses",
+              "Mary Scott",
+              "Virginia Scott",
+              "midwife",
+              "motherhood",
+              "maternal",
+              "birth certificate",
+              "obstetrical",
+              "T. J. Handy"
+            ])
+          );
+        }
+      },
+      {
+        eyebrow: "Named spotlight",
+        title: "The Perkins Family",
+        description:
+          "Foregrounds kinship, family portraiture, faith, marriage, and intergenerational memory so visitors can read home as a lived historical space rather than a generic domestic backdrop.",
+        matches(record) {
+          return (
+            matchesCollection(record, ["John and Vera Mae Perkins Collection"]) ||
+            matchesPeople(record, ["John M. Perkins", "Vera Mae Perkins"]) ||
+            matchesKeyword(record, [
+              "John M. Perkins",
+              "Vera Mae Perkins",
+              "Perkins family",
+              "Voice of Calvary",
+              "family portrait",
+              "family gathering",
+              "Christian Thrift Store"
+            ])
+          );
+        }
+      }
+    ],
     status: "Now viewing Health, Family, and Community Care.",
     leadAccession: "SRM-2026-315",
     highlightAccessions: ["SRM-2026-314", "SRM-2026-316", "SRM-2026-329", "SRM-2026-158"],
-    relatedSpotlight: {
-      href: "./scott-ford-houses.html",
-      eyebrow: "Related collection",
-      title: "Scott Ford Houses Collection",
-      description:
-        "Explore childbirth records, family photographs, and midwife history tied specifically to the Scott Ford Houses."
-    },
     curatedAccessions: [
       "SRM-2026-315",
       "SRM-2026-314",
@@ -444,6 +549,8 @@ const collectionViews = {
     matches(record) {
       return (
         matchesTheme(record, ["Black Health and Medicine", "Midwives and Motherhood"]) ||
+        matchesCollection(record, ["John and Vera Mae Perkins Collection"]) ||
+        matchesPeople(record, ["John M. Perkins", "Vera Mae Perkins"]) ||
         matchesKeyword(record, [
           "doctor",
           "physician",
@@ -461,7 +568,14 @@ const collectionViews = {
           "Robert Smith, M.D.",
           "T. L. Zuber",
           "Dr. Carmichael",
-          "Richard H. Beadle Collection of Black Doctors in Mississippi"
+          "Richard H. Beadle Collection of Black Doctors in Mississippi",
+          "John M. Perkins",
+          "Vera Mae Perkins",
+          "Perkins family",
+          "Voice of Calvary",
+          "family portrait",
+          "family gathering",
+          "Christian Thrift Store"
         ])
       );
     }
@@ -469,12 +583,13 @@ const collectionViews = {
   "arts-and-culture": {
     navLabel: "Arts, Culture, and Public Expression",
     pathLabel: "Interpretive Exhibit",
-    pathMeta: "Traces visual culture, performance, pageantry, material culture, and creative public life across the collection.",
+    pathMeta:
+      "Traces portraiture, visual culture, pageantry, performance, exhibition making, and creative public image across the collection.",
     relationshipLabel: "A story of art, performance, and public expression",
-    deck: "Art, performance, pageantry, and material culture across the collection.",
+    deck: "Portraiture, exhibition culture, pageantry, performance, and material culture across the collection.",
     title: "Arts, Culture, and Public Expression",
     intro:
-      "This exhibit gathers visual art, performance materials, pageantry, and cultural objects that carry Black creative expression into the public gallery.",
+      "This exhibit gathers visual art, portraiture, performance materials, pageantry, and cultural objects that carry Black creative expression and public image into the gallery.",
     status: "Now viewing Arts, Culture, and Public Expression.",
     leadAccession: "SRM-2026-093",
     highlightAccessions: ["SRM-2026-082", "SRM-2026-097", "SRM-2026-098", "SRM-2026-117"],
@@ -583,6 +698,8 @@ const elements = {
   featuredList: document.querySelector("#featuredList"),
   collectionLead: document.querySelector("#collectionLead"),
   collectionHighlights: document.querySelector("#collectionHighlights"),
+  collectionSpotlightsSection: document.querySelector("#collectionSpotlightsSection"),
+  collectionSpotlights: document.querySelector("#collectionSpotlights"),
   slideshowStage: document.querySelector("#slideshowStage"),
   slideshowPrev: document.querySelector("#slideshowPrev"),
   slideshowNext: document.querySelector("#slideshowNext"),
@@ -640,6 +757,13 @@ function buildRecordContextText(record) {
   ].filter(Boolean);
 
   return statements.join(" ") || "This record is part of the museum's digital collections and remains available for ongoing research and interpretation.";
+}
+
+function buildSpotlightCountLabel(count) {
+  if (count === 1) {
+    return "1 public record currently foregrounds this story.";
+  }
+  return `${count} public records currently foreground this story.`;
 }
 
 function buildCuratedPublicAccessions() {
@@ -1506,6 +1630,85 @@ function getCuratedExhibitHighlights(records, activeCollectionView, leadRecord) 
     .slice(0, 4);
 }
 
+function ensureCollectionSpotlightsShell() {
+  if (elements.collectionSpotlightsSection && elements.collectionSpotlights) {
+    return;
+  }
+
+  const leadSection = elements.collectionLead?.closest(".public-section");
+  const main = leadSection?.parentElement;
+  if (!leadSection || !main) {
+    return;
+  }
+
+  const section = document.createElement("section");
+  section.id = "collectionSpotlightsSection";
+  section.className = "public-section";
+  section.hidden = true;
+  section.innerHTML = `
+    <div class="public-section__header">
+      <div>
+        <p class="eyebrow">Featured stories</p>
+        <h2>Named spotlights within this theme</h2>
+      </div>
+      <p class="help-text">
+        These focused stories help visitors read the broader theme through families, neighborhood life, and named historical actors.
+      </p>
+    </div>
+    <div id="collectionSpotlights" class="feature-grid feature-grid--spotlights" aria-live="polite"></div>
+  `;
+
+  main.insertBefore(section, leadSection);
+  elements.collectionSpotlightsSection = section;
+  elements.collectionSpotlights = section.querySelector("#collectionSpotlights");
+}
+
+function renderCollectionSpotlights(records, activeCollectionView) {
+  ensureCollectionSpotlightsShell();
+  if (!elements.collectionSpotlightsSection || !elements.collectionSpotlights) {
+    return;
+  }
+
+  const spotlights = activeCollectionView?.featuredSpotlights || [];
+  elements.collectionSpotlights.replaceChildren();
+
+  if (!spotlights.length) {
+    elements.collectionSpotlightsSection.hidden = true;
+    return;
+  }
+
+  for (const spotlight of spotlights) {
+    const matchedRecords = records.filter((record) => spotlight.matches(record));
+    if (!matchedRecords.length) {
+      continue;
+    }
+
+    const shell = spotlight.href ? document.createElement("a") : document.createElement("article");
+    shell.className = "relationship-card relationship-card--spotlight";
+    if (spotlight.href) {
+      shell.href = spotlight.href;
+    }
+
+    const sampleTitles = matchedRecords
+      .slice(0, 3)
+      .map((record) => record.title)
+      .filter(Boolean)
+      .join(" • ");
+
+    shell.innerHTML = `
+      <p class="eyebrow">${spotlight.eyebrow || "Named spotlight"}</p>
+      <h3>${spotlight.title}</h3>
+      <p>${spotlight.description}</p>
+      <p class="relationship-card__count">${buildSpotlightCountLabel(matchedRecords.length)}</p>
+      ${sampleTitles ? `<p class="relationship-card__sample">Includes ${sampleTitles}.</p>` : ""}
+    `;
+
+    elements.collectionSpotlights.appendChild(shell);
+  }
+
+  elements.collectionSpotlightsSection.hidden = !elements.collectionSpotlights.childElementCount;
+}
+
 async function loadCsvDataset() {
   if (state.allRecords.length) {
     return state.allRecords;
@@ -1677,6 +1880,8 @@ async function renderCollectionExhibit() {
   const activeCollectionView = getActiveCollectionView();
   const allCollectionRecords = getCollectionRecords();
   const leadRecord = getCuratedExhibitLeadRecord(allCollectionRecords, activeCollectionView);
+
+  renderCollectionSpotlights(allCollectionRecords, activeCollectionView);
 
   if (elements.collectionLead) {
     elements.collectionLead.replaceChildren();
