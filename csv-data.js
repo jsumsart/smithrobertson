@@ -59,7 +59,7 @@ export function normalizeImportedTags(value) {
 
   if (typeof value === "string") {
     return value
-      .split(/[;,]/)
+      .split(";")
       .map((tag) => tag.trim())
       .filter(Boolean);
   }
