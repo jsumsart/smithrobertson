@@ -1,0 +1,21 @@
+collection_name,count,recommended_status,curatorial_note
+SRM Collection,103,keep_refine_public,Core institutional collection for Smith Robertson school and museum history. Keep public and continue tightening to direct Smith Robertson history only.
+Youngs Collection,77,keep_public,Strong named collection with sufficient volume and coherence.
+Dr. Townsend Collection,67,keep_public,Strong named collection; continue metadata cleanup but keep as a major collection.
+Photograph Collection,66,keep_internal_public_secondary,Necessary fallback bucket for loose unidentified photographs; useful operationally but not a spotlight collection.
+Biographical and Civic History Collection,57,keep_public_thematic,"Strong catchment for named civic figures, campaigns, clubs, church/community leadership, and biographical public-history records."
+John and Vera Mae Perkins Collection,57,keep_public,Strong family/community collection and ideal spotlight cluster.
+R. Jess Brown Collection,52,keep_public,Strong named legal/civic collection; keep distinct and public.
+Dr. S. D. Redmond Collection,52,keep_public,Strong named medical/family collection with clear identity.
+Civil Rights Collection,41,keep_public_thematic,Useful topical collection for movement records beyond named donor collections.
+B. Baldwin Dansby Collection,41,keep_public,Strong named education/leadership collection with clear identity.
+Education and Public Memory Collection,40,keep_public_thematic,Best non-Smith-Robertson education bucket; keep as the main broader education collection.
+Newspapers And Periodicals,40,keep_internal_public_secondary,"Useful serials bucket; keep for access and discovery, but do not foreground as a marquee collection."
+Farish Street Business District Collection,24,keep_public_small,"Useful neighborhood-business cluster that supports Farish daily life interpretation, including barbering and service-economy material."
+Arts and Exhibition Collection,23,keep_public_thematic,"Clearer than the former Art Collection; use for exhibition programs, artist studies, prints, performance materials, and cultural-program documentation."
+Smith Robertson Photograph Collection,22,keep_public,Distinct named photo cluster tied to the institution and neighborhood history.
+Material Culture and Objects Collection,17,keep_internal_public_secondary,"Merged object/material-culture bucket for standalone artifacts and difficult-to-place objects; useful, but not a primary spotlight collection."
+WWII Soldiers Collection,13,keep_public_small,Small but coherent veteran/service cluster; can remain a modest public collection.
+Museum Library,13,keep_internal_only,Handling/library grouping rather than a curated public collection.
+Scott Ford Houses Collection,9,keep_public_small,Small but highly coherent named cluster tied to 2nd-floor interpretation.
+[none],3,review_holdouts,Only remaining unresolved records; keep flagged until curatorial judgment is made.
